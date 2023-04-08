@@ -102,7 +102,6 @@ mbb_pbp_games <- function(y) {
     )
   }
 
-  sched <- arrow::read_parquet(paste0("mbb/schedules/parquet/mbb_schedule_", y, ".parquet"))
   sched <- sched %>%
     dplyr::mutate(dplyr::across(dplyr::any_of(c(
       "id",
