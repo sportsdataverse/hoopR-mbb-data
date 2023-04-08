@@ -83,7 +83,7 @@ mbb_pbp_games <- function(y) {
       dplyr::arrange(dplyr::desc(.data$game_date)) %>%
       hoopR:::make_hoopR_data("ESPN MBB Play-by-Play from hoopR data repository", Sys.time())
 
-    data.table::fwrite(espn_df, file = paste0("mbb/pbp/csv/play_by_play_", y, ".csv.gz"))
+    # data.table::fwrite(espn_df, file = paste0("mbb/pbp/csv/play_by_play_", y, ".csv.gz"))
 
     ifelse(!dir.exists(file.path("mbb/pbp/rds")), dir.create(file.path("mbb/pbp/rds")), FALSE)
     saveRDS(espn_df, glue::glue("mbb/pbp/rds/play_by_play_{y}.rds"))
@@ -149,7 +149,7 @@ mbb_pbp_games <- function(y) {
   final_sched <- final_sched %>%
     hoopR:::make_hoopR_data("ESPN MBB Schedule from hoopR data repository", Sys.time())
 
-  data.table::fwrite(final_sched, paste0("mbb/schedules/csv/mbb_schedule_", y, ".csv"))
+  # data.table::fwrite(final_sched, paste0("mbb/schedules/csv/mbb_schedule_", y, ".csv"))
   saveRDS(final_sched, glue::glue("mbb/schedules/rds/mbb_schedule_{y}.rds"))
   arrow::write_parquet(final_sched, glue::glue("mbb/schedules/parquet/mbb_schedule_{y}.parquet"))
   rm(sched)

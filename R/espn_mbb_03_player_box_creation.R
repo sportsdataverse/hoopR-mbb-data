@@ -74,11 +74,11 @@ mbb_player_box_games <- function(y) {
 
     ifelse(!dir.exists(file.path("mbb/player_box")), dir.create(file.path("mbb/player_box")), FALSE)
 
-    ifelse(!dir.exists(file.path("mbb/player_box/csv")), dir.create(file.path("mbb/player_box/csv")), FALSE)
-    data.table::fwrite(espn_df, file = paste0("mbb/player_box/csv/player_box_", y, ".csv.gz"))
+    # ifelse(!dir.exists(file.path("mbb/player_box/csv")), dir.create(file.path("mbb/player_box/csv")), FALSE)
+    # data.table::fwrite(espn_df, file = paste0("mbb/player_box/csv/player_box_", y, ".csv.gz"))
 
-    ifelse(!dir.exists(file.path("mbb/player_box/qs")), dir.create(file.path("mbb/player_box/qs")), FALSE)
-    qs::qsave(espn_df, glue::glue("mbb/player_box/qs/player_box_{y}.qs"))
+    # ifelse(!dir.exists(file.path("mbb/player_box/qs")), dir.create(file.path("mbb/player_box/qs")), FALSE)
+    # qs::qsave(espn_df, glue::glue("mbb/player_box/qs/player_box_{y}.qs"))
 
     ifelse(!dir.exists(file.path("mbb/player_box/rds")), dir.create(file.path("mbb/player_box/rds")), FALSE)
     saveRDS(espn_df, glue::glue("mbb/player_box/rds/player_box_{y}.rds"))
@@ -154,8 +154,8 @@ mbb_player_box_games <- function(y) {
     .token = Sys.getenv("GITHUB_PAT")
   )
 
-  data.table::fwrite(final_sched, paste0("mbb/schedules/csv/mbb_schedule_", y, ".csv"))
-  qs::qsave(final_sched, glue::glue("mbb/schedules/qs/mbb_schedule_{y}.qs"))
+  # data.table::fwrite(final_sched, paste0("mbb/schedules/csv/mbb_schedule_", y, ".csv"))
+  # qs::qsave(final_sched, glue::glue("mbb/schedules/qs/mbb_schedule_{y}.qs"))
   saveRDS(final_sched, glue::glue("mbb/schedules/rds/mbb_schedule_{y}.rds"))
   arrow::write_parquet(final_sched, glue::glue("mbb/schedules/parquet/mbb_schedule_{y}.parquet"))
   rm(sched)

@@ -80,8 +80,8 @@ mbb_team_box_games <- function(y) {
       hoopR:::make_hoopR_data("ESPN MBB Team Boxscores from hoopR data repository", Sys.time())
 
     ifelse(!dir.exists(file.path("mbb/team_box")), dir.create(file.path("mbb/team_box")), FALSE)
-    ifelse(!dir.exists(file.path("mbb/team_box/csv")), dir.create(file.path("mbb/team_box/csv")), FALSE)
-    data.table::fwrite(espn_df, file = paste0("mbb/team_box/csv/team_box_", y, ".csv.gz"))
+    # ifelse(!dir.exists(file.path("mbb/team_box/csv")), dir.create(file.path("mbb/team_box/csv")), FALSE)
+    # data.table::fwrite(espn_df, file = paste0("mbb/team_box/csv/team_box_", y, ".csv.gz"))
 
     ifelse(!dir.exists(file.path("mbb/team_box/rds")), dir.create(file.path("mbb/team_box/rds")), FALSE)
     saveRDS(espn_df, glue::glue("mbb/team_box/rds/team_box_{y}.rds"))
@@ -148,7 +148,7 @@ mbb_team_box_games <- function(y) {
   final_sched <- final_sched %>%
     hoopR:::make_hoopR_data("ESPN MBB Schedule from hoopR data repository", Sys.time())
 
-  data.table::fwrite(final_sched, paste0("mbb/schedules/csv/mbb_schedule_", y, ".csv"))
+  # data.table::fwrite(final_sched, paste0("mbb/schedules/csv/mbb_schedule_", y, ".csv"))
   saveRDS(final_sched, glue::glue("mbb/schedules/rds/mbb_schedule_{y}.rds"))
   arrow::write_parquet(final_sched, glue::glue("mbb/schedules/parquet/mbb_schedule_{y}.parquet"))
   rm(sched)
