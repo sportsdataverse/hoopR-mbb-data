@@ -37,6 +37,11 @@ mbb_pbp_games <- function(y) {
 
   espn_df <- data.frame()
   sched <- hoopR:::rds_from_url(paste0("https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main/mbb/schedules/rds/mbb_schedule_", y, ".rds"))
+  ifelse(!dir.exists(file.path("mbb/schedules")), dir.create(file.path("mbb/schedules")), FALSE)
+  ifelse(!dir.exists(file.path("mbb/schedules/rds")), dir.create(file.path("mbb/schedules/rds")), FALSE)
+  ifelse(!dir.exists(file.path("mbb/schedules/parquet")), dir.create(file.path("mbb/schedules/parquet")), FALSE)
+  saveRDS(sched, glue::glue("mbb/schedules/rds/mbb_schedule_{y}.rds"))
+  arrow::write_parquet(sched, glue::glue("mbb/schedules/parquet/mbb_schedule_{y}.parquet"))
 
   season_pbp_list <- sched %>%
     dplyr::filter(.data$game_json == TRUE) %>%
@@ -148,7 +153,10 @@ mbb_pbp_games <- function(y) {
   final_sched <- final_sched %>%
     hoopR:::make_hoopR_data("ESPN MBB Schedule from hoopR data repository", Sys.time())
 
-  # data.table::fwrite(final_sched, paste0("mbb/schedules/csv/mbb_schedule_", y, ".csv"))
+  ifelse(!dir.exists(file.path("mbb/schedules")), dir.create(file.path("mbb/schedules")), FALSE)
+  ifelse(!dir.exists(file.path("mbb/schedules/rds")), dir.create(file.path("mbb/schedules/rds")), FALSE)
+  ifelse(!dir.exists(file.path("mbb/schedules/parquet")), dir.create(file.path("mbb/schedules/parquet")), FALSE)
+
   saveRDS(final_sched, glue::glue("mbb/schedules/rds/mbb_schedule_{y}.rds"))
   arrow::write_parquet(final_sched, glue::glue("mbb/schedules/parquet/mbb_schedule_{y}.parquet"))
   rm(sched)
@@ -168,9 +176,9 @@ tictoc::toc()
 cli::cli_progress_step(msg = "Compiling ESPN MBB master schedule",
                        msg_done = "ESPN MBB master schedule compiled and written to disk")
 
-sched_list <- list.files(path = glue::glue("mbb/schedules/parquet/"))
+sched_list <- list.files(path = glue::glue("mbb/schedules/rds/"))
 sched_g <-  purrr::map_dfr(sched_list, function(x) {
-  sched <- arrow::read_parquet(paste0("mbb/schedules/parquet/", x)) %>%
+  sched <- readRDS(paste0("mbb/schedules/rds/", x)) %>%
     dplyr::mutate(dplyr::across(dplyr::any_of(c(
       "id",
       "game_id",
