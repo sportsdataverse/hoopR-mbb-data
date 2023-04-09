@@ -16,9 +16,9 @@ do
     Rscript R/espn_mbb_01_pbp_creation.R -s $i -e $i
     Rscript R/espn_mbb_02_team_box_creation.R -s $i -e $i
     Rscript R/espn_mbb_03_player_box_creation.R -s $i -e $i
-    git pull --rebase  >> /dev/null
+    git pull >> /dev/null
     git add mbb/* >> /dev/null
-    git pull --rebase  >> /dev/null
+    git pull  >> /dev/null
     git commit -m "MBB Data Update (Start: $i End: $i)" >> /dev/null || echo "No changes to commit"
     git pull --rebase  >> /dev/null
     git push  >> /dev/null
