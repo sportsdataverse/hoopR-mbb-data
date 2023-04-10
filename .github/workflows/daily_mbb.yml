@@ -71,6 +71,7 @@ jobs:
           echo START_YEAR=$(Rscript -e "cat(hoopR::most_recent_mbb_season())") >> $GITHUB_ENV
           echo END_YEAR=$(Rscript -e "cat(hoopR::most_recent_mbb_season())") >> $GITHUB_ENV
           echo RESCRAPE=false >> $GITHUB_ENV
+          echo ${{ github.event.client_payload.commit_message}}
       - name: Update MBB Data ${{ env.start_year }}-${{ env.end_year }} (Rescrape? ${{ env.rescrape }})
         env:
           GITHUB_PAT: ${{ secrets.SDV_GH_TOKEN }}
