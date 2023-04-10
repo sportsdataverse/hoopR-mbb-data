@@ -206,19 +206,35 @@ sched_g <-  purrr::map_dfr(sched_list, function(x) {
 sched_g <- sched_g %>%
   hoopR:::make_hoopR_data("ESPN MBB Schedule from hoopR data repository", Sys.time())
 
-# data.table::fwrite(sched_g %>% dplyr::arrange(desc(.data$date)), "mbb/mbb_schedule_master.csv")
-data.table::fwrite(sched_g %>%
-                     dplyr::filter(.data$PBP == TRUE) %>%
-                     dplyr::arrange(dplyr::desc(.data$date)), "mbb/mbb_games_in_data_repo.csv")
-arrow::write_parquet(sched_g %>%
-                       dplyr::arrange(dplyr::desc(.data$date)), glue::glue("mbb/mbb_schedule_master.parquet"))
-arrow::write_parquet(sched_g %>%
-                       dplyr::filter(.data$PBP == TRUE) %>%
-                       dplyr::arrange(dplyr::desc(.data$date)), "mbb/mbb_games_in_data_repo.parquet")
+final_sched <- sched_g %>%
+  dplyr::arrange(dplyr::desc(.data$date))
+
+sportsdataversedata::sportsdataverse_save(
+  data_frame = final_sched,
+  file_name =  glue::glue("mbb_schedule_master"),
+  sportsdataverse_type = "schedule data",
+  release_tag = "espn_mens_college_basketball_schedules",
+  pkg_function = "hoopR::load_mbb_schedule()",
+  file_types = c("rds", "csv", "parquet"),
+  .token = Sys.getenv("GITHUB_PAT")
+)
+
+sportsdataversedata::sportsdataverse_save(
+  data_frame = final_sched %>%
+              dplyr::filter(.data$PBP == TRUE),
+  file_name =  glue::glue("mbb_games_in_data_repo"),
+  sportsdataverse_type = "schedule data",
+  release_tag = "espn_mens_college_basketball_schedules",
+  pkg_function = "hoopR::load_mbb_schedule()",
+  file_types = c("rds", "csv", "parquet"),
+  .token = Sys.getenv("GITHUB_PAT")
+)
+
 
 cli::cli_progress_message("")
 
 rm(sched_g)
+rm(final_sched)
 rm(sched_list)
 rm(years_vec)
 rm(all_games)

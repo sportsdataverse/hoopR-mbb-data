@@ -210,16 +210,16 @@ sched_g <- sched_g %>%
   hoopR:::make_hoopR_data("ESPN MBB Schedule from hoopR data repository", Sys.time())
 
 # data.table::fwrite(sched_g %>% dplyr::arrange(desc(.data$date)), "mbb/mbb_schedule_master.csv")
-data.table::fwrite(sched_g %>%
-                     dplyr::filter(.data$PBP == TRUE) %>%
-                     dplyr::arrange(dplyr::desc(.data$date)), "mbb/mbb_games_in_data_repo.csv")
+# data.table::fwrite(sched_g %>%
+#                      dplyr::filter(.data$PBP == TRUE) %>%
+#                      dplyr::arrange(dplyr::desc(.data$date)), "mbb/mbb_games_in_data_repo.csv")
 
-arrow::write_parquet(sched_g %>%
-                       dplyr::arrange(dplyr::desc(.data$date)), glue::glue("mbb/mbb_schedule_master.parquet"))
+# arrow::write_parquet(sched_g %>%
+#                        dplyr::arrange(dplyr::desc(.data$date)), glue::glue("mbb/mbb_schedule_master.parquet"))
 
-arrow::write_parquet(sched_g %>%
-                       dplyr::filter(.data$PBP == TRUE) %>%
-                       dplyr::arrange(dplyr::desc(.data$date)), "mbb/mbb_games_in_data_repo.parquet")
+# arrow::write_parquet(sched_g %>%
+#                        dplyr::filter(.data$PBP == TRUE) %>%
+#                        dplyr::arrange(dplyr::desc(.data$date)), "mbb/mbb_games_in_data_repo.parquet")
 
 cli::cli_progress_message("")
 
