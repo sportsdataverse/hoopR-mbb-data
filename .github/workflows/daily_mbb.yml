@@ -64,5 +64,6 @@ jobs:
       - name: Update MBB Data ${{ env.START_YEAR }}-${{ env.END_YEAR }}
         env:
           GITHUB_PAT: ${{ secrets.SDV_GH_TOKEN }}
+          SPORTSDATAVERSE.UPLOAD.MAX_TIMES: FALSE
         run: |
           bash scripts/daily_mbb_R_processor.sh -s ${{ env.START_YEAR }} -e ${{ env.END_YEAR }}
