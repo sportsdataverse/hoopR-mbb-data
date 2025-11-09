@@ -12,9 +12,11 @@ on:
     inputs:
       start_year:
         required: false
+        description: "Start Year (e.g., 2023)"
         type: string
       end_year:
         required: false
+        description: "End Year (e.g., 2023)"
         type: string
 
 jobs:
@@ -25,7 +27,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: 'ubuntu-latest',   r: 'release'}
+          - { os: "windows-latest", r: "release" }
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -41,7 +43,6 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
-          use-public-rspm: true
       - uses: r-lib/actions/setup-pandoc@v2
       - name: Setting up R dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
@@ -53,18 +54,22 @@ jobs:
             ropensci/piggyback
       - name: Check hoopR_mbb_data_trigger for inputs
         if: ${{ github.event.client_payload.event_name == 'daily_mbb_data'}}
+        shell: bash
         run: |
           echo START_YEAR=$(echo "${{ github.event.client_payload.commit_message}}" | grep -o -E '[0-9]+' | head -1) >> $GITHUB_ENV
           echo END_YEAR=$(echo "${{ github.event.client_payload.commit_message}}" | grep -o -E '[0-9]+' | tail -1) >> $GITHUB_ENV
       - name: Check for empty inputs
         if: ${{ env.START_YEAR == ''}}
+        shell: bash
         run: |
           echo START_YEAR=$(Rscript -e "cat(hoopR::most_recent_mbb_season())") >> $GITHUB_ENV
           echo END_YEAR=$(Rscript -e "cat(hoopR::most_recent_mbb_season())") >> $GITHUB_ENV
       - name: Update MBB Data ${{ env.START_YEAR }}-${{ env.END_YEAR }}
+        shell: bash
         env:
           GITHUB_PAT: ${{ secrets.SDV_GH_TOKEN }}
           SPORTSDATAVERSE.UPLOAD.QUIET: FALSE
           SPORTSDATAVERSE.UPLOAD.MAX_TIMES: 20
         run: |
+          echo $(pwd)
           bash scripts/daily_mbb_R_processor.sh -s ${{ env.START_YEAR }} -e ${{ env.END_YEAR }}
