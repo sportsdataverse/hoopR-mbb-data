@@ -147,7 +147,8 @@ mbb_pbp_games <- function(y) {
     )
     arrow::write_parquet(
       espn_df,
-      glue::glue("mbb/pbp/parquet/play_by_play_{y}.parquet")
+      glue::glue("mbb/pbp/parquet/play_by_play_{y}.parquet"),
+      compression = "zstd"
     )
 
     retry_rate <- purrr::rate_backoff(
