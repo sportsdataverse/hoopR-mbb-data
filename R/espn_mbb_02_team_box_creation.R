@@ -61,8 +61,11 @@ mbb_team_box_games <- function(y) {
             resp <- glue::glue(
               "https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main/mbb/json/final/{x}.json"
             )
-            team_box_score <- hoopR:::helper_espn_mbb_team_box(resp)
-            return(team_box_score)
+            tryCatch(
+              hoopR:::helper_espn_mbb_team_box(resp),
+              error = function(e) NULL,
+              warning = function(w) NULL
+            )
           },
           error = function(e) {
             message(glue::glue(

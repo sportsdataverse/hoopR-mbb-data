@@ -84,8 +84,11 @@ mbb_pbp_games <- function(y) {
             resp <- glue::glue(
               "https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main/mbb/json/final/{x}.json"
             )
-            pbp <- hoopR:::helper_espn_mbb_pbp(resp)
-            return(pbp)
+            tryCatch(
+              hoopR:::helper_espn_mbb_pbp(resp),
+              error = function(e) NULL,
+              warning = function(w) NULL
+            )
           },
           error = function(e) {
             message(glue::glue(
