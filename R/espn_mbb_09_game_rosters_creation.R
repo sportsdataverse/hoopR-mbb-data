@@ -60,7 +60,7 @@ safe_int <- function(x) {
 }
 
 list_game_ids <- function(season) {
-  url <- glue::glue("{sched_base}/nba_schedule_{season}.rds")
+  url <- glue::glue("{sched_base}/mbb_schedule_{season}.rds")
   sched <- tryCatch(
     hoopR:::rds_from_url(url),
     error = function(e) {
