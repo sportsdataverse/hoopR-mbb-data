@@ -16,6 +16,12 @@ do
     Rscript R/espn_mbb_01_pbp_creation.R -s $i -e $i
     Rscript R/espn_mbb_02_team_box_creation.R -s $i -e $i
     Rscript R/espn_mbb_03_player_box_creation.R -s $i -e $i
+    Rscript R/espn_mbb_04_rosters_creation.R -s $i -e $i
+    Rscript R/espn_mbb_05_player_season_stats_creation.R -s $i -e $i
+    Rscript R/espn_mbb_06_team_season_stats_creation.R -s $i -e $i
+    Rscript R/espn_mbb_07_standings_creation.R -s $i -e $i
+    Rscript R/espn_mbb_09_game_rosters_creation.R -s $i -e $i
+    Rscript R/espn_mbb_10_officials_creation.R -s $i -e $i
     git pull  >> /dev/null
     git add mbb/* >> /dev/null
     git pull  >> /dev/null
