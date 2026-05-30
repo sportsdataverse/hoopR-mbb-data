@@ -106,6 +106,19 @@ tag on `sportsdataverse/sportsdataverse-data`:
 | `espn_mbb_02_team_box_creation.R` | `espn_mens_college_basketball_team_boxscores` | `team_box_{year}.rds`, `team_box_{year}.parquet` |
 | `espn_mbb_03_player_box_creation.R` | `espn_mens_college_basketball_player_boxscores` | `player_box_{year}.rds`, `player_box_{year}.parquet` |
 | `espn_mbb_03_player_box_creation.R` (also) | `espn_mens_college_basketball_schedules` | `mbb_schedule_{year}.rds`, `mbb_schedule_{year}.parquet` |
+| `espn_mbb_01_pbp_creation.R` (shots subset) | `espn_mens_college_basketball_shots` | `play_by_play_{year}.*` filtered to `shooting_play` |
+| `espn_mbb_04_rosters_creation.R` | `espn_mens_college_basketball_rosters` | `rosters_{year}.*` |
+| `espn_mbb_05_player_season_stats_creation.R` | `espn_mens_college_basketball_player_season_stats` | `player_season_stats_{year}.*` (long format) |
+| `espn_mbb_06_team_season_stats_creation.R` | `espn_mens_college_basketball_team_season_stats` | `team_season_stats_{year}.*` (long format) |
+| `espn_mbb_07_standings_creation.R` | `espn_mens_college_basketball_standings` | `standings_{year}.*` |
+| `espn_mbb_09_game_rosters_creation.R` | `espn_mens_college_basketball_game_rosters` | `game_rosters_{year}.*` |
+| `espn_mbb_10_officials_creation.R` | `espn_mens_college_basketball_officials` | `officials_{year}.*` |
+
+Loaders: `hoopR::load_mbb_{rosters,player_stats,team_stats,standings,game_rosters,officials}()`.
+Ported 1:1 from the `hoopR-nba-data` espn_nba_04…10 scripts
+(league = `mens-college-basketball`); season stats slice ESPN's
+`categories[].statistics[]`; `officials` reuses the `game_rosters`
+summary JSON's `gameInfo.officials`. There is no MBB draft (college).
 
 Renaming a release tag here means renaming the corresponding
 `load_mbb_*()` URL in the downstream `hoopR` package — the tag strings are

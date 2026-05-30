@@ -104,3 +104,29 @@ piggyback::pb_release_create(
   body = "NBA Play-by-Play Data (from stats.nba.com)",
   .token = Sys.getenv("GITHUB_PAT")
 )
+
+#--- ESPN MBB Data (added 2026-05: standings/season-stats/rosters/per-game) -----
+
+local({
+  mbb_new <- list(
+    espn_mens_college_basketball_shots                = "MBB Shots Data (from ESPN)",
+    espn_mens_college_basketball_rosters              = "MBB Team Rosters Data (from ESPN)",
+    espn_mens_college_basketball_player_season_stats  = "MBB Player Season Stats Data (from ESPN)",
+    espn_mens_college_basketball_team_season_stats    = "MBB Team Season Stats Data (from ESPN)",
+    espn_mens_college_basketball_standings            = "MBB Standings Data (from ESPN)",
+    espn_mens_college_basketball_game_rosters         = "MBB Per-Game Rosters Data (from ESPN)",
+    espn_mens_college_basketball_officials            = "MBB Per-Game Officials Data (from ESPN)"
+  )
+  for (tag in names(mbb_new)) {
+    tryCatch(
+      piggyback::pb_release_create(
+        repo = "sportsdataverse/sportsdataverse-data",
+        tag = tag,
+        name = tag,
+        body = mbb_new[[tag]],
+        .token = Sys.getenv("GITHUB_PAT")
+      ),
+      error = function(e) message(sprintf("%s: %s", tag, conditionMessage(e)))
+    )
+  }
+})
