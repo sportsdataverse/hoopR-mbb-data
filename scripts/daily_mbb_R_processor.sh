@@ -28,6 +28,9 @@ SCRIPTS=(
     R/espn_mbb_07_standings_creation.R
     R/espn_mbb_09_game_rosters_creation.R
     R/espn_mbb_10_officials_creation.R
+    R/mbb_11_team_crosswalk_creation.R
+    R/mbb_12_schedule_crosswalk_creation.R
+    R/mbb_13_player_crosswalk_creation.R
 )
 
 mkdir -p logs
