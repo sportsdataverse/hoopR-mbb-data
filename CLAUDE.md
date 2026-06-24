@@ -39,28 +39,37 @@ so changes to the raw repo's tree must be coordinated against the
 ## Build & Development Commands
 
 The repo is driven by `scripts/daily_mbb_R_processor.sh`, which iterates a
-year range, runs the three creation scripts, and commits + pushes after each
-season. All seasons are integer years (end year of the NCAA season — e.g.
-`2025` means 2024-25).
+year range, runs a fixed **array of 12 creation scripts** per season
+(`espn_mbb_01`…`10` plus the three crosswalk scripts), commits + pushes,
+and finally runs `R/run_summary.R` for the whole range. All seasons are
+integer years (end year of the NCAA season — e.g. `2025` means 2024-25).
 
 ```sh
 # Full daily flow for one or more seasons (CI entry point)
-bash scripts/daily_mbb_R_processor.sh -s 2025 -e 2025 -r false
+bash scripts/daily_mbb_R_processor.sh -s 2025 -e 2025
 
 # Or call each creation script directly when iterating
-Rscript R/espn_mbb_01_pbp_creation.R        -s 2025 -e 2025
-Rscript R/espn_mbb_02_team_box_creation.R   -s 2025 -e 2025
-Rscript R/espn_mbb_03_player_box_creation.R -s 2025 -e 2025
+Rscript R/espn_mbb_01_pbp_creation.R          -s 2025 -e 2025
+Rscript R/espn_mbb_02_team_box_creation.R     -s 2025 -e 2025
+Rscript R/espn_mbb_03_player_box_creation.R   -s 2025 -e 2025
+# … 04 rosters, 05 player_season_stats, 06 team_season_stats,
+#    07 standings, 09 game_rosters, 10 officials,
+#    mbb_11/12/13 team/schedule/player crosswalk
 
 # Helpers
-Rscript R/rebuild_mbb_master_schedule.R       # rebuilds mbb_schedule_master.csv
-Rscript R/minify_json_folders.R               # one-off raw-JSON minifier
-Rscript R/0000_create_hoopR_releases_init.R   # one-off: create release tags
-Rscript R/0001_push_existing_release_data.R   # one-off: backfill release assets
+Rscript R/run_summary.R -s 2025 -e 2025        # per-run cli + $GITHUB_STEP_SUMMARY report
+Rscript R/rebuild_mbb_master_schedule.R        # rebuilds mbb_schedule_master.csv (interactive)
+Rscript R/minify_json_folders.R                # one-off raw-JSON minifier
+Rscript R/0000_create_hoopR_releases_init.R    # one-off: create release tags
+Rscript R/0001_push_existing_release_data.R    # one-off: backfill release assets
 ```
 
-`scripts/daily_mbb_R_processor.sh` only accepts `-s` and `-e`; the `-r`
-flag is reserved for symmetry with the raw repo and is currently unused.
+`scripts/daily_mbb_R_processor.sh` only accepts `-s` and `-e` (no `-r`).
+Each `Rscript` runs under `||` so one failing script doesn't abort the
+season; the worst exit code is captured (`RSCRIPT_RC`) and re-surfaced as a
+workflow `::error::` after all requested seasons finish. Whatever datasets
+succeeded are committed regardless (per-dataset `tryCatch` keeps partial
+output usable).
 
 ## Repo Layout
 
@@ -74,20 +83,27 @@ R/
   espn_mbb_03_player_box_creation.R   # -> mbb/player_box/{rds,parquet}/player_box_{year}.{ext}
                                        # Uploads to: espn_mens_college_basketball_player_boxscores
                                        # Also uploads schedules to: espn_mens_college_basketball_schedules
+  espn_mbb_04…10_*.R                  # rosters, player/team season stats, standings, game_rosters, officials
+  mbb_11_team_crosswalk_creation.R    # Cross-source team crosswalk
+  mbb_12_schedule_crosswalk_creation.R# Cross-source schedule crosswalk
+  mbb_13_player_crosswalk_creation.R  # Cross-source player crosswalk
+  run_summary.R                       # Post-run cli summary -> Action log + $GITHUB_STEP_SUMMARY
+  manifest_upload_helper.R            # Shared release-upload helper sourced by creation scripts
   rebuild_mbb_master_schedule.R       # Aggregates all per-season schedules into mbb_schedule_master.csv
   minify_json_folders.R               # JSON whitespace minifier (one-off cleanup)
   0000_create_hoopR_releases_init.R   # One-off: create all release tags on sportsdataverse-data
   0001_push_existing_release_data.R   # One-off: backfill release assets after init
 
 scripts/
-  daily_mbb_R_processor.sh            # CI entry point — per-year loop + commit/push
+  daily_mbb_R_processor.sh            # CI entry point — per-year loop over 12 scripts + commit/push
 
 mbb/
   pbp/{rds,parquet}/                  # play_by_play_{year}.{rds,parquet}
   team_box/{rds,parquet}/             # team_box_{year}.{rds,parquet}
   player_box/{rds,parquet}/           # player_box_{year}.{rds,parquet}
   schedules/{rds,parquet}/            # mbb_schedule_{year}.{rds,parquet}
-
+  {rosters,player_season_stats,team_season_stats,standings,game_rosters,officials,crosswalk}/
+logs/                                 # Per-season run logs (committed)
 .github/workflows/
   daily_mbb.yml                       # Daily cron + repository_dispatch + workflow_dispatch
 ```
@@ -97,8 +113,9 @@ root) are rebuilt by `rebuild_mbb_master_schedule.R`.
 
 ## Release Tags
 
-The three creation scripts each `piggyback::pb_upload()` to a fixed release
-tag on `sportsdataverse/sportsdataverse-data`:
+Each `espn_mbb_*` creation script `piggyback::pb_upload()`s to a fixed
+release tag on `sportsdataverse/sportsdataverse-data` (the crosswalk
+scripts 11/12/13 publish their own crosswalk tags):
 
 | Script | Release tag | Asset shape |
 |--------|-------------|-------------|
@@ -128,11 +145,11 @@ load-bearing.
 
 `.github/workflows/daily_mbb.yml` is the in-repo cron entry point.
 
-- **Triggers**: `schedule` (cron `0 7 *` gated to the MBB season:
-  late October, November-December, January-March, all of April),
-  `repository_dispatch` event-type `daily_mbb_data` (fired from
-  `hoopR-mbb-raw`'s push trigger), and `workflow_dispatch` with optional
-  `start_year` / `end_year` inputs.
+- **Triggers**: `schedule` (four `0 7 UTC` crons gated to the MBB season:
+  `0 7 18-31 10 *` Oct 18-31, `0 7 * 11-12 *` Nov-Dec, `0 7 * 1-3 *`
+  Jan-Mar, `0 7 1-30 4 *` all of April), `repository_dispatch` event-type
+  `daily_mbb_data` (fired from `hoopR-mbb-raw`'s push trigger), and
+  `workflow_dispatch` with optional `start_year` / `end_year` inputs.
 - **Runner**: `windows-latest` with `r-lib/actions/setup-r@v2` (release
   R). The Windows-pinned runner is intentional — historical pipeline
   ran against the maintainer's Windows R library layout.
