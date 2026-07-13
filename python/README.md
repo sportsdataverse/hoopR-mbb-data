@@ -54,6 +54,10 @@ Notes on two deliberate divergences the tests document:
 - `player_season_stats` iterates the identity-lookup athlete ids (R's
   `names(identity_lookup)`), and excludes two athlete ids whose *oracle* identity
   disagrees with its own source payload (guarded so the set can't silently grow).
-- `officials` fall back to `json/final` when the recent-only `game_rosters/json`
-  sidecar is absent (its `gameInfo.officials` block is byte-identical there),
-  which recovers pre-scrape seasons with zero HTTP.
+- `officials` and `game_rosters` fall back to `json/final` when the recent-only
+  `game_rosters/json` sidecar is absent, recovering pre-scrape seasons with zero
+  HTTP. `officials`' `gameInfo.officials` block is byte-identical there;
+  `game_rosters`' boxscore roster is structurally identical, diverging only on
+  occasional display-name formatting ("L.J. Cryer" vs "LJ Cryer"), and historical
+  seasons have no `game_rosters/json` oracle so `json/final` is authoritative.
+  The fallback is purely additive — current seasons keep using `game_rosters/json`.
