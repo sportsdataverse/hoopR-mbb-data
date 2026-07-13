@@ -62,18 +62,13 @@ def pbp_reshaper(final: dict, *, season: int, game_id: int) -> pl.DataFrame:
 
 
 def player_box_reshaper(final: dict, *, season: int, game_id: int) -> pl.DataFrame:
-    """helper_mbb_player_box() delegates to the shared wbb_player_box.
-    _FINAL_ORDER tuple, which places ``active`` right after ``did_not_play``.
-    The R-released espn_mens_college_basketball_player_boxscores puts
-    ``active`` as the LAST column instead (confirmed against the real 2025
-    oracle -- no WBB oracle-backed test exists upstream to have caught this).
-    Reorder here rather than in sdv-py, since that tuple is shared with WBB
-    and this divergence has not been confirmed against a WBB oracle.
+    """helper_mbb_player_box() emits the MBB release column order natively.
+
+    The ``active``-last vs ``active``-mid-list WBB/MBB divergence is now
+    handled in sdv-py's ``mbb_player_box._MBB_FINAL_ORDER`` (confirmed against
+    both the real MBB and WBB 2025 oracles), so no reshaping is needed here.
     """
-    out = helper_mbb_player_box(final)
-    if "active" in out.columns and out.columns[-1] != "active":
-        out = out.select([c for c in out.columns if c != "active"] + ["active"])
-    return out
+    return helper_mbb_player_box(final)
 
 
 RESHAPERS: dict = {
@@ -161,8 +156,17 @@ def shots_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
     return shots_from_pbp(pl.read_parquet(p))
 
 
-def _sidecar_builder(subdir: str, helper) -> object:
-    """Per-game sidecar loop (R scripts 09/10): completed games, tryCatch skips."""
+def _sidecar_builder(subdir: str, helper, *, fallback_subdir: str | None = None) -> object:
+    """Per-game sidecar loop (R scripts 09/10): completed games, tryCatch skips.
+
+    ``fallback_subdir`` recovers a game from a second raw location when the
+    primary sidecar is absent. Used by officials: its ``gameInfo.officials``
+    block is byte-identical in the processed ``json/final`` summary (present for
+    ~10x more historical games than the ``game_rosters/json`` scrape: 137k vs
+    13k), so pre-scrape seasons compile officials with zero HTTP. Purely additive
+    -- for a game whose primary sidecar exists the fallback never fires, so
+    current-season output is unchanged.
+    """
 
     def _build(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
         from mbb_data_build import ingest
@@ -170,6 +174,8 @@ def _sidecar_builder(subdir: str, helper) -> object:
         frames: list[pl.DataFrame] = []
         for gid in ingest.season_completed_game_ids(season, raw_root=raw_root):
             payload = ingest.read_final(gid, raw_root=raw_root, subdir=subdir)
+            if payload is None and fallback_subdir is not None:
+                payload = ingest.read_final(gid, raw_root=raw_root, subdir=fallback_subdir)
             if payload is None:
                 continue
             try:
@@ -197,7 +203,11 @@ def _officials_builder() -> object:
     # SAME game_rosters sidecar that backs helper_mbb_game_rosters.
     from sportsdataverse.mbb import helper_mbb_officials
 
-    return _sidecar_builder("game_rosters/json", helper_mbb_officials)
+    # Officials' gameInfo.officials block is identical in json/final (verified),
+    # so fall back there to recover pre-scrape seasons (game_rosters/json is
+    # recent-only). game_rosters itself does NOT fall back -- its json/final
+    # boxscore roster diverges (athlete_display_name), pending investigation.
+    return _sidecar_builder("game_rosters/json", helper_mbb_officials, fallback_subdir="json/final")
 
 
 def _per_entity_frames(
