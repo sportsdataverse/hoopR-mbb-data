@@ -71,6 +71,16 @@ workflow `::error::` after all requested seasons finish. Whatever datasets
 succeeded are committed regardless (per-dataset `tryCatch` keeps partial
 output usable).
 
+## Python build (`python/mbb_data_build/`)
+
+A **parallel** polars implementation of the same compile (sdv-py #256 producers),
+added for a future cutover. It does NOT drive daily CI — the R scripts above still
+do. Full-frame parity-tested against the committed R oracle parquets. See
+`python/README.md` for the CLI (`uv run python -m mbb_data_build --dataset <k> -s
+<yr> -e <yr> [--publish|--dry-run]`) and `uv run pytest`. Release tags are the
+real `espn_mens_college_basketball_*` strings (NOT `espn_mbb_*`). Any ESPN parsing
+change belongs upstream in `sportsdataverse.mbb`, not here.
+
 ## Repo Layout
 
 ```
