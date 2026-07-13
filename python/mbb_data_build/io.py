@@ -14,6 +14,7 @@ parity bar here is the parquet.
 
 from __future__ import annotations
 
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -35,9 +36,7 @@ def manifest_path(spec: DatasetSpec, base: Path) -> Path:
     return base / spec.dataset / f"{_LEAGUE}_{spec.dataset}_in_data_repo.csv"
 
 
-def _append_manifest(
-    spec: DatasetSpec, season: int, row_count: int, base: Path
-) -> Path | None:
+def _append_manifest(spec: DatasetSpec, season: int, row_count: int, base: Path) -> Path | None:
     """Append one run's row to the dataset's manifest log (R ``fwrite(append=TRUE)``).
 
     The tree file is an append LOG -- one row per run, not per season (the real
@@ -59,7 +58,11 @@ def _append_manifest(
     )
     if f.exists():
         row = pl.concat([pl.read_csv(f), row], how="diagonal_relaxed")
-    row.write_csv(f)
+    # Atomic write: temp in the same dir + os.replace so a mid-write crash can't
+    # truncate the append log (read-modify-write is otherwise not crash-safe).
+    tmp = f.with_suffix(f.suffix + ".tmp")
+    row.write_csv(tmp)
+    os.replace(tmp, f)
     return f
 
 

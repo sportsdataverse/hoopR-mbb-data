@@ -136,11 +136,15 @@ def _built_game_ids(base: Path, dataset: str, stem: str, season: int) -> list[in
     )
 
 
-def schedules_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
+def schedules_builder(season: int, *, raw_root: Path | str, base: Path) -> pl.DataFrame:
     """Released schedule = raw schedule + casts/dates + PBP/team_box/player_box flags."""
-    raw = pl.read_parquet(
-        raw_root / "mbb" / "schedules" / "parquet" / f"mbb_schedule_{season}.parquet"
-    )
+    from mbb_data_build import ingest
+
+    # raw_root may be a local Path or an HTTP base URL (ingest.raw_root -> Path | str);
+    # use the dual-mode reader instead of ``raw_root / ...`` which TypeErrors on a str.
+    raw = ingest._read_season_schedule(season, raw_root)
+    if raw is None:
+        return pl.DataFrame()
     return helper_mbb_schedule(
         raw,
         pbp_game_ids=_built_game_ids(base, "pbp", "play_by_play", season),

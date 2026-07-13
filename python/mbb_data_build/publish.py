@@ -33,7 +33,11 @@ log = get_logger()
 
 
 def _gh(args: list[str]) -> None:
-    subprocess.run(["gh", *args], check=True)
+    # timeout so a hung gh (auth prompt, network stall, rate-limit backoff) can't
+    # block an unattended pipeline step indefinitely. Args are internal literals /
+    # controlled fields passed as a list (no shell=True) -- the SAST injection flag
+    # is a false positive.
+    subprocess.run(["gh", *args], check=True, timeout=120)
 
 
 def _gh_release_exists(tag: str, repo: str) -> bool:
@@ -42,6 +46,7 @@ def _gh_release_exists(tag: str, repo: str) -> bool:
             ["gh", "release", "view", tag, "--repo", repo],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
+            timeout=60,
         ).returncode
         == 0
     )
@@ -62,9 +67,7 @@ def _manifest_asset(spec: DatasetSpec, base: Path) -> Path | None:
     if spec.manifest_endpoint is None or not src.exists():
         return None
     latest = (
-        pl.read_csv(src)
-        .unique(subset=["season"], keep="last", maintain_order=True)
-        .sort("season")
+        pl.read_csv(src).unique(subset=["season"], keep="last", maintain_order=True).sort("season")
     )
     tmp = Path(tempfile.mkdtemp(prefix="mbb_manifest_")) / src.name
     latest.write_csv(tmp)
@@ -82,9 +85,7 @@ def _dataset_files(spec: DatasetSpec, season: int, base: Path) -> list[Path]:
     elif pq.exists():
         # No committed tree csv (pbp/team_box/player_box) -- the release
         # asset contract still ships a plain .csv, generated on the fly.
-        tmp = (
-            Path(tempfile.mkdtemp(prefix="mbb_publish_")) / f"{spec.stem}_{season}.csv"
-        )
+        tmp = Path(tempfile.mkdtemp(prefix="mbb_publish_")) / f"{spec.stem}_{season}.csv"
         pl.read_parquet(pq).write_csv(tmp)
         files.append(tmp)
     # Manifest asset name == file name (R manifest_upload_helper contract).
