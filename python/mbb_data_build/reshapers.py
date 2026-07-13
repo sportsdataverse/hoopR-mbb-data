@@ -195,7 +195,15 @@ def _sidecar_builder(subdir: str, helper, *, fallback_subdir: str | None = None)
 def _game_rosters_builder() -> object:
     from sportsdataverse.mbb import helper_mbb_game_rosters
 
-    return _sidecar_builder("game_rosters/json", helper_mbb_game_rosters)
+    # Same zero-HTTP backfill as officials: fall back to json/final when the
+    # recent-only game_rosters/json scrape is absent. The boxscore roster is
+    # structurally identical there; the only observed divergence is occasional
+    # display-name formatting ("L.J. Cryer" vs "LJ Cryer", 1/31 on the checked
+    # game), and historical seasons have no game_rosters/json oracle, so
+    # json/final is the authoritative source for them.
+    return _sidecar_builder(
+        "game_rosters/json", helper_mbb_game_rosters, fallback_subdir="json/final"
+    )
 
 
 def _officials_builder() -> object:
@@ -205,8 +213,7 @@ def _officials_builder() -> object:
 
     # Officials' gameInfo.officials block is identical in json/final (verified),
     # so fall back there to recover pre-scrape seasons (game_rosters/json is
-    # recent-only). game_rosters itself does NOT fall back -- its json/final
-    # boxscore roster diverges (athlete_display_name), pending investigation.
+    # recent-only) -- same json/final fallback as game_rosters above.
     return _sidecar_builder("game_rosters/json", helper_mbb_officials, fallback_subdir="json/final")
 
 
