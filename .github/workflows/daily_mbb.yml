@@ -18,6 +18,11 @@ on:
         required: false
         description: "End Year (e.g., 2023)"
         type: string
+      use_python_build:
+        required: false
+        description: "Use the python mbb_data_build processor instead of R (default: R)"
+        type: boolean
+        default: false
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -55,6 +60,11 @@ jobs:
             sportsdataverse/hoopR
             sportsdataverse/sportsdataverse-data
             ropensci/piggyback
+      - name: Set up uv (for the python build)
+        uses: astral-sh/setup-uv@v5
+      - name: Sync python build deps
+        shell: bash
+        run: uv sync --project python
       - name: Check hoopR_mbb_data_trigger for inputs
         if: ${{ github.event.client_payload.event_name == 'daily_mbb_data'}}
         shell: bash
@@ -71,8 +81,17 @@ jobs:
         shell: bash
         env:
           GITHUB_PAT: ${{ secrets.SDV_GH_TOKEN }}
+          # gh CLI (python publish) needs cross-repo write to sportsdataverse-data;
+          # the default github.token only reaches this repo. R uses GITHUB_PAT above.
+          GH_TOKEN: ${{ secrets.SDV_GH_TOKEN }}
           SPORTSDATAVERSE.UPLOAD.QUIET: FALSE
           SPORTSDATAVERSE.UPLOAD.MAX_TIMES: 20
         run: |
           echo $(pwd)
-          bash scripts/daily_mbb_R_processor.sh -s ${{ env.START_YEAR }} -e ${{ env.END_YEAR }}
+          # Python is the default (validated end-to-end in CI: all 11 datasets
+          # build + publish). Set use_python_build=false to fall back to R.
+          if [ "${{ inputs.use_python_build }}" = "false" ]; then
+            bash scripts/daily_mbb_R_processor.sh -s ${{ env.START_YEAR }} -e ${{ env.END_YEAR }}
+          else
+            bash scripts/daily_mbb_python_processor.sh -s ${{ env.START_YEAR }} -e ${{ env.END_YEAR }}
+          fi
