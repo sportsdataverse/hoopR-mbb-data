@@ -62,13 +62,18 @@ def pbp_reshaper(final: dict, *, season: int, game_id: int) -> pl.DataFrame:
 
 
 def player_box_reshaper(final: dict, *, season: int, game_id: int) -> pl.DataFrame:
-    """helper_mbb_player_box() emits the MBB release column order natively.
+    """Reshape one game's player box, with ``active`` moved to the LAST column.
 
-    The ``active``-last vs ``active``-mid-list WBB/MBB divergence is now
-    handled in sdv-py's ``mbb_player_box._MBB_FINAL_ORDER`` (confirmed against
-    both the real MBB and WBB 2025 oracles), so no reshaping is needed here.
+    The released MBB player_box puts ``active`` last, but the shared sdv-py
+    ``_FINAL_ORDER`` places it mid-list. The intended long-term fix lives in a
+    sdv-py ``mbb_player_box._MBB_FINAL_ORDER`` change that is NOT on the pinned
+    ``main``, so this reshaper stays self-sufficient and reorders locally. (Drop
+    this once that sdv-py fix lands and the pin is bumped.)
     """
-    return helper_mbb_player_box(final)
+    df = helper_mbb_player_box(final)
+    if "active" in df.columns and df.columns[-1] != "active":
+        df = df.select([c for c in df.columns if c != "active"] + ["active"])
+    return df
 
 
 RESHAPERS: dict = {
@@ -171,20 +176,23 @@ def _sidecar_builder(subdir: str, helper, *, fallback_subdir: str | None = None)
     def _build(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
         from mbb_data_build import ingest
 
-        frames: list[pl.DataFrame] = []
-        for gid in ingest.season_completed_game_ids(season, raw_root=raw_root):
+        def _one(gid: int) -> pl.DataFrame | None:
             payload = ingest.read_final(gid, raw_root=raw_root, subdir=subdir)
             if payload is None and fallback_subdir is not None:
                 payload = ingest.read_final(gid, raw_root=raw_root, subdir=fallback_subdir)
             if payload is None:
-                continue
+                return None
             try:
                 frame = helper(payload, season=season, game_id=gid)
             except Exception as e:  # R tryCatch(...) -> NULL parity
                 log.warning("%s: parse failed for game %s: %s", subdir, gid, e)
-                continue
-            if frame.height:
-                frames.append(frame)
+                return None
+            return frame if frame.height else None
+
+        # Thread-pooled reads (I/O-bound HTTP in CI); input-order results keep
+        # the concat byte-identical to the serial build.
+        gids = ingest.season_completed_game_ids(season, raw_root=raw_root)
+        frames = [f for f in ingest.parallel_map(_one, gids) if f is not None]
         if not frames:
             return pl.DataFrame()
         return pl.concat(frames, how="diagonal_relaxed")
@@ -223,19 +231,20 @@ def _per_entity_frames(
     """R scripts 04/06/07: loop the season's per-entity JSONs, tryCatch skips."""
     from mbb_data_build import ingest
 
-    frames: list[pl.DataFrame] = []
-    for eid in ingest.season_dir_ids(subdir, season, raw_root=raw_root):
+    def _one(eid: int) -> pl.DataFrame | None:
         payload = ingest.read_final(eid, raw_root=raw_root, subdir=f"{subdir}/json/{season}")
         if payload is None:
-            continue
+            return None
         try:
             frame = helper(payload, **{"season": season, id_kw: eid})
         except Exception as e:  # R tryCatch(...) -> NULL parity
             log.warning("%s: parse failed for entity %s: %s", subdir, eid, e)
-            continue
-        if frame.height:
-            frames.append(frame)
-    return frames
+            return None
+        return frame if frame.height else None
+
+    # Thread-pooled reads; input-order results keep _season_concat deterministic.
+    eids = ingest.season_dir_ids(subdir, season, raw_root=raw_root)
+    return [f for f in ingest.parallel_map(_one, eids) if f is not None]
 
 
 def _season_concat(frames: list[pl.DataFrame]) -> pl.DataFrame:
@@ -300,19 +309,22 @@ def player_season_stats_builder(season: int, *, raw_root: Path, base: Path) -> p
     # career-stats file happens to carry a season==Y statistics entry despite
     # never appearing in that season's player_box (confirmed against the
     # 2025 oracle: 2 such athletes, 77 extra rows).
-    frames: list[pl.DataFrame] = []
     athlete_ids = sorted({int(k) for k in lookup})
-    for aid in athlete_ids:
+
+    def _one(aid: int) -> pl.DataFrame | None:
         payload = ingest.read_final(aid, raw_root=raw_root, subdir="player_season_stats/json")
         if payload is None:
-            continue
+            return None
         try:
             frame = _helper(payload, season=season, athlete_id=aid)
         except Exception as e:  # R tryCatch(...) -> NULL parity
             log.warning("player_season_stats: parse failed for athlete %s: %s", aid, e)
-            continue
-        if frame.height:
-            frames.append(frame)
+            return None
+        return frame if frame.height else None
+
+    # Thread-pooled athlete reads (thousands per season over HTTP in CI);
+    # input-order results keep _season_concat deterministic.
+    frames = [f for f in ingest.parallel_map(_one, athlete_ids) if f is not None]
     return _season_concat(frames)
 
 

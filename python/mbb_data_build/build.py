@@ -12,12 +12,10 @@ before ``player_season_stats`` for a season (see ``reshapers.player_season_stats
 
 from __future__ import annotations
 
-import sys
 import time
 from pathlib import Path
 
 import polars as pl
-from tqdm import tqdm
 
 from mbb_data_build import ingest, io, publish, reshapers
 from mbb_data_build._logging import get_logger
@@ -59,17 +57,12 @@ def build_season(
             print(df.shape)
     """
     spec = REGISTRY[dataset]
-    if (
-        dataset not in reshapers.SEASON_BUILDERS
-        and spec.reshaper not in reshapers.RESHAPERS
-    ):
+    if dataset not in reshapers.SEASON_BUILDERS and spec.reshaper not in reshapers.RESHAPERS:
         # The three crosswalks build from LIVE ESPN+Torvik+Fox inputs (not the
         # raw repo) via hoopR's mbb_*_crosswalk; they stay on the R scripts
         # (mbb_1{1,2,3}_*_creation.R) until the Torvik/Fox source surfaces are
         # ported to sportsdataverse.
-        raise NotImplementedError(
-            f"{dataset}: crosswalks still build via the R creation scripts"
-        )
+        raise NotImplementedError(f"{dataset}: crosswalks still build via the R creation scripts")
     root = ingest.raw_root(raw_root)
     started = time.monotonic()
     mode = "http" if isinstance(root, str) else "disk"
@@ -125,25 +118,31 @@ def build_season(
     frames: list[pl.DataFrame] = []
     missing = 0
     failed = 0
-    for n, gid in enumerate(
-        tqdm(game_ids, desc=f"{dataset} {season}", disable=None), start=1
-    ):
+
+    def _read_reshape(gid: int):
         final = ingest.read_final(gid, raw_root=root)
         if final is None:
-            missing += 1
-            continue
+            return ("missing", None)
         try:
             frame = reshape(final, season=season, game_id=gid)
         except Exception as e:  # R tryCatch(...) -> NULL parity
-            log.warning(
-                "%s %s: reshape failed for game %s: %s", dataset, season, gid, e
-            )
+            log.warning("%s %s: reshape failed for game %s: %s", dataset, season, gid, e)
+            return ("failed", None)
+        return ("ok", frame if (frame is not None and frame.height) else None)
+
+    # Fan the per-game reads+reshapes out over a thread pool -- the reads are
+    # I/O-bound (HTTP in CI), so this is the difference between a minutes-long
+    # and a tens-of-minutes-long season. Results come back in game_ids order,
+    # so the concat + stable sort below stay byte-identical to the serial build.
+    for n, (status, frame) in enumerate(ingest.parallel_map(_read_reshape, game_ids), start=1):
+        if status == "missing":
+            missing += 1
+        elif status == "failed":
             failed += 1
-            continue
-        if frame is not None and frame.height:
+        elif frame is not None:
             frames.append(frame)
-        if not sys.stderr.isatty() and n % _PROGRESS_EVERY == 0:
-            log.info("%s %s: %d/%d games processed", dataset, season, n, len(game_ids))
+        if n % _PROGRESS_EVERY == 0:
+            log.info("%s %s: %d/%d games collected", dataset, season, n, len(game_ids))
     if missing:
         log.warning(
             "%s %s: %d/%d games had no readable payload",
@@ -167,9 +166,7 @@ def build_season(
     # R: every per-game season compile is arrange(desc(game_date)) before
     # write/publish (stable, NA last).
     if "game_date" in out.columns:
-        out = out.sort(
-            "game_date", descending=True, nulls_last=True, maintain_order=True
-        )
+        out = out.sort("game_date", descending=True, nulls_last=True, maintain_order=True)
     # MBB season-level fixups (e.g. espn_mbb_01's type_abbreviation backfill).
     if spec.reshaper in reshapers.SEASON_POSTPROCESS:
         out = reshapers.SEASON_POSTPROCESS[spec.reshaper](out)

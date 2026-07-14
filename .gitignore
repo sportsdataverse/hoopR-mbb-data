@@ -14,3 +14,5 @@ __pycache__
 */*.pyc
 *.pyc
 daily_basketball_scraper.sh
+# python build writes release-only CSVs locally; never commit them
+mbb/*/csv/
