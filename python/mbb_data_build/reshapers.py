@@ -62,18 +62,13 @@ def pbp_reshaper(final: dict, *, season: int, game_id: int) -> pl.DataFrame:
 
 
 def player_box_reshaper(final: dict, *, season: int, game_id: int) -> pl.DataFrame:
-    """Reshape one game's player box, with ``active`` moved to the LAST column.
+    """helper_mbb_player_box() emits the MBB release column order natively.
 
-    The released MBB player_box puts ``active`` last, but the shared sdv-py
-    ``_FINAL_ORDER`` places it mid-list. The intended long-term fix lives in a
-    sdv-py ``mbb_player_box._MBB_FINAL_ORDER`` change that is NOT on the pinned
-    ``main``, so this reshaper stays self-sufficient and reorders locally. (Drop
-    this once that sdv-py fix lands and the pin is bumped.)
+    The released MBB player_box orders ``active`` LAST, which sdv-py now handles
+    in ``mbb_player_box._MBB_FINAL_ORDER`` (on the pinned main), so no local
+    reordering is needed here.
     """
-    df = helper_mbb_player_box(final)
-    if "active" in df.columns and df.columns[-1] != "active":
-        df = df.select([c for c in df.columns if c != "active"] + ["active"])
-    return df
+    return helper_mbb_player_box(final)
 
 
 RESHAPERS: dict = {
