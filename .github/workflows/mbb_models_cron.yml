@@ -1,0 +1,107 @@
+name: MBB Model Datasets
+
+# Refreshes the `mbb_ratings` + `mbb_player_value` dataset releases on
+# sportsdataverse-data: opponent-adjusted team ratings and per-player box
+# Plus/Minus, built by sdv-py's `mbb_team_ratings()` / `mbb_box_bpm()` over
+# the released ESPN schedule + boxscores (this job reads releases, it does
+# not scrape).
+#
+# Credential scoping: the cross-repo publish PAT (SDV_GH_TOKEN) is NOT
+# exported job-wide; it is set only on the build+publish steps.
+
+on:
+  workflow_dispatch:
+    inputs:
+      seasons:
+        description: 'Season or inclusive range, hoopR end-year convention (e.g. 2026 or 2002:2026). Default: the current season.'
+        required: false
+        type: string
+      dry_run:
+        description: 'Build only; plan the uploads without publishing'
+        required: false
+        type: boolean
+        default: false
+  schedule:
+    # Daily in the MBB season window (Nov - early Apr), after the daily data
+    # builds land.
+    - cron: '0 13 * 11,12 *'   # November-December
+    - cron: '0 13 * 1-4 *'     # January-April (through the tournament)
+
+permissions:
+  contents: read
+
+env:
+  PUBLISH_REPO: sportsdataverse/sportsdataverse-data
+
+jobs:
+  models:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: python
+    steps:
+      - name: Checkout mbb-data
+        uses: actions/checkout@v5
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: python/uv.lock
+
+      - name: Sync deps
+        run: uv sync --frozen
+
+      # Canary: this repo pins sportsdataverse to git@main via tool.uv.sources,
+      # so a plain sync carries the model surface -- but fail loudly here if a
+      # re-pin ever drops it, instead of the publish dying minutes in.
+      - name: Verify the model surfaces import
+        run: |
+          uv run --no-sync python -c "
+          from sportsdataverse.mbb.mbb_team_ratings import mbb_team_ratings
+          from sportsdataverse.mbb import mbb_box_bpm
+          import importlib.metadata as md
+          print('mbb model surface OK (sportsdataverse', md.version('sportsdataverse'), ')')
+          "
+
+      # hoopR end-year convention: the 2025-26 season is 2026, so Nov/Dec
+      # belong to calendar year + 1 and Jan-Apr to the calendar year itself.
+      - name: Resolve seasons
+        env:
+          # Via env, not `${{ }}` inline in the script: a dispatch input
+          # interpolated straight into `run:` is a shell-injection sink.
+          SEASONS_INPUT: ${{ inputs.seasons }}
+        run: |
+          if [ -n "$SEASONS_INPUT" ]; then
+            SEASONS="$SEASONS_INPUT"
+          else
+            SEASONS=$(date -u +%Y)
+            M=$(date -u +%m)
+            if [ "$M" = "11" ] || [ "$M" = "12" ]; then
+              SEASONS=$((SEASONS + 1))
+            fi
+          fi
+          echo "SEASONS=$SEASONS" >> $GITHUB_ENV
+          echo "building mbb model datasets for seasons: $SEASONS"
+
+      - name: Build + publish mbb_ratings ${{ env.SEASONS }}
+        env:
+          GH_TOKEN: ${{ secrets.SDV_GH_TOKEN }}
+        run: |
+          uv run --no-sync python -m mbb_model_publish ratings \
+            --seasons "$SEASONS" \
+            --out out/mbb_ratings \
+            --tag mbb_ratings \
+            --repo "$PUBLISH_REPO" \
+            ${{ inputs.dry_run && '--dry-run' || '' }}
+
+      - name: Build + publish mbb_player_value ${{ env.SEASONS }}
+        env:
+          GH_TOKEN: ${{ secrets.SDV_GH_TOKEN }}
+        run: |
+          uv run --no-sync python -m mbb_model_publish player-value \
+            --seasons "$SEASONS" \
+            --out out/mbb_player_value \
+            --tag mbb_player_value \
+            --repo "$PUBLISH_REPO" \
+            ${{ inputs.dry_run && '--dry-run' || '' }}
