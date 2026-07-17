@@ -43,6 +43,21 @@ _T = "espn_mens_college_basketball_"
 # this run actually read from a local checkout or over HTTP.
 _RAW = "https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main/mbb"
 
+# --- rds contract -------------------------------------------------------------
+# hoopR::load_mbb_* reads .rds EXCLUSIVELY, so the rds is not a courtesy
+# format -- it is the R package's entire read path. Python writes it natively
+# via sportsdataverse._rds.write_rds (byte-validated against R's saveRDS);
+# there is no R serialize step.
+#
+# These reproduce hoopR:::make_hoopR_data() + sportsdataversedata::
+# sportsdataverse_save() exactly, in the attribute order every published asset
+# already carries: class, hoopR_timestamp, hoopR_type,
+# sportsdataverse_type, sportsdataverse_timestamp. The class is load-bearing --
+# hoopR registers print.hoopR_data on it.
+RDS_CLASS: tuple[str, ...] = ("hoopR_data", "tbl_df", "tbl", "data.table", "data.frame")
+RDS_ATTR_PREFIX = "hoopR"
+RDS_TYPE_TEMPLATE = "ESPN MBB {dataset} from hoopR data repository"
+
 
 @dataclass(frozen=True)
 class DatasetSpec:
