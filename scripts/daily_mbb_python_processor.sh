@@ -79,6 +79,17 @@ do
             # are the daily deliverable and publish independently above.
             Rscript "$SCRIPT" -s $i -e $i || echo "::warning ::$SCRIPT for season $i exited with code $? (crosswalk; non-fatal, live external source)"
         done
+        # hoopR::load_mbb_* reads .rds EXCLUSIVELY. Python publishes the
+        # parquet/csv; without this step the rds silently freezes and every
+        # load_mbb_* user is served stale data while the release looks fresh.
+        # The NBA sibling hit exactly that between its python cutover and this
+        # fix; MBB only escaped it by being out of season.
+        # NOT best-effort like the crosswalks: rds is the R package's contract.
+        echo "::group::serialize_rds $i"
+        Rscript R/serialize_rds.R -s $i -e $i || {
+            rc=$?; echo "::warning ::serialize_rds for season $i exited with code $rc"; SEASON_RC=$rc
+        }
+        echo "::endgroup::"
         echo "RSCRIPT_RC=$SEASON_RC" > "/tmp/_rscript_rc_${i}"
         git pull >> /dev/null
         git add mbb/* >> /dev/null
