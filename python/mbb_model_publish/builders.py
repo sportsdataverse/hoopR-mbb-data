@@ -18,8 +18,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-# The released ESPN MBB boxscore assets start at 2002.
-MIN_SEASON = 2002
+# Probed against the released assets (2026-07-16): 2002 has no team_boxscore
+# at all (the loader returns a column-less empty frame), and 2003-2005 are
+# junk-sparse (2 / 23 / <100 teams). Real coverage starts at 2006 (526 teams,
+# monotonically up to ~700 by 2025).
+MIN_SEASON = 2006
 
 
 def _build_seasonal(
