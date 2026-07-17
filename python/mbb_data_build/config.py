@@ -74,9 +74,7 @@ class DatasetSpec:
 
 REGISTRY: dict[str, DatasetSpec] = {
     "pbp": DatasetSpec("pbp", "play_by_play", _T + "pbp", "pbp", write_tree_csv=False),
-    "schedules": DatasetSpec(
-        "schedules", "mbb_schedule", _T + "schedules", "schedules"
-    ),
+    "schedules": DatasetSpec("schedules", "mbb_schedule", _T + "schedules", "schedules"),
     "shots": DatasetSpec(
         "shots",
         "shots",
@@ -108,6 +106,21 @@ REGISTRY: dict[str, DatasetSpec] = {
         "player_season_stats",
         # NB: no {season} segment -- the raw payload is flat/full-career.
         manifest_endpoint=_RAW + "/player_season_stats/json/<athlete_id>.json",
+    ),
+    # Athlete identity + bio. NEW dataset -- no R creation script exists, and
+    # nothing published this before: the player_season_stats payload carries no
+    # identity at all (not even the athlete id -- only the filename does).
+    # Raw is flat/athlete-keyed (a core record is per-athlete, and the core-v2
+    # athlete resource takes no season param), so no {season} segment; "who
+    # played in season Y" comes from the built player_box.
+    "player_core": DatasetSpec(
+        "player_core",
+        "player_core",
+        _T + "player_core",
+        "player_core",
+        # NO manifest_endpoint: a manifest is the contract for an R
+        # load_mbb_<ds>_manifest() loader, and player_core has no loader yet --
+        # manifesting it would publish an asset nothing reads.
     ),
     "team_season_stats": DatasetSpec(
         "team_season_stats",
