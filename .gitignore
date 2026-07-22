@@ -16,3 +16,7 @@ __pycache__
 daily_basketball_scraper.sh
 # python build writes release-only CSVs locally; never commit them
 mbb/*/csv/
+
+# Built rds/csv ship to the sportsdataverse-data releases, not to git.
+mbb/*/rds/
+mbb/*/csv/
