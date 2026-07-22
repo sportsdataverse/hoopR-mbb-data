@@ -9,332 +9,268 @@ From https://github.com/sportsdataverse/hoopR-mbb-data
  * [new branch]        feat/mbb-player-core-dataset -> origin/feat/mbb-player-core-dataset
  * [new branch]        feat/mbb-player-core-tree -> origin/feat/mbb-player-core-tree
  * [new branch]        fix/mbb-serialize-rds -> origin/fix/mbb-serialize-rds
-2026-07-18 22:28:15 [INFO] mbb_data_build: pbp 2026: per-game build starting -- 6300 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 250/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 500/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 750/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 1000/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 1250/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 1500/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 1750/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 2000/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 2250/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 2500/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 2750/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 3000/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 3250/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 3500/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 3750/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 4000/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 4250/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 4500/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 4750/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 5000/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 5250/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 5500/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 5750/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 6000/6300 games collected
-2026-07-18 22:38:55 [INFO] mbb_data_build: pbp 2026: 6250/6300 games collected
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
-    df = build_season(
-         ^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 173, in build_season
-    io.write_dataset(out, spec, season, base=base)
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\io.py", line 97, in write_dataset
-    write_rds(
-TypeError: write_rds() got an unexpected keyword argument 'cls'
-::warning ::mbb_data_build pbp for season 2026 exited with code 1
-2026-07-18 22:39:04 [INFO] mbb_data_build: team_box 2026: per-game build starting -- 6300 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 250/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 500/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 750/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 1000/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 1250/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 1500/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 1750/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 2000/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 2250/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 2500/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 2750/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 3000/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 3250/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 3500/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 3750/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 4000/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 4250/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 4500/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 4750/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 5000/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 5250/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 5500/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 5750/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 6000/6300 games collected
-2026-07-18 22:39:57 [INFO] mbb_data_build: team_box 2026: 6250/6300 games collected
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
-    df = build_season(
-         ^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 173, in build_season
-    io.write_dataset(out, spec, season, base=base)
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\io.py", line 97, in write_dataset
-    write_rds(
-TypeError: write_rds() got an unexpected keyword argument 'cls'
-::warning ::mbb_data_build team_box for season 2026 exited with code 1
-2026-07-18 22:40:02 [INFO] mbb_data_build: player_box 2026: per-game build starting -- 6300 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 250/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 500/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 750/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 1000/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 1250/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 1500/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 1750/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 2000/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 2250/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 2500/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 2750/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 3000/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 3250/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 3500/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 3750/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 4000/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 4250/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 4500/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 4750/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 5000/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 5250/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 5500/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 5750/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 6000/6300 games collected
-2026-07-18 22:41:08 [INFO] mbb_data_build: player_box 2026: 6250/6300 games collected
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
-    df = build_season(
-         ^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 173, in build_season
-    io.write_dataset(out, spec, season, base=base)
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\io.py", line 97, in write_dataset
-    write_rds(
-TypeError: write_rds() got an unexpected keyword argument 'cls'
-::warning ::mbb_data_build player_box for season 2026 exited with code 1
-2026-07-18 22:41:12 [INFO] mbb_data_build: player_core 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
-    df = build_season(
-         ^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 79, in build_season
-    out = reshapers.SEASON_BUILDERS[dataset](season, raw_root=root, base=Path(base))
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 342, in player_core_builder
-    from sportsdataverse.mbb import helper_mbb_player_core
-ImportError: cannot import name 'helper_mbb_player_core' from 'sportsdataverse.mbb' (D:\a\hoopR-mbb-data\hoopR-mbb-data\python\.venv\Lib\site-packages\sportsdataverse\mbb\__init__.py). Did you mean: 'helper_mbb_player_box'?
-::warning ::mbb_data_build player_core for season 2026 exited with code 1
-2026-07-18 22:41:15 [INFO] mbb_data_build: schedules 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
-    df = build_season(
-         ^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 87, in build_season
-    io.write_dataset(out, spec, season, base=base)
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\io.py", line 97, in write_dataset
-    write_rds(
-TypeError: write_rds() got an unexpected keyword argument 'cls'
-::warning ::mbb_data_build schedules for season 2026 exited with code 1
-2026-07-18 22:41:27 [INFO] mbb_data_build: shots 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
-    df = build_season(
-         ^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 87, in build_season
-    io.write_dataset(out, spec, season, base=base)
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\io.py", line 97, in write_dataset
-    write_rds(
-TypeError: write_rds() got an unexpected keyword argument 'cls'
-::warning ::mbb_data_build shots for season 2026 exited with code 1
-2026-07-18 22:41:30 [INFO] mbb_data_build: rosters 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
-    df = build_season(
-         ^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 87, in build_season
-    io.write_dataset(out, spec, season, base=base)
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\io.py", line 97, in write_dataset
-    write_rds(
-TypeError: write_rds() got an unexpected keyword argument 'cls'
-::warning ::mbb_data_build rosters for season 2026 exited with code 1
-2026-07-18 22:43:05 [INFO] mbb_data_build: player_season_stats 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
-    df = build_season(
-         ^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 87, in build_season
-    io.write_dataset(out, spec, season, base=base)
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\io.py", line 97, in write_dataset
-    write_rds(
-TypeError: write_rds() got an unexpected keyword argument 'cls'
-::warning ::mbb_data_build player_season_stats for season 2026 exited with code 1
-2026-07-18 23:03:16 [INFO] mbb_data_build: team_season_stats 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
-    df = build_season(
-         ^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 87, in build_season
-    io.write_dataset(out, spec, season, base=base)
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\io.py", line 97, in write_dataset
-    write_rds(
-TypeError: write_rds() got an unexpected keyword argument 'cls'
-::warning ::mbb_data_build team_season_stats for season 2026 exited with code 1
-2026-07-18 23:04:29 [INFO] mbb_data_build: standings 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
-    df = build_season(
-         ^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 87, in build_season
-    io.write_dataset(out, spec, season, base=base)
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\io.py", line 97, in write_dataset
-    write_rds(
-TypeError: write_rds() got an unexpected keyword argument 'cls'
-::warning ::mbb_data_build standings for season 2026 exited with code 1
-2026-07-18 23:04:33 [INFO] mbb_data_build: game_rosters 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
-    df = build_season(
-         ^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 87, in build_season
-    io.write_dataset(out, spec, season, base=base)
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\io.py", line 97, in write_dataset
-    write_rds(
-TypeError: write_rds() got an unexpected keyword argument 'cls'
-::warning ::mbb_data_build game_rosters for season 2026 exited with code 1
-2026-07-18 23:15:08 [INFO] mbb_data_build: officials 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
-    df = build_season(
-         ^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 87, in build_season
-    io.write_dataset(out, spec, season, base=base)
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\io.py", line 97, in write_dataset
-    write_rds(
-TypeError: write_rds() got an unexpected keyword argument 'cls'
-::warning ::mbb_data_build officials for season 2026 exited with code 1
+ℹ Compiling 2026 ESPN MBB pbps (6300 games)
+✔ Compiled 2026 ESPN MBB pbps! [38m 2.7s]
+
+ℹ Updating 2026 ESPN MBB PBP GitHub Release
+→ Uploading 3 files!
+ℹ Updating 2026 ESPN MBB PBP GitHub Releaseℹ Start upload of 7 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_pbp
+ℹ Updating 2026 ESPN MBB PBP GitHub Release✔ Upload successfully completed.
+ℹ Updating 2026 ESPN MBB PBP GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_pbp on 2026-07-22 10:52:59.702404
+ℹ Updating 2026 ESPN MBB PBP GitHub Release✔ Updated 2026 ESPN MBB PBP GitHub Release! [4m 32.8s]
+
+ℹ Updating 2026 ESPN MBB Shots GitHub Release
+→ Uploading 3 files!
+ℹ Updating 2026 ESPN MBB Shots GitHub Releaseℹ Start upload of 7 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_shots
+ℹ Updating 2026 ESPN MBB Shots GitHub Release✔ Upload successfully completed.
+ℹ Updating 2026 ESPN MBB Shots GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_shots on 2026-07-22 10:53:13.492478
+ℹ Updating 2026 ESPN MBB Shots GitHub Release✔ Updated 2026 ESPN MBB Shots GitHub Release! [16.8s]
+
+2581.69 sec elapsed
+ℹ Compiling ESPN MBB master schedule
+✔ ESPN MBB master schedule compiled and written to disk [4.2s]
+
+
+ℹ Compiling 2026 ESPN MBB Team Boxscores (6300 games)
+✔ Compiled 2026 ESPN MBB Team Boxscores! [14m 43.5s]
+
+ℹ Updating 2026 ESPN MBB Team Boxscores GitHub Release
+→ Uploading 3 files!
+ℹ Updating 2026 ESPN MBB Team Boxscores GitHub Releaseℹ Start upload of 7 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_team_boxscores
+ℹ Updating 2026 ESPN MBB Team Boxscores GitHub Release✔ Upload successfully completed.
+ℹ Updating 2026 ESPN MBB Team Boxscores GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_team_boxscores on 2026-07-22 11:08:26.086114
+ℹ Updating 2026 ESPN MBB Team Boxscores GitHub Release✔ Updated 2026 ESPN MBB Team Boxscores GitHub Release! [4.2s]
+
+887.9 sec elapsed
+ℹ Compiling ESPN MBB master schedule
+✔ ESPN MBB master schedule compiled and written to disk [3.3s]
+
+
+ℹ Compiling 2026 ESPN MBB Player Boxscores (6300 games)
+✔ Compiled 2026 ESPN MBB Player Boxscores! [15m 23.3s]
+
+ℹ Updating 2026 ESPN MBB Player Boxscores GitHub Release
+→ Uploading 3 files!
+ℹ Updating 2026 ESPN MBB Player Boxscores GitHub Releaseℹ Start upload of 7 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_player_boxscores
+ℹ Updating 2026 ESPN MBB Player Boxscores GitHub Release✔ Upload successfully completed.
+ℹ Updating 2026 ESPN MBB Player Boxscores GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_player_boxscores on 2026-07-22 11:24:05.749794
+ℹ Updating 2026 ESPN MBB Player Boxscores GitHub Release→ Uploading 3 files!
+ℹ Updating 2026 ESPN MBB Player Boxscores GitHub Releaseℹ Start upload of 7 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_schedules
+ℹ Updating 2026 ESPN MBB Player Boxscores GitHub Release✔ Upload successfully completed.
+ℹ Updating 2026 ESPN MBB Player Boxscores GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_schedules on 2026-07-22 11:24:08.934469
+ℹ Updating 2026 ESPN MBB Player Boxscores GitHub Release✔ Updated 2026 ESPN MBB Player Boxscores GitHub Release! [14.5s]
+
+ℹ Compiling ESPN MBB master schedule
+→ Uploading 3 files!
+ℹ Compiling ESPN MBB master scheduleℹ Start upload of 7 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_schedules
+ℹ Compiling ESPN MBB master schedule✔ Upload successfully completed.
+ℹ Compiling ESPN MBB master schedule→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_schedules on 2026-07-22 11:24:24.155035
+ℹ Compiling ESPN MBB master schedule[1] "cli-6836-51"
+→ Uploading 3 files!
+ℹ Compiling ESPN MBB master scheduleℹ Start upload of 7 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_schedules
+ℹ Compiling ESPN MBB master schedule✔ Upload successfully completed.
+ℹ Compiling ESPN MBB master schedule→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_schedules on 2026-07-22 11:24:32.686082
+ℹ Compiling ESPN MBB master schedule[1] "cli-6836-62"
+✔ ESPN MBB master schedule compiled and written to disk [23.2s]
+
+
+ℹ Compiling 2026 ESPN MBB rosters (728 teams)
+✔ Compiled 2026 ESPN MBB rosters! [3m 33.9s]
+
+ℹ Updating 2026 ESPN MBB Rosters GitHub Release
+→ Uploading 3 files!
+ℹ Updating 2026 ESPN MBB Rosters GitHub Releaseℹ Start upload of 7 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_rosters
+ℹ Updating 2026 ESPN MBB Rosters GitHub Release✔ Upload successfully completed.
+ℹ Updating 2026 ESPN MBB Rosters GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_rosters on 2026-07-22 11:28:11.657814
+ℹ Updating 2026 ESPN MBB Rosters GitHub Release✔ Updated 2026 ESPN MBB Rosters GitHub Release! [3s]
+
+217.47 sec elapsed
+→ Uploading 1 files!
+ℹ Start upload of 5 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_rosters
+✔ Upload successfully completed.
+→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_rosters on 2026-07-22 11:28:13.599519
+
+ℹ Compiling 2026 ESPN MBB player season stats (12481 athletes)
+✔ Compiled 2026 ESPN MBB player season stats! [14m 47.4s]
+
+ℹ Updating 2026 ESPN MBB Player Season Stats GitHub Release
+→ Uploading 3 files!
+ℹ Updating 2026 ESPN MBB Player Season Stats GitHub Releaseℹ Start upload of 7 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_player_season_stats
+ℹ Updating 2026 ESPN MBB Player Season Stats GitHub Release✔ Upload successfully completed.
+ℹ Updating 2026 ESPN MBB Player Season Stats GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_player_season_stats on 2026-07-22 11:43:13.272344
+ℹ Updating 2026 ESPN MBB Player Season Stats GitHub Release✔ Updated 2026 ESPN MBB Player Season Stats GitHub Release! [7.7s]
+
+There were 50 or more warnings (use warnings() to see the first 50)
+898.65 sec elapsed
+→ Uploading 1 files!
+ℹ Start upload of 5 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_player_season_stats
+✔ Upload successfully completed.
+→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_player_season_stats on 2026-07-22 11:43:15.987683
+
+ℹ Compiling 2026 ESPN MBB team season stats (727 teams)
+✔ Compiled 2026 ESPN MBB team season stats! [2m 56.7s]
+
+ℹ Updating 2026 ESPN MBB Team Season Stats GitHub Release
+→ Uploading 3 files!
+ℹ Updating 2026 ESPN MBB Team Season Stats GitHub Releaseℹ Start upload of 7 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_team_season_stats
+ℹ Updating 2026 ESPN MBB Team Season Stats GitHub Release✔ Upload successfully completed.
+ℹ Updating 2026 ESPN MBB Team Season Stats GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_team_season_stats on 2026-07-22 11:46:18.476436
+ℹ Updating 2026 ESPN MBB Team Season Stats GitHub Release✔ Updated 2026 ESPN MBB Team Season Stats GitHub Release! [3.8s]
+
+181.03 sec elapsed
+→ Uploading 1 files!
+ℹ Start upload of 5 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_team_season_stats
+✔ Upload successfully completed.
+→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_team_season_stats on 2026-07-22 11:46:20.767131
+
+ℹ Compiling 2026 ESPN MBB standings
+✔ Compiled 2026 ESPN MBB standings! [3.4s]
+
+ℹ Updating 2026 ESPN MBB Standings GitHub Release
+→ Uploading 3 files!
+ℹ Updating 2026 ESPN MBB Standings GitHub Releaseℹ Start upload of 7 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_standings
+ℹ Updating 2026 ESPN MBB Standings GitHub Release✔ Upload successfully completed.
+ℹ Updating 2026 ESPN MBB Standings GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_standings on 2026-07-22 11:46:34.285049
+ℹ Updating 2026 ESPN MBB Standings GitHub Release✔ Updated 2026 ESPN MBB Standings GitHub Release! [8s]
+
+12.34 sec elapsed
+→ Uploading 1 files!
+ℹ Start upload of 5 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_standings
+✔ Upload successfully completed.
+→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_standings on 2026-07-22 11:46:38.863943
+
+ℹ Compiling 2026 ESPN MBB game rosters (6300 games)
+! 2026-07-22 11:50:18.025993: skip game_rosters 2026/401813757: cannot open the connection to 'https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main/mbb/game_rosters/json/401813757.json'
+ℹ Compiling 2026 ESPN MBB game rosters (6300 games)✔ Compiled 2026 ESPN MBB game rosters! [1h 57.9s]
+
+ℹ Updating 2026 ESPN MBB Game Rosters GitHub Release
+→ Uploading 3 files!
+ℹ Updating 2026 ESPN MBB Game Rosters GitHub Releaseℹ Start upload of 7 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_game_rosters
+ℹ Updating 2026 ESPN MBB Game Rosters GitHub Release✔ Upload successfully completed.
+ℹ Updating 2026 ESPN MBB Game Rosters GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_game_rosters on 2026-07-22 12:47:47.994739
+ℹ Updating 2026 ESPN MBB Game Rosters GitHub Release✔ Updated 2026 ESPN MBB Game Rosters GitHub Release! [9.3s]
+
+Warning message:
+In open.connection(con, "rb") :
+  cannot open URL 'https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main/mbb/game_rosters/json/401813757.json': HTTP status was '503 Service Unavailable'
+3667.86 sec elapsed
+→ Uploading 1 files!
+ℹ Start upload of 5 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_game_rosters
+✔ Upload successfully completed.
+→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_game_rosters on 2026-07-22 12:47:50.02632
+
+ℹ Compiling 2026 ESPN MBB officials (6300 games)
+✔ Compiled 2026 ESPN MBB officials! [42m 35s]
+
+ℹ Updating 2026 ESPN MBB Officials GitHub Release
+→ Uploading 3 files!
+ℹ Updating 2026 ESPN MBB Officials GitHub Releaseℹ Start upload of 7 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_officials
+ℹ Updating 2026 ESPN MBB Officials GitHub Release✔ Upload successfully completed.
+ℹ Updating 2026 ESPN MBB Officials GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_officials on 2026-07-22 13:30:31.775827
+ℹ Updating 2026 ESPN MBB Officials GitHub Release✔ Updated 2026 ESPN MBB Officials GitHub Release! [3.2s]
+
+2559.15 sec elapsed
+→ Uploading 1 files!
+ℹ Start upload of 5 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+espn_mens_college_basketball_officials
+✔ Upload successfully completed.
+→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ espn_mens_college_basketball_officials on 2026-07-22 13:30:33.915626
+
 ℹ Compiling 2026 MBB team crosswalk
-✖ 2026-07-18 23:15:46.710394: no Fox CBK teams data available!
+✖ 2026-07-22 13:30:41.04164: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:50.92074: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:30:56.374129: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:52.360621: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:03.439166: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:52.534749: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:03.816282: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:52.680993: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:03.992293: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:53.372407: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:05.86962: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:53.916773: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:08.133137: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:54.292229: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:08.446678: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:54.736827: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:08.879147: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:54.888179: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:09.188318: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:55.322403: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:09.548874: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:55.473583: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:09.973939: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:55.800456: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:10.346885: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:55.952251: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:10.807084: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:56.275889: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:11.229332: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:56.669483: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:11.535201: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:56.816843: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:11.842701: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:56.977029: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:12.233538: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:57.267835: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:12.606549: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:57.782104: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:12.968682: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:58.218232: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:13.277989: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:58.514845: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:13.662722: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:58.806555: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:13.969959: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:59.231227: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:14.322418: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:59.378145: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:14.797016: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:15:59.747574: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:15.17497: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:16:00.299397: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:15.530553: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-18 23:16:00.792804: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-07-22 13:31:15.865335: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✔ Compiled 2026 MBB team crosswalk! [19.1s]
+ℹ Compiling 2026 MBB team crosswalk✔ Compiled 2026 MBB team crosswalk! [42.1s]
 
 ℹ Updating 2026 MBB Team Crosswalk GitHub Release
 → Uploading 3 files!
@@ -342,196 +278,166 @@ TypeError: write_rds() got an unexpected keyword argument 'cls'
 <https://github.com/sportsdataverse/sportsdataverse-data/releases> @
 mbb_crosswalk
 ℹ Updating 2026 MBB Team Crosswalk GitHub Release✔ Upload successfully completed.
-ℹ Updating 2026 MBB Team Crosswalk GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-07-18 23:16:05.632305
-ℹ Updating 2026 MBB Team Crosswalk GitHub Release✔ Updated 2026 MBB Team Crosswalk GitHub Release! [3.4s]
+ℹ Updating 2026 MBB Team Crosswalk GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-07-22 13:31:20.224696
+ℹ Updating 2026 MBB Team Crosswalk GitHub Release✔ Updated 2026 MBB Team Crosswalk GitHub Release! [3s]
 
-22.53 sec elapsed
+45.08 sec elapsed
 → Uploading 1 files!
 ℹ Start upload of 5 files to
 <https://github.com/sportsdataverse/sportsdataverse-data/releases> @
 mbb_crosswalk
 ✔ Upload successfully completed.
-→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-07-18 23:16:07.389942
+→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-07-22 13:31:22.718872
 
 ℹ Compiling 2026 MBB schedule crosswalk
-✖ 2026-07-18 23:16:11.653656: no Fox CBK teams data available!
+✖ 2026-07-22 13:31:27.389937: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:12.886463: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:28.422253: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:13.371519: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:29.022652: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:13.624394: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:29.203416: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:14.212764: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:29.539804: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:14.598074: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:29.781988: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:14.854558: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:30.187195: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:15.000623: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:30.327091: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:15.191517: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:30.706174: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:15.485926: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:31.078038: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:15.792802: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:31.251132: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:16.54937: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:31.53947: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:16.714009: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:31.715945: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:17.057042: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:32.044223: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:17.266211: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:32.183886: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:17.410816: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:32.546748: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:17.936638: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:32.740277: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:18.261137: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:32.912338: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:18.61435: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:33.205013: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:18.856735: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:33.528504: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:19.024456: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:33.872604: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:19.289044: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:34.162716: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:19.601024: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:34.449281: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:19.813644: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:34.737584: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:19.97277: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:34.91888: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:20.157682: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:35.094058: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:20.316001: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:35.399988: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:20.723664: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:35.582927: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-18 23:16:20.812221: Invalid arguments or no schedule available for 2026!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-07-22 13:31:35.65659: Invalid arguments or no schedule available for 2026!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Args: year = 2026L
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: lexical error: invalid char in json text.                                        <!DOCTYPE HTML PUBLIC "-//W3C//                      (right here) ------^ 
-ℹ Compiling 2026 MBB schedule crosswalk! 2026-07-18 23:16:20.841359: no schedule crosswalk rows for 2026
-ℹ Compiling 2026 MBB schedule crosswalk✔ Compiled 2026 MBB schedule crosswalk! [11.9s]
+ℹ Compiling 2026 MBB schedule crosswalk! 2026-07-22 13:31:35.685053: no schedule crosswalk rows for 2026
+ℹ Compiling 2026 MBB schedule crosswalk✔ Compiled 2026 MBB schedule crosswalk! [11.6s]
 
-11.97 sec elapsed
+11.59 sec elapsed
 
 ℹ Compiling 2026 MBB player crosswalk
-✖ 2026-07-18 23:16:24.984401: no Fox CBK teams data available!
+✖ 2026-07-22 13:31:39.931695: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:26.095726: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:41.025219: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:26.677634: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:41.676367: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:26.985823: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:41.8365: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:27.153615: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:41.988045: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:27.383181: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:42.434377: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:27.604356: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:42.671049: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:28.205913: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:42.857647: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:28.396701: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:43.050259: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:28.743519: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:43.244293: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:28.91997: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:43.57212: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:29.242398: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:43.870481: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:29.539457: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:44.054509: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:29.936522: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:44.29974: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:30.120275: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:44.606212: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:31.067339: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:44.806505: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:31.226925: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:45.205621: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:31.377025: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:45.390943: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:31.526527: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:45.548107: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:31.684162: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:45.741918: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:31.878016: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:45.934806: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:32.027889: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:46.089006: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:32.363262: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:46.382724: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:32.562229: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:46.570746: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:32.892836: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:46.935326: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:33.051535: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:47.305546: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:33.487992: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:47.49026: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:16:33.677052: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:31:47.678524: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-18 23:17:18.030849: No roster data available for team_id=2272, season=2026
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-07-22 13:33:10.975871: No roster data available for team_id=2272, season=2026
 ℹ Compiling 2026 MBB player crosswalk✖ Args: league = "mens-college-basketball", team_id = 2272L, season = 2026L
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✔ Compiled 2026 MBB player crosswalk! [3m 23.1s]
+ℹ Compiling 2026 MBB player crosswalk✔ Compiled 2026 MBB player crosswalk! [5m 0.1s]
 
 ℹ Updating 2026 MBB Player Crosswalk GitHub Release
 → Uploading 3 files!
 ℹ Updating 2026 MBB Player Crosswalk GitHub Releaseℹ Start upload of 7 files to
 <https://github.com/sportsdataverse/sportsdataverse-data/releases> @
 mbb_crosswalk
-ℹ Updating 2026 MBB Player Crosswalk GitHub ReleaseHTTP 422: Validation Failed (https://uploads.github.com/repos/sportsdataverse/sportsdataverse-data/releases/338901470/assets?label=&name=mbb_player_crosswalk_2026.parquet)
-ReleaseAsset.name already exists
-Error: The GitHub cli errored with the following message: . Here is the R
-message: "running command 'gh release upload mbb_crosswalk
-C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\RtmpcZb0nm/mbb_player_crosswalk_2026.rds
-C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\RtmpcZb0nm/mbb_player_crosswalk_2026.csv
-C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\RtmpcZb0nm/mbb_player_crosswalk_2026.parquet
-C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\RtmpcZb0nm/timestamp.txt
-C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\RtmpcZb0nm/timestamp.json
-C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\RtmpcZb0nm/package_function.txt
-C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\RtmpcZb0nm/package_function.json -R
-sportsdataverse/sportsdataverse-data --clobber' had status 1"
-Retrying in 1 seconds.
-→ Uploading 3 files!
-ℹ Updating 2026 MBB Player Crosswalk GitHub Releaseℹ Start upload of 7 files to
-<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
-mbb_crosswalk
-ℹ Updating 2026 MBB Player Crosswalk GitHub ReleaseHTTP 422: Validation Failed (https://uploads.github.com/repos/sportsdataverse/sportsdataverse-data/releases/338901470/assets?label=&name=package_function.json)
-ReleaseAsset.name already exists
-Error: The GitHub cli errored with the following message: . Here is the R
-message: "running command 'gh release upload mbb_crosswalk
-C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\RtmpcZb0nm/mbb_player_crosswalk_2026.rds
-C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\RtmpcZb0nm/mbb_player_crosswalk_2026.csv
-C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\RtmpcZb0nm/mbb_player_crosswalk_2026.parquet
-C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\RtmpcZb0nm/timestamp.txt
-C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\RtmpcZb0nm/timestamp.json
-C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\RtmpcZb0nm/package_function.txt
-C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\RtmpcZb0nm/package_function.json -R
-sportsdataverse/sportsdataverse-data --clobber' had status 1"
-Retrying in 1 seconds.
-→ Uploading 3 files!
-ℹ Updating 2026 MBB Player Crosswalk GitHub Releaseℹ Start upload of 7 files to
-<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
-mbb_crosswalk
 ℹ Updating 2026 MBB Player Crosswalk GitHub Release✔ Upload successfully completed.
-ℹ Updating 2026 MBB Player Crosswalk GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-07-18 23:19:53.371557
-ℹ Updating 2026 MBB Player Crosswalk GitHub Release✔ Updated 2026 MBB Player Crosswalk GitHub Release! [8.1s]
+ℹ Updating 2026 MBB Player Crosswalk GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-07-22 13:36:39.685994
+ℹ Updating 2026 MBB Player Crosswalk GitHub Release✔ Updated 2026 MBB Player Crosswalk GitHub Release! [2.6s]
 
-211.22 sec elapsed
+302.77 sec elapsed
 → Uploading 1 files!
 ℹ Start upload of 5 files to
 <https://github.com/sportsdataverse/sportsdataverse-data/releases> @
 mbb_crosswalk
 ✔ Upload successfully completed.
-→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-07-18 23:19:54.990284
+→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-07-22 13:36:41.628294
 
-[main 5c5e2193] MBB Data Updated (Start: 2026 End: 2026)
- 8 files changed, 2 insertions(+)
+[main 2b585d78] MBB Data Updated (Start: 2026 End: 2026)
+ 34 files changed, 8 insertions(+)
+remote: warning: See https://gh.io/lfs for more information.        
+remote: warning: File mbb/pbp/parquet/play_by_play_2026.parquet is 64.75 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: File mbb/pbp/rds/play_by_play_2026.rds is 74.87 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
 To https://github.com/sportsdataverse/hoopR-mbb-data
-   d49acbd3..5c5e2193  main -> main
+   2d26f99e..2b585d78  main -> main
