@@ -57,8 +57,54 @@ def team_box_reshaper(final: dict, *, season: int, game_id: int) -> pl.DataFrame
     return helper_mbb_team_box(final)
 
 
+def _game_athlete_names(final: dict) -> pl.DataFrame:
+    """``(athlete_id, athlete_name)`` lookup from the payload's boxscore.players tree.
+
+    Names come from the SAME final.json the pbp reshape reads (zero extra I/O),
+    and per game — so a mid-season transfer resolves to the roster he actually
+    played on that night. Mirrors hoopR-nba-data #13 / wehoop-wnba-data #20.
+    """
+    rows: list[tuple[int, str]] = []
+    for tm in (final.get("boxscore") or {}).get("players") or []:
+        for st in tm.get("statistics") or []:
+            for a in st.get("athletes") or []:
+                ath = a.get("athlete") or {}
+                try:
+                    aid = int(ath.get("id"))
+                except (TypeError, ValueError):
+                    continue
+                name = ath.get("displayName")
+                if name:
+                    rows.append((aid, name))
+    schema = {"athlete_id": pl.Int64, "athlete_name": pl.Utf8}
+    if not rows:
+        return pl.DataFrame(schema=schema)
+    return pl.DataFrame(rows, schema=schema, orient="row").unique(
+        subset=["athlete_id"], keep="first", maintain_order=True
+    )
+
+
 def pbp_reshaper(final: dict, *, season: int, game_id: int) -> pl.DataFrame:
-    return helper_mbb_play_by_play(final)
+    pbp = helper_mbb_play_by_play(final)
+    if pbp.is_empty():
+        return pbp
+    lookup = _game_athlete_names(final)
+    for i in (1, 2, 3):
+        idc, nmc = f"athlete_id_{i}", f"athlete_name_{i}"
+        if idc in pbp.columns and lookup.height:
+            pbp = pbp.join(
+                # cast the lookup key to the frame's id dtype -- a dtype
+                # mismatch on a join key raises
+                lookup.select(
+                    pl.col("athlete_id").cast(pbp.schema[idc]).alias(idc),
+                    pl.col("athlete_name").alias(nmc),
+                ),
+                on=idc,
+                how="left",
+            )
+        else:
+            pbp = pbp.with_columns(pl.lit(None, dtype=pl.Utf8).alias(nmc))
+    return pbp
 
 
 def player_box_reshaper(final: dict, *, season: int, game_id: int) -> pl.DataFrame:
@@ -97,6 +143,12 @@ _SHOTS_COLS = (
     "coordinate_y",
     "coordinate_x_raw",
     "coordinate_y_raw",
+    # additive name/team columns (2026-07: usable without a second lookup)
+    "athlete_name_1",
+    "athlete_name_2",
+    "team_name",
+    "team_mascot",
+    "team_abbrev",
 )
 
 
@@ -105,6 +157,21 @@ def shots_from_pbp(pbp: pl.DataFrame) -> pl.DataFrame:
     if pbp.is_empty():
         return pl.DataFrame()
     out = pbp.filter(pl.col("shooting_play") == True)  # noqa: E712
+    # shooter's team name/mascot/abbrev from the play's own home/away columns
+    team_cols = {
+        "team_name": ("home_team_name", "away_team_name"),
+        "team_mascot": ("home_team_mascot", "away_team_mascot"),
+        "team_abbrev": ("home_team_abbrev", "away_team_abbrev"),
+    }
+    if "home_team_id" in out.columns:
+        out = out.with_columns(
+            pl.when(pl.col("team_id") == pl.col("home_team_id"))
+            .then(pl.col(home))
+            .otherwise(pl.col(away))
+            .alias(name)
+            for name, (home, away) in team_cols.items()
+            if home in out.columns and away in out.columns
+        )
     return out.select([c for c in _SHOTS_COLS if c in out.columns])
 
 
@@ -360,7 +427,12 @@ def player_core_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFr
     # lookup, only a team_rosters-based one -- and team_rosters is exactly the
     # source ESPN cannot serve historically.
     athlete_ids = sorted(
-        {int(a) for a in pl.read_parquet(pb_path, columns=["athlete_id"])["athlete_id"].drop_nulls().unique()}
+        {
+            int(a)
+            for a in pl.read_parquet(pb_path, columns=["athlete_id"])["athlete_id"]
+            .drop_nulls()
+            .unique()
+        }
     )
 
     def _one(aid: int) -> pl.DataFrame | None:
