@@ -14,8 +14,27 @@ from tests.mbb_data_build._parity_helpers import assert_parquet_parity
 from tests.mbb_data_build.conftest import oracle_path
 
 
+ADDITIVE_COLS = (
+    "athlete_name_1",
+    "athlete_name_2",
+    "team_name",
+    "team_mascot",
+    "team_abbrev",
+)
+
+
 def test_shots_parity_full_2025(built_base):
     py = pl.read_parquet(built_base / "shots" / "parquet" / "shots_2025.parquet")
+    # Additive columns (2026-07). Unlike the pro feeds, college pbp carries a
+    # sliver of unattributed shots (no athlete_id_1) plus the odd shooter
+    # missing from the game's boxscore -- so assert id-bearing coverage, not
+    # a blanket zero (2025: 139 null names of 936k shots, 107 of them id-less).
+    has_id = py.filter(pl.col("athlete_id_1").is_not_null())
+    named = has_id.filter(pl.col("athlete_name_1").is_not_null()).height
+    assert named >= 0.999 * has_id.height, (
+        f"athlete_name_1 resolved on {named}/{has_id.height} id-bearing shots"
+    )
+    assert py["team_abbrev"].null_count() == 0
     oracle = oracle_path("shots", "shots")
     keys = list(pl.read_parquet_schema(str(oracle)))
-    assert_parquet_parity(py, oracle, keys=keys, sample_cols=[])
+    assert_parquet_parity(py, oracle, keys=keys, sample_cols=[], py_only_additive=ADDITIVE_COLS)

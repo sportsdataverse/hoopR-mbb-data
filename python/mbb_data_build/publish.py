@@ -36,8 +36,10 @@ def _gh(args: list[str]) -> None:
     # timeout so a hung gh (auth prompt, network stall, rate-limit backoff) can't
     # block an unattended pipeline step indefinitely. Args are internal literals /
     # controlled fields passed as a list (no shell=True) -- the SAST injection flag
-    # is a false positive.
-    subprocess.run(["gh", *args], check=True, timeout=120)
+    # is a false positive. 1800s, not 120: a full-coverage-era MBB season csv
+    # (~500MB, e.g. play_by_play_2013.csv) legitimately takes 10+ minutes to
+    # upload -- the 2026-07 name backfill died at 120s AND at 600s mid-season.
+    subprocess.run(["gh", *args], check=True, timeout=1800)
 
 
 def _gh_release_exists(tag: str, repo: str) -> bool:
