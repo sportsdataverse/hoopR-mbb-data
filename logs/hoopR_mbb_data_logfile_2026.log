@@ -9,273 +9,273 @@ From https://github.com/sportsdataverse/hoopR-mbb-data
  * [new branch]        feat/mbb-player-core-dataset -> origin/feat/mbb-player-core-dataset
  * [new branch]        feat/mbb-player-core-tree -> origin/feat/mbb-player-core-tree
  * [new branch]        fix/mbb-serialize-rds -> origin/fix/mbb-serialize-rds
-2026-08-01 22:58:48 [INFO] mbb_data_build: pbp 2026: per-game build starting -- 6300 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 250/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 500/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 750/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 1000/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 1250/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 1500/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 1750/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 2000/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 2250/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 2500/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 2750/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 3000/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 3250/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 3500/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 3750/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 4000/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 4250/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 4500/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 4750/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 5000/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 5250/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 5500/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 5750/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 6000/6300 games collected
-2026-08-01 23:08:29 [INFO] mbb_data_build: pbp 2026: 6250/6300 games collected
-2026-08-01 23:12:25 [INFO] mbb_data_build: wrote ..\mbb\pbp\parquet\play_by_play_2026.parquet (83.5MB) + play_by_play_2026.rds (75.6MB), 2915731 rows x 60 cols; manifest n/a (not manifested)
-2026-08-01 23:12:32 [INFO] mbb_data_build: uploading play_by_play_2026.parquet (83.5MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_pbp
-2026-08-01 23:12:37 [INFO] mbb_data_build: uploaded play_by_play_2026.parquet -> espn_mens_college_basketball_pbp (asset 1/3)
-2026-08-01 23:12:37 [INFO] mbb_data_build: uploading play_by_play_2026.rds (75.6MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_pbp
-2026-08-01 23:12:40 [INFO] mbb_data_build: uploaded play_by_play_2026.rds -> espn_mens_college_basketball_pbp (asset 2/3)
-2026-08-01 23:12:40 [INFO] mbb_data_build: uploading play_by_play_2026.csv (1.1GB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_pbp
-2026-08-01 23:13:22 [INFO] mbb_data_build: uploaded play_by_play_2026.csv -> espn_mens_college_basketball_pbp (asset 3/3)
-2026-08-01 23:13:22 [INFO] mbb_data_build: pbp 2026: done -- 2915731 rows from 6275/6300 games in 875.7s
-2026-08-01 23:13:23 [INFO] mbb_data_build: pbp 2026: season complete -- 2915731 rows
-2026-08-01 23:13:30 [INFO] mbb_data_build: team_box 2026: per-game build starting -- 6300 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 250/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 500/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 750/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 1000/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 1250/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 1500/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 1750/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 2000/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 2250/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 2500/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 2750/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 3000/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 3250/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 3500/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 3750/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 4000/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 4250/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 4500/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 4750/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 5000/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 5250/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 5500/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 5750/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 6000/6300 games collected
-2026-08-01 23:14:29 [INFO] mbb_data_build: team_box 2026: 6250/6300 games collected
-2026-08-01 23:14:32 [INFO] mbb_data_build: wrote ..\mbb\team_box\parquet\team_box_2026.parquet (711.3KB) + team_box_2026.rds (980.5KB), 12598 rows x 59 cols; manifest n/a (not manifested)
-2026-08-01 23:14:33 [INFO] mbb_data_build: uploading team_box_2026.parquet (711.3KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_boxscores
-2026-08-01 23:14:34 [INFO] mbb_data_build: uploaded team_box_2026.parquet -> espn_mens_college_basketball_team_boxscores (asset 1/3)
-2026-08-01 23:14:34 [INFO] mbb_data_build: uploading team_box_2026.rds (980.5KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_boxscores
-2026-08-01 23:14:35 [INFO] mbb_data_build: uploaded team_box_2026.rds -> espn_mens_college_basketball_team_boxscores (asset 2/3)
-2026-08-01 23:14:35 [INFO] mbb_data_build: uploading team_box_2026.csv (5.7MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_boxscores
-2026-08-01 23:14:37 [INFO] mbb_data_build: uploaded team_box_2026.csv -> espn_mens_college_basketball_team_boxscores (asset 3/3)
-2026-08-01 23:14:37 [INFO] mbb_data_build: team_box 2026: done -- 12598 rows from 6299/6300 games in 68.0s
-2026-08-01 23:14:37 [INFO] mbb_data_build: team_box 2026: season complete -- 12598 rows
-2026-08-01 23:14:40 [INFO] mbb_data_build: player_box 2026: per-game build starting -- 6300 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 250/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 500/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 750/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 1000/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 1250/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 1500/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 1750/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 2000/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 2250/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 2500/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 2750/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 3000/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 3250/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 3500/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 3750/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 4000/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 4250/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 4500/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 4750/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 5000/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 5250/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 5500/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 5750/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 6000/6300 games collected
-2026-08-01 23:15:45 [INFO] mbb_data_build: player_box 2026: 6250/6300 games collected
-2026-08-01 23:16:09 [INFO] mbb_data_build: wrote ..\mbb\player_box\parquet\player_box_2026.parquet (3.2MB) + player_box_2026.rds (6.8MB), 196876 rows x 55 cols; manifest n/a (not manifested)
-2026-08-01 23:16:10 [INFO] mbb_data_build: uploading player_box_2026.parquet (3.2MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_boxscores
-2026-08-01 23:16:11 [INFO] mbb_data_build: uploaded player_box_2026.parquet -> espn_mens_college_basketball_player_boxscores (asset 1/3)
-2026-08-01 23:16:11 [INFO] mbb_data_build: uploading player_box_2026.rds (6.8MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_boxscores
-2026-08-01 23:16:13 [INFO] mbb_data_build: uploaded player_box_2026.rds -> espn_mens_college_basketball_player_boxscores (asset 2/3)
-2026-08-01 23:16:13 [INFO] mbb_data_build: uploading player_box_2026.csv (98.1MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_boxscores
-2026-08-01 23:16:18 [INFO] mbb_data_build: uploaded player_box_2026.csv -> espn_mens_college_basketball_player_boxscores (asset 3/3)
-2026-08-01 23:16:18 [INFO] mbb_data_build: player_box 2026: done -- 196876 rows from 6300/6300 games in 98.5s
-2026-08-01 23:16:18 [INFO] mbb_data_build: player_box 2026: season complete -- 196876 rows
-2026-08-01 23:16:21 [INFO] mbb_data_build: player_core 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-08-01 23:33:41 [INFO] mbb_data_build: wrote ..\mbb\player_core\parquet\player_core_2026.parquet (898.6KB) + player_core_2026.rds (957.8KB) + player_core_2026.csv (3.3MB), 12481 rows x 36 cols; manifest n/a (not manifested)
-2026-08-01 23:33:42 [INFO] mbb_data_build: uploading player_core_2026.parquet (898.6KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_core
-2026-08-01 23:33:43 [INFO] mbb_data_build: uploaded player_core_2026.parquet -> espn_mens_college_basketball_player_core (asset 1/3)
-2026-08-01 23:33:43 [INFO] mbb_data_build: uploading player_core_2026.rds (957.8KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_core
-2026-08-01 23:33:44 [INFO] mbb_data_build: uploaded player_core_2026.rds -> espn_mens_college_basketball_player_core (asset 2/3)
-2026-08-01 23:33:44 [INFO] mbb_data_build: uploading player_core_2026.csv (3.3MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_core
-2026-08-01 23:33:46 [INFO] mbb_data_build: uploaded player_core_2026.csv -> espn_mens_college_basketball_player_core (asset 3/3)
-2026-08-01 23:33:46 [INFO] mbb_data_build: player_core 2026: done -- 12481 rows in 1044.9s
-2026-08-01 23:33:46 [INFO] mbb_data_build: player_core 2026: season complete -- 12481 rows
-2026-08-01 23:33:49 [INFO] mbb_data_build: schedules 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-08-01 23:33:53 [INFO] mbb_data_build: wrote ..\mbb\schedules\parquet\mbb_schedule_2026.parquet (1.7MB) + mbb_schedule_2026.rds (1.9MB) + mbb_schedule_2026.csv (28.2MB), 6318 rows x 86 cols; manifest n/a (not manifested)
-2026-08-01 23:33:53 [INFO] mbb_data_build: uploading mbb_schedule_2026.parquet (1.7MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
-2026-08-01 23:33:55 [INFO] mbb_data_build: uploaded mbb_schedule_2026.parquet -> espn_mens_college_basketball_schedules (asset 1/3)
-2026-08-01 23:33:55 [INFO] mbb_data_build: uploading mbb_schedule_2026.rds (1.9MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
-2026-08-01 23:33:56 [INFO] mbb_data_build: uploaded mbb_schedule_2026.rds -> espn_mens_college_basketball_schedules (asset 2/3)
-2026-08-01 23:33:56 [INFO] mbb_data_build: uploading mbb_schedule_2026.csv (28.2MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
-2026-08-01 23:33:58 [INFO] mbb_data_build: uploaded mbb_schedule_2026.csv -> espn_mens_college_basketball_schedules (asset 3/3)
-2026-08-01 23:33:58 [INFO] mbb_data_build: schedules 2026: done -- 6318 rows in 9.7s
-2026-08-01 23:33:58 [INFO] mbb_data_build: schedules 2026: season complete -- 6318 rows
-2026-08-01 23:34:01 [INFO] mbb_data_build: shots 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-08-01 23:34:57 [INFO] mbb_data_build: wrote ..\mbb\shots\parquet\shots_2026.parquet (13.0MB) + shots_2026.rds (13.1MB) + shots_2026.csv (115.7MB), 991836 rows x 20 cols; manifest mbb_shots_in_data_repo.csv appended
-2026-08-01 23:34:57 [INFO] mbb_data_build: uploading shots_2026.parquet (13.0MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_shots
-2026-08-01 23:34:59 [INFO] mbb_data_build: uploaded shots_2026.parquet -> espn_mens_college_basketball_shots (asset 1/4)
-2026-08-01 23:34:59 [INFO] mbb_data_build: uploading shots_2026.rds (13.1MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_shots
-2026-08-01 23:35:01 [INFO] mbb_data_build: uploaded shots_2026.rds -> espn_mens_college_basketball_shots (asset 2/4)
-2026-08-01 23:35:01 [INFO] mbb_data_build: uploading shots_2026.csv (115.7MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_shots
-2026-08-01 23:35:07 [INFO] mbb_data_build: uploaded shots_2026.csv -> espn_mens_college_basketball_shots (asset 3/4)
-2026-08-01 23:35:07 [INFO] mbb_data_build: uploading mbb_shots_in_data_repo.csv (1.4KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_shots
-2026-08-01 23:35:08 [INFO] mbb_data_build: uploaded mbb_shots_in_data_repo.csv -> espn_mens_college_basketball_shots (asset 4/4)
-2026-08-01 23:35:08 [INFO] mbb_data_build: shots 2026: done -- 991836 rows in 66.8s
-2026-08-01 23:35:08 [INFO] mbb_data_build: shots 2026: season complete -- 991836 rows
-2026-08-01 23:35:10 [INFO] mbb_data_build: rosters 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-08-01 23:36:12 [INFO] mbb_data_build: wrote ..\mbb\rosters\parquet\rosters_2026.parquet (1.0MB) + rosters_2026.rds (1.0MB) + rosters_2026.csv (4.7MB), 12438 rows x 36 cols; manifest mbb_rosters_in_data_repo.csv appended
-2026-08-01 23:36:12 [INFO] mbb_data_build: uploading rosters_2026.parquet (1.0MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
-2026-08-01 23:36:13 [INFO] mbb_data_build: uploaded rosters_2026.parquet -> espn_mens_college_basketball_rosters (asset 1/4)
-2026-08-01 23:36:13 [INFO] mbb_data_build: uploading rosters_2026.rds (1.0MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
-2026-08-01 23:36:15 [INFO] mbb_data_build: uploaded rosters_2026.rds -> espn_mens_college_basketball_rosters (asset 2/4)
-2026-08-01 23:36:15 [INFO] mbb_data_build: uploading rosters_2026.csv (4.7MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
-2026-08-01 23:36:16 [INFO] mbb_data_build: uploaded rosters_2026.csv -> espn_mens_college_basketball_rosters (asset 3/4)
-2026-08-01 23:36:16 [INFO] mbb_data_build: uploading mbb_rosters_in_data_repo.csv (196B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
-2026-08-01 23:36:17 [INFO] mbb_data_build: uploaded mbb_rosters_in_data_repo.csv -> espn_mens_college_basketball_rosters (asset 4/4)
-2026-08-01 23:36:17 [INFO] mbb_data_build: rosters 2026: done -- 12438 rows in 66.7s
-2026-08-01 23:36:17 [INFO] mbb_data_build: rosters 2026: season complete -- 12438 rows
-2026-08-01 23:36:20 [INFO] mbb_data_build: player_season_stats 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-08-01 23:53:19 [INFO] mbb_data_build: wrote ..\mbb\player_season_stats\parquet\player_season_stats_2026.parquet (1.2MB) + player_season_stats_2026.rds (1.7MB) + player_season_stats_2026.csv (85.8MB), 426040 rows x 15 cols; manifest mbb_player_season_stats_in_data_repo.csv appended
-2026-08-01 23:53:19 [INFO] mbb_data_build: uploading player_season_stats_2026.parquet (1.2MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_season_stats
-2026-08-01 23:53:20 [INFO] mbb_data_build: uploaded player_season_stats_2026.parquet -> espn_mens_college_basketball_player_season_stats (asset 1/4)
-2026-08-01 23:53:20 [INFO] mbb_data_build: uploading player_season_stats_2026.rds (1.7MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_season_stats
-2026-08-01 23:53:22 [INFO] mbb_data_build: uploaded player_season_stats_2026.rds -> espn_mens_college_basketball_player_season_stats (asset 2/4)
-2026-08-01 23:53:22 [INFO] mbb_data_build: uploading player_season_stats_2026.csv (85.8MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_season_stats
-2026-08-01 23:53:27 [INFO] mbb_data_build: uploaded player_season_stats_2026.csv -> espn_mens_college_basketball_player_season_stats (asset 3/4)
-2026-08-01 23:53:27 [INFO] mbb_data_build: uploading mbb_player_season_stats_in_data_repo.csv (202B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_season_stats
-2026-08-01 23:53:28 [INFO] mbb_data_build: uploaded mbb_player_season_stats_in_data_repo.csv -> espn_mens_college_basketball_player_season_stats (asset 4/4)
-2026-08-01 23:53:28 [INFO] mbb_data_build: player_season_stats 2026: done -- 426040 rows in 1027.9s
-2026-08-01 23:53:28 [INFO] mbb_data_build: player_season_stats 2026: season complete -- 426040 rows
-2026-08-01 23:53:31 [INFO] mbb_data_build: team_season_stats 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-08-01 23:54:31 [INFO] mbb_data_build: wrote ..\mbb\team_season_stats\parquet\team_season_stats_2026.parquet (168.8KB) + team_season_stats_2026.rds (215.7KB) + team_season_stats_2026.csv (6.3MB), 32715 rows x 16 cols; manifest mbb_team_season_stats_in_data_repo.csv appended
-2026-08-01 23:54:31 [INFO] mbb_data_build: uploading team_season_stats_2026.parquet (168.8KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_season_stats
-2026-08-01 23:54:32 [INFO] mbb_data_build: uploaded team_season_stats_2026.parquet -> espn_mens_college_basketball_team_season_stats (asset 1/4)
-2026-08-01 23:54:32 [INFO] mbb_data_build: uploading team_season_stats_2026.rds (215.7KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_season_stats
-2026-08-01 23:54:34 [INFO] mbb_data_build: uploaded team_season_stats_2026.rds -> espn_mens_college_basketball_team_season_stats (asset 2/4)
-2026-08-01 23:54:34 [INFO] mbb_data_build: uploading team_season_stats_2026.csv (6.3MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_season_stats
-2026-08-01 23:54:35 [INFO] mbb_data_build: uploaded team_season_stats_2026.csv -> espn_mens_college_basketball_team_season_stats (asset 3/4)
-2026-08-01 23:54:35 [INFO] mbb_data_build: uploading mbb_team_season_stats_in_data_repo.csv (194B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_season_stats
-2026-08-01 23:54:36 [INFO] mbb_data_build: uploaded mbb_team_season_stats_in_data_repo.csv -> espn_mens_college_basketball_team_season_stats (asset 4/4)
-2026-08-01 23:54:36 [INFO] mbb_data_build: team_season_stats 2026: done -- 32715 rows in 65.5s
-2026-08-01 23:54:36 [INFO] mbb_data_build: team_season_stats 2026: season complete -- 32715 rows
-2026-08-01 23:54:39 [INFO] mbb_data_build: standings 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-08-01 23:54:41 [INFO] mbb_data_build: wrote ..\mbb\standings\parquet\standings_2026.parquet (115.7KB) + standings_2026.rds (161.9KB) + standings_2026.csv (7.5MB), 31332 rows x 24 cols; manifest mbb_standings_in_data_repo.csv appended
-2026-08-01 23:54:41 [INFO] mbb_data_build: uploading standings_2026.parquet (115.7KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_standings
-2026-08-01 23:54:43 [INFO] mbb_data_build: uploaded standings_2026.parquet -> espn_mens_college_basketball_standings (asset 1/4)
-2026-08-01 23:54:43 [INFO] mbb_data_build: uploading standings_2026.rds (161.9KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_standings
-2026-08-01 23:54:44 [INFO] mbb_data_build: uploaded standings_2026.rds -> espn_mens_college_basketball_standings (asset 2/4)
-2026-08-01 23:54:44 [INFO] mbb_data_build: uploading standings_2026.csv (7.5MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_standings
-2026-08-01 23:54:45 [INFO] mbb_data_build: uploaded standings_2026.csv -> espn_mens_college_basketball_standings (asset 3/4)
-2026-08-01 23:54:45 [INFO] mbb_data_build: uploading mbb_standings_in_data_repo.csv (183B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_standings
-2026-08-01 23:54:46 [INFO] mbb_data_build: uploaded mbb_standings_in_data_repo.csv -> espn_mens_college_basketball_standings (asset 4/4)
-2026-08-01 23:54:46 [INFO] mbb_data_build: standings 2026: done -- 31332 rows in 7.8s
-2026-08-01 23:54:46 [INFO] mbb_data_build: standings 2026: season complete -- 31332 rows
-2026-08-01 23:54:49 [INFO] mbb_data_build: game_rosters 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-08-02 00:03:53 [INFO] mbb_data_build: wrote ..\mbb\game_rosters\parquet\game_rosters_2026.parquet (2.5MB) + game_rosters_2026.rds (8.8MB) + game_rosters_2026.csv (49.3MB), 196876 rows x 22 cols; manifest mbb_game_rosters_in_data_repo.csv appended
-2026-08-02 00:03:54 [INFO] mbb_data_build: uploading game_rosters_2026.parquet (2.5MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_game_rosters
-2026-08-02 00:03:55 [INFO] mbb_data_build: uploaded game_rosters_2026.parquet -> espn_mens_college_basketball_game_rosters (asset 1/4)
-2026-08-02 00:03:55 [INFO] mbb_data_build: uploading game_rosters_2026.rds (8.8MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_game_rosters
-2026-08-02 00:03:57 [INFO] mbb_data_build: uploaded game_rosters_2026.rds -> espn_mens_college_basketball_game_rosters (asset 2/4)
-2026-08-02 00:03:57 [INFO] mbb_data_build: uploading game_rosters_2026.csv (49.3MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_game_rosters
-2026-08-02 00:04:01 [INFO] mbb_data_build: uploaded game_rosters_2026.csv -> espn_mens_college_basketball_game_rosters (asset 3/4)
-2026-08-02 00:04:01 [INFO] mbb_data_build: uploading mbb_game_rosters_in_data_repo.csv (192B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_game_rosters
-2026-08-02 00:04:02 [INFO] mbb_data_build: uploaded mbb_game_rosters_in_data_repo.csv -> espn_mens_college_basketball_game_rosters (asset 4/4)
-2026-08-02 00:04:02 [INFO] mbb_data_build: game_rosters 2026: done -- 196876 rows in 552.8s
-2026-08-02 00:04:02 [INFO] mbb_data_build: game_rosters 2026: season complete -- 196876 rows
-2026-08-02 00:04:05 [INFO] mbb_data_build: officials 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-08-02 00:04:45 [INFO] mbb_data_build: wrote ..\mbb\officials\parquet\officials_2026.parquet (105.1KB) + officials_2026.rds (119.2KB) + officials_2026.csv (994.5KB), 18483 rows x 7 cols; manifest mbb_officials_in_data_repo.csv appended
-2026-08-02 00:04:46 [INFO] mbb_data_build: uploading officials_2026.parquet (105.1KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_officials
-2026-08-02 00:04:47 [INFO] mbb_data_build: uploaded officials_2026.parquet -> espn_mens_college_basketball_officials (asset 1/4)
-2026-08-02 00:04:47 [INFO] mbb_data_build: uploading officials_2026.rds (119.2KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_officials
-2026-08-02 00:04:48 [INFO] mbb_data_build: uploaded officials_2026.rds -> espn_mens_college_basketball_officials (asset 2/4)
-2026-08-02 00:04:48 [INFO] mbb_data_build: uploading officials_2026.csv (994.5KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_officials
-2026-08-02 00:04:49 [INFO] mbb_data_build: uploaded officials_2026.csv -> espn_mens_college_basketball_officials (asset 3/4)
-2026-08-02 00:04:49 [INFO] mbb_data_build: uploading mbb_officials_in_data_repo.csv (191B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_officials
-2026-08-02 00:04:50 [INFO] mbb_data_build: uploaded mbb_officials_in_data_repo.csv -> espn_mens_college_basketball_officials (asset 4/4)
-2026-08-02 00:04:50 [INFO] mbb_data_build: officials 2026: done -- 18483 rows in 45.7s
-2026-08-02 00:04:50 [INFO] mbb_data_build: officials 2026: season complete -- 18483 rows
+2026-08-02 13:55:05 [INFO] mbb_data_build: pbp 2026: per-game build starting -- 6300 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 250/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 500/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 750/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 1000/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 1250/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 1500/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 1750/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 2000/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 2250/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 2500/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 2750/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 3000/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 3250/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 3500/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 3750/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 4000/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 4250/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 4500/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 4750/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 5000/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 5250/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 5500/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 5750/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 6000/6300 games collected
+2026-08-02 14:05:09 [INFO] mbb_data_build: pbp 2026: 6250/6300 games collected
+2026-08-02 14:09:05 [INFO] mbb_data_build: wrote ..\mbb\pbp\parquet\play_by_play_2026.parquet (83.5MB) + play_by_play_2026.rds (75.6MB), 2915731 rows x 60 cols; manifest n/a (not manifested)
+2026-08-02 14:09:13 [INFO] mbb_data_build: uploading play_by_play_2026.parquet (83.5MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_pbp
+2026-08-02 14:09:18 [INFO] mbb_data_build: uploaded play_by_play_2026.parquet -> espn_mens_college_basketball_pbp (asset 1/3)
+2026-08-02 14:09:18 [INFO] mbb_data_build: uploading play_by_play_2026.rds (75.6MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_pbp
+2026-08-02 14:09:22 [INFO] mbb_data_build: uploaded play_by_play_2026.rds -> espn_mens_college_basketball_pbp (asset 2/3)
+2026-08-02 14:09:22 [INFO] mbb_data_build: uploading play_by_play_2026.csv (1.1GB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_pbp
+2026-08-02 14:09:55 [INFO] mbb_data_build: uploaded play_by_play_2026.csv -> espn_mens_college_basketball_pbp (asset 3/3)
+2026-08-02 14:09:55 [INFO] mbb_data_build: pbp 2026: done -- 2915731 rows from 6275/6300 games in 892.2s
+2026-08-02 14:09:57 [INFO] mbb_data_build: pbp 2026: season complete -- 2915731 rows
+2026-08-02 14:10:05 [INFO] mbb_data_build: team_box 2026: per-game build starting -- 6300 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 250/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 500/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 750/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 1000/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 1250/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 1500/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 1750/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 2000/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 2250/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 2500/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 2750/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 3000/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 3250/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 3500/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 3750/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 4000/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 4250/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 4500/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 4750/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 5000/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 5250/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 5500/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 5750/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 6000/6300 games collected
+2026-08-02 14:11:08 [INFO] mbb_data_build: team_box 2026: 6250/6300 games collected
+2026-08-02 14:11:11 [INFO] mbb_data_build: wrote ..\mbb\team_box\parquet\team_box_2026.parquet (711.3KB) + team_box_2026.rds (980.5KB), 12598 rows x 59 cols; manifest n/a (not manifested)
+2026-08-02 14:11:12 [INFO] mbb_data_build: uploading team_box_2026.parquet (711.3KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_boxscores
+2026-08-02 14:11:13 [INFO] mbb_data_build: uploaded team_box_2026.parquet -> espn_mens_college_basketball_team_boxscores (asset 1/3)
+2026-08-02 14:11:13 [INFO] mbb_data_build: uploading team_box_2026.rds (980.5KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_boxscores
+2026-08-02 14:11:15 [INFO] mbb_data_build: uploaded team_box_2026.rds -> espn_mens_college_basketball_team_boxscores (asset 2/3)
+2026-08-02 14:11:15 [INFO] mbb_data_build: uploading team_box_2026.csv (5.7MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_boxscores
+2026-08-02 14:11:17 [INFO] mbb_data_build: uploaded team_box_2026.csv -> espn_mens_college_basketball_team_boxscores (asset 3/3)
+2026-08-02 14:11:17 [INFO] mbb_data_build: team_box 2026: done -- 12598 rows from 6299/6300 games in 73.3s
+2026-08-02 14:11:17 [INFO] mbb_data_build: team_box 2026: season complete -- 12598 rows
+2026-08-02 14:11:21 [INFO] mbb_data_build: player_box 2026: per-game build starting -- 6300 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 250/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 500/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 750/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 1000/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 1250/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 1500/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 1750/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 2000/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 2250/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 2500/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 2750/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 3000/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 3250/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 3500/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 3750/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 4000/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 4250/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 4500/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 4750/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 5000/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 5250/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 5500/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 5750/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 6000/6300 games collected
+2026-08-02 14:12:31 [INFO] mbb_data_build: player_box 2026: 6250/6300 games collected
+2026-08-02 14:12:55 [INFO] mbb_data_build: wrote ..\mbb\player_box\parquet\player_box_2026.parquet (3.2MB) + player_box_2026.rds (6.8MB), 196876 rows x 55 cols; manifest n/a (not manifested)
+2026-08-02 14:12:56 [INFO] mbb_data_build: uploading player_box_2026.parquet (3.2MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_boxscores
+2026-08-02 14:12:58 [INFO] mbb_data_build: uploaded player_box_2026.parquet -> espn_mens_college_basketball_player_boxscores (asset 1/3)
+2026-08-02 14:12:58 [INFO] mbb_data_build: uploading player_box_2026.rds (6.8MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_boxscores
+2026-08-02 14:13:00 [INFO] mbb_data_build: uploaded player_box_2026.rds -> espn_mens_college_basketball_player_boxscores (asset 2/3)
+2026-08-02 14:13:00 [INFO] mbb_data_build: uploading player_box_2026.csv (98.1MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_boxscores
+2026-08-02 14:13:05 [INFO] mbb_data_build: uploaded player_box_2026.csv -> espn_mens_college_basketball_player_boxscores (asset 3/3)
+2026-08-02 14:13:05 [INFO] mbb_data_build: player_box 2026: done -- 196876 rows from 6300/6300 games in 104.6s
+2026-08-02 14:13:05 [INFO] mbb_data_build: player_box 2026: season complete -- 196876 rows
+2026-08-02 14:13:08 [INFO] mbb_data_build: player_core 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-02 14:30:02 [INFO] mbb_data_build: wrote ..\mbb\player_core\parquet\player_core_2026.parquet (898.6KB) + player_core_2026.rds (957.8KB) + player_core_2026.csv (3.3MB), 12481 rows x 36 cols; manifest n/a (not manifested)
+2026-08-02 14:30:03 [INFO] mbb_data_build: uploading player_core_2026.parquet (898.6KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_core
+2026-08-02 14:30:04 [INFO] mbb_data_build: uploaded player_core_2026.parquet -> espn_mens_college_basketball_player_core (asset 1/3)
+2026-08-02 14:30:04 [INFO] mbb_data_build: uploading player_core_2026.rds (957.8KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_core
+2026-08-02 14:30:06 [INFO] mbb_data_build: uploaded player_core_2026.rds -> espn_mens_college_basketball_player_core (asset 2/3)
+2026-08-02 14:30:06 [INFO] mbb_data_build: uploading player_core_2026.csv (3.3MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_core
+2026-08-02 14:30:08 [INFO] mbb_data_build: uploaded player_core_2026.csv -> espn_mens_college_basketball_player_core (asset 3/3)
+2026-08-02 14:30:08 [INFO] mbb_data_build: player_core 2026: done -- 12481 rows in 1019.7s
+2026-08-02 14:30:08 [INFO] mbb_data_build: player_core 2026: season complete -- 12481 rows
+2026-08-02 14:30:10 [INFO] mbb_data_build: schedules 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-02 14:30:14 [INFO] mbb_data_build: wrote ..\mbb\schedules\parquet\mbb_schedule_2026.parquet (1.7MB) + mbb_schedule_2026.rds (1.9MB) + mbb_schedule_2026.csv (28.2MB), 6318 rows x 86 cols; manifest n/a (not manifested)
+2026-08-02 14:30:15 [INFO] mbb_data_build: uploading mbb_schedule_2026.parquet (1.7MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+2026-08-02 14:30:16 [INFO] mbb_data_build: uploaded mbb_schedule_2026.parquet -> espn_mens_college_basketball_schedules (asset 1/3)
+2026-08-02 14:30:16 [INFO] mbb_data_build: uploading mbb_schedule_2026.rds (1.9MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+2026-08-02 14:30:18 [INFO] mbb_data_build: uploaded mbb_schedule_2026.rds -> espn_mens_college_basketball_schedules (asset 2/3)
+2026-08-02 14:30:18 [INFO] mbb_data_build: uploading mbb_schedule_2026.csv (28.2MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+2026-08-02 14:30:21 [INFO] mbb_data_build: uploaded mbb_schedule_2026.csv -> espn_mens_college_basketball_schedules (asset 3/3)
+2026-08-02 14:30:21 [INFO] mbb_data_build: schedules 2026: done -- 6318 rows in 10.4s
+2026-08-02 14:30:21 [INFO] mbb_data_build: schedules 2026: season complete -- 6318 rows
+2026-08-02 14:30:23 [INFO] mbb_data_build: shots 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-02 14:31:19 [INFO] mbb_data_build: wrote ..\mbb\shots\parquet\shots_2026.parquet (13.0MB) + shots_2026.rds (13.1MB) + shots_2026.csv (115.7MB), 991836 rows x 20 cols; manifest mbb_shots_in_data_repo.csv appended
+2026-08-02 14:31:20 [INFO] mbb_data_build: uploading shots_2026.parquet (13.0MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_shots
+2026-08-02 14:31:22 [INFO] mbb_data_build: uploaded shots_2026.parquet -> espn_mens_college_basketball_shots (asset 1/4)
+2026-08-02 14:31:22 [INFO] mbb_data_build: uploading shots_2026.rds (13.1MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_shots
+2026-08-02 14:31:24 [INFO] mbb_data_build: uploaded shots_2026.rds -> espn_mens_college_basketball_shots (asset 2/4)
+2026-08-02 14:31:24 [INFO] mbb_data_build: uploading shots_2026.csv (115.7MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_shots
+2026-08-02 14:31:29 [INFO] mbb_data_build: uploaded shots_2026.csv -> espn_mens_college_basketball_shots (asset 3/4)
+2026-08-02 14:31:29 [INFO] mbb_data_build: uploading mbb_shots_in_data_repo.csv (1.4KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_shots
+2026-08-02 14:31:31 [INFO] mbb_data_build: uploaded mbb_shots_in_data_repo.csv -> espn_mens_college_basketball_shots (asset 4/4)
+2026-08-02 14:31:31 [INFO] mbb_data_build: shots 2026: done -- 991836 rows in 67.6s
+2026-08-02 14:31:31 [INFO] mbb_data_build: shots 2026: season complete -- 991836 rows
+2026-08-02 14:31:33 [INFO] mbb_data_build: rosters 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-02 14:32:35 [INFO] mbb_data_build: wrote ..\mbb\rosters\parquet\rosters_2026.parquet (1.0MB) + rosters_2026.rds (1.0MB) + rosters_2026.csv (4.7MB), 12438 rows x 36 cols; manifest mbb_rosters_in_data_repo.csv appended
+2026-08-02 14:32:35 [INFO] mbb_data_build: uploading rosters_2026.parquet (1.0MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
+2026-08-02 14:32:37 [INFO] mbb_data_build: uploaded rosters_2026.parquet -> espn_mens_college_basketball_rosters (asset 1/4)
+2026-08-02 14:32:37 [INFO] mbb_data_build: uploading rosters_2026.rds (1.0MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
+2026-08-02 14:32:38 [INFO] mbb_data_build: uploaded rosters_2026.rds -> espn_mens_college_basketball_rosters (asset 2/4)
+2026-08-02 14:32:38 [INFO] mbb_data_build: uploading rosters_2026.csv (4.7MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
+2026-08-02 14:32:40 [INFO] mbb_data_build: uploaded rosters_2026.csv -> espn_mens_college_basketball_rosters (asset 3/4)
+2026-08-02 14:32:40 [INFO] mbb_data_build: uploading mbb_rosters_in_data_repo.csv (196B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
+2026-08-02 14:32:41 [INFO] mbb_data_build: uploaded mbb_rosters_in_data_repo.csv -> espn_mens_college_basketball_rosters (asset 4/4)
+2026-08-02 14:32:41 [INFO] mbb_data_build: rosters 2026: done -- 12438 rows in 68.0s
+2026-08-02 14:32:41 [INFO] mbb_data_build: rosters 2026: season complete -- 12438 rows
+2026-08-02 14:32:44 [INFO] mbb_data_build: player_season_stats 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-02 14:49:41 [INFO] mbb_data_build: wrote ..\mbb\player_season_stats\parquet\player_season_stats_2026.parquet (1.2MB) + player_season_stats_2026.rds (1.7MB) + player_season_stats_2026.csv (85.8MB), 426040 rows x 15 cols; manifest mbb_player_season_stats_in_data_repo.csv appended
+2026-08-02 14:49:41 [INFO] mbb_data_build: uploading player_season_stats_2026.parquet (1.2MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_season_stats
+2026-08-02 14:49:43 [INFO] mbb_data_build: uploaded player_season_stats_2026.parquet -> espn_mens_college_basketball_player_season_stats (asset 1/4)
+2026-08-02 14:49:43 [INFO] mbb_data_build: uploading player_season_stats_2026.rds (1.7MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_season_stats
+2026-08-02 14:49:44 [INFO] mbb_data_build: uploaded player_season_stats_2026.rds -> espn_mens_college_basketball_player_season_stats (asset 2/4)
+2026-08-02 14:49:44 [INFO] mbb_data_build: uploading player_season_stats_2026.csv (85.8MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_season_stats
+2026-08-02 14:49:49 [INFO] mbb_data_build: uploaded player_season_stats_2026.csv -> espn_mens_college_basketball_player_season_stats (asset 3/4)
+2026-08-02 14:49:49 [INFO] mbb_data_build: uploading mbb_player_season_stats_in_data_repo.csv (202B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_season_stats
+2026-08-02 14:49:50 [INFO] mbb_data_build: uploaded mbb_player_season_stats_in_data_repo.csv -> espn_mens_college_basketball_player_season_stats (asset 4/4)
+2026-08-02 14:49:50 [INFO] mbb_data_build: player_season_stats 2026: done -- 426040 rows in 1026.7s
+2026-08-02 14:49:50 [INFO] mbb_data_build: player_season_stats 2026: season complete -- 426040 rows
+2026-08-02 14:49:53 [INFO] mbb_data_build: team_season_stats 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-02 14:50:54 [INFO] mbb_data_build: wrote ..\mbb\team_season_stats\parquet\team_season_stats_2026.parquet (168.8KB) + team_season_stats_2026.rds (215.7KB) + team_season_stats_2026.csv (6.3MB), 32715 rows x 16 cols; manifest mbb_team_season_stats_in_data_repo.csv appended
+2026-08-02 14:50:54 [INFO] mbb_data_build: uploading team_season_stats_2026.parquet (168.8KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_season_stats
+2026-08-02 14:50:55 [INFO] mbb_data_build: uploaded team_season_stats_2026.parquet -> espn_mens_college_basketball_team_season_stats (asset 1/4)
+2026-08-02 14:50:55 [INFO] mbb_data_build: uploading team_season_stats_2026.rds (215.7KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_season_stats
+2026-08-02 14:50:57 [INFO] mbb_data_build: uploaded team_season_stats_2026.rds -> espn_mens_college_basketball_team_season_stats (asset 2/4)
+2026-08-02 14:50:57 [INFO] mbb_data_build: uploading team_season_stats_2026.csv (6.3MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_season_stats
+2026-08-02 14:50:58 [INFO] mbb_data_build: uploaded team_season_stats_2026.csv -> espn_mens_college_basketball_team_season_stats (asset 3/4)
+2026-08-02 14:50:58 [INFO] mbb_data_build: uploading mbb_team_season_stats_in_data_repo.csv (194B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_season_stats
+2026-08-02 14:51:00 [INFO] mbb_data_build: uploaded mbb_team_season_stats_in_data_repo.csv -> espn_mens_college_basketball_team_season_stats (asset 4/4)
+2026-08-02 14:51:00 [INFO] mbb_data_build: team_season_stats 2026: done -- 32715 rows in 66.5s
+2026-08-02 14:51:00 [INFO] mbb_data_build: team_season_stats 2026: season complete -- 32715 rows
+2026-08-02 14:51:02 [INFO] mbb_data_build: standings 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-02 14:51:05 [INFO] mbb_data_build: wrote ..\mbb\standings\parquet\standings_2026.parquet (115.7KB) + standings_2026.rds (161.9KB) + standings_2026.csv (7.5MB), 31332 rows x 24 cols; manifest mbb_standings_in_data_repo.csv appended
+2026-08-02 14:51:05 [INFO] mbb_data_build: uploading standings_2026.parquet (115.7KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_standings
+2026-08-02 14:51:07 [INFO] mbb_data_build: uploaded standings_2026.parquet -> espn_mens_college_basketball_standings (asset 1/4)
+2026-08-02 14:51:07 [INFO] mbb_data_build: uploading standings_2026.rds (161.9KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_standings
+2026-08-02 14:51:08 [INFO] mbb_data_build: uploaded standings_2026.rds -> espn_mens_college_basketball_standings (asset 2/4)
+2026-08-02 14:51:08 [INFO] mbb_data_build: uploading standings_2026.csv (7.5MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_standings
+2026-08-02 14:51:09 [INFO] mbb_data_build: uploaded standings_2026.csv -> espn_mens_college_basketball_standings (asset 3/4)
+2026-08-02 14:51:09 [INFO] mbb_data_build: uploading mbb_standings_in_data_repo.csv (183B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_standings
+2026-08-02 14:51:11 [INFO] mbb_data_build: uploaded mbb_standings_in_data_repo.csv -> espn_mens_college_basketball_standings (asset 4/4)
+2026-08-02 14:51:11 [INFO] mbb_data_build: standings 2026: done -- 31332 rows in 8.7s
+2026-08-02 14:51:11 [INFO] mbb_data_build: standings 2026: season complete -- 31332 rows
+2026-08-02 14:51:13 [INFO] mbb_data_build: game_rosters 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-02 15:00:26 [INFO] mbb_data_build: wrote ..\mbb\game_rosters\parquet\game_rosters_2026.parquet (2.5MB) + game_rosters_2026.rds (8.8MB) + game_rosters_2026.csv (49.3MB), 196876 rows x 22 cols; manifest mbb_game_rosters_in_data_repo.csv appended
+2026-08-02 15:00:27 [INFO] mbb_data_build: uploading game_rosters_2026.parquet (2.5MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_game_rosters
+2026-08-02 15:00:29 [INFO] mbb_data_build: uploaded game_rosters_2026.parquet -> espn_mens_college_basketball_game_rosters (asset 1/4)
+2026-08-02 15:00:29 [INFO] mbb_data_build: uploading game_rosters_2026.rds (8.8MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_game_rosters
+2026-08-02 15:00:31 [INFO] mbb_data_build: uploaded game_rosters_2026.rds -> espn_mens_college_basketball_game_rosters (asset 2/4)
+2026-08-02 15:00:31 [INFO] mbb_data_build: uploading game_rosters_2026.csv (49.3MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_game_rosters
+2026-08-02 15:00:34 [INFO] mbb_data_build: uploaded game_rosters_2026.csv -> espn_mens_college_basketball_game_rosters (asset 3/4)
+2026-08-02 15:00:34 [INFO] mbb_data_build: uploading mbb_game_rosters_in_data_repo.csv (192B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_game_rosters
+2026-08-02 15:00:35 [INFO] mbb_data_build: uploaded mbb_game_rosters_in_data_repo.csv -> espn_mens_college_basketball_game_rosters (asset 4/4)
+2026-08-02 15:00:35 [INFO] mbb_data_build: game_rosters 2026: done -- 196876 rows in 562.1s
+2026-08-02 15:00:35 [INFO] mbb_data_build: game_rosters 2026: season complete -- 196876 rows
+2026-08-02 15:00:38 [INFO] mbb_data_build: officials 2026: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-02 15:01:14 [INFO] mbb_data_build: wrote ..\mbb\officials\parquet\officials_2026.parquet (105.1KB) + officials_2026.rds (119.2KB) + officials_2026.csv (994.5KB), 18483 rows x 7 cols; manifest mbb_officials_in_data_repo.csv appended
+2026-08-02 15:01:14 [INFO] mbb_data_build: uploading officials_2026.parquet (105.1KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_officials
+2026-08-02 15:01:15 [INFO] mbb_data_build: uploaded officials_2026.parquet -> espn_mens_college_basketball_officials (asset 1/4)
+2026-08-02 15:01:15 [INFO] mbb_data_build: uploading officials_2026.rds (119.2KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_officials
+2026-08-02 15:01:17 [INFO] mbb_data_build: uploaded officials_2026.rds -> espn_mens_college_basketball_officials (asset 2/4)
+2026-08-02 15:01:17 [INFO] mbb_data_build: uploading officials_2026.csv (994.5KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_officials
+2026-08-02 15:01:18 [INFO] mbb_data_build: uploaded officials_2026.csv -> espn_mens_college_basketball_officials (asset 3/4)
+2026-08-02 15:01:18 [INFO] mbb_data_build: uploading mbb_officials_in_data_repo.csv (191B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_officials
+2026-08-02 15:01:19 [INFO] mbb_data_build: uploaded mbb_officials_in_data_repo.csv -> espn_mens_college_basketball_officials (asset 4/4)
+2026-08-02 15:01:19 [INFO] mbb_data_build: officials 2026: done -- 18483 rows in 41.3s
+2026-08-02 15:01:19 [INFO] mbb_data_build: officials 2026: season complete -- 18483 rows
 ℹ Compiling 2026 MBB team crosswalk
-✖ 2026-08-02 00:04:58.479643: no Fox CBK teams data available!
+✖ 2026-08-02 15:01:29.698283: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:10.493486: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:01:44.904065: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:16.573631: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:01:54.828546: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:16.77125: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:01:55.83402: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:16.972258: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:01:56.040943: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:19.001857: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:01:59.834898: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:20.355592: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:02.454866: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:20.726247: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:03.403479: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:21.056299: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:04.21935: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:21.395175: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:04.512252: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:21.749422: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:04.826975: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:22.115879: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:05.120518: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:22.467566: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:06.115046: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:22.912617: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:06.952561: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:23.322584: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:07.89962: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:23.717277: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:08.953096: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:24.143196: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:09.324239: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:24.529338: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:10.252185: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:25.007224: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:13.070686: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:25.373702: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:14.659282: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:25.790902: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:14.963743: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:26.142821: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:16.831507: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:26.564631: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:17.326274: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:26.976519: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:18.550142: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:27.386637: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:19.38643: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:27.707564: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:19.679973: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:28.190752: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:20.603695: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 00:05:28.546292: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB team crosswalk✖ 2026-08-02 15:02:22.477894: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB team crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB team crosswalk✔ Compiled 2026 MBB team crosswalk! [35.6s]
+ℹ Compiling 2026 MBB team crosswalk✔ Compiled 2026 MBB team crosswalk! [1m 0.7s]
 
 ℹ Updating 2026 MBB Team Crosswalk GitHub Release
 → Uploading 3 files!
@@ -283,140 +283,140 @@ From https://github.com/sportsdataverse/hoopR-mbb-data
 <https://github.com/sportsdataverse/sportsdataverse-data/releases> @
 mbb_crosswalk
 ℹ Updating 2026 MBB Team Crosswalk GitHub Release✔ Upload successfully completed.
-ℹ Updating 2026 MBB Team Crosswalk GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-08-02 00:05:31.547311
-ℹ Updating 2026 MBB Team Crosswalk GitHub Release✔ Updated 2026 MBB Team Crosswalk GitHub Release! [2.5s]
+ℹ Updating 2026 MBB Team Crosswalk GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-08-02 15:02:25.643676
+ℹ Updating 2026 MBB Team Crosswalk GitHub Release✔ Updated 2026 MBB Team Crosswalk GitHub Release! [2.6s]
 
-38.14 sec elapsed
+63.41 sec elapsed
 → Uploading 1 files!
 ℹ Start upload of 5 files to
 <https://github.com/sportsdataverse/sportsdataverse-data/releases> @
 mbb_crosswalk
 ✔ Upload successfully completed.
-→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-08-02 00:05:33.330407
+→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-08-02 15:02:27.516674
 
 ℹ Compiling 2026 MBB schedule crosswalk
-✖ 2026-08-02 00:05:37.158928: no Fox CBK teams data available!
+✖ 2026-08-02 15:02:33.188749: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:39.219437: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:35.513281: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:40.379809: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:36.589797: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:40.585903: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:36.797284: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:40.784399: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:36.958634: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:41.203127: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:37.275192: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:41.563423: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:37.556768: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:41.778915: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:37.74963: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:41.984652: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:37.956717: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:42.177677: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:38.424362: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:42.383125: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:39.40703: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:42.725171: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:39.623253: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:43.116887: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:39.774056: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:43.460192: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:39.952713: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:43.655374: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:40.320629: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:43.857003: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:40.679976: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:44.061229: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:41.832062: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:44.339201: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:42.218981: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:44.552793: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:42.38635: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:44.789681: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:42.566503: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:45.060253: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:43.714719: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:45.443988: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:43.86914: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:45.832596: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:44.3752: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:46.107354: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:44.539114: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:46.759525: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:44.916033: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:46.991937: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:45.190934: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:47.268844: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:45.4291: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:47.722078: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:45.598207: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 00:05:47.797551: Invalid arguments or no schedule available for 2026!
+ℹ Compiling 2026 MBB schedule crosswalk✖ 2026-08-02 15:02:45.672722: Invalid arguments or no schedule available for 2026!
 ℹ Compiling 2026 MBB schedule crosswalk✖ Args: year = 2026L
 ℹ Compiling 2026 MBB schedule crosswalk✖ Error: lexical error: invalid char in json text.                                        <!DOCTYPE HTML PUBLIC "-//W3C//                      (right here) ------^ 
-ℹ Compiling 2026 MBB schedule crosswalk! 2026-08-02 00:05:47.827431: no schedule crosswalk rows for 2026
-ℹ Compiling 2026 MBB schedule crosswalk✔ Compiled 2026 MBB schedule crosswalk! [13s]
+ℹ Compiling 2026 MBB schedule crosswalk! 2026-08-02 15:02:45.7009: no schedule crosswalk rows for 2026
+ℹ Compiling 2026 MBB schedule crosswalk✔ Compiled 2026 MBB schedule crosswalk! [16.7s]
 
-13 sec elapsed
+16.74 sec elapsed
 
 ℹ Compiling 2026 MBB player crosswalk
-✖ 2026-08-02 00:05:51.603868: no Fox CBK teams data available!
+✖ 2026-08-02 15:02:50.25999: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:52.655387: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:51.725457: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:53.215003: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:52.677103: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:53.561868: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:52.841193: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:53.92233: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:53.005615: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:54.347007: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:53.902075: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:54.596584: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:54.115964: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:54.79067: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:54.294829: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:55.008285: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:54.448169: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:55.217967: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:54.622062: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:55.511971: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:54.789688: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:55.733438: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:55.711181: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:55.942664: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:56.072448: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:56.303401: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:56.48637: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:56.527528: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:56.66062: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:56.889512: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:57.094175: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:57.104616: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:57.262129: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:57.324906: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:57.446598: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:57.556649: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:57.822395: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:57.740541: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:58.180574: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:57.965886: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:58.449473: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:58.176511: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:58.62023: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:58.506563: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:58.772538: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:58.745444: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:58.955365: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:58.954046: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:59.125831: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:59.183704: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:02:59.906522: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:59.586317: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:03:00.123051: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 00:05:59.787912: no Fox CBK teams data available!
+ℹ Compiling 2026 MBB player crosswalk✖ 2026-08-02 15:03:00.435245: no Fox CBK teams data available!
 ℹ Compiling 2026 MBB player crosswalk✖ Error: The API returned an error
-ℹ Compiling 2026 MBB player crosswalk✔ Compiled 2026 MBB player crosswalk! [4m 43.9s]
+ℹ Compiling 2026 MBB player crosswalk✔ Compiled 2026 MBB player crosswalk! [5m 6.9s]
 
 ℹ Updating 2026 MBB Player Crosswalk GitHub Release
 → Uploading 3 files!
@@ -424,31 +424,25 @@ mbb_crosswalk
 <https://github.com/sportsdataverse/sportsdataverse-data/releases> @
 mbb_crosswalk
 ℹ Updating 2026 MBB Player Crosswalk GitHub Release✔ Upload successfully completed.
-ℹ Updating 2026 MBB Player Crosswalk GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-08-02 00:10:35.523737
-ℹ Updating 2026 MBB Player Crosswalk GitHub Release✔ Updated 2026 MBB Player Crosswalk GitHub Release! [2.4s]
+ℹ Updating 2026 MBB Player Crosswalk GitHub Release→ Uploaded 7 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-08-02 15:07:56.624144
+ℹ Updating 2026 MBB Player Crosswalk GitHub Release✔ Updated 2026 MBB Player Crosswalk GitHub Release! [2.7s]
 
-286.34 sec elapsed
+309.61 sec elapsed
 → Uploading 1 files!
 ℹ Start upload of 5 files to
 <https://github.com/sportsdataverse/sportsdataverse-data/releases> @
 mbb_crosswalk
 ✔ Upload successfully completed.
-→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-08-02 00:10:37.365097
+→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-08-02 15:07:58.457706
 
-warning: in the working copy of 'mbb/shots/mbb_shots_in_data_repo.csv', LF will be replaced by CRLF the next time Git touches it
 warning: in the working copy of 'mbb/game_rosters/mbb_game_rosters_in_data_repo.csv', LF will be replaced by CRLF the next time Git touches it
 warning: in the working copy of 'mbb/officials/mbb_officials_in_data_repo.csv', LF will be replaced by CRLF the next time Git touches it
 warning: in the working copy of 'mbb/player_season_stats/mbb_player_season_stats_in_data_repo.csv', LF will be replaced by CRLF the next time Git touches it
 warning: in the working copy of 'mbb/rosters/mbb_rosters_in_data_repo.csv', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'mbb/shots/mbb_shots_in_data_repo.csv', LF will be replaced by CRLF the next time Git touches it
 warning: in the working copy of 'mbb/standings/mbb_standings_in_data_repo.csv', LF will be replaced by CRLF the next time Git touches it
 warning: in the working copy of 'mbb/team_season_stats/mbb_team_season_stats_in_data_repo.csv', LF will be replaced by CRLF the next time Git touches it
-[main 4380cbc5] MBB Data Updated (Start: 2026 End: 2026)
- 21 files changed, 15 insertions(+)
- create mode 100644 mbb/game_rosters/mbb_game_rosters_in_data_repo.csv
- create mode 100644 mbb/officials/mbb_officials_in_data_repo.csv
- create mode 100644 mbb/player_season_stats/mbb_player_season_stats_in_data_repo.csv
- create mode 100644 mbb/rosters/mbb_rosters_in_data_repo.csv
- create mode 100644 mbb/standings/mbb_standings_in_data_repo.csv
- create mode 100644 mbb/team_season_stats/mbb_team_season_stats_in_data_repo.csv
+[main 8fcc1814] MBB Data Updated (Start: 2026 End: 2026)
+ 11 files changed, 9 insertions(+)
 To https://github.com/sportsdataverse/hoopR-mbb-data
-   3745d69d..4380cbc5  main -> main
+   2d9e90b0..8fcc1814  main -> main
