@@ -60,8 +60,8 @@ Rscript R/espn_mbb_03_player_box_creation.R   -s 2025 -e 2025
 Rscript R/run_summary.R -s 2025 -e 2025        # per-run cli + $GITHUB_STEP_SUMMARY report
 Rscript R/rebuild_mbb_master_schedule.R        # rebuilds mbb_schedule_master.csv (interactive)
 Rscript R/minify_json_folders.R                # one-off raw-JSON minifier
-Rscript R/0000_create_hoopR_releases_init.R    # one-off: create release tags
-Rscript R/0001_push_existing_release_data.R    # one-off: backfill release assets
+Rscript ops/init/0000_create_hoopR_releases_init.R    # one-off: create release tags
+Rscript ops/init/0001_push_existing_release_data.R    # one-off: backfill release assets
 ```
 
 `scripts/daily_mbb_R_processor.sh` only accepts `-s` and `-e` (no `-r`).
@@ -101,6 +101,8 @@ R/
   manifest_upload_helper.R            # Shared release-upload helper sourced by creation scripts
   rebuild_mbb_master_schedule.R       # Aggregates all per-season schedules into mbb_schedule_master.csv
   minify_json_folders.R               # JSON whitespace minifier (one-off cleanup)
+
+ops/init/
   0000_create_hoopR_releases_init.R   # One-off: create all release tags on sportsdataverse-data
   0001_push_existing_release_data.R   # One-off: backfill release assets after init
 

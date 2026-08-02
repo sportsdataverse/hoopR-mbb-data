@@ -44,8 +44,8 @@ Rscript R/espn_mbb_03_player_box_creation.R -s 2025 -e 2025
 # Helpers (interactive / one-off — not run by CI)
 Rscript R/rebuild_mbb_master_schedule.R
 Rscript R/minify_json_folders.R
-Rscript R/0000_create_hoopR_releases_init.R
-Rscript R/0001_push_existing_release_data.R
+Rscript ops/init/0000_create_hoopR_releases_init.R
+Rscript ops/init/0001_push_existing_release_data.R
 ```
 
 Output paths the creation scripts write under (committed back to this
