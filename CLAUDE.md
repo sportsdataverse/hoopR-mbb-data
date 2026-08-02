@@ -200,9 +200,18 @@ the start/end year digits from the commit message.
   `Package: hoopR.mbb`, this repo is not installed as an R package
   anywhere — it's a release-asset producer. The DESCRIPTION exists so
   `devtools::install_deps()` can resolve `Imports:` for the CI runner.
+  `R/` therefore holds numbered pipeline stage scripts, not package
+  functions — a known, deliberate quirk. Do not restructure this repo
+  into an installable package.
 
 ## Project-Specific Gotchas
 
+- **Stage numbering has a hole at 08 — that's intentional.** Stage
+  numbers are stable identifiers aligned across the sibling data repos
+  (`hoopR-nba-data` holds `espn_nba_08_draft_creation.R`; the draft is
+  an NBA-only dataset with no MBB counterpart, so `espn_mbb_08` is
+  vacant here). Numbers are never reused or shifted to close a hole —
+  a vacant number is expected, not a missing script. Don't renumber.
 - The Windows runner means filesystem case sensitivity and path
   separators are best avoided in new scripts. Stick to `file.path()`
   and lowercase paths.

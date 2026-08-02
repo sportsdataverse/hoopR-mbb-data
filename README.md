@@ -40,6 +40,14 @@ flowchart TB;
 
 ```
 
+## Stage numbering
+
+`R/espn_mbb_NN_*.R` stage numbers are stable identifiers aligned across the
+sibling hoopR/wehoop data repos, so holes are expected — `08` is intentionally
+vacant here (it maps to the NBA-only draft dataset,
+`espn_nba_08_draft_creation.R` in hoopR-nba-data). Never renumber existing
+stages to close a hole.
+
 [hoopR-nba-raw data repository (source: ESPN)](https://github.com/sportsdataverse/hoopR-nba-raw)
 
 [hoopR-nba-data repository (source: ESPN)](https://github.com/sportsdataverse/hoopR-nba-data)
