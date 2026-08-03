@@ -1,4 +1,4 @@
-"""Post-publish win-probability enrichment for the season's pbp release asset.
+"""Post-publish win-probability enrichment for the season's pbp release assets.
 
 Why this exists as a separate step rather than a pbp reshaper:
 
@@ -6,23 +6,28 @@ Why this exists as a separate step rather than a pbp reshaper:
   `team_box` (the build order in `daily_mbb_python_processor.sh` is load-bearing:
   pbp -> shots, player_box -> player_season_stats). So it cannot run inside the
   pbp build without inverting that order.
-* The enrichment's contract is "overwrite `play_by_play_<season>.parquet` with
-  the two WP columns appended, every original column preserved" — an operation
-  on the *published* asset, not on the in-memory frame.
+* Its contract is "rewrite the season's pbp with the two WP columns appended,
+  every original column preserved" — an operation on the *published* season, not
+  on the in-memory frame mid-build.
 
 Without this step nothing ever calls `sportsdataverse.mbb.build_mbb_season_wp`,
 and each nightly pbp publish silently strips the WP columns off the release. That
 is exactly what happened between 2026-07-12 (columns verified present) and
 2026-08-02 (columns absent from every season), which broke the platform's
 win-probability page.
+
+Publishing goes through the normal `io.write_dataset` + `publish.publish_dataset`
+path so **parquet, csv and rds are all regenerated together**. Writing only the
+parquet is how the formats drift: `hoopR::load_mbb_*` reads `.rds` exclusively,
+so a parquet-only republish leaves every R user on un-enriched data from a
+release that looks fresh.
 """
 
 from __future__ import annotations
 
-import subprocess
-import tempfile
 from pathlib import Path
 
+from mbb_data_build import io, publish
 from mbb_data_build._logging import get_logger
 from mbb_data_build.config import REGISTRY
 
@@ -35,14 +40,14 @@ def enrich_and_publish(
     season: int,
     *,
     league: str = "mens",
-    repo: str = "sportsdataverse/sportsdataverse-data",
+    base: str | Path = "mbb",
     dry_run: bool = False,
 ) -> bool:
-    """Rebuild the season's pbp with WP columns and clobber the release asset.
+    """Rebuild the season's pbp with WP columns and republish all three formats.
 
-    Returns True when the asset was republished (or would be, under dry_run).
+    Returns True when the season was republished (or would be, under dry_run).
     Never raises: a WP failure must not fail the nightly, since the plain pbp
-    asset published moments earlier is still valid data.
+    published moments earlier is still valid data.
     """
     spec = REGISTRY["pbp"]
     try:
@@ -63,28 +68,23 @@ def enrich_and_publish(
         log.warning("wp %s %s: win probability is entirely null; skipping publish", league, season)
         return False
 
-    name = f"{spec.stem}_{season}.parquet"
     if dry_run:
-        log.info("wp %s %s: would publish %s (%d rows)", league, season, name, frame.height)
+        log.info(
+            "wp %s %s: would rewrite + publish %s_%s parquet/csv/rds (%d rows)",
+            league,
+            season,
+            spec.stem,
+            season,
+            frame.height,
+        )
         return True
 
-    with tempfile.TemporaryDirectory() as tmp:
-        path = Path(tmp) / name
-        frame.write_parquet(path, compression="zstd")
-        res = subprocess.run(
-            ["gh", "release", "upload", spec.tag, str(path), "--clobber", "--repo", repo],
-            capture_output=True,
-            text=True,
-            timeout=1800,
-        )
-    if res.returncode != 0:
-        log.warning("wp %s %s: upload failed: %s", league, season, res.stderr.strip()[:200])
-        return False
+    io.write_dataset(frame, spec, season, base=base)
+    publish.publish_dataset(spec, season, base=base, dry_run=False)
     log.info(
-        "wp %s %s: republished %s with %s (%d rows)",
+        "wp %s %s: republished parquet+csv+rds with %s (%d rows)",
         league,
         season,
-        name,
         list(WP_COLS),
         frame.height,
     )
@@ -98,11 +98,12 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("-s", "--start", type=int, required=True)
     p.add_argument("-e", "--end", type=int, required=True)
     p.add_argument("--league", default="mens", choices=("mens", "womens"))
+    p.add_argument("--base", default="mbb")
     p.add_argument("--dry-run", action="store_true")
     a = p.parse_args(argv)
     ok = True
     for season in range(a.start, a.end + 1):
-        ok = enrich_and_publish(season, league=a.league, dry_run=a.dry_run) and ok
+        ok = enrich_and_publish(season, league=a.league, base=a.base, dry_run=a.dry_run) and ok
     return 0 if ok else 1
 
 
