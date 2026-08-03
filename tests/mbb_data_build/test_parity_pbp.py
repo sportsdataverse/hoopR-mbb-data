@@ -16,7 +16,6 @@ not the oracle cast up) so the comparison is apples-to-apples even where
 the oracle itself can't disambiguate two different ids.
 """
 
-from pathlib import Path
 
 import polars as pl
 
