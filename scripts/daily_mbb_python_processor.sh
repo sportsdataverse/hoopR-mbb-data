@@ -91,7 +91,7 @@ do
         # the plain pbp published above is still valid data if this fails.
         # Without it every nightly strips the WP columns off the release, which
         # is what broke the platform's win-probability page in 2026-08.
-        ( cd python && uv run python -m mbb_data_build.wp_enrich -s "$i" -e "$i" ) || \
+        ( cd python && uv run python -m mbb_data_build.wp_enrich -s "$i" -e "$i" --base ../mbb ) || \
             echo "::warning ::wp_enrich for season $i exited with code $? (non-fatal; release keeps plain pbp)"
         echo "RSCRIPT_RC=$SEASON_RC" > "/tmp/_rscript_rc_${i}"
         git pull >> /dev/null
