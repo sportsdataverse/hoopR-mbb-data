@@ -21,7 +21,6 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-
 from mbb_data_build.build import build_season
 
 SEASON = 2025

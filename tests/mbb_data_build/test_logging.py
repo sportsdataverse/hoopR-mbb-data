@@ -3,7 +3,6 @@ processor tees into the per-season rotating logfile, incl. explicit gh-release
 upload confirmations."""
 
 import polars as pl
-
 from mbb_data_build import io as build_io
 from mbb_data_build import publish
 from mbb_data_build.config import REGISTRY

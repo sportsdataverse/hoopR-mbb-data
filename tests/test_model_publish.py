@@ -11,7 +11,6 @@ import json
 
 import polars as pl
 import pytest
-
 from mbb_model_publish.artifacts import upload_artifacts
 from mbb_model_publish.builders import (
     MIN_SEASON,

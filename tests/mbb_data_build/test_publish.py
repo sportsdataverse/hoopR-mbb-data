@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import polars as pl
-
 from mbb_data_build import io, publish
 from mbb_data_build.config import REGISTRY
 

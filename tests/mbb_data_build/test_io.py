@@ -1,5 +1,4 @@
 import polars as pl
-
 from mbb_data_build import io
 from mbb_data_build.config import REGISTRY
 

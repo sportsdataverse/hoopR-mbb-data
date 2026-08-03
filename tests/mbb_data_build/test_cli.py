@@ -1,5 +1,4 @@
 import pytest
-
 from mbb_data_build.cli import main
 
 
