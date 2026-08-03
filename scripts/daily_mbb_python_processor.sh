@@ -85,6 +85,14 @@ do
         # The NBA sibling hit exactly that between its python cutover and this
         # fix; MBB only escaped it by being out of season.
         # NOT best-effort like the crosswalks: rds is the R package's contract.
+        # Win-probability enrichment: republishes play_by_play_$i.parquet with
+        # pregame_home_prob + home_win_prob appended. MUST run after the dataset
+        # loop (it needs team_box, which builds after pbp) and is best-effort --
+        # the plain pbp published above is still valid data if this fails.
+        # Without it every nightly strips the WP columns off the release, which
+        # is what broke the platform's win-probability page in 2026-08.
+        ( cd python && uv run python -m mbb_data_build.wp_enrich -s "$i" -e "$i" ) || \
+            echo "::warning ::wp_enrich for season $i exited with code $? (non-fatal; release keeps plain pbp)"
         echo "RSCRIPT_RC=$SEASON_RC" > "/tmp/_rscript_rc_${i}"
         git pull >> /dev/null
         git add mbb/* >> /dev/null
