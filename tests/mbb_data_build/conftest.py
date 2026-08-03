@@ -27,7 +27,7 @@ from mbb_data_build.build import build_season
 SEASON = 2025
 
 # hoopR-mbb-data/python/tests/mbb_data_build/conftest.py -> hoopR-mbb-data
-_THIS_REPO = Path(__file__).resolve().parents[3]
+_THIS_REPO = Path(__file__).resolve().parents[2]
 ORACLE_ROOT = _THIS_REPO / "mbb"
 RAW_ROOT = _THIS_REPO.parent / "hoopR-mbb-raw"
 
