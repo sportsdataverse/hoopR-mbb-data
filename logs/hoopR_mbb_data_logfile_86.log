@@ -1,0 +1,262 @@
+2026-08-03 10:16:02 [WARNING] mbb_data_build: pbp 86: no game_json games in the season schedule; nothing built
+2026-08-03 10:16:02 [INFO] mbb_data_build: pbp 86: season complete -- 0 rows
+2026-08-03 10:16:05 [WARNING] mbb_data_build: team_box 86: no game_json games in the season schedule; nothing built
+2026-08-03 10:16:05 [INFO] mbb_data_build: team_box 86: season complete -- 0 rows
+2026-08-03 10:16:08 [WARNING] mbb_data_build: player_box 86: no game_json games in the season schedule; nothing built
+2026-08-03 10:16:08 [INFO] mbb_data_build: player_box 86: season complete -- 0 rows
+2026-08-03 10:16:10 [INFO] mbb_data_build: player_core 86: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-03 10:16:10 [WARNING] mbb_data_build: player_core 86: no built player_box parquet at ..\mbb\player_box\parquet\player_box_86.parquet -- cannot resolve which athletes played this season (build player_box first)
+2026-08-03 10:16:10 [WARNING] mbb_data_build: player_core 86: season-level build produced 0 rows; nothing written
+2026-08-03 10:16:10 [INFO] mbb_data_build: player_core 86: season complete -- 0 rows
+2026-08-03 10:16:13 [INFO] mbb_data_build: schedules 86: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-03 10:16:13 [WARNING] mbb_data_build: schedules 86: season-level build produced 0 rows; nothing written
+2026-08-03 10:16:13 [INFO] mbb_data_build: schedules 86: season complete -- 0 rows
+2026-08-03 10:16:15 [INFO] mbb_data_build: shots 86: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-03 10:16:15 [WARNING] mbb_data_build: shots 86: season-level build produced 0 rows; nothing written
+2026-08-03 10:16:15 [INFO] mbb_data_build: shots 86: season complete -- 0 rows
+2026-08-03 10:16:18 [INFO] mbb_data_build: rosters 86: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-03 10:16:18 [WARNING] mbb_data_build: rosters 86: season-level build produced 0 rows; nothing written
+2026-08-03 10:16:18 [INFO] mbb_data_build: rosters 86: season complete -- 0 rows
+2026-08-03 10:16:21 [INFO] mbb_data_build: player_season_stats 86: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-03 10:16:21 [WARNING] mbb_data_build: player_season_stats 86: no built player_box parquet at ..\mbb\player_box\parquet\player_box_86.parquet -- identity columns will be blank (build player_box first)
+2026-08-03 10:16:21 [WARNING] mbb_data_build: player_season_stats 86: season-level build produced 0 rows; nothing written
+2026-08-03 10:16:21 [INFO] mbb_data_build: player_season_stats 86: season complete -- 0 rows
+2026-08-03 10:16:23 [INFO] mbb_data_build: team_season_stats 86: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-03 10:16:24 [WARNING] mbb_data_build: team_season_stats 86: season-level build produced 0 rows; nothing written
+2026-08-03 10:16:24 [INFO] mbb_data_build: team_season_stats 86: season complete -- 0 rows
+2026-08-03 10:16:26 [INFO] mbb_data_build: standings 86: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-03 10:16:26 [WARNING] mbb_data_build: standings 86: season-level build produced 0 rows; nothing written
+2026-08-03 10:16:26 [INFO] mbb_data_build: standings 86: season complete -- 0 rows
+2026-08-03 10:16:29 [INFO] mbb_data_build: game_rosters 86: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-03 10:16:29 [WARNING] mbb_data_build: game_rosters 86: season-level build produced 0 rows; nothing written
+2026-08-03 10:16:29 [INFO] mbb_data_build: game_rosters 86: season complete -- 0 rows
+2026-08-03 10:16:32 [INFO] mbb_data_build: officials 86: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-03 10:16:32 [WARNING] mbb_data_build: officials 86: season-level build produced 0 rows; nothing written
+2026-08-03 10:16:32 [INFO] mbb_data_build: officials 86: season complete -- 0 rows
+ℹ Compiling 86 MBB team crosswalk
+✖ 2026-08-03 10:16:35.345609: Invalid arguments or no teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Args: year = 86L
+ℹ Compiling 86 MBB team crosswalk✖ Error: Can't rename columns that don't exist. ✖ Column `X.ref` doesn't exist.
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:35.857136: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:36.882466: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:37.307449: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:37.455232: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:37.60164: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:37.962296: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:38.164981: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:38.307042: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:38.447228: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:38.589977: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:38.73751: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:38.875698: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:39.03318: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:39.18271: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:39.322786: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:39.462998: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:39.601292: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:39.739131: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:39.88765: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:40.028298: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:40.202902: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:40.363319: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:40.624227: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:40.765158: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:41.030503: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:41.179499: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:41.340133: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:41.481925: no Fox CBK teams data available!
+ℹ Compiling 86 MBB team crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB team crosswalk✖ 2026-08-03 10:16:41.548553: Could not build MBB team crosswalk for 86!
+ℹ Compiling 86 MBB team crosswalk✖ Args: season = 86L, fox = NULL
+ℹ Compiling 86 MBB team crosswalk✖ Error: ℹ In argument: `espn_conference = as.character(.data$conference_name)`. Caused by error in `.data$conference_name`: ! Column `conference_name` not found in `.data`.
+ℹ Compiling 86 MBB team crosswalk! 2026-08-03 10:16:41.574509: no team crosswalk rows for 86
+ℹ Compiling 86 MBB team crosswalk✔ Compiled 86 MBB team crosswalk! [7.4s]
+
+7.47 sec elapsed
+→ Uploading 1 files!
+ℹ Start upload of 5 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+mbb_crosswalk
+✔ Upload successfully completed.
+→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-08-03 10:16:43.375864
+
+ℹ Compiling 86 MBB schedule crosswalk
+✖ 2026-08-03 10:16:46.018517: Invalid arguments or no teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Args: year = 86L
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: Can't rename columns that don't exist. ✖ Column `X.ref` doesn't exist.
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:46.489982: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:47.67773: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:48.207186: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:48.376184: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:48.667431: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:48.921925: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:49.128762: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:49.425366: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:49.584918: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:49.734952: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:49.885618: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:50.180888: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:50.338029: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:50.494039: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:50.645361: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:50.795223: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:51.076723: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:51.233021: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:51.397793: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:51.550431: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:51.70403: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:51.856894: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:52.142092: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:52.434542: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:52.594106: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:52.752908: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:53.04655: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:53.33493: no Fox CBK teams data available!
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:53.403533: Could not build MBB team crosswalk for 86!
+ℹ Compiling 86 MBB schedule crosswalk✖ Args: season = 86L, fox = NULL
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: ℹ In argument: `espn_conference = as.character(.data$conference_name)`. Caused by error in `.data$conference_name`: ! Column `conference_name` not found in `.data`.
+ℹ Compiling 86 MBB schedule crosswalk✖ 2026-08-03 10:16:53.448252: Invalid arguments or no schedule available for 86!
+ℹ Compiling 86 MBB schedule crosswalk✖ Args: year = 86L
+ℹ Compiling 86 MBB schedule crosswalk✖ Error: lexical error: invalid char in json text.                                        <!DOCTYPE HTML PUBLIC "-//W3C//                      (right here) ------^ 
+ℹ Compiling 86 MBB schedule crosswalk! 2026-08-03 10:16:53.473694: no schedule crosswalk rows for 86
+ℹ Compiling 86 MBB schedule crosswalk✔ Compiled 86 MBB schedule crosswalk! [8.6s]
+
+8.59 sec elapsed
+
+ℹ Compiling 86 MBB player crosswalk
+✖ 2026-08-03 10:16:56.201671: Invalid arguments or no teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Args: year = 86L
+ℹ Compiling 86 MBB player crosswalk✖ Error: Can't rename columns that don't exist. ✖ Column `X.ref` doesn't exist.
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:16:56.825579: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:16:58.179021: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:16:58.69233: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:16:58.853052: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:16:59.006167: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:16:59.27723: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:16:59.488244: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:16:59.661579: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:16:59.96392: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:00.121105: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:00.279116: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:00.429894: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:00.838954: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:01.193384: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:01.362291: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:01.666107: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:01.835875: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:01.98885: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:02.150899: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:02.472499: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:02.63398: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:02.937051: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:03.220152: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:03.374975: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:03.531687: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:03.694401: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:03.882058: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:04.039956: no Fox CBK teams data available!
+ℹ Compiling 86 MBB player crosswalk✖ Error: The API returned an error
+ℹ Compiling 86 MBB player crosswalk✖ 2026-08-03 10:17:04.110385: Could not build MBB team crosswalk for 86!
+ℹ Compiling 86 MBB player crosswalk✖ Args: season = 86L, fox = NULL
+ℹ Compiling 86 MBB player crosswalk✖ Error: ℹ In argument: `espn_conference = as.character(.data$conference_name)`. Caused by error in `.data$conference_name`: ! Column `conference_name` not found in `.data`.
+ℹ Compiling 86 MBB player crosswalk! 2026-08-03 10:17:04.13737: no player crosswalk rows for 86
+ℹ Compiling 86 MBB player crosswalk✔ Compiled 86 MBB player crosswalk! [9.1s]
+
+9.16 sec elapsed
+→ Uploading 1 files!
+ℹ Start upload of 5 files to
+<https://github.com/sportsdataverse/sportsdataverse-data/releases> @
+mbb_crosswalk
+✔ Upload successfully completed.
+→ Uploaded 5 to sportsdataverse/sportsdataverse-data @ mbb_crosswalk on 2026-08-03 10:17:05.964585
+
+2026-08-03 10:17:08 [WARNING] mbb_data_build: wp mens 86: build failed (season cannot be less than 2002); release keeps plain pbp
+::warning ::wp_enrich for season 86 exited with code 1 (non-fatal; release keeps plain pbp)
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+No changes to commit
+Everything up-to-date
