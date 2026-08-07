@@ -3,7 +3,7 @@
 Why this exists as a separate step rather than a pbp reshaper:
 
 * The enrichment needs the season's **team_box**, and `pbp` is built *before*
-  `team_box` (the build order in `daily_mbb_python_processor.sh` is load-bearing:
+  `team_box` (the build order in `daily_mbb_data_processor.sh` is load-bearing:
   pbp -> shots, player_box -> player_season_stats). So it cannot run inside the
   pbp build without inverting that order.
 * Its contract is "rewrite the season's pbp with the two WP columns appended,

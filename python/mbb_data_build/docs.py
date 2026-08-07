@@ -81,9 +81,9 @@ PAGES: tuple[str, ...] = tuple(REGISTRY)
 
 AUTOMATION = (
     "`.github/workflows/daily_mbb.yml` -- daily cron, running "
-    "`scripts/daily_mbb_R_processor.sh` (R, the current daily producer). "
-    "`scripts/daily_mbb_python_processor.sh` runs the parity-tested Python "
-    "build in `mbb_data_build` but does not yet drive daily CI."
+    "`scripts/daily_mbb_data_processor.sh` (the single entrypoint). "
+    "`-l python` is the default and builds via `mbb_data_build`; `-l R` is "
+    "the retained rollback path over the R creation scripts."
 )
 
 assert set(BUILDER) == set(REGISTRY), "BUILDER must cover exactly the registry's datasets"

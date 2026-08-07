@@ -38,15 +38,20 @@ so changes to the raw repo's tree must be coordinated against the
 
 ## Build & Development Commands
 
-The repo is driven by `scripts/daily_mbb_R_processor.sh`, which iterates a
-year range, runs a fixed **array of 12 creation scripts** per season
-(`espn_mbb_01`…`10` plus the three crosswalk scripts), commits + pushes,
-and finally runs `R/run_summary.R` for the whole range. All seasons are
-integer years (end year of the NCAA season — e.g. `2025` means 2024-25).
+The repo is driven by the single entrypoint
+`scripts/daily_mbb_data_processor.sh`, which iterates a year range, builds
+each season, commits + pushes, and finally runs the language-appropriate run
+summary for the whole range. `-l python` (the default) builds the 12
+raw-derived datasets with `mbb_data_build`; `-l R` is the retained rollback
+path over `espn_mbb_01`…`10`. The three `mbb_11/12/13` crosswalk scripts run
+in R in BOTH modes (best-effort — a crosswalk failure warns but does not fail
+the run). All seasons are integer years (end year of the NCAA season — e.g.
+`2025` means 2024-25).
 
 ```sh
 # Full daily flow for one or more seasons (CI entry point)
-bash scripts/daily_mbb_R_processor.sh -s 2025 -e 2025
+bash scripts/daily_mbb_data_processor.sh -s 2025 -e 2025          # python (default)
+bash scripts/daily_mbb_data_processor.sh -s 2025 -e 2025 -l R     # R rollback
 
 # Or call each creation script directly when iterating
 Rscript R/espn_mbb_01_pbp_creation.R          -s 2025 -e 2025
@@ -64,7 +69,7 @@ Rscript ops/init/0000_create_hoopR_releases_init.R    # one-off: create release 
 Rscript ops/init/0001_push_existing_release_data.R    # one-off: backfill release assets
 ```
 
-`scripts/daily_mbb_R_processor.sh` only accepts `-s` and `-e` (no `-r`).
+`scripts/daily_mbb_data_processor.sh` accepts `-s`, `-e` and `-l` (no `-r`).
 Each `Rscript` runs under `||` so one failing script doesn't abort the
 season; the worst exit code is captured (`RSCRIPT_RC`) and re-surfaced as a
 workflow `::error::` after all requested seasons finish. Whatever datasets
@@ -107,7 +112,9 @@ ops/init/
   0001_push_existing_release_data.R   # One-off: backfill release assets after init
 
 scripts/
-  daily_mbb_R_processor.sh            # CI entry point — per-year loop over 12 scripts + commit/push
+  daily_mbb_data_processor.sh         # CI entry point — per-year loop (-l python|R) + commit/push
+  daily_mbb_python_processor.sh       # deprecated shim -> daily_mbb_data_processor.sh -l python
+  daily_mbb_R_processor.sh            # deprecated shim -> daily_mbb_data_processor.sh -l R
 
 mbb/
   pbp/{rds,parquet}/                  # play_by_play_{year}.{rds,parquet}
@@ -168,7 +175,9 @@ load-bearing.
 - **Year resolution**: client_payload commit message (when dispatched
   from raw) carries the year range embedded as digits; fallback uses
   `hoopR::most_recent_mbb_season()`.
-- **Entry command**: `bash scripts/daily_mbb_R_processor.sh -s $START -e $END`.
+- **Entry command**:
+  `bash scripts/daily_mbb_data_processor.sh -s $START -e $END -l python`
+  (`-l R` when `use_python_build=false`).
 - **Secrets used**:
   - `SDV_GH_TOKEN` for cross-repo `piggyback::pb_upload()` to
     `sportsdataverse-data`.
@@ -247,7 +256,7 @@ chore(deps): bump hoopR pin in DESCRIPTION
 ci: align daily_mbb.yml cron with hoopR-mbb-raw schedule
 ```
 
-The daily data-update commits made by `scripts/daily_mbb_R_processor.sh`
+The daily data-update commits made by `scripts/daily_mbb_data_processor.sh`
 follow a load-bearing format that downstream automation parses:
 
 ```

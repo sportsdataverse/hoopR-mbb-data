@@ -14,7 +14,7 @@ scripts remain the byte-parity oracle.
 hoopR-mbb-raw ──(per-game JSON)──▶ mbb_data_build ──(release upload)──▶ sportsdataverse-data ──▶ hoopR::load_mbb_*()
 ```
 
-This is a **parallel implementation** — the R pipeline (`scripts/daily_mbb_R_processor.sh`)
+This is a **parallel implementation** — the R pipeline (`scripts/daily_mbb_data_processor.sh -l R`)
 still drives daily CI. Wiring this package into CI is a separate cutover.
 
 ## Run

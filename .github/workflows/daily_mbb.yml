@@ -88,10 +88,13 @@ jobs:
           SPORTSDATAVERSE.UPLOAD.MAX_TIMES: 20
         run: |
           echo $(pwd)
-          # Python is the default (validated end-to-end in CI: all 11 datasets
-          # build + publish). Set use_python_build=false to fall back to R.
+          # Python is the default (validated end-to-end in CI: all datasets
+          # build + publish). use_python_build=false selects the R path within
+          # the SAME processor -- the old daily_mbb_R_processor.sh /
+          # daily_mbb_python_processor.sh are deprecation shims now, so the two
+          # paths cannot drift in season handling, logging or commit format.
           if [ "${{ inputs.use_python_build }}" = "false" ]; then
-            bash scripts/daily_mbb_R_processor.sh -s ${{ env.START_YEAR }} -e ${{ env.END_YEAR }}
+            bash scripts/daily_mbb_data_processor.sh -s ${{ env.START_YEAR }} -e ${{ env.END_YEAR }} -l R
           else
-            bash scripts/daily_mbb_python_processor.sh -s ${{ env.START_YEAR }} -e ${{ env.END_YEAR }}
+            bash scripts/daily_mbb_data_processor.sh -s ${{ env.START_YEAR }} -e ${{ env.END_YEAR }} -l python
           fi

@@ -22,7 +22,11 @@ Pipeline: `ESPN -> hoopR-mbb-raw -> hoopR-mbb-data [HERE] -> sportsdataverse-dat
 
 - Default and release branch is `main`. Commit directly to `main` — no
   feature branches unless an explicit cleanup PR is requested.
-- The CI entry point is `bash scripts/daily_mbb_R_processor.sh -s <START> -e <END>`.
+- The CI entry point is
+  `bash scripts/daily_mbb_data_processor.sh -s <START> -e <END> [-l python|R]`
+  (python is the default; `-l R` is the retained rollback path).
+  `scripts/daily_mbb_python_processor.sh` and
+  `scripts/daily_mbb_R_processor.sh` are deprecation shims that exec it.
 - Daily commits use the load-bearing format
   `MBB Data Update (Start: YYYY End: YYYY)`. The downstream
   `daily_mbb_data` dispatch grep-extracts the year digits — do not
@@ -34,7 +38,8 @@ Pipeline: `ESPN -> hoopR-mbb-raw -> hoopR-mbb-data [HERE] -> sportsdataverse-dat
 
 ```sh
 # Full daily flow (per-year loop, commit + push after each season)
-bash scripts/daily_mbb_R_processor.sh -s 2025 -e 2025
+bash scripts/daily_mbb_data_processor.sh -s 2025 -e 2025 -l python
+bash scripts/daily_mbb_data_processor.sh -s 2025 -e 2025 -l R   # rollback
 
 # Or call each creation script directly when iterating
 Rscript R/espn_mbb_01_pbp_creation.R        -s 2025 -e 2025
