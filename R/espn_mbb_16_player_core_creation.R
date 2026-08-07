@@ -7,6 +7,9 @@ suppressPackageStartupMessages({
   library(dplyr)
 })
 
+# Sourced up-front: upsert_manifest_row() is called inside the season loop.
+source(file.path("R", "manifest_upload_helper.R"))
+
 # Stage 16 -- player_core. Twin of python/espn_mbb_16_player_core_creation.py.
 #
 # Athlete identity + bio for the athletes who appeared in a season. Until
@@ -153,18 +156,16 @@ build_season_player_core <- function(y) {
     .token = Sys.getenv("GITHUB_PAT")
   )
 
-  manifest_path <- "mbb/player_core/nba_player_core_in_data_repo.csv"
+  manifest_path <- "mbb/player_core/mbb_player_core_in_data_repo.csv"
   manifest_row <- tibble::tibble(
     season           = as.integer(y),
     row_count        = as.integer(nrow(core)),
     generated_at_utc = format(Sys.time(), tz = "UTC", usetz = TRUE),
     source_endpoint  = glue::glue("{raw_base}/<athlete_id>.json")
   )
-  if (file.exists(manifest_path)) {
-    data.table::fwrite(manifest_row, manifest_path, append = TRUE)
-  } else {
-    data.table::fwrite(manifest_row, manifest_path)
-  }
+  # One row per season; see upsert_manifest_row() in
+  # R/manifest_upload_helper.R.
+  upsert_manifest_row(manifest_path, manifest_row, y)
 
   rm(core)
   gc()
