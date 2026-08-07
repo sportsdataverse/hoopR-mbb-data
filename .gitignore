@@ -1,25 +1,46 @@
-.Rproj.user
+# History files
 .Rhistory
+.Rapp.history
+
+# Session Data files
 .RData
+
+# User-specific files
 .Ruserdata
+
+# Editor / OS debris
 .vscode
-__pycache__
-*/__pycache__
-./__pycache__
 .DS_Store
-*/.DS_Store
-.pytest_cache
-*/.pytest_cache
-*.pyc
-*/*.pyc
-*.pyc
-daily_basketball_scraper.sh
-# python build writes release-only CSVs locally; never commit them
-mbb/*/csv/
+**/.DS_Store
 
+# Python bytecode caches
+__pycache__/
+*.pyc
+
+# python build writes release-only CSVs locally; never commit them.
 # Built rds/csv ship to the sportsdataverse-data releases, not to git.
-mbb/*/rds/
 mbb/*/csv/
+mbb/*/rds/
 
-# uv-managed project virtualenv (now at the repo root).
+# Run logs: logs/ stays tracked (per-season run logs are committed); ignore
+# stray *.log / *.out / *_logfile.txt debris everywhere else.
+*.log
+!logs/*.log
+/*.out
+/*_logfile.txt
+
+# Tool scratch directories (bare and nested).
+.omc/
+**/.omc/
+.Rproj.user/
+**/.Rproj.user/
+.ruff_cache/
+**/.ruff_cache/
+.understand-anything/
+**/.understand-anything/
+.superpowers/
+**/.superpowers/
+.pytest_cache/
+**/.pytest_cache/
 .venv/
+**/.venv/
