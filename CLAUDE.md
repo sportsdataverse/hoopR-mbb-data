@@ -259,3 +259,25 @@ dispatch payload extracts the start/end years from the commit message
 via `grep -o -E '[0-9]+' | head/tail -1`.
 
 **Important: Never include AI agents or assistants (e.g., Claude, Copilot, Cursor, GPT, Gemini) as co-authors on commits.** Omit all `Co-Authored-By` trailers referencing AI tools. This applies whether the change was generated, refactored, or reviewed with AI assistance — the human author is the sole attributable contributor.
+
+## Datasets
+
+<!-- BEGIN GENERATED: datasets -->
+| Script | Dataset | Release tag | Last published |
+|---|---|---|---|
+| [`python/espn_mbb_01_pbp_creation.py`](python/espn_mbb_01_pbp_creation.py) | [`pbp`](docs/datasets/pbp.md) | [`espn_mens_college_basketball_pbp`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_pbp) | — |
+| [`python/espn_mbb_02_team_box_creation.py`](python/espn_mbb_02_team_box_creation.py) | [`team_box`](docs/datasets/team_box.md) | [`espn_mens_college_basketball_team_boxscores`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_team_boxscores) | — |
+| [`python/espn_mbb_03_player_box_creation.py`](python/espn_mbb_03_player_box_creation.py) | [`player_box`](docs/datasets/player_box.md) | [`espn_mens_college_basketball_player_boxscores`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_player_boxscores) | — |
+| [`python/espn_mbb_04_rosters_creation.py`](python/espn_mbb_04_rosters_creation.py) | [`rosters`](docs/datasets/rosters.md) | [`espn_mens_college_basketball_rosters`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_rosters) | — |
+| [`python/espn_mbb_05_player_season_stats_creation.py`](python/espn_mbb_05_player_season_stats_creation.py) | [`player_season_stats`](docs/datasets/player_season_stats.md) | [`espn_mens_college_basketball_player_season_stats`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_player_season_stats) | — |
+| [`python/espn_mbb_06_team_season_stats_creation.py`](python/espn_mbb_06_team_season_stats_creation.py) | [`team_season_stats`](docs/datasets/team_season_stats.md) | [`espn_mens_college_basketball_team_season_stats`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_team_season_stats) | — |
+| [`python/espn_mbb_07_standings_creation.py`](python/espn_mbb_07_standings_creation.py) | [`standings`](docs/datasets/standings.md) | [`espn_mens_college_basketball_standings`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_standings) | — |
+| [`python/espn_mbb_09_game_rosters_creation.py`](python/espn_mbb_09_game_rosters_creation.py) | [`game_rosters`](docs/datasets/game_rosters.md) | [`espn_mens_college_basketball_game_rosters`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_game_rosters) | — |
+| [`python/espn_mbb_10_officials_creation.py`](python/espn_mbb_10_officials_creation.py) | [`officials`](docs/datasets/officials.md) | [`espn_mens_college_basketball_officials`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_officials) | — |
+| [`python/espn_mbb_11_team_crosswalk_creation.py`](python/espn_mbb_11_team_crosswalk_creation.py) | [`team_crosswalk`](docs/datasets/team_crosswalk.md) | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) | — |
+| [`python/espn_mbb_12_schedule_crosswalk_creation.py`](python/espn_mbb_12_schedule_crosswalk_creation.py) | [`schedule_crosswalk`](docs/datasets/schedule_crosswalk.md) | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) | — |
+| [`python/espn_mbb_13_player_crosswalk_creation.py`](python/espn_mbb_13_player_crosswalk_creation.py) | [`player_crosswalk`](docs/datasets/player_crosswalk.md) | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) | — |
+| [`python/espn_mbb_14_schedules_creation.py`](python/espn_mbb_14_schedules_creation.py) | [`schedules`](docs/datasets/schedules.md) | [`espn_mens_college_basketball_schedules`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_schedules) | — |
+| [`python/espn_mbb_15_shots_creation.py`](python/espn_mbb_15_shots_creation.py) | [`shots`](docs/datasets/shots.md) | [`espn_mens_college_basketball_shots`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_shots) | — |
+| [`python/espn_mbb_16_player_core_creation.py`](python/espn_mbb_16_player_core_creation.py) | [`player_core`](docs/datasets/player_core.md) | [`espn_mens_college_basketball_player_core`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_player_core) | — |
+<!-- END GENERATED: datasets -->

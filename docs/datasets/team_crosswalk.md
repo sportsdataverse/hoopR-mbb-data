@@ -1,0 +1,49 @@
+# `team_crosswalk`
+
+`team_crosswalk` reshaper -- release tag [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk).
+
+| | |
+|---|---|
+| **Builder** | [`python/espn_mbb_11_team_crosswalk_creation.py`](../../python/espn_mbb_11_team_crosswalk_creation.py) |
+| **Release tag** | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) |
+| **File stem** | `mbb_team_crosswalk_{season}.{parquet,csv,rds}` |
+| **Manifested** | no (no load_mbb_*_manifest() loader yet) |
+| **Last published** | — (newest release asset) |
+| **Tag created** | — |
+| **Release assets** | — |
+
+## Automation
+
+`.github/workflows/daily_mbb.yml` -- daily cron, running `scripts/daily_mbb_R_processor.sh` (R, the current daily producer). `scripts/daily_mbb_python_processor.sh` runs the parity-tested Python build in `mbb_data_build` but does not yet drive daily CI.
+
+## Columns
+
+| col_name | type | description |
+|---|---|---|
+| `season` | Int32 | |
+| `espn_team_id` | Int32 | |
+| `espn_abbreviation` | String | |
+| `espn_display_name` | String | |
+| `espn_short_name` | String | |
+| `espn_location` | String | |
+| `espn_mascot` | String | |
+| `espn_conference` | String | |
+| `fox_team_id` | String | |
+| `fox_team_name` | String | |
+| `fox_section` | String | |
+| `bart_team` | String | |
+| `bart_conf` | String | |
+| `kp_team` | String | |
+| `kp_conf` | String | |
+| `yahoo_team_id` | String | |
+| `yahoo_team_name` | String | |
+| `fox_match_confidence` | Float64 | |
+| `bart_match_confidence` | Float64 | |
+| `kp_match_confidence` | Float64 | |
+| `match_method` | String | |
+
+## Coverage
+
+| season | rows |
+|---:|---:|
+| 2026 | 362 |
