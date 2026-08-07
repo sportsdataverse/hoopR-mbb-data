@@ -21,10 +21,14 @@ jobs:
         with:
           # Sparse: these repos carry large committed data trees and a full
           # checkout is slow to useless here -- no test reads them (verified).
+          # R/ is small (text scripts) and MUST be present: the R<->Python
+          # stage-parity gate parses R/espn_mbb_NN_*.R; without it the gate
+          # found zero R stages and failed every push since 2026-08-06.
           sparse-checkout: |
             python
             tests
             scripts
+            R
             pyproject.toml
             uv.lock
           sparse-checkout-cone-mode: false
