@@ -58,15 +58,13 @@ def build_season(
     """
     spec = REGISTRY[dataset]
     if dataset not in reshapers.SEASON_BUILDERS and spec.reshaper not in reshapers.RESHAPERS:
-        # team_crosswalk + schedule_crosswalk build from LIVE ESPN+Torvik+Fox
-        # (+KenPom) inputs, not the raw repo, and stay on the R scripts
-        # (mbb_1{1,2}_*_creation.R): the team crosswalk joins KenPom, a paid
-        # feed sdv-py cannot reach, and the schedule crosswalk has no committed
-        # golden to gate a flip against. See config.REGISTRY.
+        # team_crosswalk builds from LIVE ESPN+Fox+Torvik+KenPom, not the raw
+        # repo, and stays on R/mbb_11_team_crosswalk_creation.R: it joins
+        # KenPom, a PAID feed sdv-py cannot reach. See config.REGISTRY.
         raise NotImplementedError(f"{dataset}: crosswalks still build via the R creation scripts")
-    # player_crosswalk reads LIVE ESPN/Fox, never the raw repo -- resolving the
-    # raw root for it would make the build fail on a machine with no
-    # hoopR-mbb-raw checkout, for an input it never opens.
+    # The schedule + player crosswalks read LIVE ESPN/Torvik/Fox, never the raw
+    # repo -- resolving the raw root for them would make the build fail on a
+    # machine with no hoopR-mbb-raw checkout, for an input they never open.
     root = None if dataset in reshapers.NO_RAW_INPUT else ingest.raw_root(raw_root)
     started = time.monotonic()
     mode = "http" if isinstance(root, str) else "disk"

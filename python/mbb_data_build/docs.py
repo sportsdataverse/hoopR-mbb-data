@@ -68,11 +68,11 @@ BUILDER: dict[str, str] = {
     "standings": "python/espn_mbb_07_standings_creation.py",
     "game_rosters": "python/espn_mbb_09_game_rosters_creation.py",
     "officials": "python/espn_mbb_10_officials_creation.py",
-    # Crosswalks: name the builder that ACTUALLY runs. 11 + 12 still build in
-    # R in both language modes (KenPom is paid; the schedule crosswalk has no
-    # committed golden), so their numbered python shims exist but are unwired.
+    # Crosswalks: name the builder that ACTUALLY runs. 11 still builds in R in
+    # both language modes (KenPom is a paid feed), so its numbered python shim
+    # exists but is unwired.
     "team_crosswalk": "R/mbb_11_team_crosswalk_creation.R",
-    "schedule_crosswalk": "R/mbb_12_schedule_crosswalk_creation.R",
+    "schedule_crosswalk": "python/espn_mbb_12_schedule_crosswalk_creation.py",
     "player_crosswalk": "python/espn_mbb_13_player_crosswalk_creation.py",
     "schedules": "python/espn_mbb_14_schedules_creation.py",
     "shots": "python/espn_mbb_15_shots_creation.py",
@@ -92,15 +92,26 @@ AUTOMATION = (
 assert set(BUILDER) == set(REGISTRY), "BUILDER must cover exactly the registry's datasets"
 
 
-def _latest_parquet(spec: DatasetSpec) -> Path | None:
-    """The newest committed ``{stem}_{season}.parquet`` on disk, if any.
+def _parquets(spec: DatasetSpec) -> list[Path]:
+    """Every committed ``{stem}_{season}.parquet`` on disk, oldest path first.
 
     Recursive glob rather than ``mbb/{spec.dataset}/parquet/`` because the R
     crosswalk scripts commit under a shared ``mbb/crosswalk/`` directory that
     doesn't match ``spec.dataset`` -- a pre-existing R/Python path divergence
     this module works around rather than papers over.
+
+    The season is matched as FOUR DIGITS, not ``*``: ``schedules``' stem
+    (``mbb_schedule``) is a prefix of the schedule crosswalk's
+    (``mbb_schedule_crosswalk``), so a bare ``*`` made
+    ``mbb_schedule_crosswalk_2026.parquet`` render as a ``crosswalk_2026``
+    season of the schedules dataset.
     """
-    hits = sorted(REPO_ROOT.glob(f"mbb/**/parquet/{spec.stem}_*.parquet"))
+    return sorted(REPO_ROOT.glob(f"mbb/**/parquet/{spec.stem}_[0-9][0-9][0-9][0-9].parquet"))
+
+
+def _latest_parquet(spec: DatasetSpec) -> Path | None:
+    """The newest committed ``{stem}_{season}.parquet`` on disk, if any."""
+    hits = _parquets(spec)
     return hits[-1] if hits else None
 
 
@@ -161,7 +172,7 @@ def column_table(dataset: str) -> str:
 def coverage_table(dataset: str) -> str:
     """Per-season row counts, read straight off the committed parquet tree."""
     spec = REGISTRY[dataset]
-    hits = sorted(REPO_ROOT.glob(f"mbb/**/parquet/{spec.stem}_*.parquet"))
+    hits = _parquets(spec)
     if not hits:
         return (
             f"_Coverage is tracked per release asset on "

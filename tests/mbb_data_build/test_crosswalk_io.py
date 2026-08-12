@@ -7,10 +7,13 @@ like the per-game datasets do, a daily re-run would grow a duplicate row per
 season -- which is exactly how the committed
 ``mbb_player_crosswalk_in_data_repo.csv`` ended up with nine 2026 rows.
 
-Only ``player_crosswalk`` is Python-built (team joins the paid KenPom feed;
-schedule has no committed golden), so only it carries build metadata -- but
-all three share the directory, which the first tests assert for all of them.
+``schedule_crosswalk`` and ``player_crosswalk`` are Python-built;
+``team_crosswalk`` joins the paid KenPom feed and stays on R permanently, so
+only the first two carry build metadata -- but all three share the directory,
+which the first tests assert for all of them.
 """
+
+from pathlib import Path
 
 import polars as pl
 import pytest
@@ -104,11 +107,49 @@ def test_player_crosswalk_never_resolves_a_raw_root(monkeypatch, tmp_path):
     assert out.height == 2
 
 
-def test_team_and_schedule_crosswalks_are_still_R_built(tmp_path):
-    """They must NOT have acquired a Python builder by accident -- team joins
-    the paid KenPom feed, schedule has no committed golden to gate against."""
-    for ds in ("team_crosswalk", "schedule_crosswalk"):
-        assert ds not in reshapers.SEASON_BUILDERS, ds
-        assert ds not in reshapers.NO_RAW_INPUT, ds
-        with pytest.raises(NotImplementedError):
-            build.build_season(ds, 2026, base=tmp_path)
+def test_schedule_crosswalk_never_resolves_a_raw_root(monkeypatch, tmp_path):
+    """Same NO_RAW_INPUT contract as the player crosswalk -- it reads live
+    ESPN/Torvik and never opens the raw repo."""
+    assert "schedule_crosswalk" in reshapers.NO_RAW_INPUT
+
+    def _boom(*a, **k):
+        raise AssertionError("raw_root resolved for a live-source crosswalk")
+
+    monkeypatch.setattr(build.ingest, "raw_root", _boom)
+    monkeypatch.setitem(
+        reshapers.SEASON_BUILDERS, "schedule_crosswalk", lambda season, **k: _frame()
+    )
+    assert build.build_season("schedule_crosswalk", 2026, base=tmp_path).height == 2
+
+
+def test_schedule_crosswalk_carries_the_bespoke_crosswalk_type():
+    spec = REGISTRY["schedule_crosswalk"]
+    # hoopR/R/mbb_crosswalk.R:704 + mbb_12_*_creation.R's sportsdataverse_type
+    assert spec.rds_type == "MBB schedule crosswalk (ESPN / Torvik)"
+    assert spec.sdv_type == "schedule crosswalk data"
+    assert spec.manifest_endpoint == "hoopR::mbb_schedule_crosswalk()"
+    assert spec.manifest_upsert is True
+
+
+def test_schedule_crosswalk_golden_pins_the_published_dtype_contract():
+    """The committed golden IS the contract the Python builder must keep
+    emitting. espn_game_id is a STRING; widening it (or the Int32 team ids)
+    would silently break every downstream join against the released asset."""
+    gold = Path(__file__).parents[2] / "mbb/crosswalk/parquet/mbb_schedule_crosswalk_2026.parquet"
+    schema = pl.read_parquet_schema(gold)
+    assert schema["espn_game_id"] == pl.String
+    assert schema["season"] == pl.Int32
+    assert schema["home_espn_team_id"] == pl.Int32
+    assert schema["away_espn_team_id"] == pl.Int32
+    assert schema["game_date"] == pl.Date
+    assert schema["match_confidence"] == pl.Float64
+
+
+def test_team_crosswalk_is_still_R_built(tmp_path):
+    """It must NOT acquire a Python builder: hoopR's MBB team crosswalk joins
+    KenPom, a paid feed sdv-py cannot reach, so a Python build would publish an
+    asset missing its kp_* columns. This one stays on R permanently."""
+    assert "team_crosswalk" not in reshapers.SEASON_BUILDERS
+    assert "team_crosswalk" not in reshapers.NO_RAW_INPUT
+    with pytest.raises(NotImplementedError):
+        build.build_season("team_crosswalk", 2026, base=tmp_path)

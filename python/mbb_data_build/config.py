@@ -196,13 +196,13 @@ REGISTRY: dict[str, DatasetSpec] = {
     # the release asset csv is still built from the parquet at publish time
     # (R `file_types = c("rds", "csv", "parquet")`).
     #
-    # Only player_crosswalk is Python-built. team_crosswalk and
-    # schedule_crosswalk stay on R and therefore carry no build metadata here:
-    # the MBB team crosswalk joins KenPom, a PAID feed sdv-py cannot reach, so
-    # a Python build would publish an asset missing its kp_* columns; the
-    # schedule crosswalk has no committed golden in mbb/crosswalk/parquet/, so
-    # there is nothing to gate a flip against. Both keep building via
-    # R/mbb_1{1,2}_*_creation.R in BOTH language modes.
+    # schedule_crosswalk and player_crosswalk are Python-built. team_crosswalk
+    # stays on R and therefore carries no build metadata here: the MBB team
+    # crosswalk joins KenPom, a PAID feed sdv-py cannot reach, so a Python
+    # build would publish an asset missing its kp_* columns (359 of the
+    # golden's 362 rows carry a kp_* match). It keeps building via
+    # R/mbb_11_team_crosswalk_creation.R in BOTH language modes -- permanently,
+    # not pending a fix.
     "team_crosswalk": DatasetSpec(
         "team_crosswalk",
         "mbb_team_crosswalk",
@@ -211,13 +211,29 @@ REGISTRY: dict[str, DatasetSpec] = {
         write_tree_csv=False,
         out_dir="crosswalk",
     ),
+    # No dtype coercion is applied on the way out and none is needed: the live
+    # frame's schema already IS the golden's published contract, read off
+    # mbb/crosswalk/parquet/mbb_schedule_crosswalk_2026.parquet (the frozen
+    # 2026-06-13 R output) -- season/home_espn_team_id/away_espn_team_id Int32,
+    # game_date Date, espn_game_id String (NOT Int; widening it would break
+    # every downstream join against the released asset), match_confidence
+    # Float64, everything else String.
     "schedule_crosswalk": DatasetSpec(
         "schedule_crosswalk",
         "mbb_schedule_crosswalk",
         "mbb_crosswalk",
         "schedule_crosswalk",
         write_tree_csv=False,
+        # Verbatim from mbb_12_schedule_crosswalk_creation.R's manifest_row.
+        manifest_endpoint="hoopR::mbb_schedule_crosswalk()",
         out_dir="crosswalk",
+        manifest_upsert=True,
+        # hoopR/R/mbb_crosswalk.R:704 make_hoopR_data("MBB schedule crosswalk
+        # (ESPN / Torvik)"). Fox and KenPom publish no per-game table, hence
+        # ESPN / Torvik only.
+        rds_type="MBB schedule crosswalk (ESPN / Torvik)",
+        # mbb_12_schedule_crosswalk_creation.R: sportsdataverse_type =.
+        sdv_type="schedule crosswalk data",
     ),
     "player_crosswalk": DatasetSpec(
         "player_crosswalk",

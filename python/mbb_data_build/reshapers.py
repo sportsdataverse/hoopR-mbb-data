@@ -482,13 +482,29 @@ def player_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.D
     crosswalk cannot reach the tree -- the error propagates and
     ``build_season`` fails the stage loudly.
 
-    MBB's other two crosswalks are NOT here: the team crosswalk joins KenPom
-    (a paid feed), and the schedule crosswalk has no committed golden to gate
-    a flip against. Both stay on R/mbb_1{1,2}_*_creation.R.
+    MBB's team crosswalk is NOT here: it joins KenPom, a paid feed sdv-py
+    cannot reach, so it stays on R/mbb_11_team_crosswalk_creation.R.
     """
     from sportsdataverse.mbb import mbb_player_crosswalk
 
     return mbb_player_crosswalk(season=season)
+
+
+def schedule_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
+    """Season builder for the schedule crosswalk -- ``sportsdataverse.mbb.mbb_schedule_crosswalk``.
+
+    Reads LIVE ESPN + Torvik, not the raw repo, so ``raw_root``/``base`` are
+    accepted and ignored (the ``SEASON_BUILDERS`` signature). Like the player
+    crosswalk, sdv-py raises when a source returns nothing, so a silently-empty
+    crosswalk cannot reach the tree.
+
+    The Python build carries NO duplicate ``espn_game_id`` rows; the frozen R
+    golden carries 67 (byte-identical pairs). That is a defect in the R output,
+    not a contract -- see ``config.REGISTRY`` and the flip commit.
+    """
+    from sportsdataverse.mbb import mbb_schedule_crosswalk
+
+    return mbb_schedule_crosswalk(season=season)
 
 
 SEASON_BUILDERS: dict = {
@@ -502,11 +518,12 @@ SEASON_BUILDERS: dict = {
     "player_core": player_core_builder,
     "standings": standings_builder,
     "player_crosswalk": player_crosswalk_builder,
+    "schedule_crosswalk": schedule_crosswalk_builder,
 }
 
 #: Datasets whose builder never opens the raw repo (live-source crosswalks).
 #: ``build_season`` skips the raw-root resolution for these.
-NO_RAW_INPUT: frozenset = frozenset({"player_crosswalk"})
+NO_RAW_INPUT: frozenset = frozenset({"player_crosswalk", "schedule_crosswalk"})
 
 
 # --- season-level post-processing (after the per-game concat) -----------------

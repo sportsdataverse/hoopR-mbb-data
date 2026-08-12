@@ -4,11 +4,11 @@
 
 | | |
 |---|---|
-| **Builder** | [`R/mbb_12_schedule_crosswalk_creation.R`](../../R/mbb_12_schedule_crosswalk_creation.R) |
+| **Builder** | [`python/espn_mbb_12_schedule_crosswalk_creation.py`](../../python/espn_mbb_12_schedule_crosswalk_creation.py) |
 | **Release tag** | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) |
 | **File stem** | `mbb_schedule_crosswalk_{season}.{parquet,csv,rds}` |
-| **Manifested** | no (no load_mbb_*_manifest() loader yet) |
-| **Last published** | 2026-08-07 (newest release asset) |
+| **Manifested** | yes |
+| **Last published** | 2026-08-12 (newest release asset) |
 | **Tag created** | 2026-06-13 |
 | **Release assets** | 25 |
 
@@ -18,8 +18,25 @@
 
 ## Columns
 
-_No committed parquet found locally to derive a schema from._
+| col_name | type | description |
+|---|---|---|
+| `season` | Int32 | |
+| `game_date` | Date | |
+| `home_espn_team_id` | Int32 | |
+| `away_espn_team_id` | Int32 | |
+| `espn_game_id` | String | |
+| `bart_muid` | String | |
+| `bart_team1` | String | |
+| `bart_team2` | String | |
+| `bart_winner` | String | |
+| `kp_game_id` | String | |
+| `fox_game_id` | String | |
+| `yahoo_game_id` | String | |
+| `match_method` | String | |
+| `match_confidence` | Float64 | |
 
 ## Coverage
 
-_Coverage is tracked per release asset on [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk)._
+| season | rows |
+|---:|---:|
+| 2026 | 6,386 |

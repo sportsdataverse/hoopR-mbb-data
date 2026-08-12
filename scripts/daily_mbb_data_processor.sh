@@ -5,8 +5,9 @@
 # port of espn_mbb_01..10). Build order matters: shots project the built pbp
 # parquet; schedules stamp flags from the built pbp/team_box/player_box
 # parquets; player_season_stats reads the built player_box for identity.
-# Of the crosswalks (mbb_11-13) only 13 (player) builds in Python; 11 + 12 stay
-# on R in both modes (see R_CROSSWALKS_IN_PY_MODE below). `.rds` is written
+# Of the crosswalks (mbb_11-13), 12 (schedule) + 13 (player) build in Python;
+# 11 (team) stays on R in both modes -- KenPom is a paid feed (see
+# R_CROSSWALKS_IN_PY_MODE below). `.rds` is written
 # natively by io.write_dataset in the same pass as the parquet, so there is no
 # separate serialize step.
 #
@@ -76,11 +77,11 @@ R_DATASETS=(
     R/espn_mbb_09_game_rosters_creation.R
     R/espn_mbb_10_officials_creation.R
 )
-# Crosswalks (stages 11-13). PARTIAL flip: only player_crosswalk (13) builds
-# in Python. 11 (team) joins KenPom, a PAID feed sdv-py cannot reach, so a
-# Python build would publish an asset missing its kp_* columns; 12 (schedule)
-# has no committed golden in mbb/crosswalk/parquet/ to gate a flip against.
-# Both keep running their .R originals in BOTH language modes.
+# Crosswalks (stages 11-13). PARTIAL flip: schedule_crosswalk (12) and
+# player_crosswalk (13) build in Python. 11 (team) joins KenPom, a PAID feed
+# sdv-py cannot reach, so a Python build would publish an asset missing its
+# kp_* columns -- it keeps running its .R original in BOTH language modes,
+# permanently.
 #
 # `-l R` is the D20 rollback path and runs all three .R scripts unchanged.
 R_CROSSWALKS=(
@@ -88,12 +89,12 @@ R_CROSSWALKS=(
     R/mbb_12_schedule_crosswalk_creation.R
     R/mbb_13_player_crosswalk_creation.R
 )
-# ... and in python mode, the two that did NOT flip.
+# ... and in python mode, the one that did NOT flip.
 R_CROSSWALKS_IN_PY_MODE=(
     R/mbb_11_team_crosswalk_creation.R
-    R/mbb_12_schedule_crosswalk_creation.R
 )
 PY_CROSSWALKS=(
+    schedule_crosswalk
     player_crosswalk
 )
 

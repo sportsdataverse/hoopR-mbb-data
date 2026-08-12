@@ -23,6 +23,18 @@ def test_column_table_renders_without_crashing_for_every_dataset():
         assert table  # either a real schema table or the honest placeholder
 
 
+def test_coverage_seasons_are_seasons_not_prefix_collisions():
+    """``mbb_schedule`` (schedules) is a PREFIX of ``mbb_schedule_crosswalk``.
+    Globbing ``{stem}_*`` therefore let the committed
+    ``mbb_schedule_crosswalk_2026.parquet`` render as a ``crosswalk_2026``
+    season of the schedules dataset. Every season cell must be a bare year."""
+    for dataset in docs.PAGES:
+        for line in docs.coverage_table(dataset).splitlines():
+            if line.startswith("| ") and "---" not in line and "season" not in line:
+                season = line.split("|")[1].strip()
+                assert season.isdigit(), f"{dataset}: non-season coverage row {season!r}"
+
+
 def test_dataset_page_is_well_formed():
     page = docs.dataset_page("pbp", live=False)
     assert page.startswith("# `pbp`")
