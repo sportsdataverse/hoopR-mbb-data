@@ -5,9 +5,10 @@
 # port of espn_mbb_01..10). Build order matters: shots project the built pbp
 # parquet; schedules stamp flags from the built pbp/team_box/player_box
 # parquets; player_season_stats reads the built player_box for identity.
-# Crosswalks (mbb_11-13) stay on R (live ESPN+Torvik+Fox inputs). `.rds` is
-# written natively by io.write_dataset in the same pass as the parquet, so
-# there is no separate serialize step.
+# Of the crosswalks (mbb_11-13) only 13 (player) builds in Python; 11 + 12 stay
+# on R in both modes (see R_CROSSWALKS_IN_PY_MODE below). `.rds` is written
+# natively by io.write_dataset in the same pass as the parquet, so there is no
+# separate serialize step.
 #
 # Usage: bash scripts/daily_mbb_data_processor.sh -s 2026 -e 2026 [-l python|R]
 set -uo pipefail
@@ -75,11 +76,25 @@ R_DATASETS=(
     R/espn_mbb_09_game_rosters_creation.R
     R/espn_mbb_10_officials_creation.R
 )
-# No python port -- crosswalks stay on R in BOTH modes.
+# Crosswalks (stages 11-13). PARTIAL flip: only player_crosswalk (13) builds
+# in Python. 11 (team) joins KenPom, a PAID feed sdv-py cannot reach, so a
+# Python build would publish an asset missing its kp_* columns; 12 (schedule)
+# has no committed golden in mbb/crosswalk/parquet/ to gate a flip against.
+# Both keep running their .R originals in BOTH language modes.
+#
+# `-l R` is the D20 rollback path and runs all three .R scripts unchanged.
 R_CROSSWALKS=(
     R/mbb_11_team_crosswalk_creation.R
     R/mbb_12_schedule_crosswalk_creation.R
     R/mbb_13_player_crosswalk_creation.R
+)
+# ... and in python mode, the two that did NOT flip.
+R_CROSSWALKS_IN_PY_MODE=(
+    R/mbb_11_team_crosswalk_creation.R
+    R/mbb_12_schedule_crosswalk_creation.R
+)
+PY_CROSSWALKS=(
+    player_crosswalk
 )
 
 mkdir -p logs
@@ -126,22 +141,35 @@ do
             echo "::endgroup::"
         }
 
+        # Crosswalks build from LIVE ESPN+Torvik+Fox(+KenPom) sources and are
+        # known-fragile (segfaults/timeouts on external flakiness). Best-effort
+        # in BOTH languages: a crosswalk failure warns but does NOT fail the run
+        # -- the core datasets are the daily deliverable and publish
+        # independently above. Hence these do NOT reuse run_r/run_py, which set
+        # SEASON_RC.
+        run_r_crosswalk() {
+            local script="$1"
+            echo "::group::$script $i"
+            Rscript "$script" -s "$i" -e "$i" || echo "::warning ::$script for season $i exited with code $? (crosswalk; non-fatal, live external source)"
+            echo "::endgroup::"
+        }
+        run_py_crosswalk() {
+            local ds="$1"
+            echo "::group::mbb_data_build $ds $i"
+            ( cd python && uv run python -m mbb_data_build \
+                --dataset "$ds" -s "$i" -e "$i" --base ../mbb --raw-root "$RAW_ROOT" --publish ) \
+                || echo "::warning ::mbb_data_build $ds for season $i exited with code $? (crosswalk; non-fatal, live external source)"
+            echo "::endgroup::"
+        }
+
         if [ "$LANG_MODE" = "R" ]; then
             for SCRIPT in "${R_DATASETS[@]}"; do run_r "$SCRIPT"; done
+            for SCRIPT in "${R_CROSSWALKS[@]}"; do run_r_crosswalk "$SCRIPT"; done
         else
             for DS in "${PY_DATASETS[@]}"; do run_py "$DS"; done
+            for SCRIPT in "${R_CROSSWALKS_IN_PY_MODE[@]}"; do run_r_crosswalk "$SCRIPT"; done
+            for DS in "${PY_CROSSWALKS[@]}"; do run_py_crosswalk "$DS"; done
         fi
-
-        for SCRIPT in "${R_CROSSWALKS[@]}"
-        do
-            echo "::group::$SCRIPT $i"
-            # Crosswalks build from LIVE ESPN+Torvik+Fox sources and are known-fragile
-            # (segfaults/timeouts on external flakiness). Best-effort: a crosswalk
-            # failure warns but does NOT fail the run -- the core datasets are the
-            # daily deliverable and publish independently above.
-            Rscript "$SCRIPT" -s "$i" -e "$i" || echo "::warning ::$SCRIPT for season $i exited with code $? (crosswalk; non-fatal, live external source)"
-            echo "::endgroup::"
-        done
 
         # Win-probability enrichment: republishes play_by_play_$i.parquet with
         # pregame_home_prob + home_win_prob appended. MUST run after the dataset

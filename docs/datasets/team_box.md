@@ -8,9 +8,9 @@
 | **Release tag** | [`espn_mens_college_basketball_team_boxscores`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_team_boxscores) |
 | **File stem** | `team_box_{season}.{parquet,csv,rds}` |
 | **Manifested** | no (no load_mbb_*_manifest() loader yet) |
-| **Last published** | — (newest release asset) |
-| **Tag created** | — |
-| **Release assets** | — |
+| **Last published** | 2026-08-12 (newest release asset) |
+| **Tag created** | 2023-03-29 |
+| **Release assets** | 76 |
 
 ## Automation
 

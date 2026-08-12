@@ -8,9 +8,9 @@
 | **Release tag** | [`espn_mens_college_basketball_shots`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_shots) |
 | **File stem** | `shots_{season}.{parquet,csv,rds}` |
 | **Manifested** | yes |
-| **Last published** | — (newest release asset) |
-| **Tag created** | — |
-| **Release assets** | — |
+| **Last published** | 2026-08-12 (newest release asset) |
+| **Tag created** | 2026-05-30 |
+| **Release assets** | 71 |
 
 ## Automation
 

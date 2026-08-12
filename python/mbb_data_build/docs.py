@@ -68,8 +68,11 @@ BUILDER: dict[str, str] = {
     "standings": "python/espn_mbb_07_standings_creation.py",
     "game_rosters": "python/espn_mbb_09_game_rosters_creation.py",
     "officials": "python/espn_mbb_10_officials_creation.py",
-    "team_crosswalk": "python/espn_mbb_11_team_crosswalk_creation.py",
-    "schedule_crosswalk": "python/espn_mbb_12_schedule_crosswalk_creation.py",
+    # Crosswalks: name the builder that ACTUALLY runs. 11 + 12 still build in
+    # R in both language modes (KenPom is paid; the schedule crosswalk has no
+    # committed golden), so their numbered python shims exist but are unwired.
+    "team_crosswalk": "R/mbb_11_team_crosswalk_creation.R",
+    "schedule_crosswalk": "R/mbb_12_schedule_crosswalk_creation.R",
     "player_crosswalk": "python/espn_mbb_13_player_crosswalk_creation.py",
     "schedules": "python/espn_mbb_14_schedules_creation.py",
     "shots": "python/espn_mbb_15_shots_creation.py",

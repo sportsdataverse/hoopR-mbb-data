@@ -7,10 +7,10 @@
 | **Builder** | [`python/espn_mbb_13_player_crosswalk_creation.py`](../../python/espn_mbb_13_player_crosswalk_creation.py) |
 | **Release tag** | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) |
 | **File stem** | `mbb_player_crosswalk_{season}.{parquet,csv,rds}` |
-| **Manifested** | no (no load_mbb_*_manifest() loader yet) |
-| **Last published** | — (newest release asset) |
-| **Tag created** | — |
-| **Release assets** | — |
+| **Manifested** | yes |
+| **Last published** | 2026-08-07 (newest release asset) |
+| **Tag created** | 2026-06-13 |
+| **Release assets** | 25 |
 
 ## Automation
 

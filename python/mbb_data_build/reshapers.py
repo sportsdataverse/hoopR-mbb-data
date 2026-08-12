@@ -473,6 +473,24 @@ def standings_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFram
     return out.unique(maintain_order=True)
 
 
+def player_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
+    """Season builder for the player crosswalk -- ``sportsdataverse.mbb.mbb_player_crosswalk``.
+
+    Reads LIVE ESPN + Fox, not the raw repo, so ``raw_root``/``base`` are
+    accepted and ignored (the ``SEASON_BUILDERS`` signature). The sdv-py
+    function raises when a source returns nothing, so a silently-empty
+    crosswalk cannot reach the tree -- the error propagates and
+    ``build_season`` fails the stage loudly.
+
+    MBB's other two crosswalks are NOT here: the team crosswalk joins KenPom
+    (a paid feed), and the schedule crosswalk has no committed golden to gate
+    a flip against. Both stay on R/mbb_1{1,2}_*_creation.R.
+    """
+    from sportsdataverse.mbb import mbb_player_crosswalk
+
+    return mbb_player_crosswalk(season=season)
+
+
 SEASON_BUILDERS: dict = {
     "schedules": schedules_builder,
     "shots": shots_builder,
@@ -483,7 +501,12 @@ SEASON_BUILDERS: dict = {
     "player_season_stats": player_season_stats_builder,
     "player_core": player_core_builder,
     "standings": standings_builder,
+    "player_crosswalk": player_crosswalk_builder,
 }
+
+#: Datasets whose builder never opens the raw repo (live-source crosswalks).
+#: ``build_season`` skips the raw-root resolution for these.
+NO_RAW_INPUT: frozenset = frozenset({"player_crosswalk"})
 
 
 # --- season-level post-processing (after the per-game concat) -----------------

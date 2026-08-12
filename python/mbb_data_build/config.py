@@ -76,6 +76,21 @@ class DatasetSpec:
         manifest_endpoint: ``source_endpoint`` template for the dataset's
             manifest row (``{season}`` is substituted), or None for the
             datasets R does NOT manifest.
+        out_dir: directory under ``mbb/`` when it is NOT the dataset name.
+            The three crosswalks share one ``mbb/crosswalk/`` dir (their R
+            scripts hard-code it); the manifest FILE name still carries the
+            dataset (``mbb_player_crosswalk_in_data_repo.csv``).
+        manifest_upsert: replace the season's row instead of appending. The
+            per-game manifests are append LOGS (one row per run) and their
+            history is published; a crosswalk manifest is one row per season,
+            and blind-appending is exactly what left the committed
+            ``mbb_player_crosswalk_in_data_repo.csv`` carrying nine 2026 rows.
+        rds_type: ``hoopR_type`` attribute override. Defaults to
+            ``RDS_TYPE_TEMPLATE``; the crosswalks carry the bespoke string
+            ``hoopR::mbb_*_crosswalk()`` stamps via ``make_hoopR_data()``
+            (hoopR/R/mbb_crosswalk.R).
+        sdv_type: ``sportsdataverse_type`` attribute override. Defaults to
+            ``"{dataset} data"``; R passes the spaced form for crosswalks.
     """
 
     dataset: str
@@ -85,6 +100,10 @@ class DatasetSpec:
     csv_suffix: str = ".csv"
     write_tree_csv: bool = True
     manifest_endpoint: str | None = None
+    out_dir: str | None = None
+    manifest_upsert: bool = False
+    rds_type: str | None = None
+    sdv_type: str | None = None
 
 
 REGISTRY: dict[str, DatasetSpec] = {
@@ -171,17 +190,50 @@ REGISTRY: dict[str, DatasetSpec] = {
     # crosswalks -- all three publish to the shared release tag "mbb_crosswalk"
     # (not the per-dataset espn_mens_college_basketball_* prefix used by the
     # per-game datasets above); stems match each script's
-    # `file_name = glue::glue("mbb_{...}_crosswalk_{y}")`.
+    # `file_name = glue::glue("mbb_{...}_crosswalk_{y}")`. All three also share
+    # one output dir (mbb/crosswalk/) and write no tree csv -- the
+    # mbb/crosswalk/*.csv files are the MANIFESTS, not a tree copy of the data;
+    # the release asset csv is still built from the parquet at publish time
+    # (R `file_types = c("rds", "csv", "parquet")`).
+    #
+    # Only player_crosswalk is Python-built. team_crosswalk and
+    # schedule_crosswalk stay on R and therefore carry no build metadata here:
+    # the MBB team crosswalk joins KenPom, a PAID feed sdv-py cannot reach, so
+    # a Python build would publish an asset missing its kp_* columns; the
+    # schedule crosswalk has no committed golden in mbb/crosswalk/parquet/, so
+    # there is nothing to gate a flip against. Both keep building via
+    # R/mbb_1{1,2}_*_creation.R in BOTH language modes.
     "team_crosswalk": DatasetSpec(
-        "team_crosswalk", "mbb_team_crosswalk", "mbb_crosswalk", "team_crosswalk"
+        "team_crosswalk",
+        "mbb_team_crosswalk",
+        "mbb_crosswalk",
+        "team_crosswalk",
+        write_tree_csv=False,
+        out_dir="crosswalk",
     ),
     "schedule_crosswalk": DatasetSpec(
         "schedule_crosswalk",
         "mbb_schedule_crosswalk",
         "mbb_crosswalk",
         "schedule_crosswalk",
+        write_tree_csv=False,
+        out_dir="crosswalk",
     ),
     "player_crosswalk": DatasetSpec(
-        "player_crosswalk", "mbb_player_crosswalk", "mbb_crosswalk", "player_crosswalk"
+        "player_crosswalk",
+        "mbb_player_crosswalk",
+        "mbb_crosswalk",
+        "player_crosswalk",
+        write_tree_csv=False,
+        # Verbatim from mbb_13_player_crosswalk_creation.R's manifest_row, and
+        # what every committed row of the manifest already carries.
+        manifest_endpoint="hoopR::mbb_player_crosswalk()",
+        out_dir="crosswalk",
+        manifest_upsert=True,
+        # hoopR/R/mbb_crosswalk.R: make_hoopR_data("MBB player crosswalk (ESPN / Fox)").
+        # KenPom and Torvik publish no per-player table, hence ESPN / Fox only.
+        rds_type="MBB player crosswalk (ESPN / Fox)",
+        # mbb_13_player_crosswalk_creation.R: sportsdataverse_type =.
+        sdv_type="player crosswalk data",
     ),
 }

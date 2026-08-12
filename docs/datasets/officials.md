@@ -8,9 +8,9 @@
 | **Release tag** | [`espn_mens_college_basketball_officials`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_officials) |
 | **File stem** | `officials_{season}.{parquet,csv,rds}` |
 | **Manifested** | yes |
-| **Last published** | — (newest release asset) |
-| **Tag created** | — |
-| **Release assets** | — |
+| **Last published** | 2026-08-07 (newest release asset) |
+| **Tag created** | 2026-05-30 |
+| **Release assets** | 54 |
 
 ## Automation
 
