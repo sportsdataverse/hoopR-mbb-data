@@ -26,11 +26,12 @@ EXPECTED_ENDPOINT = {
     "officials": f"{_RAW}/game_rosters/json/<game_id>.json",
     # The crosswalks read a LIVE hoopR/sdv-py surface, not a raw URL, so their
     # source_endpoint is the function name -- verbatim what
-    # mbb_1{2,3}_*_crosswalk_creation.R write and what the committed
-    # mbb/crosswalk/*_in_data_repo.csv rows already carry. team_crosswalk stays
-    # on R (paid KenPom feed) and is deliberately absent.
+    # mbb_1{1,2,3}_*_crosswalk_creation.R write and what the committed
+    # mbb/crosswalk/*_in_data_repo.csv rows already carry. All three are now
+    # Python-built; team_crosswalk was the last to flip.
     "player_crosswalk": "hoopR::mbb_player_crosswalk()",
     "schedule_crosswalk": "hoopR::mbb_schedule_crosswalk()",
+    "team_crosswalk": "hoopR::mbb_team_crosswalk()",
 }
 
 

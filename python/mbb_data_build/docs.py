@@ -68,10 +68,10 @@ BUILDER: dict[str, str] = {
     "standings": "python/espn_mbb_07_standings_creation.py",
     "game_rosters": "python/espn_mbb_09_game_rosters_creation.py",
     "officials": "python/espn_mbb_10_officials_creation.py",
-    # Crosswalks: name the builder that ACTUALLY runs. 11 still builds in R in
-    # both language modes (KenPom is a paid feed), so its numbered python shim
-    # exists but is unwired.
-    "team_crosswalk": "R/mbb_11_team_crosswalk_creation.R",
+    # Crosswalks: name the builder that ACTUALLY runs. All three are Python
+    # now -- 11 was the last holdout, unblocked once sdv-py bundled KenPom's
+    # public team directory (the join never needed the paid ratings feed).
+    "team_crosswalk": "python/espn_mbb_11_team_crosswalk_creation.py",
     "schedule_crosswalk": "python/espn_mbb_12_schedule_crosswalk_creation.py",
     "player_crosswalk": "python/espn_mbb_13_player_crosswalk_creation.py",
     "schedules": "python/espn_mbb_14_schedules_creation.py",

@@ -43,11 +43,11 @@ The repo is driven by the single entrypoint
 each season, commits + pushes, and finally runs the language-appropriate run
 summary for the whole range. `-l python` (the default) builds the 12
 raw-derived datasets with `mbb_data_build`; `-l R` is the retained rollback
-path over `espn_mbb_01`…`10`. Of the crosswalks, `mbb_12` (schedule) and
-`mbb_13` (player) build in Python; `mbb_11` (team) still runs its `.R` original
-in BOTH modes — the team crosswalk joins KenPom, a paid feed sdv-py cannot
-reach (359 of the golden's 362 rows carry a `kp_*` match), so it stays on R
-permanently. `-l R` runs all three `.R` scripts. Crosswalks are best-effort in
+path over `espn_mbb_01`…`10`. All three crosswalks (`mbb_11` team, `mbb_12`
+schedule, `mbb_13` player) build in Python — `mbb_11` was the last holdout,
+unblocked once sdv-py bundled KenPom's public team **directory** (the join
+needs school + conference per season, not the paid ratings feed). `-l R` still
+runs all three `.R` scripts unchanged as the rollback. Crosswalks are best-effort in
 both modes (they read live external sources — a crosswalk failure warns but
 does not fail the run). All seasons are integer years (end year of the NCAA season — e.g.
 `2025` means 2024-25).
@@ -278,7 +278,6 @@ via `grep -o -E '[0-9]+' | head/tail -1`.
 <!-- BEGIN GENERATED: datasets -->
 | Script | Dataset | Release tag | Last published |
 |---|---|---|---|
-| [`R/mbb_11_team_crosswalk_creation.R`](R/mbb_11_team_crosswalk_creation.R) | [`team_crosswalk`](docs/datasets/team_crosswalk.md) | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) | 2026-08-12 |
 | [`python/espn_mbb_01_pbp_creation.py`](python/espn_mbb_01_pbp_creation.py) | [`pbp`](docs/datasets/pbp.md) | [`espn_mens_college_basketball_pbp`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_pbp) | 2026-08-12 |
 | [`python/espn_mbb_02_team_box_creation.py`](python/espn_mbb_02_team_box_creation.py) | [`team_box`](docs/datasets/team_box.md) | [`espn_mens_college_basketball_team_boxscores`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_team_boxscores) | 2026-08-12 |
 | [`python/espn_mbb_03_player_box_creation.py`](python/espn_mbb_03_player_box_creation.py) | [`player_box`](docs/datasets/player_box.md) | [`espn_mens_college_basketball_player_boxscores`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_player_boxscores) | 2026-08-12 |
@@ -288,6 +287,7 @@ via `grep -o -E '[0-9]+' | head/tail -1`.
 | [`python/espn_mbb_07_standings_creation.py`](python/espn_mbb_07_standings_creation.py) | [`standings`](docs/datasets/standings.md) | [`espn_mens_college_basketball_standings`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_standings) | 2026-08-12 |
 | [`python/espn_mbb_09_game_rosters_creation.py`](python/espn_mbb_09_game_rosters_creation.py) | [`game_rosters`](docs/datasets/game_rosters.md) | [`espn_mens_college_basketball_game_rosters`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_game_rosters) | 2026-08-12 |
 | [`python/espn_mbb_10_officials_creation.py`](python/espn_mbb_10_officials_creation.py) | [`officials`](docs/datasets/officials.md) | [`espn_mens_college_basketball_officials`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_officials) | 2026-08-12 |
+| [`python/espn_mbb_11_team_crosswalk_creation.py`](python/espn_mbb_11_team_crosswalk_creation.py) | [`team_crosswalk`](docs/datasets/team_crosswalk.md) | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) | 2026-08-12 |
 | [`python/espn_mbb_12_schedule_crosswalk_creation.py`](python/espn_mbb_12_schedule_crosswalk_creation.py) | [`schedule_crosswalk`](docs/datasets/schedule_crosswalk.md) | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) | 2026-08-12 |
 | [`python/espn_mbb_13_player_crosswalk_creation.py`](python/espn_mbb_13_player_crosswalk_creation.py) | [`player_crosswalk`](docs/datasets/player_crosswalk.md) | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) | 2026-08-12 |
 | [`python/espn_mbb_14_schedules_creation.py`](python/espn_mbb_14_schedules_creation.py) | [`schedules`](docs/datasets/schedules.md) | [`espn_mens_college_basketball_schedules`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_schedules) | 2026-08-12 |
