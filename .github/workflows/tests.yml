@@ -20,15 +20,19 @@ jobs:
       - uses: actions/checkout@v5
         with:
           # Sparse: these repos carry large committed data trees and a full
-          # checkout is slow to useless here -- no test reads them (verified).
-          # R/ is small (text scripts) and MUST be present: the R<->Python
-          # stage-parity gate parses R/espn_mbb_NN_*.R; without it the gate
-          # found zero R stages and failed every push since 2026-08-06.
+          # checkout is slow to useless here. R/ is small (text scripts) and
+          # MUST be present: the R<->Python stage-parity gate parses
+          # R/espn_mbb_NN_*.R; without it the gate found zero R stages and
+          # failed every push since 2026-08-06.
+          # mbb/crosswalk/parquet/ (~400KB, three files) MUST be present too:
+          # those are the committed R goldens, and the crosswalk dtype-contract
+          # test reads one of them. It is the ONLY part of mbb/ any test opens.
           sparse-checkout: |
             python
             tests
             scripts
             R
+            mbb/crosswalk/parquet
             pyproject.toml
             uv.lock
           sparse-checkout-cone-mode: false
