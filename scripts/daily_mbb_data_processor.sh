@@ -5,9 +5,7 @@
 # port of espn_mbb_01..10). Build order matters: shots project the built pbp
 # parquet; schedules stamp flags from the built pbp/team_box/player_box
 # parquets; player_season_stats reads the built player_box for identity.
-# Of the crosswalks (mbb_11-13), 12 (schedule) + 13 (player) build in Python;
-# 11 (team) stays on R in both modes -- KenPom is a paid feed (see
-# R_CROSSWALKS_IN_PY_MODE below). `.rds` is written
+# All three crosswalks (mbb_11-13) now build in Python too. `.rds` is written
 # natively by io.write_dataset in the same pass as the parquet, so there is no
 # separate serialize step.
 #
@@ -77,23 +75,20 @@ R_DATASETS=(
     R/espn_mbb_09_game_rosters_creation.R
     R/espn_mbb_10_officials_creation.R
 )
-# Crosswalks (stages 11-13). PARTIAL flip: schedule_crosswalk (12) and
-# player_crosswalk (13) build in Python. 11 (team) joins KenPom, a PAID feed
-# sdv-py cannot reach, so a Python build would publish an asset missing its
-# kp_* columns -- it keeps running its .R original in BOTH language modes,
-# permanently.
+# Crosswalks (stages 11-13). FULL flip: all three build in Python. 11 (team)
+# was the last holdout -- it was held back on the belief that its KenPom join
+# needed the PAID feed, but the join needs KenPom's public team DIRECTORY, not
+# ratings, and sdv-py bundles that directory as package data.
 #
-# `-l R` is the D20 rollback path and runs all three .R scripts unchanged.
+# `-l R` is the D20 rollback path and still runs all three .R scripts
+# unchanged; no .R file was deleted.
 R_CROSSWALKS=(
     R/mbb_11_team_crosswalk_creation.R
     R/mbb_12_schedule_crosswalk_creation.R
     R/mbb_13_player_crosswalk_creation.R
 )
-# ... and in python mode, the one that did NOT flip.
-R_CROSSWALKS_IN_PY_MODE=(
-    R/mbb_11_team_crosswalk_creation.R
-)
 PY_CROSSWALKS=(
+    team_crosswalk
     schedule_crosswalk
     player_crosswalk
 )
@@ -168,7 +163,6 @@ do
             for SCRIPT in "${R_CROSSWALKS[@]}"; do run_r_crosswalk "$SCRIPT"; done
         else
             for DS in "${PY_DATASETS[@]}"; do run_py "$DS"; done
-            for SCRIPT in "${R_CROSSWALKS_IN_PY_MODE[@]}"; do run_r_crosswalk "$SCRIPT"; done
             for DS in "${PY_CROSSWALKS[@]}"; do run_py_crosswalk "$DS"; done
         fi
 

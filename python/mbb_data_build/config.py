@@ -196,20 +196,38 @@ REGISTRY: dict[str, DatasetSpec] = {
     # the release asset csv is still built from the parquet at publish time
     # (R `file_types = c("rds", "csv", "parquet")`).
     #
-    # schedule_crosswalk and player_crosswalk are Python-built. team_crosswalk
-    # stays on R and therefore carries no build metadata here: the MBB team
-    # crosswalk joins KenPom, a PAID feed sdv-py cannot reach, so a Python
-    # build would publish an asset missing its kp_* columns (359 of the
-    # golden's 362 rows carry a kp_* match). It keeps building via
-    # R/mbb_11_team_crosswalk_creation.R in BOTH language modes -- permanently,
-    # not pending a fix.
+    # All three crosswalks are now Python-built. team_crosswalk was the last
+    # holdout: it joins KenPom, which was assumed to require the PAID feed. It
+    # does not -- the join needs KenPom's team DIRECTORY (school + conference
+    # per season), not ratings, and that directory is public. hoopR ships it as
+    # the exported `teams_links` object; sdv-py 0.0.76 vendors it as bundled
+    # package data (sportsdataverse/mbb/data/kp_team_info.csv, 2002-2026) and
+    # `mbb_team_crosswalk(kenpom=None)` now defaults to it. No KenPom
+    # credential or request is involved on either side.
+    #
+    # No dtype coercion is applied on the way out and none is needed: the live
+    # frame's schema already IS the golden's published contract, read off
+    # mbb/crosswalk/parquet/mbb_team_crosswalk_2026.parquet (the frozen
+    # 2026-06-13 R output) -- season/espn_team_id Int32, fox_team_id String
+    # (NOT Int; widening it would break every downstream join against the
+    # released asset), the three *_match_confidence Float64, everything else
+    # String. Pinned by
+    # test_team_crosswalk_golden_pins_the_published_dtype_contract; this repo
+    # has no `canonicalize` field, so the golden itself is the pin.
     "team_crosswalk": DatasetSpec(
         "team_crosswalk",
         "mbb_team_crosswalk",
         "mbb_crosswalk",
         "team_crosswalk",
         write_tree_csv=False,
+        # Verbatim from mbb_11_team_crosswalk_creation.R's manifest_row.
+        manifest_endpoint="hoopR::mbb_team_crosswalk()",
         out_dir="crosswalk",
+        manifest_upsert=True,
+        # hoopR/R/mbb_crosswalk.R:372 make_hoopR_data(...).
+        rds_type="MBB team crosswalk (ESPN / Fox / Torvik / KenPom)",
+        # mbb_11_team_crosswalk_creation.R: sportsdataverse_type =.
+        sdv_type="team crosswalk data",
     ),
     # No dtype coercion is applied on the way out and none is needed: the live
     # frame's schema already IS the golden's published contract, read off

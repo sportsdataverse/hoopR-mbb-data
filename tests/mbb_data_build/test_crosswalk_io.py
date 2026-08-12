@@ -7,10 +7,11 @@ like the per-game datasets do, a daily re-run would grow a duplicate row per
 season -- which is exactly how the committed
 ``mbb_player_crosswalk_in_data_repo.csv`` ended up with nine 2026 rows.
 
-``schedule_crosswalk`` and ``player_crosswalk`` are Python-built;
-``team_crosswalk`` joins the paid KenPom feed and stays on R permanently, so
-only the first two carry build metadata -- but all three share the directory,
-which the first tests assert for all of them.
+All three are now Python-built. ``team_crosswalk`` was the last holdout: it
+was held back on the belief that its KenPom join needed the paid feed, but the
+join needs KenPom's public team DIRECTORY (school + conference per season),
+not ratings, and sdv-py bundles that directory as package data. The three .R
+scripts stay as the ``-l R`` rollback (design D20).
 """
 
 from pathlib import Path
@@ -145,11 +146,63 @@ def test_schedule_crosswalk_golden_pins_the_published_dtype_contract():
     assert schema["match_confidence"] == pl.Float64
 
 
-def test_team_crosswalk_is_still_R_built(tmp_path):
-    """It must NOT acquire a Python builder: hoopR's MBB team crosswalk joins
-    KenPom, a paid feed sdv-py cannot reach, so a Python build would publish an
-    asset missing its kp_* columns. This one stays on R permanently."""
-    assert "team_crosswalk" not in reshapers.SEASON_BUILDERS
-    assert "team_crosswalk" not in reshapers.NO_RAW_INPUT
+def test_team_crosswalk_never_resolves_a_raw_root(monkeypatch, tmp_path):
+    """Same NO_RAW_INPUT contract as its two siblings -- it reads live
+    ESPN/Fox/Torvik plus sdv-py's bundled KenPom directory, never the raw
+    repo."""
+    assert "team_crosswalk" in reshapers.SEASON_BUILDERS
+    assert "team_crosswalk" in reshapers.NO_RAW_INPUT
+
+    def _boom(*a, **k):
+        raise AssertionError("raw_root resolved for a live-source crosswalk")
+
+    monkeypatch.setattr(build.ingest, "raw_root", _boom)
+    monkeypatch.setitem(reshapers.SEASON_BUILDERS, "team_crosswalk", lambda season, **k: _frame())
+    assert build.build_season("team_crosswalk", 2026, base=tmp_path).height == 2
+
+
+def test_team_crosswalk_carries_the_bespoke_crosswalk_type():
+    spec = REGISTRY["team_crosswalk"]
+    # hoopR/R/mbb_crosswalk.R:372 + mbb_11_*_creation.R's sportsdataverse_type
+    assert spec.rds_type == "MBB team crosswalk (ESPN / Fox / Torvik / KenPom)"
+    assert spec.sdv_type == "team crosswalk data"
+    assert spec.manifest_endpoint == "hoopR::mbb_team_crosswalk()"
+    assert spec.manifest_upsert is True
+
+
+def test_team_crosswalk_golden_pins_the_published_dtype_contract():
+    """The committed golden IS the contract the Python builder must keep
+    emitting. fox_team_id is a STRING; widening it (or the Int32 season /
+    espn_team_id) would silently break every downstream join against the
+    released asset. This repo has no `canonicalize` field, so the golden is
+    the pin."""
+    gold = Path(__file__).parents[2] / "mbb/crosswalk/parquet/mbb_team_crosswalk_2026.parquet"
+    schema = pl.read_parquet_schema(gold)
+    assert schema["season"] == pl.Int32
+    assert schema["espn_team_id"] == pl.Int32
+    assert schema["fox_team_id"] == pl.String
+    for c in ("fox_match_confidence", "bart_match_confidence", "kp_match_confidence"):
+        assert schema[c] == pl.Float64, c
+    for c in (
+        "espn_display_name",
+        "espn_conference",
+        "bart_team",
+        "kp_team",
+        "kp_conf",
+        "match_method",
+    ):
+        assert schema[c] == pl.String, c
+
+
+def test_every_crosswalk_now_has_a_python_builder(monkeypatch, tmp_path):
+    """The flip is complete -- team_crosswalk was the last dataset on R. The
+    .R scripts stay as the `-l R` rollback (design D20); none was deleted.
+
+    The NotImplementedError guard survives, but it now only fires for a
+    REGISTRY entry added without a builder, not for a standing R carve-out.
+    """
+    for ds in CROSSWALKS:
+        assert ds in reshapers.SEASON_BUILDERS, ds
+    monkeypatch.delitem(reshapers.SEASON_BUILDERS, "team_crosswalk")
     with pytest.raises(NotImplementedError):
         build.build_season("team_crosswalk", 2026, base=tmp_path)

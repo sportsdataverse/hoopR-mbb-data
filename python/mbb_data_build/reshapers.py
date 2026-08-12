@@ -481,13 +481,36 @@ def player_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.D
     function raises when a source returns nothing, so a silently-empty
     crosswalk cannot reach the tree -- the error propagates and
     ``build_season`` fails the stage loudly.
-
-    MBB's team crosswalk is NOT here: it joins KenPom, a paid feed sdv-py
-    cannot reach, so it stays on R/mbb_11_team_crosswalk_creation.R.
     """
     from sportsdataverse.mbb import mbb_player_crosswalk
 
     return mbb_player_crosswalk(season=season)
+
+
+def team_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
+    """Season builder for the team crosswalk -- ``sportsdataverse.mbb.mbb_team_crosswalk``.
+
+    Reads LIVE ESPN + Fox + Torvik plus sdv-py's BUNDLED KenPom team directory
+    (``sportsdataverse/mbb/data/kp_team_info.csv``, hoopR's ``teams_links``),
+    not the raw repo, so ``raw_root``/``base`` are accepted and ignored (the
+    ``SEASON_BUILDERS`` signature).
+
+    This was the last dataset on R. It was held back on the belief that the
+    KenPom join needed the paid feed; it needs KenPom's public team DIRECTORY
+    (school + conference per season), not ratings, and sdv-py 0.0.76 bundles
+    it. No KenPom credential or request is involved.
+
+    Two documented divergences from the frozen 2026 golden, both benign:
+    ``bart_*`` is POPULATED here (359/362) where the golden published it
+    all-null -- the R builder wraps ``torvik_ratings()`` in
+    ``tryCatch(..., error = NULL)`` and it returned nothing the day the golden
+    froze -- so ``match_method`` reads ``fox+bart+kp`` where the golden reads
+    ``fox+kp``. hoopR's own documented vocabulary lists ``fox+bart+kp`` first.
+    See ``config.REGISTRY`` and the flip commit.
+    """
+    from sportsdataverse.mbb import mbb_team_crosswalk
+
+    return mbb_team_crosswalk(season=season)
 
 
 def schedule_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
@@ -519,11 +542,12 @@ SEASON_BUILDERS: dict = {
     "standings": standings_builder,
     "player_crosswalk": player_crosswalk_builder,
     "schedule_crosswalk": schedule_crosswalk_builder,
+    "team_crosswalk": team_crosswalk_builder,
 }
 
 #: Datasets whose builder never opens the raw repo (live-source crosswalks).
 #: ``build_season`` skips the raw-root resolution for these.
-NO_RAW_INPUT: frozenset = frozenset({"player_crosswalk", "schedule_crosswalk"})
+NO_RAW_INPUT: frozenset = frozenset({"player_crosswalk", "schedule_crosswalk", "team_crosswalk"})
 
 
 # --- season-level post-processing (after the per-game concat) -----------------
