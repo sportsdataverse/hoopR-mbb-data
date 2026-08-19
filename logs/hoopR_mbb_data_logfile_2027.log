@@ -1,0 +1,222 @@
+From https://github.com/sportsdataverse/hoopR-mbb-data
+ * [new branch]        chore/mbb-drop-local-active-reorder -> origin/chore/mbb-drop-local-active-reorder
+ * [new branch]        feat/mbb-ci-cutover-python -> origin/feat/mbb-ci-cutover-python
+ * [new branch]        feat/mbb-data-build   -> origin/feat/mbb-data-build
+ * [new branch]        feat/mbb-game-rosters-json-final-fallback -> origin/feat/mbb-game-rosters-json-final-fallback
+ * [new branch]        feat/mbb-native-rds   -> origin/feat/mbb-native-rds
+ * [new branch]        feat/mbb-officials-json-final-repoint -> origin/feat/mbb-officials-json-final-repoint
+ * [new branch]        feat/mbb-player-core-daily -> origin/feat/mbb-player-core-daily
+ * [new branch]        feat/mbb-player-core-dataset -> origin/feat/mbb-player-core-dataset
+ * [new branch]        feat/mbb-player-core-tree -> origin/feat/mbb-player-core-tree
+ * [new branch]        feat/mbb-team-crosswalk-python -> origin/feat/mbb-team-crosswalk-python
+ * [new branch]        feat/weekly-output-parity -> origin/feat/weekly-output-parity
+ * [new branch]        fix/mbb-serialize-rds -> origin/fix/mbb-serialize-rds
+ * [new branch]        fix/player-core-manifest -> origin/fix/player-core-manifest
+::group::mbb_data_build pbp 2027
+2026-08-19 01:55:54 [WARNING] mbb_data_build: pbp 2027: no game_json games in the season schedule; nothing built
+2026-08-19 01:55:54 [INFO] mbb_data_build: pbp 2027: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build team_box 2027
+2026-08-19 01:55:57 [WARNING] mbb_data_build: team_box 2027: no game_json games in the season schedule; nothing built
+2026-08-19 01:55:57 [INFO] mbb_data_build: team_box 2027: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build player_box 2027
+2026-08-19 01:56:00 [WARNING] mbb_data_build: player_box 2027: no game_json games in the season schedule; nothing built
+2026-08-19 01:56:00 [INFO] mbb_data_build: player_box 2027: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build player_core 2027
+2026-08-19 01:56:02 [INFO] mbb_data_build: player_core 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-19 01:56:02 [WARNING] mbb_data_build: player_core 2027: no built player_box parquet at ..\mbb\player_box\parquet\player_box_2027.parquet -- cannot resolve which athletes played this season (build player_box first)
+2026-08-19 01:56:02 [WARNING] mbb_data_build: player_core 2027: season-level build produced 0 rows; nothing written
+2026-08-19 01:56:02 [INFO] mbb_data_build: player_core 2027: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build schedules 2027
+2026-08-19 01:56:05 [INFO] mbb_data_build: schedules 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-19 01:56:05 [WARNING] mbb_data_build: pbp 2027: no built parquet at ..\mbb\pbp\parquet\play_by_play_2027.parquet -- schedule flags for it will all be False
+2026-08-19 01:56:05 [WARNING] mbb_data_build: team_box 2027: no built parquet at ..\mbb\team_box\parquet\team_box_2027.parquet -- schedule flags for it will all be False
+2026-08-19 01:56:05 [WARNING] mbb_data_build: player_box 2027: no built parquet at ..\mbb\player_box\parquet\player_box_2027.parquet -- schedule flags for it will all be False
+2026-08-19 01:56:06 [INFO] mbb_data_build: wrote ..\mbb\schedules\parquet\mbb_schedule_2027.parquet (130.1KB) + mbb_schedule_2027.rds (137.1KB) + mbb_schedule_2027.csv (2.1MB), 1629 rows x 83 cols; manifest n/a (not manifested)
+2026-08-19 01:56:07 [INFO] mbb_data_build: uploading mbb_schedule_2027.parquet (130.1KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+2026-08-19 01:56:08 [INFO] mbb_data_build: uploaded mbb_schedule_2027.parquet -> espn_mens_college_basketball_schedules (asset 1/3)
+2026-08-19 01:56:08 [INFO] mbb_data_build: uploading mbb_schedule_2027.rds (137.1KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+2026-08-19 01:56:09 [INFO] mbb_data_build: uploaded mbb_schedule_2027.rds -> espn_mens_college_basketball_schedules (asset 2/3)
+2026-08-19 01:56:09 [INFO] mbb_data_build: uploading mbb_schedule_2027.csv (2.1MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+2026-08-19 01:56:10 [INFO] mbb_data_build: uploaded mbb_schedule_2027.csv -> espn_mens_college_basketball_schedules (asset 3/3)
+2026-08-19 01:56:10 [INFO] mbb_data_build: schedules 2027: done -- 1629 rows in 4.9s
+2026-08-19 01:56:10 [INFO] mbb_data_build: schedules 2027: season complete -- 1629 rows
+::endgroup::
+::group::mbb_data_build shots 2027
+2026-08-19 01:56:13 [INFO] mbb_data_build: shots 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-19 01:56:13 [WARNING] mbb_data_build: shots 2027: season-level build produced 0 rows; nothing written
+2026-08-19 01:56:13 [INFO] mbb_data_build: shots 2027: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build rosters 2027
+2026-08-19 01:56:15 [INFO] mbb_data_build: rosters 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-19 01:56:47 [INFO] mbb_data_build: wrote ..\mbb\rosters\parquet\rosters_2027.parquet (510.7KB) + rosters_2027.rds (515.3KB) + rosters_2027.csv (2.3MB), 5461 rows x 36 cols; manifest mbb_rosters_in_data_repo.csv appended
+2026-08-19 01:56:47 [INFO] mbb_data_build: uploading rosters_2027.parquet (510.7KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
+2026-08-19 01:56:48 [INFO] mbb_data_build: uploaded rosters_2027.parquet -> espn_mens_college_basketball_rosters (asset 1/4)
+2026-08-19 01:56:48 [INFO] mbb_data_build: uploading rosters_2027.rds (515.3KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
+2026-08-19 01:56:49 [INFO] mbb_data_build: uploaded rosters_2027.rds -> espn_mens_college_basketball_rosters (asset 2/4)
+2026-08-19 01:56:49 [INFO] mbb_data_build: uploading rosters_2027.csv (2.3MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
+2026-08-19 01:56:50 [INFO] mbb_data_build: uploaded rosters_2027.csv -> espn_mens_college_basketball_rosters (asset 3/4)
+2026-08-19 01:56:50 [INFO] mbb_data_build: uploading mbb_rosters_in_data_repo.csv (341B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
+2026-08-19 01:56:51 [INFO] mbb_data_build: uploaded mbb_rosters_in_data_repo.csv -> espn_mens_college_basketball_rosters (asset 4/4)
+2026-08-19 01:56:51 [INFO] mbb_data_build: rosters 2027: done -- 5461 rows in 35.8s
+2026-08-19 01:56:51 [INFO] mbb_data_build: rosters 2027: season complete -- 5461 rows
+::endgroup::
+::group::mbb_data_build player_season_stats 2027
+2026-08-19 01:56:54 [INFO] mbb_data_build: player_season_stats 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-19 01:56:54 [WARNING] mbb_data_build: player_season_stats 2027: no built player_box parquet at ..\mbb\player_box\parquet\player_box_2027.parquet -- identity columns will be blank (build player_box first)
+2026-08-19 01:56:54 [WARNING] mbb_data_build: player_season_stats 2027: season-level build produced 0 rows; nothing written
+2026-08-19 01:56:54 [INFO] mbb_data_build: player_season_stats 2027: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build team_season_stats 2027
+2026-08-19 01:56:56 [INFO] mbb_data_build: team_season_stats 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-19 01:56:57 [WARNING] mbb_data_build: team_season_stats 2027: season-level build produced 0 rows; nothing written
+2026-08-19 01:56:57 [INFO] mbb_data_build: team_season_stats 2027: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build standings 2027
+2026-08-19 01:56:59 [INFO] mbb_data_build: standings 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-19 01:56:59 [WARNING] mbb_data_build: standings 2027: season-level build produced 0 rows; nothing written
+2026-08-19 01:56:59 [INFO] mbb_data_build: standings 2027: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build game_rosters 2027
+2026-08-19 01:57:02 [INFO] mbb_data_build: game_rosters 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-19 01:57:02 [WARNING] mbb_data_build: game_rosters 2027: season-level build produced 0 rows; nothing written
+2026-08-19 01:57:02 [INFO] mbb_data_build: game_rosters 2027: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build officials 2027
+2026-08-19 01:57:05 [INFO] mbb_data_build: officials 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-08-19 01:57:06 [WARNING] mbb_data_build: officials 2027: season-level build produced 0 rows; nothing written
+2026-08-19 01:57:06 [INFO] mbb_data_build: officials 2027: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build team_crosswalk 2027
+2026-08-19 01:57:08 [INFO] mbb_data_build: team_crosswalk 2027: season-level build starting (raw=None via disk)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 84, in build_season
+    out = reshapers.SEASON_BUILDERS[dataset](season, raw_root=root, base=Path(base))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 513, in team_crosswalk_builder
+    return mbb_team_crosswalk(season=season)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 592, in mbb_team_crosswalk
+    out = _assemble_team_crosswalk(espn, fox, bart, kenpom, season)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 337, in _assemble_team_crosswalk
+    bart.select(
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\polars\dataframe\frame.py", line 10484, in select
+    .collect(optimizations=QueryOptFlags._eager())
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\polars\_utils\deprecation.py", line 97, in wrapper
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\polars\lazyframe\opt_flags.py", line 344, in wrapper
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\polars\lazyframe\frame.py", line 2630, in collect
+    return wrap_df(ldf.collect(engine, callback))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+polars.exceptions.ColumnNotFoundError: unable to find column "team"; valid columns: ["doctype_html_public_w3c_dtd_html_4_01_transitional_en_http_www_w3_org_tr_html4_loose_dtd", "unnamed"]
+::warning ::mbb_data_build team_crosswalk for season 2027 exited with code 1 (crosswalk; non-fatal, live external source)
+::endgroup::
+::group::mbb_data_build schedule_crosswalk 2027
+2026-08-19 01:58:07 [INFO] mbb_data_build: schedule_crosswalk 2027: season-level build starting (raw=None via disk)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 84, in build_season
+    out = reshapers.SEASON_BUILDERS[dataset](season, raw_root=root, base=Path(base))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 530, in schedule_crosswalk_builder
+    return mbb_schedule_crosswalk(season=season)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 639, in mbb_schedule_crosswalk
+    team_xwalk = mbb_team_crosswalk(season=season, fox=pl.DataFrame(), **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 592, in mbb_team_crosswalk
+    out = _assemble_team_crosswalk(espn, fox, bart, kenpom, season)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 337, in _assemble_team_crosswalk
+    bart.select(
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\polars\dataframe\frame.py", line 10484, in select
+    .collect(optimizations=QueryOptFlags._eager())
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\polars\_utils\deprecation.py", line 97, in wrapper
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\polars\lazyframe\opt_flags.py", line 344, in wrapper
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\polars\lazyframe\frame.py", line 2630, in collect
+    return wrap_df(ldf.collect(engine, callback))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+polars.exceptions.ColumnNotFoundError: unable to find column "team"; valid columns: ["doctype_html_public_w3c_dtd_html_4_01_transitional_en_http_www_w3_org_tr_html4_loose_dtd", "unnamed"]
+::warning ::mbb_data_build schedule_crosswalk for season 2027 exited with code 1 (crosswalk; non-fatal, live external source)
+::endgroup::
+::group::mbb_data_build player_crosswalk 2027
+2026-08-19 01:58:18 [INFO] mbb_data_build: player_crosswalk 2027: season-level build starting (raw=None via disk)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 84, in build_season
+    out = reshapers.SEASON_BUILDERS[dataset](season, raw_root=root, base=Path(base))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 487, in player_crosswalk_builder
+    return mbb_player_crosswalk(season=season)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 695, in mbb_player_crosswalk
+    team_xwalk = mbb_team_crosswalk(season=season, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 592, in mbb_team_crosswalk
+    out = _assemble_team_crosswalk(espn, fox, bart, kenpom, season)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 337, in _assemble_team_crosswalk
+    bart.select(
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\polars\dataframe\frame.py", line 10484, in select
+    .collect(optimizations=QueryOptFlags._eager())
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\polars\_utils\deprecation.py", line 97, in wrapper
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\polars\lazyframe\opt_flags.py", line 344, in wrapper
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\polars\lazyframe\frame.py", line 2630, in collect
+    return wrap_df(ldf.collect(engine, callback))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+polars.exceptions.ColumnNotFoundError: unable to find column "team"; valid columns: ["doctype_html_public_w3c_dtd_html_4_01_transitional_en_http_www_w3_org_tr_html4_loose_dtd", "unnamed"]
+::warning ::mbb_data_build player_crosswalk for season 2027 exited with code 1 (crosswalk; non-fatal, live external source)
+::endgroup::
+D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_loaders.py:134: UserWarning: load_mbb_pbp: no data for season(s) [2027] (skipped)
+  cli_warn("load_mbb_pbp: no data for season(s) {missing} (skipped)".format(missing=missing))
+D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_loaders.py:463: UserWarning: load_mbb_team_boxscore: no data for season(s) [2027] (skipped)
+  cli_warn("load_mbb_team_boxscore: no data for season(s) {missing} (skipped)".format(missing=missing))
+2026-08-19 01:58:39 [WARNING] mbb_data_build: wp mens 2027: builder returned no ['pregame_home_prob', 'home_win_prob']; skipping publish
+::warning ::wp_enrich for season 2027 exited with code 1 (non-fatal; release keeps plain pbp)
+season 2027 EXIT=0
+[main 5c74e4f9] MBB Data Updated (Start: 2027 End: 2027)
+ 3 files changed, 1 insertion(+)
+ create mode 100644 mbb/rosters/parquet/rosters_2027.parquet
+ create mode 100644 mbb/schedules/parquet/mbb_schedule_2027.parquet
+To https://github.com/sportsdataverse/hoopR-mbb-data
+   00967c9f..5c74e4f9  main -> main
