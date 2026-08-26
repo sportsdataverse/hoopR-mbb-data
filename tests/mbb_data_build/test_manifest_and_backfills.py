@@ -3,11 +3,13 @@ isolation: manifest endpoints (incl. the two MBB deltas -- officials pointing
 at game_rosters, player_season_stats carrying no {season} segment).
 
 MBB delta vs the NBA sibling: there is no ``largest_lead``/``type_abbreviation``
-season-level backfill to test here -- ``reshapers.SEASON_POSTPROCESS`` is
-empty because the MBB per-game reshapers always emit their full fixed column
-set (see ``reshapers.py`` module docstring).
+season-level column backfill to test here -- the MBB per-game reshapers always
+emit their full fixed column set (see ``reshapers.py`` module docstring). The
+only season-level pass is the hoopR#23 player_box dual-team dedupe.
 """
 
+import polars as pl
+from mbb_data_build import reshapers
 from mbb_data_build.config import REGISTRY
 from mbb_data_build.reshapers import SEASON_POSTPROCESS
 
@@ -58,7 +60,27 @@ def test_no_draft_dataset():
     assert "draft" not in REGISTRY
 
 
-def test_season_postprocess_is_empty():
+def test_season_postprocess_is_player_box_dedupe_only():
     # Unlike NBA, MBB's per-game reshapers always emit their full fixed
-    # column set -- no season-union backfill is needed.
-    assert SEASON_POSTPROCESS == {}
+    # column set -- no season-union column backfill is needed. The ONLY
+    # season-level pass is the hoopR#23 dual-team dupe-athlete dedupe.
+    assert set(SEASON_POSTPROCESS) == {"player_box"}
+    assert SEASON_POSTPROCESS["player_box"] is reshapers.dedupe_player_box_dual_team
+
+
+def test_dedupe_player_box_dual_team():
+    # One game, athlete 1 double-listed on both teams (identical stat line):
+    # the starter=True copy wins. Athlete 2 dupe resolved by modal team from
+    # game 2. Athlete 3 is a legit single row and must survive untouched.
+    df = pl.DataFrame(
+        {
+            "game_id": [1, 1, 1, 2, 1, 1],
+            "athlete_id": [10, 10, 30, 20, 20, 20],
+            "team_id": [100, 200, 200, 100, 100, 200],
+            "starter": [True, False, False, False, False, False],
+        }
+    )
+    out = reshapers.dedupe_player_box_dual_team(df)
+    assert out.height == 4
+    kept = {(r["game_id"], r["athlete_id"], r["team_id"]) for r in out.to_dicts()}
+    assert kept == {(1, 10, 100), (1, 30, 200), (2, 20, 100), (1, 20, 100)}

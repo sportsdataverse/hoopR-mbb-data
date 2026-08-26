@@ -37,6 +37,69 @@ years_vec <- opt$s:opt$e
 
 # --- compile into player_box_{year}.parquet ---------
 
+# hoopR#23: ESPN sometimes lists the same athlete inside BOTH teams'
+# boxscore player arrays with an identical stat line (e.g. game 401253901).
+# Keep the copy on the athlete's true team, resolved by (1) the row ESPN
+# marks starter = TRUE (the foreign copy never is), else (2) the athlete's
+# modal team_id across the season's non-duplicated rows (strict majority).
+# Pairs neither signal resolves are kept as-is; NA athlete_ids are never
+# treated as duplicates of each other. Mirrors
+# python/mbb_data_build/reshapers.py::dedupe_player_box_dual_team.
+dedupe_player_box_dual_team <- function(df) {
+  if (!all(c("game_id", "athlete_id", "team_id") %in% names(df))) {
+    return(df)
+  }
+  df <- df %>%
+    dplyr::group_by(.data$game_id, .data$athlete_id) %>%
+    dplyr::mutate(
+      .dupe = !is.na(.data$athlete_id) & dplyr::n_distinct(.data$team_id) > 1
+    ) %>%
+    dplyr::ungroup()
+  if (!any(df$.dupe)) {
+    return(dplyr::select(df, -".dupe"))
+  }
+  modal <- df %>%
+    dplyr::filter(!.data$.dupe) %>%
+    dplyr::count(.data$athlete_id, .data$team_id) %>%
+    dplyr::group_by(.data$athlete_id) %>%
+    dplyr::filter(.data$n == max(.data$n)) %>%
+    dplyr::filter(dplyr::n() == 1) %>%
+    dplyr::ungroup() %>%
+    dplyr::select("athlete_id", .modal_team = "team_id")
+  n_before <- nrow(df)
+  df <- df %>%
+    dplyr::left_join(modal, by = "athlete_id") %>%
+    dplyr::mutate(
+      .is_starter = .data$starter %in% TRUE,
+      .is_modal = !is.na(.data$.modal_team) &
+        .data$team_id == .data$.modal_team
+    ) %>%
+    dplyr::group_by(.data$game_id, .data$athlete_id) %>%
+    dplyr::mutate(
+      .n_starter = sum(.data$.is_starter & .data$.dupe),
+      .n_modal = sum(.data$.is_modal & .data$.dupe)
+    ) %>%
+    dplyr::ungroup() %>%
+    dplyr::filter(
+      !.data$.dupe |
+        dplyr::case_when(
+          .data$.n_starter == 1 ~ .data$.is_starter,
+          .data$.n_modal == 1 ~ .data$.is_modal,
+          TRUE ~ TRUE
+        )
+    ) %>%
+    dplyr::select(
+      -".dupe", -".modal_team", -".is_starter", -".is_modal",
+      -".n_starter", -".n_modal"
+    )
+  if (nrow(df) < n_before) {
+    cli::cli_alert_info(
+      "player_box: dropped {n_before - nrow(df)} dual-team duplicate rows (hoopR#23)"
+    )
+  }
+  df
+}
+
 mbb_player_box_games <- function(y) {
   espn_df <- data.frame()
   sched <- readRDS(paste0("mbb/schedules/rds/mbb_schedule_", y, ".rds"))
@@ -83,6 +146,7 @@ mbb_player_box_games <- function(y) {
   }
   if (nrow(espn_df) > 1) {
     espn_df <- espn_df %>%
+      dedupe_player_box_dual_team() %>%
       dplyr::arrange(dplyr::desc(.data$game_date)) %>%
       hoopR:::make_hoopR_data(
         "ESPN MBB Player Boxscores from hoopR data repository",

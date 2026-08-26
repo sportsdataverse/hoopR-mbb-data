@@ -23,13 +23,17 @@ the wehoop-wnba-data original):
   pbp -> team_box -> player_box -> player_season_stats is a real build-order
   dependency for MBB (same NBA delta; WBB/WNBA have no such ordering
   constraint).
-* **No season-level postprocess needed.** Unlike NBA (whose pbp/team_box
-  season unions can lack ``type_abbreviation``/``largest_lead`` when no game
-  in the union happens to carry them), the MBB producer's per-game
-  ``helper_mbb_play_by_play``/``helper_mbb_team_box`` always emit their full
-  fixed column set (``largest_lead`` is part of the WBB-shared final select,
-  not a conditional insert; the MBB pbp oracle carries no
-  ``type_abbreviation`` column at all) -- ``SEASON_POSTPROCESS`` is empty.
+* **Season-level postprocess: player_box dual-team dedupe only.** Unlike NBA
+  (whose pbp/team_box season unions can lack ``type_abbreviation``/
+  ``largest_lead`` when no game in the union happens to carry them), the MBB
+  producer's per-game ``helper_mbb_play_by_play``/``helper_mbb_team_box``
+  always emit their full fixed column set (``largest_lead`` is part of the
+  WBB-shared final select, not a conditional insert; the MBB pbp oracle
+  carries no ``type_abbreviation`` column at all) -- no column backfills.
+  ``player_box`` does need a season-level pass:
+  ``dedupe_player_box_dual_team`` (hoopR#23) drops ESPN's dupe-athlete
+  double-counts, which needs the whole season frame for its modal-team
+  fallback.
   ``media_id`` is likewise NOT a postprocess concern: it is a real (mostly
   null) per-play field the raw payload carries (``plays[].mediaId``), and
   the payload-first-seen column union in ``helper_mbb_play_by_play``
@@ -552,7 +556,73 @@ NO_RAW_INPUT: frozenset = frozenset({"player_crosswalk", "schedule_crosswalk", "
 
 # --- season-level post-processing (after the per-game concat) -----------------
 
-# MBB needs no season-level column backfills (see module docstring): the
-# per-game reshapers always emit their full fixed column set, so a season
-# union never comes up short a column the way NBA's pbp/team_box can.
-SEASON_POSTPROCESS: dict = {}
+
+def dedupe_player_box_dual_team(df: pl.DataFrame) -> pl.DataFrame:
+    """Drop ESPN dupe-athlete double-counts (hoopR#23).
+
+    ESPN's boxscore payload sometimes lists the same athlete inside BOTH
+    teams' ``boxscore.players[].statistics[].athletes`` arrays with an
+    identical stat line (e.g. game 401253901: five Oklahoma State players
+    also appear in the Texas Tech block; in some games each block carries the
+    full union of both rosters). One of the two rows carries the wrong
+    ``team_id``. Keep the copy on the athlete's true team, resolved by:
+
+    1. the row ESPN marks ``starter = True`` (the foreign copy never is), else
+    2. the athlete's modal ``team_id`` across the season's non-duplicated
+       rows (strict majority).
+
+    A pair neither signal resolves is kept as-is (no data loss); ``athlete_id``
+    nulls are never treated as duplicates of each other.
+    """
+    if df.height == 0 or not {"game_id", "athlete_id", "team_id"}.issubset(df.columns):
+        return df
+    key = ["game_id", "athlete_id"]
+    df = df.with_columns(
+        (pl.col("athlete_id").is_not_null() & (pl.col("team_id").n_unique().over(key) > 1)).alias(
+            "_dupe"
+        )
+    )
+    if not df.get_column("_dupe").any():
+        return df.drop("_dupe")
+    modal = (
+        df.filter(pl.col("_dupe") == False)  # noqa: E712
+        .group_by(["athlete_id", "team_id"])
+        .agg(pl.len().alias("_n"))
+        .group_by("athlete_id")
+        .agg(pl.col("team_id").filter(pl.col("_n") == pl.col("_n").max()).alias("_modal"))
+        .filter(pl.col("_modal").list.len() == 1)
+        .with_columns(pl.col("_modal").list.first())
+    )
+    starter = pl.col("starter").fill_null(False) if "starter" in df.columns else pl.lit(False)
+    df = (
+        df.join(modal, on="athlete_id", how="left")
+        .with_columns(
+            starter.alias("_is_starter"),
+            (pl.col("team_id") == pl.col("_modal")).fill_null(False).alias("_is_modal"),
+        )
+        .with_columns(
+            (pl.col("_is_starter") & pl.col("_dupe")).sum().over(key).alias("_n_starter"),
+            (pl.col("_is_modal") & pl.col("_dupe")).sum().over(key).alias("_n_modal"),
+        )
+    )
+    keep = (pl.col("_dupe") == False) | (  # noqa: E712
+        pl.when(pl.col("_n_starter") == 1)
+        .then(pl.col("_is_starter"))
+        .when(pl.col("_n_modal") == 1)
+        .then(pl.col("_is_modal"))
+        .otherwise(pl.lit(True))
+    )
+    before = df.height
+    df = df.filter(keep).drop(
+        ["_dupe", "_modal", "_is_starter", "_is_modal", "_n_starter", "_n_modal"]
+    )
+    if before != df.height:
+        log.info("player_box: dropped %d dual-team duplicate rows (hoopR#23)", before - df.height)
+    return df
+
+
+# The only MBB season-level pass: the player_box dual-team dedupe above. No
+# column backfills are needed (see module docstring): the per-game reshapers
+# always emit their full fixed column set, so a season union never comes up
+# short a column the way NBA's pbp/team_box can.
+SEASON_POSTPROCESS: dict = {"player_box": dedupe_player_box_dual_team}

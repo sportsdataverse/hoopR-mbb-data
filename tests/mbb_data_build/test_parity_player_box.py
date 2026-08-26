@@ -5,14 +5,12 @@ Port provenance: ``hoopR:::helper_espn_mbb_player_box``. Oracle:
 the real sibling ``hoopR-mbb-raw`` checkout. No ``plus_minus`` column (MBB
 never carries it, same as WBB).
 
-``(game_id, athlete_id)`` is NOT quite a unique key for MBB: one 2025 game
-(401719238) has 10 athletes double-listed on BOTH teams' boxscores (a
-genuine ESPN data quirk, present identically in both the Python build and
-the oracle). Sorting on the 2-column key alone leaves those duplicate pairs
-in whatever relative order each frame happened to build them in, which can
-legitimately differ and produce a false positional mismatch. ``team_id`` is
-appended as a tie-breaker since ``(game_id, athlete_id, team_id)`` IS unique
-in both frames.
+ESPN sometimes double-lists an athlete on BOTH teams' boxscores (e.g. 2025
+game 401719238 had 10 such athletes). Since 2026-08-26 the builder's
+``dedupe_player_box_dual_team`` season postprocess (hoopR#23) drops the
+wrong-team copy, so ``(game_id, athlete_id)`` is unique in both the Python
+build and the (rebuilt) oracle; ``team_id`` stays in the sort key as a
+belt-and-braces tie-breaker.
 """
 
 import polars as pl
