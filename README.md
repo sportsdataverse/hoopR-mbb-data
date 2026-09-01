@@ -81,3 +81,32 @@ stages to close a hole.
 | [`python/espn_mbb_15_shots_creation.py`](python/espn_mbb_15_shots_creation.py) | [`shots`](docs/datasets/shots.md) | [`espn_mens_college_basketball_shots`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_shots) | 2026-08-12 |
 | [`python/espn_mbb_16_player_core_creation.py`](python/espn_mbb_16_player_core_creation.py) | [`player_core`](docs/datasets/player_core.md) | [`espn_mens_college_basketball_player_core`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_player_core) | 2026-08-12 |
 <!-- END GENERATED: datasets -->
+
+## Automation & status
+
+<!-- BEGIN GENERATED: status -->
+
+| workflow | schedule | last run |
+|---|---|---|
+| [![daily_mbb.yml](https://github.com/sportsdataverse/hoopR-mbb-data/actions/workflows/daily_mbb.yml/badge.svg)](https://github.com/sportsdataverse/hoopR-mbb-data/actions/workflows/daily_mbb.yml) | days 18-31 07:00 UTC in Oct; daily 07:00 UTC in Nov-Dec; daily 07:00 UTC in Jan-Mar; days 1-30 07:00 UTC in Apr | 2026-08-19 |
+| [![mbb_models_cron.yml](https://github.com/sportsdataverse/hoopR-mbb-data/actions/workflows/mbb_models_cron.yml/badge.svg)](https://github.com/sportsdataverse/hoopR-mbb-data/actions/workflows/mbb_models_cron.yml) | daily 13:00 UTC in Nov-Dec; daily 13:00 UTC in Jan-Apr | never run |
+| [![orphan_scripts.yml](https://github.com/sportsdataverse/hoopR-mbb-data/actions/workflows/orphan_scripts.yml/badge.svg)](https://github.com/sportsdataverse/hoopR-mbb-data/actions/workflows/orphan_scripts.yml) | on push / PR / dispatch | 2026-08-26 |
+| [![tests.yml](https://github.com/sportsdataverse/hoopR-mbb-data/actions/workflows/tests.yml/badge.svg)](https://github.com/sportsdataverse/hoopR-mbb-data/actions/workflows/tests.yml) | on push / PR / dispatch | 2026-08-27 |
+
+| release tag | assets | size | last publish |
+|---|---:|---:|---|
+| [`espn_mens_college_basketball_schedules`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_schedules) | 88 | 501.5 MB | 2026-08-19 |
+| [`espn_mens_college_basketball_pbp`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_pbp) | 70 | 13,482.6 MB | 2026-08-12 |
+| [`espn_mens_college_basketball_team_boxscores`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_team_boxscores) | 76 | 142.7 MB | 2026-08-12 |
+| [`espn_mens_college_basketball_player_boxscores`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_player_boxscores) | 76 | 1,865.0 MB | 2026-08-26 |
+| [`espn_mens_college_basketball_rosters`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_rosters) | 15 | 17.1 MB | 2026-08-19 |
+| [`espn_mens_college_basketball_game_rosters`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_game_rosters) | 56 | 883.7 MB | 2026-08-12 |
+| [`espn_mens_college_basketball_player_core`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_player_core) | 72 | 82.1 MB | 2026-08-12 |
+| [`espn_mens_college_basketball_player_season_stats`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_player_season_stats) | 12 | 176.2 MB | 2026-08-12 |
+| [`espn_mens_college_basketball_team_season_stats`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_team_season_stats) | 78 | 138.2 MB | 2026-08-12 |
+| [`espn_mens_college_basketball_standings`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_standings) | 78 | 167.9 MB | 2026-08-12 |
+| [`espn_mens_college_basketball_officials`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_officials) | 54 | 21.1 MB | 2026-08-12 |
+| [`espn_mens_college_basketball_shots`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_shots) | 71 | 1,837.2 MB | 2026-08-12 |
+| [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) | 25 | 4.0 MB | 2026-08-12 |
+
+<!-- END GENERATED: status -->
