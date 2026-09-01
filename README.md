@@ -179,3 +179,35 @@ stages to close a hole.
 | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) | 25 | 4.0 MB | 2026-08-12 |
 
 <!-- END GENERATED: status -->
+
+## Consumers
+
+The packages that read what this repo produces:
+
+- **R:** [hoopR](https://hoopR.sportsdataverse.org) — docs at <https://hoopR.sportsdataverse.org>
+- **Python:** [`sportsdataverse.mbb`](https://github.com/sportsdataverse/sportsdataverse-py) — docs at <https://py.sportsdataverse.org>
+
+## Stage inventory
+
+Every numbered pipeline stage in `python/` (auto-listed; run subsets with the `scripts/*.sh` drivers by number or name):
+
+- `python/espn_mbb_01_pbp_creation.py`
+- `python/espn_mbb_02_team_box_creation.py`
+- `python/espn_mbb_03_player_box_creation.py`
+- `python/espn_mbb_04_rosters_creation.py`
+- `python/espn_mbb_05_player_season_stats_creation.py`
+- `python/espn_mbb_06_team_season_stats_creation.py`
+- `python/espn_mbb_07_standings_creation.py`
+- `python/espn_mbb_09_game_rosters_creation.py`
+- `python/espn_mbb_10_officials_creation.py`
+- `python/espn_mbb_11_team_crosswalk_creation.py`
+- `python/espn_mbb_12_schedule_crosswalk_creation.py`
+- `python/espn_mbb_13_player_crosswalk_creation.py`
+- `python/espn_mbb_14_schedules_creation.py`
+- `python/espn_mbb_15_shots_creation.py`
+- `python/espn_mbb_16_player_core_creation.py`
+- `python/mbb_model_01_ratings.py`
+- `python/mbb_model_02_player_value.py`
+- `python/mbb_model_03_wp_enrich.py`
+
+Model release tags published from here: `espn_mens_college_basketball_pbp`, `mbb_player_value`, `mbb_ratings`
