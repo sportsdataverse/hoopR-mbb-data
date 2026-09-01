@@ -1,0 +1,37 @@
+# Model stage manifest — single home for the model/stage list (Track C step 2).
+# One model = one numbered pipeline, flat in python/ beside the numbered data
+# stages; run subsets with scripts/mbb_models.sh. tests/test_model_manifest.py
+# keeps this file, the stage scripts, and models/REGISTRY.md in lockstep
+# (file-based guards).
+#
+# Honest N/As (compute-on-demand / enrichment surfaces): no fitted artifacts
+# to commit (step 6); no fingerprint skip (inputs are living upstream data —
+# a skip is silent staleness); the published card sidecars carry the
+# per-publish metadata that a ledger.jsonl would otherwise hold.
+
+driver: scripts/mbb_models.sh
+
+suites:
+  mbb:
+    models:
+      ratings:
+        stage: python/mbb_model_01_ratings.py
+        wraps: mbb_model_publish ratings
+        wraps_token: '"ratings"'
+        release_tag: mbb_ratings
+        wired_via: .github/workflows/mbb_models_cron.yml
+        notes: "Compute-on-demand (engines in sdv-py); card sidecar is the per-publish ledger."
+      player_value:
+        stage: python/mbb_model_02_player_value.py
+        wraps: mbb_model_publish player-value
+        wraps_token: '"player-value"'
+        release_tag: mbb_player_value
+        wired_via: .github/workflows/mbb_models_cron.yml
+        notes: "Compute-on-demand (engines in sdv-py); card sidecar is the per-publish ledger."
+      wp_enrich:
+        stage: python/mbb_model_03_wp_enrich.py
+        wraps: mbb_data_build.wp_enrich
+        wraps_token: wp_enrich
+        release_tag: espn_mens_college_basketball_pbp
+        wired_via: scripts/daily_mbb_data_processor.sh
+        notes: "Runs post-publish in the daily data processor (the nightly publish otherwise strips the WP columns)."
