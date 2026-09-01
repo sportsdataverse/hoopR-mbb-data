@@ -139,6 +139,16 @@ stages to close a hole.
 | [`python/espn_mbb_16_player_core_creation.py`](python/espn_mbb_16_player_core_creation.py) | [`player_core`](docs/datasets/player_core.md) | [`espn_mens_college_basketball_player_core`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_player_core) | 2026-08-12 |
 <!-- END GENERATED: datasets -->
 
+## Reports & explainers
+
+<!-- BEGIN GENERATED: reports -->
+
+| Report | What it is | Last updated |
+|---|---|---|
+| [Dataset docs (column-level, generated)](docs/datasets/) | 15 files, one per item | 2026-08-12 |
+
+<!-- END GENERATED: reports -->
+
 ## Automation & status
 
 <!-- BEGIN GENERATED: status -->
