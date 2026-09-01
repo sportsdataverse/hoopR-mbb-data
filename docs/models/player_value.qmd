@@ -1,0 +1,219 @@
+---
+title: "MBB player value — box Plus/Minus"
+format:
+  gfm:
+    fig-dpi: 120
+execute:
+  echo: false
+  warning: false
+jupyter: python3
+---
+
+```{python}
+#| output: false
+import io
+import numpy as np
+import polars as pl
+import requests
+from plotnine import (
+    ggplot, aes, geom_point, geom_histogram, labs, theme_minimal,
+)
+from great_tables import GT
+from IPython.display import HTML, display
+
+LG = "mbb"
+SPORT_SLUG = "mens-college-basketball"
+DL = "https://github.com/sportsdataverse/sportsdataverse-data/releases/download"
+frames = []
+for season in range(2020, 2027):
+    r = requests.get(f"{DL}/{LG}_player_value/{LG}_player_value_{season}.parquet", timeout=60)
+    if r.status_code == 200:
+        frames.append(pl.read_parquet(io.BytesIO(r.content)))
+pv = pl.concat(frames, how="diagonal_relaxed")
+SEASONS = sorted(pv["season"].unique().to_list())
+latest = SEASONS[-1]
+
+tb = pl.read_parquet(io.BytesIO(requests.get(
+    f"{DL}/espn_{SPORT_SLUG.replace('-', '_')}_team_boxscores/team_box_{latest}.parquet",
+    timeout=120).content))
+name_col = next(c for c in ("team_display_name", "team_location", "team_name")
+                if c in tb.columns)
+names = (tb.group_by("team_id").agg(pl.col(name_col).last().alias("team"))
+         .with_columns(pl.col("team_id").cast(pl.Int64)))
+
+def gt_show(g):
+    display(HTML(g.as_raw_html()))
+```
+
+Per-player box Plus/Minus publishes on the `mbb_player_value` tag
+(`box_obpm` / `box_dbpm` / `box_bpm`): a box-score value model over the
+published player/team season stats, sharing the design of the MBB
+player-value spine in sdv-py (oracle-gated where trained). Box-score
+features are regressed onto team-level results to apportion value;
+offensive and defensive components are estimated separately and summed.
+It is compute-on-demand — every run recomputes from the current published
+season assets, so a data correction upstream flows through on the next
+publish, and each publish writes a card sidecar.
+
+Box Plus/Minus and on/off RAPM (the `ncaa_mbb_rapm` model in the NCAA hoops
+repos) deliberately measure different things: BPM sees only what reaches the
+box score and is therefore stable at small samples but blind to screening,
+defensive attention, and everything else the box misses; RAPM sees all of it
+but drowns in noise for low-minute players. The two are cross-references,
+not substitutes — the natural hybrid (an SPM-prior RAPM, as the NBA impact
+suite builds) is the catalogued next step.
+
+Everything below is computed at render time from the published release
+assets — the exact frames consumers download.
+
+## Training data
+
+```{python}
+tbl = (
+    pv.group_by("season")
+    .agg(pl.len().alias("players"), pl.col("min").sum().alias("total_minutes"),
+         (pl.col("min") >= 300).sum().alias("players_300min"))
+    .sort("season")
+)
+gt_show(
+    GT(tbl.to_pandas())
+    .tab_header(title="Published mbb_player_value assets, by season",
+                subtitle="computed at render time from the release")
+    .fmt_number(columns=["total_minutes"], sep_mark=",", decimals=0)
+)
+```
+
+## Exploratory data analysis
+
+```{python}
+#| fig-cap: "Box BPM distribution, latest season — the full player pool vs the ≥300-minute pool. The unfiltered frame carries heavy low-minute noise by design."
+cur = pv.filter(pl.col("season") == latest)
+d = pl.concat([
+    cur.select("box_bpm").with_columns(pl.lit("all players").alias("pool")),
+    cur.filter(pl.col("min") >= 300).select("box_bpm").with_columns(pl.lit("≥300 min").alias("pool")),
+])
+(
+    ggplot(d.to_pandas(), aes("box_bpm", fill="pool"))
+    + geom_histogram(bins=60, alpha=0.6, position="identity")
+    + labs(x="box BPM", y="players", title=f"Player value distribution — {latest}")
+    + theme_minimal()
+)
+```
+
+```{python}
+#| fig-cap: "Minutes vs |BPM|: with no shrinkage prior, extreme values concentrate at LOW minutes — the reason consumers must filter."
+shr = cur.with_columns(pl.col("box_bpm").abs().alias("abs_bpm"))
+(
+    ggplot(shr.to_pandas(), aes("min", "abs_bpm"))
+    + geom_point(alpha=0.1, color="#2a6f97", size=0.6)
+    + labs(x="minutes", y="|box BPM|", title="No minutes floor is enforced in the published frame")
+    + theme_minimal()
+)
+```
+
+```{python}
+#| fig-cap: "Offense vs defense components, ≥300 minutes, latest season."
+q = cur.filter(pl.col("min") >= 300)
+(
+    ggplot(q.to_pandas(), aes("box_obpm", "box_dbpm"))
+    + geom_point(alpha=0.25, color="#2a6f97", size=0.8)
+    + labs(x="offensive BPM", y="defensive BPM", title=f"O/D decomposition — {latest}")
+    + theme_minimal()
+)
+```
+
+The minutes-vs-|BPM| funnel is this model's most important consumer-facing
+fact, shown rather than footnoted: the published frame enforces **no
+minutes floor**, so the most extreme values in the file belong to
+20-minute seasons. Every table below applies a floor; consumers must too.
+
+## Attribution
+
+The model is a linear apportionment of team results onto box-score
+features, so the published O/D columns are its native attribution — the
+scatter above is the decomposition. The fitted coefficient vector lives with
+the engine in sdv-py (oracle-gated where trained) rather than in the
+published asset; surfacing it alongside the release is listed in the
+avenues below.
+
+## Evaluation
+
+```{python}
+stab = (
+    pv.filter(pl.col("min") >= 300)
+    .select("player_id", "season", "box_bpm")
+    .join(pv.filter(pl.col("min") >= 300)
+          .select("player_id", (pl.col("season") - 1).alias("season"),
+                  pl.col("box_bpm").alias("next_bpm")),
+          on=["player_id", "season"], how="inner")
+)
+rows = [{"check": "box BPM year-over-year (same player, ≥300 min both seasons)",
+         "pairs": stab.height,
+         "pearson": float(stab.select(pl.corr("box_bpm", "next_bpm")).item())}]
+o_d = pv.filter((pl.col("season") == latest) & (pl.col("min") >= 300))
+rows.append({"check": f"corr(box_obpm, box_dbpm) — {latest}, ≥300 min",
+             "pairs": o_d.height,
+             "pearson": float(o_d.select(pl.corr("box_obpm", "box_dbpm")).item())})
+gt_show(
+    GT(pl.DataFrame(rows).to_pandas())
+    .tab_header(title="Published-asset checks",
+                subtitle="YoY reliability is the box model's core virtue; a near-zero O/D correlation means the components carry distinct information")
+    .fmt_number(columns="pearson", decimals=3)
+)
+```
+
+A box model's justification is exactly this reliability: with roster-level
+churn as violent as college basketball's, a player metric that persists
+season-over-season for returning players is measuring the player. The
+engine's own oracle gates (against the sdv-py player-value spine's
+references) run where the model is trained.
+
+## Results
+
+```{python}
+top = (
+    q.sort("box_bpm", descending=True).head(15)
+    .with_columns(pl.col("team_id").cast(pl.Int64))
+    .join(names, on="team_id", how="left")
+    .with_columns(
+        ("<img src='https://a.espncdn.com/i/headshots/" + SPORT_SLUG
+         + "/players/full/" + pl.col("player_id").cast(pl.Int64).cast(pl.Utf8)
+         + ".png' height='40'/>").alias("headshot"))
+)
+gt_show(
+    GT(top.select("headshot", "player", "team", "min", "box_obpm", "box_dbpm", "box_bpm").to_pandas())
+    .tab_header(title=f"Top 15 box BPM — {latest} (min 300 minutes)")
+    .fmt_markdown(columns="headshot")
+    .fmt_number(columns="min", sep_mark=",", decimals=0)
+    .fmt_number(columns=["box_obpm", "box_dbpm", "box_bpm"], decimals=2)
+    .cols_label(headshot="", player="Player", team="Team", min="Min",
+                box_obpm="O-BPM", box_dbpm="D-BPM", box_bpm="BPM")
+)
+```
+
+## Provenance & reproducibility
+
+- **Computed from:** this repository's published player/team season stats
+  for the seasons in the corpus table; recomputed in full on every run
+  (compute-on-demand — no fitted artifact is stored).
+- **Engine:** the MBB player-value spine in sdv-py (oracle-gated where
+  trained); O/D estimated separately and summed.
+- **Pipeline:** `scripts/mbb_models.sh 02` → stage
+  `python/mbb_model_02_player_value.py`; card sidecar
+  [`mbb_models_eval_card.json`](mbb_models_eval_card.json). Single home:
+  `models/manifest.yaml`.
+- **Rebuild this document:** `scripts/render_model_docs.sh` (Quarto → GFM;
+  `uv sync --group docs`). Requires network for the release download and the
+  ESPN headshot CDN.
+
+## Avenues for improvement & open issues
+
+- **Blend with on/off** — box Plus/Minus and the league-wide RAPM measure
+  different things; a stabilized hybrid (SPM-prior RAPM, as the NBA impact
+  suite does) is the natural next step.
+- **Ship the coefficient vector** — publishing the fitted coefficients (or a
+  per-retrain meta sidecar) would let this document show real coefficient
+  importance instead of pointing at the engine.
+- **Known issue:** no minutes floor is enforced in the published frame —
+  consumers must filter low-minute noise themselves (the funnel figure above
+  is the demonstration).

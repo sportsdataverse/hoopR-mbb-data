@@ -1,0 +1,216 @@
+---
+title: "MBB in-game win probability — pbp enrichment"
+format:
+  gfm:
+    fig-dpi: 120
+execute:
+  echo: false
+  warning: false
+jupyter: python3
+---
+
+```{python}
+#| output: false
+import io
+import numpy as np
+import polars as pl
+import requests
+from plotnine import (
+    ggplot, aes, geom_point, geom_line, geom_abline, geom_histogram,
+    labs, theme_minimal,
+)
+from great_tables import GT
+from IPython.display import HTML, display
+
+LG = "mbb"
+PBP_TAG = "espn_mens_college_basketball_pbp"
+DL = "https://github.com/sportsdataverse/sportsdataverse-data/releases/download"
+season = 2026
+r = requests.get(f"{DL}/{PBP_TAG}/play_by_play_{season}.parquet", timeout=600)
+pbp = pl.read_parquet(io.BytesIO(r.content))
+
+final = (
+    pbp.sort("sequence_number")
+    .group_by("game_id")
+    .agg(pl.col("home_score").last().alias("final_home"),
+         pl.col("away_score").last().alias("final_away"))
+    .with_columns((pl.col("final_home") > pl.col("final_away")).cast(pl.Float64).alias("home_won"))
+    .filter(pl.col("final_home") != pl.col("final_away"))
+)
+df = pbp.join(final.select("game_id", "home_won"), on="game_id", how="inner")
+
+def gt_show(g):
+    display(HTML(g.as_raw_html()))
+```
+
+The MBB rule-era win-probability suite (trained, bundled, and oracle-gated
+in sdv-py) is applied **in place** to every published season of
+`espn_mens_college_basketball_pbp`: `home_win_prob` and the pregame prior
+(`pregame_home_prob`) are added to each play with every original column
+preserved. The published pbp itself is how the model reaches consumers —
+there is no separate WP asset to fall out of sync with the plays.
+
+The models are rule-era XGBoost classifiers over game state (score margin,
+time remaining, possession); era-specific boosters absorb rule changes
+across the 2003-present span. Operationally, the enrichment runs
+post-publish in `scripts/daily_mbb_data_processor.sh` because a recorded
+incident showed the nightly publish silently stripping the WP columns —
+re-application is unconditional for that reason, and the incident is why
+this stage exists at all.
+
+This document is the model's **out-of-band evaluation**: it downloads one
+full published season at render time and holds the in-game probabilities
+against each game's realized outcome. That is a genuine test of the applied
+model on the shipped data — if the enrichment ever regressed, went stale, or
+was stripped, this document's calibration section would show it on the next
+render.
+
+## Evaluation data
+
+```{python}
+tbl = pl.DataFrame({
+    "season": [season],
+    "enriched_plays": [df.height],
+    "games": [int(df["game_id"].n_unique())],
+    "home_win_rate": [float(final["home_won"].mean())],
+    "mean_home_win_prob": [float(df["home_win_prob"].mean())],
+})
+gt_show(
+    GT(tbl.to_pandas())
+    .tab_header(title=f"Published season evaluated at render time — {season}",
+                subtitle="every play of the published pbp joined to its game's realized outcome (ties from data artifacts excluded)")
+    .fmt_number(columns=["enriched_plays"], sep_mark=",", decimals=0)
+    .fmt_percent(columns=["home_win_rate"], decimals=1)
+    .fmt_number(columns=["mean_home_win_prob"], decimals=4)
+)
+```
+
+The mean predicted probability sitting close to the realized home-win rate
+is the zeroth-order calibration check; the college home floor is one of the
+strongest in sports and both numbers reflect it.
+
+## Calibration
+
+```{python}
+eps = 1e-9
+p = df["home_win_prob"].to_numpy()
+y = df["home_won"].to_numpy()
+brier = float(np.mean((p - y) ** 2))
+bins = np.clip((p * 20).astype(int), 0, 19)
+cal_rows = []
+for b in range(20):
+    m = bins == b
+    if m.sum() > 0:
+        cal_rows.append({"bin_mid": (b + 0.5) / 20, "pred": float(p[m].mean()),
+                         "obs": float(y[m].mean()), "n": int(m.sum())})
+cal = pl.DataFrame(cal_rows)
+cal_mae = float((cal["pred"] - cal["obs"]).abs().mean())
+gt_show(
+    GT(pl.DataFrame({
+        "metric": ["Brier score (all plays)", "20-bin calibration MAE",
+                   "baseline Brier (constant home-win rate)"],
+        "value": [brier, cal_mae, float(np.mean((final["home_won"].mean() - y) ** 2))],
+    }).to_pandas())
+    .tab_header(title=f"Out-of-band calibration — {season} published season")
+    .fmt_number(columns="value", decimals=4)
+)
+```
+
+```{python}
+#| fig-cap: "Reliability diagram, 20 bins — predicted in-game probability vs realized outcome frequency."
+(
+    ggplot(cal.to_pandas(), aes("pred", "obs"))
+    + geom_abline(slope=1, intercept=0, linetype="dashed", color="gray")
+    + geom_point(aes(size="n"), color="#2a6f97") + geom_line(color="#2a6f97")
+    + labs(x="predicted home win probability", y="observed home win frequency",
+           title=f"WP reliability — {season} ({df.height:,} plays)")
+    + theme_minimal()
+)
+```
+
+```{python}
+per = (
+    df.group_by("period_number")
+    .agg(pl.len().alias("plays"),
+         ((pl.col("home_win_prob") - pl.col("home_won")) ** 2).mean().alias("brier"))
+    .sort("period_number")
+    .filter(pl.col("plays") > 10000)
+)
+gt_show(
+    GT(per.to_pandas())
+    .tab_header(title="Brier by period — uncertainty should resolve as the game progresses",
+                subtitle="a well-behaved WP model gets sharper (lower Brier) in later periods")
+    .fmt_number(columns="plays", sep_mark=",", decimals=0)
+    .fmt_number(columns="brier", decimals=4)
+)
+```
+
+```{python}
+#| fig-cap: "The season's wildest game by WP swing: in-game home win probability trace."
+sw = (
+    df.group_by("game_id")
+    .agg((pl.col("home_win_prob").diff().abs().sum()).alias("swing"),
+         pl.col("home_team_name").first(), pl.col("away_team_name").first())
+    .sort("swing", descending=True).head(1)
+)
+gid = sw["game_id"][0]
+g = df.filter(pl.col("game_id") == gid).sort("sequence_number").with_row_index("play_no")
+title = f"{sw['away_team_name'][0]} at {sw['home_team_name'][0]} — most volatile game of {season}"
+(
+    ggplot(g.to_pandas(), aes("play_no", "home_win_prob"))
+    + geom_line(color="#2a6f97")
+    + labs(x="play number", y="home win probability", title=title)
+    + theme_minimal()
+)
+```
+
+```{python}
+pre = (
+    df.group_by("game_id")
+    .agg(pl.col("pregame_home_prob").first(), pl.col("home_won").first())
+)
+pre_brier = float(pre.select(((pl.col("pregame_home_prob") - pl.col("home_won")) ** 2).mean()).item())
+gt_show(
+    GT(pl.DataFrame({
+        "model": ["pregame prior (one prob per game)", "in-game WP (all plays)"],
+        "brier": [pre_brier, brier],
+    }).to_pandas())
+    .tab_header(title="Pregame vs in-game — the value the enrichment adds over the prior")
+    .fmt_number(columns="brier", decimals=4)
+)
+```
+
+The reliability diagram hugging the diagonal, the per-period Brier falling
+monotonically, and the in-game model beating its own pregame prior are the
+three signatures of a healthy applied WP surface. The volatile-game trace is
+the demonstration consumers care about: the column tells the story of a
+comeback without any narrative input.
+
+## Provenance & reproducibility
+
+- **Model:** rule-era XGBoost WP suite trained, bundled, and oracle-gated in
+  sdv-py (score margin, time, possession features; era boosters across
+  2003-present).
+- **Applied to:** every published season of
+  `espn_mens_college_basketball_pbp`, in place, columns
+  `home_win_prob` + `pregame_home_prob`; re-application is unconditional in
+  `scripts/daily_mbb_data_processor.sh` (recorded strip incident).
+- **Pipeline:** `scripts/mbb_models.sh 03` → stage
+  `python/mbb_model_03_wp_enrich.py -s <season> -e <season>`. Single home:
+  `models/manifest.yaml`.
+- **This document** evaluates the published season downloaded at render
+  time (~90 MB) — the exact frame consumers read.
+- **Rebuild:** `scripts/render_model_docs.sh` (Quarto → GFM;
+  `uv sync --group docs`).
+
+## Avenues for improvement & open issues
+
+- **Possession-state features** — foul counts, bonus state, and timeout
+  inventory are absent from the WP inputs.
+- **Known issue (recorded incident):** the nightly publish silently strips
+  WP columns, which is why re-application is unconditional — moving
+  enrichment into the publish step itself would remove the window where a
+  freshly published season briefly lacks WP.
+- **Season-holdout curve** — this document evaluates the applied model
+  in-era; rendering the same calibration for an era the booster never saw
+  would bound era-transfer error explicitly.
