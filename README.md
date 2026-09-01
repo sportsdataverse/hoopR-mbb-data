@@ -117,6 +117,83 @@ vacant here (it maps to the NBA-only draft dataset,
 `espn_nba_08_draft_creation.R` in hoopR-nba-data). Never renumber existing
 stages to close a hole.
 
+## Repository layout
+
+<!-- BEGIN GENERATED: layout -->
+
+```
+hoopR-mbb-data/
+├── R/   # R pipeline stages and publish toolchain
+│   ├── espn_mbb_01_pbp_creation.R
+│   ├── espn_mbb_02_team_box_creation.R
+│   ├── espn_mbb_03_player_box_creation.R
+│   ├── espn_mbb_04_rosters_creation.R
+│   ├── espn_mbb_05_player_season_stats_creation.R
+│   ├── espn_mbb_06_team_season_stats_creation.R
+│   ├── espn_mbb_07_standings_creation.R
+│   ├── espn_mbb_09_game_rosters_creation.R
+│   ├── espn_mbb_10_officials_creation.R
+│   ├── espn_mbb_16_player_core_creation.R
+│   ├── manifest_upload_helper.R
+│   ├── mbb_11_team_crosswalk_creation.R
+│   ├── mbb_12_schedule_crosswalk_creation.R
+│   ├── mbb_13_player_crosswalk_creation.R
+│   ├── minify_json_folders.R
+│   ├── rebuild_mbb_master_schedule.R
+│   └── run_summary.R
+├── docs/   # explainers, model reports and dataset docs
+│   ├── datasets/
+│   └── models/
+├── logs/   # per-run logs (gitignored where large)
+├── mbb/
+│   ├── crosswalk/
+│   ├── game_rosters/
+│   ├── officials/
+│   ├── pbp/
+│   ├── player_box/
+│   ├── player_core/
+│   ├── player_season_stats/
+│   ├── rosters/
+│   └── … 5 more
+├── models/   # model artifacts, cards and the registry
+├── ops/   # cron definitions and runbooks
+│   ├── init/
+│   └── oneoff/
+├── python/   # Python pipeline stages, numbered in build order
+│   ├── mbb_data_build/
+│   ├── mbb_model_publish/
+│   ├── espn_mbb_01_pbp_creation.py
+│   ├── espn_mbb_02_team_box_creation.py
+│   ├── espn_mbb_03_player_box_creation.py
+│   ├── espn_mbb_04_rosters_creation.py
+│   ├── espn_mbb_05_player_season_stats_creation.py
+│   ├── espn_mbb_06_team_season_stats_creation.py
+│   ├── espn_mbb_07_standings_creation.py
+│   ├── espn_mbb_09_game_rosters_creation.py
+│   ├── espn_mbb_10_officials_creation.py
+│   ├── espn_mbb_11_team_crosswalk_creation.py
+│   ├── espn_mbb_12_schedule_crosswalk_creation.py
+│   ├── espn_mbb_13_player_crosswalk_creation.py
+│   ├── espn_mbb_14_schedules_creation.py
+│   ├── espn_mbb_15_shots_creation.py
+│   └── … 4 more
+├── scripts/   # bash drivers (the daily/weekly entry points)
+│   ├── daily_mbb_R_processor.sh
+│   ├── daily_mbb_data_processor.sh
+│   ├── daily_mbb_python_processor.sh
+│   └── mbb_models.sh
+├── tests/   # test suite
+│   ├── mbb_data_build/
+│   ├── __init__.py
+│   ├── test_model_manifest.py
+│   ├── test_model_publish.py
+│   ├── test_model_registry.py
+│   └── test_r_python_parity.py
+└── themes/   # plot themes
+```
+
+<!-- END GENERATED: layout -->
+
 ## Datasets
 
 <!-- BEGIN GENERATED: datasets -->
