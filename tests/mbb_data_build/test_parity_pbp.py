@@ -26,6 +26,11 @@ KEYS = ["game_id", "game_play_number"]
 
 NAME_COLS = ("athlete_name_1", "athlete_name_2", "athlete_name_3")
 
+# The committed tree asset is WP-enriched IN PLACE post-publish
+# (python/mbb_model_03_wp_enrich.py, run by the daily data processor);
+# producer parity is asserted on the pre-enrichment producer surface.
+ENRICHMENT_COLS = ("home_win_prob", "pregame_home_prob")
+
 
 def test_pbp_parity_full_2025(built_base):
     py = pl.read_parquet(built_base / "pbp" / "parquet" / "play_by_play_2025.parquet")
@@ -37,13 +42,17 @@ def test_pbp_parity_full_2025(built_base):
         f"athlete_name_1 resolved on {matched}/{has_id.height} id-bearing rows"
     )
     oracle = oracle_path("pbp", "play_by_play")
-    sample = [c for c in pl.read_parquet_schema(str(oracle)) if c not in KEYS]
+    sample = [
+        c for c in pl.read_parquet_schema(str(oracle))
+        if c not in KEYS and c not in ENRICHMENT_COLS
+    ]
     assert_parquet_parity(
         py,
         oracle,
         keys=KEYS,
         sample_cols=sample,
         py_only_additive=NAME_COLS,
+        r_only_enrichment=ENRICHMENT_COLS,
         # pbp column order is payload-first-seen; matches the NBA/WNBA
         # template's rationale (raw repo may have been re-scraped since the
         # oracle was compiled).
@@ -58,5 +67,6 @@ def test_pbp_row_and_column_count_match_oracle(built_base):
     # Cheap, always-green sanity check independent of any per-row divergence.
     py = pl.read_parquet(built_base / "pbp" / "parquet" / "play_by_play_2025.parquet")
     r = pl.read_parquet(oracle_path("pbp", "play_by_play"))
+    r = r.drop([c for c in ENRICHMENT_COLS if c in r.columns])
     assert py.shape == r.shape
     assert set(py.columns) == set(r.columns)

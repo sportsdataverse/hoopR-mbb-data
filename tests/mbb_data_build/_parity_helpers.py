@@ -20,10 +20,18 @@ def assert_parquet_parity(
     sample_cols: list[str],
     r_only_all_null_ok: tuple[str, ...] = (),
     py_only_additive: tuple[str, ...] = (),
+    r_only_enrichment: tuple[str, ...] = (),
     require_order: bool = True,
     dtype_upgrades: dict[str, tuple[pl.DataType, pl.DataType]] | None = None,
 ) -> None:
     r = pl.read_parquet(r_parquet)
+    if r_only_enrichment:
+        # Documented post-publish overlay (python/mbb_model_03_wp_enrich.py
+        # rewrites the published asset IN PLACE, adding WP columns) -- the
+        # producer-parity oracle view drops it, values and all. Explicit
+        # allowlist: an unintended oracle-only column still fails the set
+        # assert below.
+        r = r.drop([c for c in r_only_enrichment if c in r.columns])
     if py_only_additive:
         # Deliberately ADDITIVE producer columns (e.g. the 2026-07 athlete/team
         # name columns) that a pre-names oracle cannot carry: an explicit
