@@ -190,11 +190,17 @@ gt_show(
 
 ## Level gate — the scale check a rank gate cannot do
 
-Spearman is invariant to any monotone rescale: multiply every rating by 100,
-divide by the games played, or flip the sign convention and the rank
+Spearman is invariant to a **common strictly increasing** rescale: multiply
+every rating by 100, or divide them all by the same constant, and the rank
 correlation against KenPom or Torvik does not move. That is how a ratings
 scale bug ships past a rank-only gate (it happened in this ecosystem's CFB
-ratings). The publish path of this repository therefore carries an
+ratings). Two errors it *does* see: a sign flip reverses the order, so a
+positive rank correlation turns negative, and dividing each team by its OWN
+games count is not a common transform, so it can reorder teams too. The rank
+gate is the sign-and-order check; the level gate is what catches an
+absolute-scale error that leaves the order alone — note that a sign flip of a
+season whose mean `adj_em` is 1.72 lands on −1.72, still inside the [−8, 8]
+band, so neither gate is redundant. The publish path of this repository therefore carries an
 **absolute level gate** beside the engine's rank gates: over the core — teams
 with at least `MIN_GAMES_GATED` games — the season's mean `adj_o`, `adj_d`,
 `adj_em` and `adj_tempo` and the spread of `adj_em` must sit inside bands set
@@ -207,7 +213,14 @@ time on the assets consumers download.
 def level_row(sub):
     q = sub.filter(pl.col("games") >= MIN_GAMES_GATED)
     row = {"season": int(sub["season"][0]), "core_teams": q.height}
-    finite = q.filter(pl.col("adj_em").is_not_null() & pl.col("adj_em").is_not_nan())
+    # Mirror assert_ratings_level exactly: it refuses a qualified team with a
+    # non-finite value in ANY gated metric, and is_null() | ~is_finite() (not
+    # is_nan(), which misses +/-inf). Counting only adj_em here would report
+    # non_finite = 0 while the publish gate refuses the same frame.
+    bad = pl.any_horizontal(
+        [pl.col(c).is_null() | ~pl.col(c).is_finite() for c in RATINGS_LEVEL_BANDS]
+    )
+    finite = q.filter(~bad)
     row["non_finite"] = q.height - finite.height
     for c in RATINGS_LEVEL_BANDS:
         row[f"mean_{c}"] = float(finite[c].mean()) if finite.height else float("nan")

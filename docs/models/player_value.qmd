@@ -18,7 +18,7 @@ import numpy as np
 import polars as pl
 import requests
 from plotnine import (
-    ggplot, aes, geom_point, geom_histogram, geom_col, geom_hline, coord_flip,
+    ggplot, aes, geom_point, geom_histogram, geom_col, geom_hline, geom_vline, coord_flip,
     labs, theme_minimal,
 )
 from great_tables import GT
@@ -139,7 +139,7 @@ shr = cur.with_columns(pl.col("box_bpm").abs().alias("abs_bpm"))
 (
     ggplot(shr.to_pandas(), aes("min", "abs_bpm"))
     + geom_point(alpha=0.1, color="#2a6f97", size=0.6)
-    + geom_point(aes(x=QUALIFIED_MIN_MINUTES, y=0), alpha=0)
+    + geom_vline(xintercept=QUALIFIED_MIN_MINUTES, linetype="dashed", color="gray")
     + labs(x="minutes", y="|box BPM|",
            title=f"Every player is published; `qualified` marks min >= {QUALIFIED_MIN_MINUTES:g}")
     + theme_minimal()

@@ -133,6 +133,22 @@ def test_publish_refuses_a_pbp_parquet_whose_wp_is_not_finite(tmp_path):
         publish.publish_dataset(spec, 2025, base=tmp_path, dry_run=True)  # dry runs are refused too
 
 
+def test_publish_refuses_string_typed_wp_columns(tmp_path):
+    """A numeric STRING casts cleanly, so the finite-rate floor alone let it through."""
+    spec = REGISTRY["pbp"]
+    io.write_dataset(
+        _pbp_frame(pregame_home_prob=[0.6, 0.6], home_win_prob=["0.62", "0.55"]),
+        spec,
+        2025,
+        base=tmp_path,
+    )
+    pq = tmp_path / "pbp" / "parquet" / "play_by_play_2025.parquet"
+    # the old cast-based check would have scored these as 100% finite
+    assert pl.read_parquet(pq)["home_win_prob"].cast(pl.Float64, strict=False).is_finite().all()
+    with pytest.raises(publish.UnenrichedPbpError, match="not float-typed"):
+        publish.publish_dataset(spec, 2025, base=tmp_path, dry_run=True)
+
+
 def test_publish_accepts_an_enriched_pbp(tmp_path):
     spec = REGISTRY["pbp"]
     io.write_dataset(

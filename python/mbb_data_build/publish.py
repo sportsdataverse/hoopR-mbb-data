@@ -63,8 +63,8 @@ def assert_wp_enriched(
     ships, never on which code path ran.
 
     Raises:
-        UnenrichedPbpError: A WP column is missing, or its finite rate is below
-            ``min_finite_rate``.
+        UnenrichedPbpError: A WP column is missing, is not float-typed, or its
+            finite rate is below ``min_finite_rate``.
     """
     lf = pl.scan_parquet(parquet)
     schema = lf.collect_schema()
@@ -74,9 +74,19 @@ def assert_wp_enriched(
             f"{parquet.name}: missing WP columns {missing} -- refusing to publish an "
             "un-enriched pbp asset (run wp_enrich first)"
         )
+    # A numeric-looking STRING column ("0.62") casts cleanly to 0.62, so the
+    # finite-rate check below would pass it and publish_dataset would upload a
+    # string-typed WP column (the cast never touches the parquet). Reject the
+    # native dtype first: a WP probability is a float column or it is wrong.
+    mistyped = {c: str(schema[c]) for c in cols if not schema[c].is_float()}
+    if mistyped:
+        raise UnenrichedPbpError(
+            f"{parquet.name}: WP columns are not float-typed: {mistyped} -- refusing to "
+            "publish; a numeric string would satisfy the finite-rate floor while shipping "
+            "a string column to consumers"
+        )
     # is_finite: null -> null (dropped by sum), NaN and +/-inf -> False. strict=False
-    # so a mistyped (string) WP column counts as non-finite and trips the floor
-    # instead of escaping as a cast error.
+    # is belt-and-braces now that the dtype is proven numeric.
     counts = lf.select(
         pl.len().alias("_n"),
         *[pl.col(c).cast(pl.Float64, strict=False).is_finite().sum().alias(c) for c in cols],

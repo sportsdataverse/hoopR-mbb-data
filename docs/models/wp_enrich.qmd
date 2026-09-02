@@ -76,14 +76,14 @@ df, final, cal, brier, cal_mae = ev["df"], ev["final"], ev["cal"], ev["brier"], 
 
 hold_raw = fetch_pbp(HOLDOUT)
 if "home_win_prob" in hold_raw.columns:
-    hold_src = "the published release columns"
+    hold_src = "from the published release columns"
     hold_pbp = hold_raw
 else:
     # The release asset currently lacks the WP columns (the 2026-08 strip
     # incident, see Provenance). Apply the same bundled booster here so the
     # unseen era is still evaluated on the shipped plays.
     from sportsdataverse.mbb import build_mbb_season_wp
-    hold_src = "probabilities computed at render time -- the release asset lacks the WP columns"
+    hold_src = "computed at render time -- the release asset lacks the WP columns"
     hold_pbp = build_mbb_season_wp(HOLDOUT)
 del hold_raw
 hv = evaluate(hold_pbp)
@@ -228,7 +228,7 @@ comeback without any narrative input.
 ```{python}
 display(Markdown(
     f"Holdout season **{HOLDOUT}** — {hv['df'].height:,} plays in "
-    f"{hv['df']['game_id'].n_unique():,} games; probabilities from {hold_src}."
+    f"{hv['df']['game_id'].n_unique():,} games; probabilities {hold_src}."
 ))
 eras = pl.DataFrame({
     "era": [f"{season} (in-era)", f"{HOLDOUT} (unseen: 35-second shot clock, old three-point line)"],
