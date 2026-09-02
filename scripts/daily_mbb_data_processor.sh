@@ -149,6 +149,7 @@ do
         git config --local user.email "action@github.com"
         git config --local user.name "Github Action"
         SEASON_RC=0
+        PBP_RC=0
 
         # ::group:: markers collapse each dataset in the Actions UI; in the
         # tee'd season logfile they read as plain section headers.
@@ -169,6 +170,7 @@ do
                 rc=$?
                 echo "::warning ::mbb_data_build $ds for season $i exited with code $rc"
                 SEASON_RC=$rc
+                [ "$ds" = "pbp" ] && PBP_RC=$rc
             }
             echo "::endgroup::"
         }
@@ -179,6 +181,7 @@ do
                 rc=$?
                 echo "::warning ::$script for season $i exited with code $rc"
                 SEASON_RC=$rc
+                case "$script" in *01_pbp*) PBP_RC=$rc;; esac
             }
             echo "::endgroup::"
         }
@@ -221,14 +224,20 @@ do
         # plain build). The old publish-plain-then-re-enrich order stripped the
         # WP columns off the release on every nightly + the 2026-08-26 history
         # republish, which broke the platform's win-probability page. In `-l R`
-        # mode R still uploads the plain pbp itself (piggyback, unguarded), so
-        # there this step is the repair, not the writer.
+        # mode espn_mbb_01 writes the tree parquet and no longer uploads it, so
+        # this step is the single writer there too.
         echo "::group::wp_enrich $i"
-        ( cd python && uv run python -m mbb_model_03_wp_enrich -s "$i" -e "$i" --base ../mbb ) || {
-            rc=$?
-            echo "::error ::wp_enrich for season $i exited with code $rc -- pbp NOT published this run"
-            SEASON_RC=$rc
-        }
+        if [ "${PBP_RC:-0}" != "0" ]; then
+            # Never enrich a tree the pbp stage failed to rebuild: it holds the
+            # previous run's (or a partial) season and would ship as fresh.
+            echo "::error ::pbp build failed (rc=$PBP_RC); skipping wp_enrich -- release keeps the previous enriched asset"
+        else
+            ( cd python && uv run python -m mbb_model_03_wp_enrich -s "$i" -e "$i" --base ../mbb ) || {
+                rc=$?
+                echo "::error ::wp_enrich for season $i exited with code $rc -- pbp NOT published this run"
+                SEASON_RC=$rc
+            }
+        fi
         echo "::endgroup::"
 
         echo "RSCRIPT_RC=$SEASON_RC" > "/tmp/_rscript_rc_${i}"

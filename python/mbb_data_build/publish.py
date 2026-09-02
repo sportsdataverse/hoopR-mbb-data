@@ -66,24 +66,21 @@ def assert_wp_enriched(
         UnenrichedPbpError: A WP column is missing, or its finite rate is below
             ``min_finite_rate``.
     """
-    schema = pl.read_parquet_schema(parquet)
+    lf = pl.scan_parquet(parquet)
+    schema = lf.collect_schema()
     missing = [c for c in cols if c not in schema]
     if missing:
         raise UnenrichedPbpError(
             f"{parquet.name}: missing WP columns {missing} -- refusing to publish an "
             "un-enriched pbp asset (run wp_enrich first)"
         )
-    counts = (
-        pl.scan_parquet(parquet)
-        .select(
-            pl.len().alias("_n"),
-            *[
-                (pl.col(c).is_not_null() & pl.col(c).cast(pl.Float64).is_not_nan()).sum().alias(c)
-                for c in cols
-            ],
-        )
-        .collect()
-    )
+    # is_finite: null -> null (dropped by sum), NaN and +/-inf -> False. strict=False
+    # so a mistyped (string) WP column counts as non-finite and trips the floor
+    # instead of escaping as a cast error.
+    counts = lf.select(
+        pl.len().alias("_n"),
+        *[pl.col(c).cast(pl.Float64, strict=False).is_finite().sum().alias(c) for c in cols],
+    ).collect()
     n = int(counts["_n"][0])
     rates = {c: (int(counts[c][0]) / n if n else 0.0) for c in cols}
     low = {c: r for c, r in rates.items() if r < min_finite_rate}
@@ -205,9 +202,13 @@ def publish_dataset(
         # the pbp asset ships WP-enriched or not at all. Applies to dry runs
         # too -- a dry run that would be refused for real says so.
         pq = build_io.dataset_dir(spec, Path(base)) / "parquet" / f"{spec.stem}_{season}.parquet"
-        if pq.exists():
-            rates = assert_wp_enriched(pq)
-            log.info("%s %s: WP contract ok -- finite rates %s", spec.dataset, season, rates)
+        if not pq.exists():
+            raise UnenrichedPbpError(
+                f"{pq.name}: no pbp parquet under {base}; refusing to publish a pbp release "
+                "asset from leftover files"
+            )
+        rates = assert_wp_enriched(pq)
+        log.info("%s %s: WP contract ok -- finite rates %s", spec.dataset, season, rates)
     files = _dataset_files(spec, season, Path(base))
     if not files:
         log.warning("%s %s: no files to publish under %s", spec.dataset, season, base)

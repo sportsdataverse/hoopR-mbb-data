@@ -90,14 +90,13 @@ def assert_ratings_level(df: pl.DataFrame, season: int) -> dict:
         ValueError: A qualified team carries a non-finite rating, or a level or
             the adj_em spread is outside its band.
     """
+    needed = ["games", *RATINGS_LEVEL_BANDS]
+    if any(c not in df.columns for c in needed):
+        raise ValueError(f"mbb_ratings: season {season}: frame lacks {needed}; cannot level-gate")
     q = df.filter(pl.col("games") >= MIN_GAMES_GATED)
-    if q.height < MIN_GATED_TEAMS:
-        print(
-            f"mbb_ratings: season {season}: level gate NOT applied -- {q.height} teams with "
-            f">= {MIN_GAMES_GATED} games (< {MIN_GATED_TEAMS}); the season has no level yet"
-        )
-        return {"applied": False, "teams": q.height}
-    # NaN is not null in polars: an all-NaN fixed point passes every null check.
+    # Finiteness is checked on ANY qualified team, before the applicability floor:
+    # an all-NaN fixed point (two such seasons are published today) must not ship
+    # in November either. NaN is not null in polars, so both predicates are needed.
     for c in RATINGS_LEVEL_BANDS:
         bad = q.filter(pl.col(c).is_null() | pl.col(c).is_nan()).height
         if bad:
@@ -105,6 +104,12 @@ def assert_ratings_level(df: pl.DataFrame, season: int) -> dict:
                 f"mbb_ratings: season {season}: {bad}/{q.height} qualified teams have a "
                 f"non-finite {c} -- refusing to publish"
             )
+    if q.height < MIN_GATED_TEAMS:
+        print(
+            f"mbb_ratings: season {season}: level gate NOT applied -- {q.height} teams with "
+            f">= {MIN_GAMES_GATED} games (< {MIN_GATED_TEAMS}); the season has no level yet"
+        )
+        return {"applied": False, "teams": q.height}
     stats = {f"mean_{c}": float(q[c].mean()) for c in RATINGS_LEVEL_BANDS}
     stats["sd_adj_em"] = float(q["adj_em"].std())
     checks = {f"mean_{c}": band for c, band in RATINGS_LEVEL_BANDS.items()}

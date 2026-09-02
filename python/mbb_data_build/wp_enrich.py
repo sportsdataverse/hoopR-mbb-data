@@ -103,17 +103,19 @@ def enrich_and_publish(
         aux = {}
         for ds in ("schedules", "team_box"):
             p = _tree_parquet(ds, season, base)
-            if p.exists():
-                aux[ds] = pl.read_parquet(p)
-            else:
-                log.warning(
-                    "wp %s %s: %s parquet missing under %s; pregame prior falls back to the HFA anchor",
+            if not p.exists():
+                # Built minutes earlier in the same run: absence is an upstream
+                # failure, and the engine's HFA-only fallback would publish a flat
+                # pregame prior as if it were fresh.
+                log.error(
+                    "wp %s %s: %s parquet missing under %s; pbp NOT published this run",
                     league,
                     season,
                     ds,
                     base,
                 )
-                aux[ds] = pl.DataFrame()
+                return False
+            aux[ds] = pl.read_parquet(p)
         run = compile or _default_compile(league)
         frame = run(pbp, aux["schedules"], aux["team_box"])
     except Exception as exc:  # noqa: BLE001 - reported as a failed season by the caller
@@ -135,6 +137,15 @@ def enrich_and_publish(
             season,
             pbp.height,
             frame.height,
+        )
+        return False
+    lost = {c: dt for c, dt in pbp.schema.items() if frame.schema.get(c) != dt}
+    if lost:
+        log.error(
+            "wp %s %s: compile dropped or retyped input columns %s; pbp NOT published",
+            league,
+            season,
+            lost,
         )
         return False
 
