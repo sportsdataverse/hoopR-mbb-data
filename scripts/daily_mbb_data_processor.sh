@@ -149,7 +149,10 @@ do
         git config --local user.email "action@github.com"
         git config --local user.name "Github Action"
         SEASON_RC=0
-        PBP_RC=0
+        # Every input wp_enrich reads out of the tree (pbp, schedules, team_box).
+        # A failed build leaves the PREVIOUS run's file in place, so enriching on
+        # top of it would publish stale auxiliary data as fresh.
+        WP_INPUT_RC=0
 
         # ::group:: markers collapse each dataset in the Actions UI; in the
         # tee'd season logfile they read as plain section headers.
@@ -170,7 +173,7 @@ do
                 rc=$?
                 echo "::warning ::mbb_data_build $ds for season $i exited with code $rc"
                 SEASON_RC=$rc
-                [ "$ds" = "pbp" ] && PBP_RC=$rc
+                case "$ds" in pbp|schedules|team_box) WP_INPUT_RC=$rc;; esac
             }
             echo "::endgroup::"
         }
@@ -181,7 +184,7 @@ do
                 rc=$?
                 echo "::warning ::$script for season $i exited with code $rc"
                 SEASON_RC=$rc
-                case "$script" in *01_pbp*) PBP_RC=$rc;; esac
+                case "$script" in *01_pbp*|*02_team_box*) WP_INPUT_RC=$rc;; esac
             }
             echo "::endgroup::"
         }
@@ -227,10 +230,10 @@ do
         # mode espn_mbb_01 writes the tree parquet and no longer uploads it, so
         # this step is the single writer there too.
         echo "::group::wp_enrich $i"
-        if [ "${PBP_RC:-0}" != "0" ]; then
-            # Never enrich a tree the pbp stage failed to rebuild: it holds the
+        if [ "${WP_INPUT_RC:-0}" != "0" ]; then
+            # Never enrich a tree whose inputs failed to rebuild: it holds the
             # previous run's (or a partial) season and would ship as fresh.
-            echo "::error ::pbp build failed (rc=$PBP_RC); skipping wp_enrich -- release keeps the previous enriched asset"
+            echo "::error ::a wp_enrich input (pbp/schedules/team_box) failed (rc=$WP_INPUT_RC); skipping wp_enrich -- release keeps the previous enriched asset"
         else
             ( cd python && uv run python -m mbb_model_03_wp_enrich -s "$i" -e "$i" --base ../mbb ) || {
                 rc=$?
