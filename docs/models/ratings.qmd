@@ -12,6 +12,8 @@ jupyter: python3
 ```{python}
 #| output: false
 import io
+import sys
+from pathlib import Path
 import numpy as np
 import polars as pl
 import requests
@@ -19,13 +21,25 @@ from plotnine import (
     ggplot, aes, geom_point, geom_histogram, geom_abline, labs, theme_minimal,
 )
 from great_tables import GT
-from IPython.display import HTML, display
+from IPython.display import HTML, Markdown, display
 
 LG = "mbb"
 SPORT_SLUG = "mens-college-basketball"
 DL = "https://github.com/sportsdataverse/sportsdataverse-data/releases/download"
+
+# The gate constants live with the builder; fall back to the same values when
+# this document is rendered outside the repo tree.
+sys.path.insert(0, str(Path.cwd().parents[1] / "python"))
+try:
+    from mbb_model_publish.builders import (
+        ADJ_EM_SD_BAND, MIN_GAMES_GATED, MIN_GATED_TEAMS, RATINGS_LEVEL_BANDS,
+    )
+except Exception:  # noqa: BLE001
+    RATINGS_LEVEL_BANDS = {"adj_o": (95.0, 118.0), "adj_d": (95.0, 118.0), "adj_em": (-8.0, 8.0), "adj_tempo": (60.0, 76.0)}
+    ADJ_EM_SD_BAND, MIN_GAMES_GATED, MIN_GATED_TEAMS = (10.0, 22.0), 10, 150
+
 frames = []
-for season in range(2020, 2027):
+for season in range(2006, 2027):
     r = requests.get(f"{DL}/{LG}_ratings/{LG}_ratings_{season}.parquet", timeout=60)
     if r.status_code == 200:
         frames.append(pl.read_parquet(io.BytesIO(r.content)))
@@ -40,6 +54,7 @@ name_col = next(c for c in ("team_display_name", "team_location", "team_name")
                 if c in tb.columns)
 names = (tb.group_by("team_id").agg(pl.col(name_col).last().alias("team"))
          .with_columns(pl.col("team_id").cast(pl.Int64)))
+
 
 def gt_show(g):
     display(HTML(g.as_raw_html()))
@@ -62,29 +77,36 @@ publishes, and its verification is external — the engine's oracle gates in
 sdv-py hold the season ordering against KenPom/Torvik-class references where
 they are trained. What this document adds is the render-time view of the
 published assets a consumer actually downloads: internal-consistency checks,
-the structure of the rating surface, and identified team-level results.
+the structure of the rating surface, identified team-level results, and the
+absolute level gate that guards the scale a rank check cannot see.
 
 ## Training data
 
 ```{python}
 tbl = (
     rt.group_by("season")
-    .agg(pl.len().alias("teams"), pl.col("games").sum().alias("team_games"),
-         pl.col("adj_em").mean().alias("mean_adj_em"))
+    .agg(pl.len().alias("teams"),
+         (pl.col("games") >= MIN_GAMES_GATED).sum().alias(f"teams_{MIN_GAMES_GATED}plus_games"),
+         pl.col("games").sum().alias("team_games"),
+         pl.col("adj_em").mean().alias("mean_adj_em_all"),
+         pl.col("adj_em").filter(pl.col("games") >= MIN_GAMES_GATED).mean().alias("mean_adj_em_core"))
     .sort("season")
 )
 gt_show(
     GT(tbl.to_pandas())
     .tab_header(title="Published mbb_ratings assets, by season",
-                subtitle="computed at render time from the release; adj_em is mean-zero by construction")
+                subtitle="the full frame carries every opponent ever seen (few-game non-D1 teams pull its mean far negative); the core -- teams with 10+ games -- sits near zero")
     .fmt_number(columns="team_games", sep_mark=",", decimals=0)
-    .fmt_number(columns="mean_adj_em", decimals=3)
+    .fmt_number(columns=["mean_adj_em_all", "mean_adj_em_core"], decimals=2)
 )
 ```
 
 Inputs are the published season pbp/box assets of this repository — the
 ratings sit downstream of the same daily pipeline that publishes the data
-they are computed from, which is what keeps them reproducible.
+they are computed from, which is what keeps them reproducible. A season row
+whose means are blank is a published asset the fixed point never converged
+on (every rating NaN); the level gate below now refuses such a season at
+publish time.
 
 ## Exploratory data analysis
 
@@ -114,10 +136,12 @@ cur2 = cur.with_columns((pl.col("raw_o") - pl.col("raw_d")).alias("raw_em"))
 ```
 
 ```{python}
+core = cur.filter(pl.col("games") >= MIN_GAMES_GATED)
 consistency = pl.DataFrame({
-    "check": ["mean adj_em (should be ~0)", "corr(adj_em, raw margin)",
+    "check": [f"mean adj_em, teams with {MIN_GAMES_GATED}+ games (should be ~0)",
+              "corr(adj_em, raw margin)",
               "corr(adj_em, adj_em_z) (should be ~1)"],
-    "value": [float(cur["adj_em"].mean()),
+    "value": [float(core["adj_em"].mean()),
               float(cur2.select(pl.corr("adj_em", "raw_em")).item()),
               float(cur.select(pl.corr("adj_em", "adj_em_z")).item())],
 })
@@ -164,6 +188,64 @@ gt_show(
 )
 ```
 
+## Level gate — the scale check a rank gate cannot do
+
+Spearman is invariant to any monotone rescale: multiply every rating by 100,
+divide by the games played, or flip the sign convention and the rank
+correlation against KenPom or Torvik does not move. That is how a ratings
+scale bug ships past a rank-only gate (it happened in this ecosystem's CFB
+ratings). The publish path of this repository therefore carries an
+**absolute level gate** beside the engine's rank gates: over the core — teams
+with at least `MIN_GAMES_GATED` games — the season's mean `adj_o`, `adj_d`,
+`adj_em` and `adj_tempo` and the spread of `adj_em` must sit inside bands set
+from the observed published seasons and in-season snapshots, with no
+non-finite value; it applies once `MIN_GATED_TEAMS` teams qualify and logs,
+rather than pretends, before that. The table is the gate re-run at render
+time on the assets consumers download.
+
+```{python}
+def level_row(sub):
+    q = sub.filter(pl.col("games") >= MIN_GAMES_GATED)
+    row = {"season": int(sub["season"][0]), "core_teams": q.height}
+    finite = q.filter(pl.col("adj_em").is_not_null() & pl.col("adj_em").is_not_nan())
+    row["non_finite"] = q.height - finite.height
+    for c in RATINGS_LEVEL_BANDS:
+        row[f"mean_{c}"] = float(finite[c].mean()) if finite.height else float("nan")
+    row["sd_adj_em"] = float(finite["adj_em"].std()) if finite.height > 1 else float("nan")
+    checks = {f"mean_{c}": b for c, b in RATINGS_LEVEL_BANDS.items()} | {"sd_adj_em": ADJ_EM_SD_BAND}
+    if q.height < MIN_GATED_TEAMS:
+        row["verdict"] = "not applied (too few core teams)"
+    elif row["non_finite"]:
+        row["verdict"] = "REFUSED: non-finite ratings"
+    elif any(not (b[0] <= row[k] <= b[1]) for k, b in checks.items()):
+        row["verdict"] = "REFUSED: out of band"
+    else:
+        row["verdict"] = "pass"
+    return row
+
+lvl = pl.DataFrame([level_row(rt.filter(pl.col("season") == s)) for s in SEASONS])
+bands_txt = ", ".join(f"mean {c} in [{lo:g}, {hi:g}]" for c, (lo, hi) in RATINGS_LEVEL_BANDS.items())
+gt_show(
+    GT(lvl.to_pandas())
+    .tab_header(title=f"Level gate re-run on the published assets (teams with {MIN_GAMES_GATED}+ games; applies at {MIN_GATED_TEAMS}+ such teams)",
+                subtitle=f"bands: {bands_txt}, sd adj_em in [{ADJ_EM_SD_BAND[0]:g}, {ADJ_EM_SD_BAND[1]:g}]")
+    .fmt_number(columns=[f"mean_{c}" for c in RATINGS_LEVEL_BANDS] + ["sd_adj_em"], decimals=2)
+)
+```
+
+The bands were set on 2026-09-01 from the published 2006–2026 assets plus
+in-season engine snapshots (2024, 2025 and 2026 from Dec 10 to season end):
+core teams 334–366 at season end and 153+ from about Dec 10; mean adj_o
+101.9–111.1; mean adj_d 100.7–108.5; mean adj_em 0.09–6.0 (the high end is
+mid-December, when the core is small and unbalanced; ≤ 1.9 at season end);
+sd adj_em 13.2–16.7; mean adj_tempo 65.1–70.0. Each band is the observed
+range padded so a real season never trips it while a unit or scale error
+does — per-game instead of per-100 divides every level by ~1.5, a sign flip
+mirrors adj_em, and an un-converged fixed point (the published 2011 asset,
+every team NaN) fails the finiteness check. A season the table marks
+REFUSED would not be republished by the current builder until the engine
+input is repaired.
+
 ## Results
 
 ```{python}
@@ -190,8 +272,11 @@ gt_show(
 - **Computed from:** this repository's published season pbp/box assets,
   seasons listed in the corpus table; recomputed in full on every run.
 - **Engine:** the sdv-py MBB prediction stack's iterative opponent
-  adjustment (em-scale fixed point); engine training + oracle gates live in
-  sdv-py.
+  adjustment (em-scale fixed point); engine training + oracle (rank) gates
+  live in sdv-py.
+- **Level gate:** `python/mbb_model_publish/builders.py::assert_ratings_level`
+  (bands, floor and observations recorded in `models/REGISTRY.md`); its
+  per-season record is written into the `mbb_ratings_card.json` sidecar.
 - **Pipeline:** `scripts/mbb_models.sh 01` → stage
   `python/mbb_model_01_ratings.py` (wired via `mbb_models_cron.yml`); each
   publish writes a card sidecar
@@ -206,5 +291,11 @@ gt_show(
 - **Preseason priors** — blend the recruiting/returning-production prior
   into early-season ratings instead of starting from a flat matrix.
 - **Home/travel modeling** — altitude and travel distance are unmodeled.
-- **Known issue:** Spearman-style external checks are scale-blind; the level
-  bands that catch scale bugs live in the sdv-py gates, not here.
+- **Resolved (2026-09-01, PR #25):** the scale-blindness of the
+  Spearman-style checks is closed in this repository by the absolute level
+  gate above (`assert_ratings_level`), run at publish beside sdv-py's rank
+  gates and re-run on the published assets in this document.
+- **Known issue:** the published `mbb_ratings_2011.parquet` is entirely NaN
+  (the fixed point did not converge on that season's inputs); the level gate
+  refuses it, so the repair is upstream in the engine/inputs, then a
+  republish.

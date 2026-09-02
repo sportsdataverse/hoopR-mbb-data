@@ -16,28 +16,78 @@ import numpy as np
 import polars as pl
 import requests
 from plotnine import (
-    ggplot, aes, geom_point, geom_line, geom_abline, geom_histogram,
+    ggplot, aes, geom_point, geom_line, geom_abline,
     labs, theme_minimal,
 )
 from great_tables import GT
-from IPython.display import HTML, display
+from IPython.display import HTML, Markdown, display
 
 LG = "mbb"
 PBP_TAG = "espn_mens_college_basketball_pbp"
 DL = "https://github.com/sportsdataverse/sportsdataverse-data/releases/download"
 season = 2026
-r = requests.get(f"{DL}/{PBP_TAG}/play_by_play_{season}.parquet", timeout=600)
-pbp = pl.read_parquet(io.BytesIO(r.content))
+# An era the booster never saw: the bundled in-game booster is fit on a single
+# season (2023) of game state; 2012 was played under the 35-second shot clock
+# and the pre-2019 three-point line -- a different rule era, not just a
+# different season.
+HOLDOUT = 2012
 
-final = (
-    pbp.sort("sequence_number")
-    .group_by("game_id")
-    .agg(pl.col("home_score").last().alias("final_home"),
-         pl.col("away_score").last().alias("final_away"))
-    .with_columns((pl.col("final_home") > pl.col("final_away")).cast(pl.Float64).alias("home_won"))
-    .filter(pl.col("final_home") != pl.col("final_away"))
-)
-df = pbp.join(final.select("game_id", "home_won"), on="game_id", how="inner")
+
+def fetch_pbp(s):
+    r = requests.get(f"{DL}/{PBP_TAG}/play_by_play_{s}.parquet", timeout=600)
+    r.raise_for_status()
+    return pl.read_parquet(io.BytesIO(r.content))
+
+
+def evaluate(pbp):
+    """Join every play to its game's realized outcome and return the calibration pieces."""
+    final = (
+        pbp.sort("sequence_number")
+        .group_by("game_id")
+        .agg(pl.col("home_score").last().alias("final_home"),
+             pl.col("away_score").last().alias("final_away"))
+        .with_columns((pl.col("final_home") > pl.col("final_away")).cast(pl.Float64).alias("home_won"))
+        .filter(pl.col("final_home") != pl.col("final_away"))
+    )
+    df = pbp.join(final.select("game_id", "home_won"), on="game_id", how="inner")
+    p = df["home_win_prob"].to_numpy()
+    y = df["home_won"].to_numpy()
+    bins = np.clip((p * 20).astype(int), 0, 19)
+    rows = []
+    for b in range(20):
+        m = bins == b
+        if m.sum() > 0:
+            rows.append({"bin_mid": (b + 0.5) / 20, "pred": float(p[m].mean()),
+                         "obs": float(y[m].mean()), "n": int(m.sum())})
+    cal = pl.DataFrame(rows)
+    pre = df.group_by("game_id").agg(pl.col("pregame_home_prob").first(), pl.col("home_won").first())
+    return {
+        "df": df, "final": final, "cal": cal,
+        "brier": float(np.mean((p - y) ** 2)),
+        "cal_mae": float((cal["pred"] - cal["obs"]).abs().mean()),
+        "base_brier": float(np.mean((final["home_won"].mean() - y) ** 2)),
+        "pre_brier": float(pre.select(((pl.col("pregame_home_prob") - pl.col("home_won")) ** 2).mean()).item()),
+    }
+
+
+pbp = fetch_pbp(season)
+ev = evaluate(pbp)
+df, final, cal, brier, cal_mae = ev["df"], ev["final"], ev["cal"], ev["brier"], ev["cal_mae"]
+
+hold_raw = fetch_pbp(HOLDOUT)
+if "home_win_prob" in hold_raw.columns:
+    hold_src = "the published release columns"
+    hold_pbp = hold_raw
+else:
+    # The release asset currently lacks the WP columns (the 2026-08 strip
+    # incident, see Provenance). Apply the same bundled booster here so the
+    # unseen era is still evaluated on the shipped plays.
+    from sportsdataverse.mbb import build_mbb_season_wp
+    hold_src = "probabilities computed at render time -- the release asset lacks the WP columns"
+    hold_pbp = build_mbb_season_wp(HOLDOUT)
+del hold_raw
+hv = evaluate(hold_pbp)
+
 
 def gt_show(g):
     display(HTML(g.as_raw_html()))
@@ -50,20 +100,25 @@ in sdv-py) is applied **in place** to every published season of
 preserved. The published pbp itself is how the model reaches consumers —
 there is no separate WP asset to fall out of sync with the plays.
 
-The models are rule-era XGBoost classifiers over game state (score margin,
-time remaining, possession); era-specific boosters absorb rule changes
-across the 2003-present span. Operationally, the enrichment runs
-post-publish in `scripts/daily_mbb_data_processor.sh` because a recorded
-incident showed the nightly publish silently stripping the WP columns —
-re-application is unconditional for that reason, and the incident is why
-this stage exists at all.
+The model is an XGBoost classifier over game state — score margin, seconds
+left (and its square root), the pregame logit, and possession — fit on a
+single season (2023). Operationally the enrichment **is** the pbp publisher:
+`scripts/daily_mbb_data_processor.sh` builds the plain season pbp into the
+tree and never uploads it; stage `mbb_model_03_wp_enrich` reads the tree
+pbp/schedules/team_box, appends the two columns and publishes
+parquet+csv+rds; and `mbb_data_build.publish` refuses any pbp parquet
+without finite WP columns, asserted on the file about to upload. That design
+closes a recorded incident: the old publish-plain-then-re-enrich order
+stripped the columns off the release on every nightly, and the 2026-08-26
+whole-history republish stripped 2003–2023 outright (2024–2026 were
+re-enriched by the in-season nightly). Until those seasons are republished,
+this document computes the holdout era's probabilities itself and says so.
 
-This document is the model's **out-of-band evaluation**: it downloads one
-full published season at render time and holds the in-game probabilities
-against each game's realized outcome. That is a genuine test of the applied
-model on the shipped data — if the enrichment ever regressed, went stale, or
-was stripped, this document's calibration section would show it on the next
-render.
+This document is the model's **out-of-band evaluation**: it downloads a full
+published season at render time and holds the in-game probabilities against
+each game's realized outcome — first in-era, then for an era the booster
+never saw. If the enrichment ever regressed, went stale, or was stripped, the
+calibration sections below would show it on the next render.
 
 ## Evaluation data
 
@@ -92,24 +147,11 @@ strongest in sports and both numbers reflect it.
 ## Calibration
 
 ```{python}
-eps = 1e-9
-p = df["home_win_prob"].to_numpy()
-y = df["home_won"].to_numpy()
-brier = float(np.mean((p - y) ** 2))
-bins = np.clip((p * 20).astype(int), 0, 19)
-cal_rows = []
-for b in range(20):
-    m = bins == b
-    if m.sum() > 0:
-        cal_rows.append({"bin_mid": (b + 0.5) / 20, "pred": float(p[m].mean()),
-                         "obs": float(y[m].mean()), "n": int(m.sum())})
-cal = pl.DataFrame(cal_rows)
-cal_mae = float((cal["pred"] - cal["obs"]).abs().mean())
 gt_show(
     GT(pl.DataFrame({
         "metric": ["Brier score (all plays)", "20-bin calibration MAE",
                    "baseline Brier (constant home-win rate)"],
-        "value": [brier, cal_mae, float(np.mean((final["home_won"].mean() - y) ** 2))],
+        "value": [brier, cal_mae, ev["base_brier"]],
     }).to_pandas())
     .tab_header(title=f"Out-of-band calibration — {season} published season")
     .fmt_number(columns="value", decimals=4)
@@ -165,15 +207,10 @@ title = f"{sw['away_team_name'][0]} at {sw['home_team_name'][0]} — most volati
 ```
 
 ```{python}
-pre = (
-    df.group_by("game_id")
-    .agg(pl.col("pregame_home_prob").first(), pl.col("home_won").first())
-)
-pre_brier = float(pre.select(((pl.col("pregame_home_prob") - pl.col("home_won")) ** 2).mean()).item())
 gt_show(
     GT(pl.DataFrame({
         "model": ["pregame prior (one prob per game)", "in-game WP (all plays)"],
-        "brier": [pre_brier, brier],
+        "brier": [ev["pre_brier"], brier],
     }).to_pandas())
     .tab_header(title="Pregame vs in-game — the value the enrichment adds over the prior")
     .fmt_number(columns="brier", decimals=4)
@@ -186,20 +223,77 @@ three signatures of a healthy applied WP surface. The volatile-game trace is
 the demonstration consumers care about: the column tells the story of a
 comeback without any narrative input.
 
+## Unseen-era holdout
+
+```{python}
+display(Markdown(
+    f"Holdout season **{HOLDOUT}** — {hv['df'].height:,} plays in "
+    f"{hv['df']['game_id'].n_unique():,} games; probabilities from {hold_src}."
+))
+eras = pl.DataFrame({
+    "era": [f"{season} (in-era)", f"{HOLDOUT} (unseen: 35-second shot clock, old three-point line)"],
+    "plays": [df.height, hv["df"].height],
+    "brier": [brier, hv["brier"]],
+    "baseline_brier": [ev["base_brier"], hv["base_brier"]],
+    "skill_vs_baseline": [1 - brier / ev["base_brier"], 1 - hv["brier"] / hv["base_brier"]],
+    "calibration_mae_20bin": [cal_mae, hv["cal_mae"]],
+    "pregame_brier": [ev["pre_brier"], hv["pre_brier"]],
+})
+gt_show(
+    GT(eras.to_pandas())
+    .tab_header(title="Era transfer — the same booster in-era and on an era it never saw",
+                subtitle="the calibration-MAE gap between the rows is the era-transfer error, bounded here rather than assumed")
+    .fmt_number(columns="plays", sep_mark=",", decimals=0)
+    .fmt_number(columns=["brier", "baseline_brier", "calibration_mae_20bin", "pregame_brier"], decimals=4)
+    .fmt_percent(columns="skill_vs_baseline", decimals=1)
+)
+```
+
+```{python}
+#| fig-cap: "Reliability, in-era vs unseen era. A curve that stays on the diagonal in the old era means the game-state features transfer across rule changes; a bowed curve is the era-transfer error made visible."
+both = pl.concat([
+    cal.with_columns(pl.lit(f"{season} in-era").alias("era")),
+    hv["cal"].with_columns(pl.lit(f"{HOLDOUT} unseen era").alias("era")),
+])
+(
+    ggplot(both.to_pandas(), aes("pred", "obs", color="era"))
+    + geom_abline(slope=1, intercept=0, linetype="dashed", color="gray")
+    + geom_point(aes(size="n")) + geom_line()
+    + labs(x="predicted home win probability", y="observed home win frequency",
+           title="WP reliability by era")
+    + theme_minimal()
+)
+```
+
+The booster sees only game state, so what an unseen era tests is whether
+"down 6 with 4:00 left" meant the same thing under a 35-second clock. The
+table bounds that explicitly: the skill-versus-baseline and calibration MAE
+of the old era sit next to the in-era numbers rather than being assumed
+equal. The pregame prior also moves across eras — it is an as-of team-rating
+model over that season's own results — so the holdout tests the whole
+applied surface, not just the tree.
+
 ## Provenance & reproducibility
 
-- **Model:** rule-era XGBoost WP suite trained, bundled, and oracle-gated in
-  sdv-py (score margin, time, possession features; era boosters across
-  2003-present).
+- **Model:** XGBoost in-game WP over game state (score margin, seconds left,
+  its square root, pregame logit, possession), fit on the 2023 season,
+  bundled and oracle-gated in sdv-py (`mbb/models/mbb_in_game_wp.ubj`).
 - **Applied to:** every published season of
   `espn_mens_college_basketball_pbp`, in place, columns
-  `home_win_prob` + `pregame_home_prob`; re-application is unconditional in
-  `scripts/daily_mbb_data_processor.sh` (recorded strip incident).
+  `home_win_prob` + `pregame_home_prob`, by the enrichment stage — the pbp
+  asset's only publisher. `mbb_data_build.publish.assert_wp_enriched`
+  refuses any pbp parquet missing the columns or below a 0.999 finite-rate
+  floor (observed 1.0 on 2024–2026), asserted on the file about to upload.
 - **Pipeline:** `scripts/mbb_models.sh 03` → stage
-  `python/mbb_model_03_wp_enrich.py -s <season> -e <season>`. Single home:
-  `models/manifest.yaml`.
-- **This document** evaluates the published season downloaded at render
-  time (~90 MB) — the exact frame consumers read.
+  `python/mbb_model_03_wp_enrich.py -s <season> -e <season> --base ../mbb`,
+  wired at the end of `scripts/daily_mbb_data_processor.sh` (after
+  schedules + team_box exist in the tree). Single home: `models/manifest.yaml`.
+- **Release state (2026-09-01):** 2024–2026 carry the columns; 2003–2023 lost
+  them to the 2026-08-26 whole-history republish and need one
+  `mbb_model_03_wp_enrich -s 2003 -e 2023` republish. This document falls
+  back to computing the holdout era itself while that is outstanding.
+- **This document** evaluates two published seasons downloaded at render
+  time (~90 MB + ~50 MB) — the exact frames consumers read.
 - **Rebuild:** `scripts/render_model_docs.sh` (Quarto → GFM;
   `uv sync --group docs`).
 
@@ -207,10 +301,12 @@ comeback without any narrative input.
 
 - **Possession-state features** — foul counts, bonus state, and timeout
   inventory are absent from the WP inputs.
-- **Known issue (recorded incident):** the nightly publish silently strips
-  WP columns, which is why re-application is unconditional — moving
-  enrichment into the publish step itself would remove the window where a
-  freshly published season briefly lacks WP.
-- **Season-holdout curve** — this document evaluates the applied model
-  in-era; rendering the same calibration for an era the booster never saw
-  would bound era-transfer error explicitly.
+- **Resolved (2026-09-01, PR #25):** the nightly publish no longer strips
+  the WP columns — the enrichment stage is the pbp asset's only publisher
+  and the publish path refuses an un-enriched pbp parquet, so no publish
+  window exists in which a season lacks WP. The 2003–2023 seasons stripped
+  by the 2026-08-26 history republish still need the one-off republish
+  listed above.
+- **Resolved (2026-09-01, PR #25):** season-holdout curve — the
+  unseen-era section above renders the same calibration for a season the
+  booster never saw and reports the era-transfer error as a number.
