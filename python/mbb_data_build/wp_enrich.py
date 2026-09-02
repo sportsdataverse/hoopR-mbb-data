@@ -45,6 +45,11 @@ log = get_logger()
 
 WP_COLS = publish.WP_COLS
 
+# The identity of a play in the published pbp. A compile that drops one event and
+# duplicates another keeps the row count, the schema and the dtypes -- every check
+# below the row count would pass it -- so the identities are compared as a multiset.
+PLAY_KEY = ("game_id", "game_play_number")
+
 
 def _tree_parquet(dataset: str, season: int, base: Path) -> Path:
     spec = REGISTRY[dataset]
@@ -137,6 +142,16 @@ def enrich_and_publish(
             season,
             pbp.height,
             frame.height,
+        )
+        return False
+    key = [c for c in PLAY_KEY if c in pbp.columns and c in frame.columns]
+    if key and not frame.select(key).sort(key).equals(pbp.select(key).sort(key)):
+        log.error(
+            "wp %s %s: compile changed the play identities on %s (a drop plus a duplicate "
+            "keeps the row count); pbp NOT published",
+            league,
+            season,
+            key,
         )
         return False
     lost = {c: dt for c, dt in pbp.schema.items() if frame.schema.get(c) != dt}

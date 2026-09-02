@@ -99,6 +99,20 @@ def test_enrich_refuses_a_compile_that_changes_the_row_count(tmp_path, monkeypat
     assert calls == []
 
 
+def test_enrich_refuses_a_compile_that_swaps_one_play_for_a_duplicate(tmp_path, monkeypatch):
+    # The row count, the schema and the dtypes all survive a drop-plus-duplicate, so only
+    # the play-identity multiset catches it.
+    _write_tree(tmp_path)
+    calls = _stub_gh(monkeypatch)
+
+    def swapper(p, s, t):
+        out = _compile(p, s, t)
+        return pl.concat([out.head(3), out.head(1)])  # drops (2, 2), duplicates (1, 1)
+
+    assert wp_enrich.enrich_and_publish(2025, base=tmp_path, compile=swapper) is False
+    assert calls == []
+
+
 def test_enrich_with_no_pbp_built_is_not_a_failure(tmp_path, monkeypatch):
     calls = _stub_gh(monkeypatch)
     assert wp_enrich.enrich_and_publish(2025, base=tmp_path, compile=_compile) is True
