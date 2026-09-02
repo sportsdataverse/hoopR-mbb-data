@@ -5,6 +5,8 @@ from __future__ import annotations
 import subprocess
 from pathlib import Path
 
+from sportsdataverse.release import upload_release_sidecars
+
 GH_TIMEOUT_SECONDS = 300
 
 # Release-notes body used when auto-creating a missing release. Keyed by tag;
@@ -23,6 +25,18 @@ _RELEASE_BODY = {
         "`mbb_box_bpm()` over the released ESPN player boxscores."
     ),
 }
+
+
+#: Release sidecar metadata: the loader a consumer reads each tag through.
+#: R's sportsdataverse_save() writes this as package_function.txt/.json beside
+#: every published asset; this publisher dropped it along with the timestamp
+#: pair. Model tags with no loader fall back to naming this producer -- the
+#: convention the ncaa_*_rapm tags already carry on their published sidecars.
+PKG_FUNCTION: dict[str, str] = {
+    "mbb_player_value": "sportsdataverse.mbb.load_mbb_player_value()",
+    "mbb_ratings": "sportsdataverse.mbb.load_mbb_ratings()",
+}
+_PRODUCER = "python/mbb_model_publish/artifacts.py"
 
 
 def _gh_runner(args: list) -> None:
@@ -74,6 +88,13 @@ def upload_artifacts(
             continue
         run(["release", "upload", tag, str(f), "--repo", repo, "--clobber"])
         uploaded += 1
+    # stamp LAST so the timestamp describes a finished upload, and only when
+    # something actually uploaded -- a stamp on a no-op run would claim data
+    # moved when it did not
+    if uploaded:
+        upload_release_sidecars(
+            tag, runner=run, pkg_function=PKG_FUNCTION.get(tag, _PRODUCER), repo=repo
+        )
     return {
         "uploaded": uploaded,
         "files": [str(f) for f in files],
