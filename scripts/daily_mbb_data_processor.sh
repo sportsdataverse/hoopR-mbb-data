@@ -7,7 +7,8 @@
 # parquets; player_season_stats reads the built player_box for identity.
 # All three crosswalks (mbb_11-13) now build in Python too. `.rds` is written
 # natively by io.write_dataset in the same pass as the parquet, so there is no
-# separate serialize step.
+# separate serialize step. The pbp release asset is published by the WP
+# enrichment step (after schedules + team_box exist), never by the pbp build.
 #
 # Usage: bash scripts/daily_mbb_data_processor.sh -s 2026 -e 2026 [-l python|R]
 set -uo pipefail
@@ -153,12 +154,18 @@ do
         # tee'd season logfile they read as plain section headers.
         run_py() {
             local ds="$1"
+            # pbp is written to the tree here but published ONLY by the WP
+            # enrichment step below (its single writer). publish.py refuses an
+            # un-enriched pbp asset, so a plain pbp can never reach the release.
+            local pub="--publish"
+            [ "$ds" = "pbp" ] && pub=""
             echo "::group::mbb_data_build $ds $i"
             # Run inside python/ so the flat mbb_data_build package is importable
             # (it is not pip-installed; found via CWD/pythonpath). --base ../mbb
             # writes into the repo-root mbb/ tree.
+            # shellcheck disable=SC2086
             ( cd python && uv run python -m mbb_data_build \
-                --dataset "$ds" -s "$i" -e "$i" --base ../mbb --raw-root "$RAW_ROOT" --publish ) || {
+                --dataset "$ds" -s "$i" -e "$i" --base ../mbb --raw-root "$RAW_ROOT" $pub ) || {
                 rc=$?
                 echo "::warning ::mbb_data_build $ds for season $i exited with code $rc"
                 SEASON_RC=$rc
@@ -205,15 +212,24 @@ do
             for DS in "${PY_CROSSWALKS[@]}"; do run_py_crosswalk "$DS"; done
         fi
 
-        # Win-probability enrichment: republishes play_by_play_$i.parquet with
-        # pregame_home_prob + home_win_prob appended. MUST run after the dataset
-        # loop (it needs team_box, which builds after pbp) and is best-effort --
-        # the plain pbp published above is still valid data if this fails.
-        # Without it every nightly strips the WP columns off the release, which
-        # is what broke the platform's win-probability page in 2026-08. Runs in
-        # both modes: the R path publishes the same pbp parquet.
-        ( cd python && uv run python -m mbb_model_03_wp_enrich -s "$i" -e "$i" --base ../mbb ) || \
-            echo "::warning ::wp_enrich for season $i exited with code $? (non-fatal; release keeps plain pbp)"
+        # Win-probability enrichment -- the ONLY publisher of play_by_play_$i:
+        # reads the tree pbp/schedules/team_box built above, appends
+        # pregame_home_prob + home_win_prob, rewrites parquet/csv/rds and uploads.
+        # MUST run after the dataset loop (it needs schedules + team_box) and is
+        # FATAL: a pbp that is not enriched is a pbp that is not published (the
+        # release keeps the previous enriched asset; the tree still commits the
+        # plain build). The old publish-plain-then-re-enrich order stripped the
+        # WP columns off the release on every nightly + the 2026-08-26 history
+        # republish, which broke the platform's win-probability page. In `-l R`
+        # mode R still uploads the plain pbp itself (piggyback, unguarded), so
+        # there this step is the repair, not the writer.
+        echo "::group::wp_enrich $i"
+        ( cd python && uv run python -m mbb_model_03_wp_enrich -s "$i" -e "$i" --base ../mbb ) || {
+            rc=$?
+            echo "::error ::wp_enrich for season $i exited with code $rc -- pbp NOT published this run"
+            SEASON_RC=$rc
+        }
+        echo "::endgroup::"
 
         echo "RSCRIPT_RC=$SEASON_RC" > "/tmp/_rscript_rc_${i}"
         # Grep-able terminal line for the season logfile (scrape-log convention).

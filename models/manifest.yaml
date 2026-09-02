@@ -20,7 +20,7 @@ suites:
         wraps_token: '"ratings"'
         release_tag: mbb_ratings
         wired_via: .github/workflows/mbb_models_cron.yml
-        notes: "Compute-on-demand (engines in sdv-py); card sidecar is the per-publish ledger."
+        notes: "Compute-on-demand (engines in sdv-py); card sidecar is the per-publish ledger. Level-band gate at publish (builders.assert_ratings_level; see REGISTRY.md)."
       player_value:
         stage: python/mbb_model_02_player_value.py
         wraps: mbb_model_publish player-value
@@ -34,4 +34,4 @@ suites:
         wraps_token: wp_enrich
         release_tag: espn_mens_college_basketball_pbp
         wired_via: scripts/daily_mbb_data_processor.sh
-        notes: "Runs post-publish in the daily data processor (the nightly publish otherwise strips the WP columns)."
+        notes: "Sole publisher of the pbp asset in the daily data processor; publish.py refuses an un-enriched pbp parquet (2026-08 strip incident)."

@@ -1,24 +1,31 @@
-"""Post-publish win-probability enrichment for the season's pbp release assets.
+"""Win-probability enrichment of the season's pbp -- the ONLY publisher of the pbp asset.
 
-Why this exists as a separate step rather than a pbp reshaper:
+The pbp release asset has exactly one writer: this step. The build stage
+(``mbb_data_build --dataset pbp``) writes the plain season parquet into the
+tree and does NOT publish it; this step reads that parquet back, appends the
+two WP columns, rewrites parquet/csv/rds together and uploads. ``publish.py``
+refuses a pbp parquet without the WP columns, so no code path can ship an
+un-enriched asset.
 
-* The enrichment needs the season's **team_box**, and `pbp` is built *before*
-  `team_box` (the build order in `daily_mbb_data_processor.sh` is load-bearing:
-  pbp -> shots, player_box -> player_season_stats). So it cannot run inside the
-  pbp build without inverting that order.
-* Its contract is "rewrite the season's pbp with the two WP columns appended,
-  every original column preserved" — an operation on the *published* season, not
-  on the in-memory frame mid-build.
+Why the step is separate from the pbp build: the pregame prior needs the
+season's **schedule** and **team_box**, which the daily driver builds AFTER pbp
+(the build order is load-bearing: pbp -> shots; player_box ->
+player_season_stats; schedules stamps flags from the built pbp/team_box). So
+the enrichment runs once every input is in the tree -- and reads all three
+inputs from the tree, never from the release (the release pbp is the PREVIOUS
+run's asset by construction now).
 
-Without this step nothing ever calls `sportsdataverse.mbb.build_mbb_season_wp`,
-and each nightly pbp publish silently strips the WP columns off the release. That
-is exactly what happened between 2026-07-12 (columns verified present) and
-2026-08-02 (columns absent from every season), which broke the platform's
-win-probability page.
+History: between 2026-07-12 (columns verified present) and 2026-08-02 (absent
+from every season) the nightly published the plain pbp and re-applied WP
+afterwards, so every publish briefly stripped the columns and a failed
+re-application left them stripped -- which broke the platform's
+win-probability page. The 2026-08-26 whole-history republish then stripped
+every season but the current one. Single writer + publish guard closes both
+windows.
 
-Publishing goes through the normal `io.write_dataset` + `publish.publish_dataset`
+Publishing goes through the normal ``io.write_dataset`` + ``publish.publish_dataset``
 path so **parquet, csv and rds are all regenerated together**. Writing only the
-parquet is how the formats drift: `hoopR::load_mbb_*` reads `.rds` exclusively,
+parquet is how the formats drift: ``hoopR::load_mbb_*`` reads ``.rds`` exclusively,
 so a parquet-only republish leaves every R user on un-enriched data from a
 release that looks fresh.
 """
@@ -26,6 +33,9 @@ release that looks fresh.
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Callable
+
+import polars as pl
 
 from mbb_data_build import io, publish
 from mbb_data_build._logging import get_logger
@@ -33,7 +43,27 @@ from mbb_data_build.config import REGISTRY
 
 log = get_logger()
 
-WP_COLS = ("pregame_home_prob", "home_win_prob")
+WP_COLS = publish.WP_COLS
+
+
+def _tree_parquet(dataset: str, season: int, base: Path) -> Path:
+    spec = REGISTRY[dataset]
+    return io.dataset_dir(spec, base) / "parquet" / f"{spec.stem}_{season}.parquet"
+
+
+def _default_compile(
+    league: str,
+) -> Callable[[pl.DataFrame, pl.DataFrame, pl.DataFrame], pl.DataFrame]:
+    # Frame-level entry of the sdv-py season WP builder (``build_mbb_season_wp``
+    # is this exact call over the RELEASE loaders). Private names, deliberately:
+    # the release-based public entry would enrich the previous run's pbp here.
+    from sportsdataverse.mbb.mbb_team_ratings import _normalize_schedule
+    from sportsdataverse.mbb.mbb_win_prob import _compile_season_wp
+
+    def compile_(pbp: pl.DataFrame, schedule: pl.DataFrame, team_box: pl.DataFrame) -> pl.DataFrame:
+        return _compile_season_wp(pbp, _normalize_schedule(schedule), team_box, league=league)
+
+    return compile_
 
 
 def enrich_and_publish(
@@ -42,30 +72,70 @@ def enrich_and_publish(
     league: str = "mens",
     base: str | Path = "mbb",
     dry_run: bool = False,
+    compile: Callable[[pl.DataFrame, pl.DataFrame, pl.DataFrame], pl.DataFrame] | None = None,
 ) -> bool:
-    """Rebuild the season's pbp with WP columns and republish all three formats.
+    """Append the WP columns to the season's tree pbp and publish all three formats.
 
-    Returns True when the season was republished (or would be, under dry_run).
-    Never raises: a WP failure must not fail the nightly, since the plain pbp
-    published moments earlier is still valid data.
+    Reads ``pbp`` (required), ``schedules`` and ``team_box`` (optional -- the
+    engine falls back to its HFA-only anchor without them) from the tree under
+    ``base``. Returns True when the season was published (or would be, under
+    ``dry_run``), and True with nothing to do when no pbp was built for the
+    season (pre-season runs). Returns False -- never raises -- on any failure;
+    the caller (``daily_mbb_data_processor.sh``) treats False as a failed
+    season, because a pbp that is not enriched is a pbp that is not published.
+
+    Args:
+        season: Season (end-year convention).
+        league: ``"mens"`` / ``"womens"`` (selects the sdv-py constants).
+        base: Tree root holding ``pbp/``, ``schedules/``, ``team_box/``.
+        dry_run: Plan the publish without ``gh`` calls (still writes nothing).
+        compile: Injectable ``(pbp, schedule, team_box) -> enriched pbp`` for
+            hermetic tests; defaults to the sdv-py season compile.
     """
+    base = Path(base)
     spec = REGISTRY["pbp"]
+    pq = _tree_parquet("pbp", season, base)
+    if not pq.exists():
+        log.info("wp %s %s: no pbp built under %s; nothing to enrich", league, season, base)
+        return True
     try:
-        if league == "mens":
-            from sportsdataverse.mbb import build_mbb_season_wp as build
-        else:
-            from sportsdataverse.wbb import build_wbb_season_wp as build
-        frame = build(season)
-    except Exception as exc:  # noqa: BLE001 - best-effort enrichment
-        log.warning("wp %s %s: build failed (%s); release keeps plain pbp", league, season, exc)
+        pbp = pl.read_parquet(pq)
+        aux = {}
+        for ds in ("schedules", "team_box"):
+            p = _tree_parquet(ds, season, base)
+            if p.exists():
+                aux[ds] = pl.read_parquet(p)
+            else:
+                log.warning(
+                    "wp %s %s: %s parquet missing under %s; pregame prior falls back to the HFA anchor",
+                    league,
+                    season,
+                    ds,
+                    base,
+                )
+                aux[ds] = pl.DataFrame()
+        run = compile or _default_compile(league)
+        frame = run(pbp, aux["schedules"], aux["team_box"])
+    except Exception as exc:  # noqa: BLE001 - reported as a failed season by the caller
+        log.error(
+            "wp %s %s: enrichment failed (%s); pbp NOT published this run", league, season, exc
+        )
         return False
 
     missing = [c for c in WP_COLS if c not in frame.columns]
     if missing:
-        log.warning("wp %s %s: builder returned no %s; skipping publish", league, season, missing)
+        log.error(
+            "wp %s %s: compile returned no %s; pbp NOT published this run", league, season, missing
+        )
         return False
-    if frame.height == 0 or frame[WP_COLS[1]].null_count() == frame.height:
-        log.warning("wp %s %s: win probability is entirely null; skipping publish", league, season)
+    if frame.height != pbp.height:
+        log.error(
+            "wp %s %s: compile changed the row count %d -> %d; pbp NOT published",
+            league,
+            season,
+            pbp.height,
+            frame.height,
+        )
         return False
 
     if dry_run:
@@ -80,9 +150,15 @@ def enrich_and_publish(
         return True
 
     io.write_dataset(frame, spec, season, base=base)
-    publish.publish_dataset(spec, season, base=base, dry_run=False)
+    try:
+        # publish_dataset re-reads the parquet just written and refuses it unless
+        # both WP columns are present and finite -- the assertion is on the file.
+        publish.publish_dataset(spec, season, base=base, dry_run=False)
+    except publish.UnenrichedPbpError as exc:
+        log.error("wp %s %s: %s", league, season, exc)
+        return False
     log.info(
-        "wp %s %s: republished parquet+csv+rds with %s (%d rows)",
+        "wp %s %s: published parquet+csv+rds with %s (%d rows)",
         league,
         season,
         list(WP_COLS),
