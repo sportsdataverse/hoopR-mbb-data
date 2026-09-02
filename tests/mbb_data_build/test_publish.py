@@ -5,6 +5,9 @@ import pytest
 from mbb_data_build import io, publish
 from mbb_data_build.config import REGISTRY
 
+#: release metadata sidecars -- asserted separately, not a data asset
+SIDECARS = ("timestamp.", "package_function.")
+
 
 def test_publish_uploads_each_file_with_clobber(tmp_path):
     spec = REGISTRY["schedules"]  # write_tree_csv=True, not manifested
@@ -17,7 +20,11 @@ def test_publish_uploads_each_file_with_clobber(tmp_path):
         runner=lambda args: calls.append(args),
         exists_check=lambda tag, repo: True,  # release already exists
     )
-    uploads = [c for c in calls if c[:2] == ["release", "upload"]]
+    uploads = [
+        c
+        for c in calls
+        if c[:2] == ["release", "upload"] and not Path(c[3]).name.startswith(SIDECARS)
+    ]
     assets = sorted(Path(c[3]).name for c in uploads)  # gh release upload <tag> <path>
     assert assets == ["mbb_schedule_2025.csv", "mbb_schedule_2025.parquet", "mbb_schedule_2025.rds"]
     assert all("--clobber" in c for c in uploads)
@@ -38,7 +45,11 @@ def test_publish_generates_csv_on_the_fly_for_write_tree_csv_false(tmp_path):
         runner=lambda args: calls.append(args),
         exists_check=lambda tag, repo: True,
     )
-    uploads = [c for c in calls if c[:2] == ["release", "upload"]]
+    uploads = [
+        c
+        for c in calls
+        if c[:2] == ["release", "upload"] and not Path(c[3]).name.startswith(SIDECARS)
+    ]
     assets = sorted(Path(c[3]).name for c in uploads)
     assert assets == ["team_box_2025.csv", "team_box_2025.parquet", "team_box_2025.rds"]
     # the on-the-fly csv actually carries the data (not an empty placeholder).
@@ -57,7 +68,11 @@ def test_publish_uploads_manifest_for_manifested_datasets(tmp_path):
         runner=lambda args: calls.append(args),
         exists_check=lambda tag, repo: True,
     )
-    uploads = [c for c in calls if c[:2] == ["release", "upload"]]
+    uploads = [
+        c
+        for c in calls
+        if c[:2] == ["release", "upload"] and not Path(c[3]).name.startswith(SIDECARS)
+    ]
     assets = sorted(Path(c[3]).name for c in uploads)
     assert assets == [
         "mbb_standings_in_data_repo.csv",
@@ -161,7 +176,11 @@ def test_publish_accepts_an_enriched_pbp(tmp_path):
     publish.publish_dataset(
         spec, 2025, base=tmp_path, runner=lambda a: calls.append(a), exists_check=lambda t, r: True
     )
-    uploads = [c for c in calls if c[:2] == ["release", "upload"]]
+    uploads = [
+        c
+        for c in calls
+        if c[:2] == ["release", "upload"] and not Path(c[3]).name.startswith(SIDECARS)
+    ]
     assert sorted(Path(c[3]).name for c in uploads) == [
         "play_by_play_2025.csv",
         "play_by_play_2025.parquet",

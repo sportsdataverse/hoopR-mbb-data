@@ -7,6 +7,9 @@ import pytest
 from mbb_data_build import io, publish, wp_enrich
 from mbb_data_build.config import REGISTRY
 
+#: release metadata sidecars -- asserted separately, not a data asset
+SIDECARS = ("timestamp.", "package_function.")
+
 
 def _pbp():
     return pl.DataFrame(
@@ -55,7 +58,11 @@ def test_enrich_rewrites_the_tree_pbp_with_wp_and_publishes_all_formats(tmp_path
     assert set(publish.WP_COLS) <= set(out.columns)
     assert out.height == 4 and out["home_win_prob"].null_count() == 0
     assert publish.assert_wp_enriched(pq) == {c: 1.0 for c in publish.WP_COLS}
-    uploads = [c for c in calls if c[:2] == ["release", "upload"]]
+    uploads = [
+        c
+        for c in calls
+        if c[:2] == ["release", "upload"] and not Path(c[3]).name.startswith(SIDECARS)
+    ]
     assert sorted(Path(c[3]).name for c in uploads) == [
         "play_by_play_2025.csv",
         "play_by_play_2025.parquet",
