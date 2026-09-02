@@ -96,9 +96,11 @@ def assert_ratings_level(df: pl.DataFrame, season: int) -> dict:
     q = df.filter(pl.col("games") >= MIN_GAMES_GATED)
     # Finiteness is checked on ANY qualified team, before the applicability floor:
     # an all-NaN fixed point (two such seasons are published today) must not ship
-    # in November either. NaN is not null in polars, so both predicates are needed.
+    # in November either. NaN is not null in polars, and is_nan() does NOT match
+    # +/-inf, so the predicate is is_null() | ~is_finite(): on [1.0, nan, inf, -inf,
+    # null] the old is_null()|is_nan() caught 2 of 4 bad values (polars 1.42.1).
     for c in RATINGS_LEVEL_BANDS:
-        bad = q.filter(pl.col(c).is_null() | pl.col(c).is_nan()).height
+        bad = q.filter(pl.col(c).is_null() | ~pl.col(c).is_finite()).height
         if bad:
             raise ValueError(
                 f"mbb_ratings: season {season}: {bad}/{q.height} qualified teams have a "

@@ -223,6 +223,16 @@ def test_ratings_level_gate_refuses_a_nan_fixed_point():
         assert_ratings_level(nan, 2011)
 
 
+def test_ratings_level_gate_refuses_infinite_ratings():
+    # is_nan() does NOT match +/-inf in polars: on [1.0, nan, inf, -inf, null] the
+    # old is_null()|is_nan() predicate caught 2 of the 4 bad values (polars 1.42.1),
+    # so an infinite fixed point would have published. Both signs must be refused.
+    for value in (float("inf"), float("-inf")):
+        bad = _league_like_ratings().with_columns(pl.lit(value).alias("adj_em"))
+        with pytest.raises(ValueError, match="non-finite adj_em"):
+            assert_ratings_level(bad, 2011)
+
+
 def test_ratings_level_gate_does_not_apply_to_a_season_too_young_to_have_a_level():
     rec = assert_ratings_level(_league_like_ratings(n=40), 2026)  # early November
     assert rec == {"applied": False, "teams": 40}
