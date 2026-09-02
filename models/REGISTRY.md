@@ -26,7 +26,20 @@ op and its schedule.
   (153+ from Dec 10), mean adj_o 101.9–111.1, mean adj_d 100.7–108.5, mean adj_em 0.09–6.0, sd adj_em 13.2–16.7,
   mean adj_tempo 65.1–70.0. Verified on real assets: 2006/2014/2021/2025/2026 pass; **the published
   `mbb_ratings_2011.parquet` (604/604 teams NaN) is refused.** Per-season record lands in the card
-  (`gates_by_season`).
+  (`gates_by_season`). **Repaired at the source 2026-09-02 — see the row below.**
+- **`mbb_ratings_2011` — root cause and repair (2026-09-02).** ESPN shipped one boxscore shell for game
+  `310573129` (2011-02-26, teams 2443/3129): a real final score (76–78) with `field_goals_attempted`,
+  `offensive_rebounds`, `turnovers` and `free_throws_attempted` all zero. The possession estimate
+  `FGA - OREB + TO + 0.44*FTA` is then exactly 0 and the efficiency `100 * pts / 0` is `+inf`. The KenPom-style
+  fixed point centres on the data's own mean, and `mean([…, inf]) == inf`, so **every** team's `adj_o`/`adj_d`/
+  `adj_em` converged non-finite (346/346 qualified) while `raw_o`/`raw_d` — per-team sums that never touch the
+  mean — stayed finite, which is why the failure looked selective. Fix is in sdv-py
+  (`_common.ratings.drop_unusable_possession_rows`, shared by the MBB/WBB and NBA/WNBA engines): a team-game row
+  with a non-positive possession estimate carries no information and is dropped with a `UserWarning` naming the
+  game, from both the efficiency and the tempo path. Re-run of the real 2011 season: 346/346 non-finite → **0**,
+  mean adj_o 102.969, adj_d 102.320, adj_em 0.649, adj_tempo 66.788, sd adj_em 14.090 — inside every band and
+  next to 2012 (102.384 / 101.751 / 0.633 / 66.192 / 13.838). The gate now **passes** 2011; the published asset
+  stays wrong until a republish.
 - **`mbb_player_value` — additive `qualified` flag** (`min >= 300`; `builders.QUALIFIED_MIN_MINUTES`), never a
   filter: every published column and row is preserved. Derived from the published 2014–2026 assets: sd(box_bpm)
   by minutes bin 7.17 (0–25) → 4.78 (100–150) → 4.23 (250–300) → 4.08 (300–350) → 3.73 (600–800) → 3.43
