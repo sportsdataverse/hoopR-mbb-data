@@ -213,10 +213,12 @@ def level_row(sub):
         row[f"mean_{c}"] = float(finite[c].mean()) if finite.height else float("nan")
     row["sd_adj_em"] = float(finite["adj_em"].std()) if finite.height > 1 else float("nan")
     checks = {f"mean_{c}": b for c, b in RATINGS_LEVEL_BANDS.items()} | {"sd_adj_em": ADJ_EM_SD_BAND}
-    if q.height < MIN_GATED_TEAMS:
-        row["verdict"] = "not applied (too few core teams)"
-    elif row["non_finite"]:
+    # order matches the builder: finiteness is refused at ANY core-team count,
+    # the band check is what waits for the applicability floor.
+    if row["non_finite"]:
         row["verdict"] = "REFUSED: non-finite ratings"
+    elif q.height < MIN_GATED_TEAMS:
+        row["verdict"] = "not applied (too few core teams)"
     elif any(not (b[0] <= row[k] <= b[1]) for k, b in checks.items()):
         row["verdict"] = "REFUSED: out of band"
     else:
