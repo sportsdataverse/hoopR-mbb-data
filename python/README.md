@@ -37,6 +37,11 @@ uv run pytest -q                                                        # full-f
 - `--publish` uploads per-file with `--clobber` (never delete-then-recreate,
   which would open a 404 window for live loaders). `--dry-run` builds without
   uploading.
+- `pbp` is the exception: `--publish` (and `--dry-run`) on `--dataset pbp` is
+  REFUSED unless the tree parquet already carries `pregame_home_prob` +
+  `home_win_prob` (`publish.assert_wp_enriched`). The pbp release asset is
+  published only by `python -m mbb_model_03_wp_enrich`, which reads the tree
+  pbp/schedules/team_box, appends the WP columns and uploads all three formats.
 
 ## Dependency
 

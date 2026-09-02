@@ -7,8 +7,16 @@ from .builders import (
     build_player_value,
     build_ratings,
     write_player_value_card,
+    write_player_value_coefficients,
     write_ratings_card,
 )
+
+
+def _write_player_value_sidecars(results, out_dir):
+    """Card + the fitted coefficient vector, both picked up by the upload pattern."""
+    path = write_player_value_card(results, out_dir)
+    write_player_value_coefficients(out_dir)
+    return path
 
 
 def _seasons(spec: str) -> list[int]:
@@ -76,5 +84,5 @@ def main(argv=None) -> int:
     if args.cmd == "ratings":
         return _run(args, build_ratings, write_ratings_card, "mbb_ratings")
     if args.cmd == "player-value":
-        return _run(args, build_player_value, write_player_value_card, "mbb_player_value")
+        return _run(args, build_player_value, _write_player_value_sidecars, "mbb_player_value")
     return 0

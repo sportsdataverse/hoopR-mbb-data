@@ -155,24 +155,11 @@ mbb_pbp_games <- function(y) {
       compression_level = 22
     )
 
-    retry_rate <- purrr::rate_backoff(
-      pause_base = 1,
-      pause_min = 60,
-      max_times = 10
-    )
-    purrr::insistently(
-      sportsdataversedata::sportsdataverse_save,
-      rate = retry_rate,
-      quiet = FALSE
-    )(
-      data_frame = espn_df,
-      file_name = glue::glue("play_by_play_{y}"),
-      sportsdataverse_type = "play-by-play data",
-      release_tag = "espn_mens_college_basketball_pbp",
-      pkg_function = "hoopR::load_mbb_pbp()",
-      file_types = c("rds", "csv", "parquet"),
-      .token = Sys.getenv("GITHUB_PAT")
-    )
+    # The pbp release asset is published ONLY by the WP-enrichment step
+    # (python -m mbb_model_03_wp_enrich), after schedules + team_box exist; the
+    # tree parquet written above is its input. Uploading the plain frame here is
+    # how the 2026-08 strip incident happened -- publish.py refuses an un-enriched
+    # pbp asset on the python path, and this is the R-path equivalent.
 
     # --- Shots extraction (derived from in-memory PBP frame; no extra HTTP) ---
     shots_df <- espn_df %>%

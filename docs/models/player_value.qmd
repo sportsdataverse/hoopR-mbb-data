@@ -12,24 +12,42 @@ jupyter: python3
 ```{python}
 #| output: false
 import io
+import sys
+from pathlib import Path
 import numpy as np
 import polars as pl
 import requests
 from plotnine import (
-    ggplot, aes, geom_point, geom_histogram, labs, theme_minimal,
+    ggplot, aes, geom_point, geom_histogram, geom_col, geom_hline, geom_vline, coord_flip,
+    labs, theme_minimal,
 )
 from great_tables import GT
-from IPython.display import HTML, display
+from IPython.display import HTML, Markdown, display
 
 LG = "mbb"
 SPORT_SLUG = "mens-college-basketball"
 DL = "https://github.com/sportsdataverse/sportsdataverse-data/releases/download"
+
+# The published floor constant lives with the builder; fall back to its value
+# when this document is rendered outside the repo tree.
+sys.path.insert(0, str(Path.cwd().parents[1] / "python"))
+try:
+    from mbb_model_publish.builders import QUALIFIED_MIN_MINUTES
+except Exception:  # noqa: BLE001
+    QUALIFIED_MIN_MINUTES = 300.0
+
 frames = []
-for season in range(2020, 2027):
+for season in range(2014, 2027):
     r = requests.get(f"{DL}/{LG}_player_value/{LG}_player_value_{season}.parquet", timeout=60)
     if r.status_code == 200:
         frames.append(pl.read_parquet(io.BytesIO(r.content)))
 pv = pl.concat(frames, how="diagonal_relaxed")
+if "qualified" in pv.columns:
+    qualified_src = "the published `qualified` column"
+else:
+    # Assets published before the flag shipped: derive it identically.
+    pv = pv.with_columns((pl.col("min") >= QUALIFIED_MIN_MINUTES).alias("qualified"))
+    qualified_src = f"derived at render time as min >= {QUALIFIED_MIN_MINUTES:g} (the published frames predate the flag)"
 SEASONS = sorted(pv["season"].unique().to_list())
 latest = SEASONS[-1]
 
@@ -41,6 +59,18 @@ name_col = next(c for c in ("team_display_name", "team_location", "team_name")
 names = (tb.group_by("team_id").agg(pl.col(name_col).last().alias("team"))
          .with_columns(pl.col("team_id").cast(pl.Int64)))
 
+# The fitted coefficient vector: the release sidecar when published, else the
+# same artifact read from the installed sdv-py (what the builder copies).
+r = requests.get(f"{DL}/{LG}_player_value/{LG}_player_value_coefficients.json", timeout=60)
+if r.status_code == 200:
+    art = r.json()
+    coef_src = f"the published `{LG}_player_value_coefficients.json` sidecar"
+else:
+    from sportsdataverse.mbb.mbb_player_value_constants import load_artifact
+    art = load_artifact(f"{LG}_box_bpm")
+    coef_src = "the bundled sdv-py artifact (the sidecar is not on the release yet)"
+
+
 def gt_show(g):
     display(HTML(g.as_raw_html()))
 ```
@@ -48,12 +78,15 @@ def gt_show(g):
 Per-player box Plus/Minus publishes on the `mbb_player_value` tag
 (`box_obpm` / `box_dbpm` / `box_bpm`): a box-score value model over the
 published player/team season stats, sharing the design of the MBB
-player-value spine in sdv-py (oracle-gated where trained). Box-score
-features are regressed onto team-level results to apportion value;
+player-value spine in sdv-py (oracle-gated where trained). Per-100 box
+features are standardized and scored through ridge coefficients fit at the
+team level, then a uniform team adjustment makes each team's
+minutes-weighted player scores sum to its adjusted efficiency margin;
 offensive and defensive components are estimated separately and summed.
 It is compute-on-demand — every run recomputes from the current published
 season assets, so a data correction upstream flows through on the next
-publish, and each publish writes a card sidecar.
+publish, and each publish writes a card sidecar plus the fitted coefficient
+vector.
 
 Box Plus/Minus and on/off RAPM (the `ncaa_mbb_rapm` model in the NCAA hoops
 repos) deliberately measure different things: BPM sees only what reaches the
@@ -72,13 +105,13 @@ assets — the exact frames consumers download.
 tbl = (
     pv.group_by("season")
     .agg(pl.len().alias("players"), pl.col("min").sum().alias("total_minutes"),
-         (pl.col("min") >= 300).sum().alias("players_300min"))
+         pl.col("qualified").sum().alias("qualified_players"))
     .sort("season")
 )
 gt_show(
     GT(tbl.to_pandas())
     .tab_header(title="Published mbb_player_value assets, by season",
-                subtitle="computed at render time from the release")
+                subtitle=f"computed at render time from the release; qualified = min >= {QUALIFIED_MIN_MINUTES:g}")
     .fmt_number(columns=["total_minutes"], sep_mark=",", decimals=0)
 )
 ```
@@ -86,11 +119,11 @@ gt_show(
 ## Exploratory data analysis
 
 ```{python}
-#| fig-cap: "Box BPM distribution, latest season — the full player pool vs the ≥300-minute pool. The unfiltered frame carries heavy low-minute noise by design."
+#| fig-cap: "Box BPM distribution, latest season — the full player pool vs the qualified pool. The unfiltered frame carries heavy low-minute noise by design; the flag marks it, it never removes it."
 cur = pv.filter(pl.col("season") == latest)
 d = pl.concat([
     cur.select("box_bpm").with_columns(pl.lit("all players").alias("pool")),
-    cur.filter(pl.col("min") >= 300).select("box_bpm").with_columns(pl.lit("≥300 min").alias("pool")),
+    cur.filter(pl.col("qualified") == True).select("box_bpm").with_columns(pl.lit("qualified").alias("pool")),
 ])
 (
     ggplot(d.to_pandas(), aes("box_bpm", fill="pool"))
@@ -101,19 +134,44 @@ d = pl.concat([
 ```
 
 ```{python}
-#| fig-cap: "Minutes vs |BPM|: with no shrinkage prior, extreme values concentrate at LOW minutes — the reason consumers must filter."
+#| fig-cap: "Minutes vs |BPM|: with no shrinkage prior, extreme values concentrate at LOW minutes. The vertical line is the qualified floor."
 shr = cur.with_columns(pl.col("box_bpm").abs().alias("abs_bpm"))
 (
     ggplot(shr.to_pandas(), aes("min", "abs_bpm"))
     + geom_point(alpha=0.1, color="#2a6f97", size=0.6)
-    + labs(x="minutes", y="|box BPM|", title="No minutes floor is enforced in the published frame")
+    + geom_vline(xintercept=QUALIFIED_MIN_MINUTES, linetype="dashed", color="gray")
+    + labs(x="minutes", y="|box BPM|",
+           title=f"Every player is published; `qualified` marks min >= {QUALIFIED_MIN_MINUTES:g}")
     + theme_minimal()
 )
 ```
 
 ```{python}
-#| fig-cap: "Offense vs defense components, ≥300 minutes, latest season."
-q = cur.filter(pl.col("min") >= 300)
+edges = [0, 25, 50, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 800, 1000, 1400]
+labels = [f"{a}-{b}" for a, b in zip(edges[:-1], edges[1:])]
+fun = (
+    pv.with_columns(pl.col("min").cut(edges[1:-1], labels=labels).alias("minutes_bin"))
+    .group_by("minutes_bin", maintain_order=True)
+    .agg(pl.len().alias("players"), pl.col("box_bpm").std().alias("sd_box_bpm"),
+         pl.col("box_bpm").abs().quantile(0.99).alias("abs_bpm_p99"))
+    .sort("minutes_bin")
+)
+plateau = float(fun.filter(pl.col("minutes_bin") == "600-800")["sd_box_bpm"][0])
+fun = fun.with_columns((pl.col("sd_box_bpm") / plateau - 1).alias("vs_600_800_plateau"))
+gt_show(
+    GT(fun.to_pandas())
+    .tab_header(title="How the qualified floor was set — sd(box_bpm) by minutes bin, all published seasons",
+                subtitle=f"the floor is the first bin whose sd sits within 10% of the 600–800 plateau ({plateau:.2f}); every table below uses the flag")
+    .fmt_number(columns="players", sep_mark=",", decimals=0)
+    .fmt_number(columns=["sd_box_bpm", "abs_bpm_p99"], decimals=2)
+    .fmt_percent(columns="vs_600_800_plateau", decimals=0)
+)
+display(Markdown(f"Flag source in this render: {qualified_src}."))
+```
+
+```{python}
+#| fig-cap: "Offense vs defense components, qualified players, latest season."
+q = cur.filter(pl.col("qualified") == True)
 (
     ggplot(q.to_pandas(), aes("box_obpm", "box_dbpm"))
     + geom_point(alpha=0.25, color="#2a6f97", size=0.8)
@@ -123,35 +181,82 @@ q = cur.filter(pl.col("min") >= 300)
 ```
 
 The minutes-vs-|BPM| funnel is this model's most important consumer-facing
-fact, shown rather than footnoted: the published frame enforces **no
-minutes floor**, so the most extreme values in the file belong to
-20-minute seasons. Every table below applies a floor; consumers must too.
+fact, shown rather than footnoted: the published frame keeps **every**
+player, so the most extreme values in the file belong to 20-minute seasons.
+The additive `qualified` flag encodes the floor the funnel itself justifies —
+the bin where the spread of BPM stops shrinking — so a consumer filters with
+one boolean instead of re-deriving a threshold. The engine's own fit floor
+(`min_minutes` in the artifact) governs only the team-sum weights and is
+lower; the two floors answer different questions.
 
-## Attribution
+## Coefficient importance
 
-The model is a linear apportionment of team results onto box-score
-features, so the published O/D columns are its native attribution — the
-scatter above is the decomposition. The fitted coefficient vector lives with
-the engine in sdv-py (oracle-gated where trained) rather than in the
-published asset; surfacing it alongside the release is listed in the
-avenues below.
+```{python}
+cols = art["feature_cols"]
+coef = pl.DataFrame({
+    "feature": cols,
+    "obpm_slope": [float(v) for v in art["obpm_coef"][1:]],
+    "dbpm_slope": [float(v) for v in art["dbpm_coef"][1:]],
+    "feature_mean": [float(art["feature_mean"][c]) for c in cols],
+    "feature_sd": [float(art["feature_sd"][c]) for c in cols],
+}).with_columns((pl.col("obpm_slope").abs() + pl.col("dbpm_slope").abs()).alias("abs_total")).sort("abs_total", descending=True)
+display(Markdown(
+    f"Coefficients from {coef_src}; fit on seasons {art.get('train_seasons')} "
+    f"(ridge λ offense {art.get('lambda_o')}, defense {art.get('lambda_d')}; z-clip {art.get('z_clip')}; "
+    f"fit floor {art.get('min_minutes')} minutes)."
+))
+gt_show(
+    GT(coef.drop("abs_total").to_pandas())
+    .tab_header(title="Fitted box-BPM coefficients (slopes per one SD of the standardized feature)",
+                subtitle="intercepts are team-level and absorbed by the team adjustment; |slope| is the BPM moved by one standard deviation of the feature")
+    .fmt_number(columns=["obpm_slope", "dbpm_slope"], decimals=3)
+    .fmt_number(columns=["feature_mean", "feature_sd"], decimals=4)
+)
+```
+
+```{python}
+#| fig-cap: "Coefficient importance: BPM change per one SD of each standardized per-100 feature, offense and defense."
+long = coef.select("feature", "obpm_slope", "dbpm_slope").unpivot(
+    index="feature", on=["obpm_slope", "dbpm_slope"], variable_name="component", value_name="slope"
+).with_columns(pl.col("component").str.replace("_slope", ""))
+order = coef["feature"].to_list()[::-1]
+(
+    ggplot(long.to_pandas(), aes("feature", "slope", fill="component"))
+    + geom_col(position="dodge")
+    + geom_hline(yintercept=0, color="gray")
+    + coord_flip()
+    + labs(x="", y="BPM per +1 SD of the feature", title="Box-BPM coefficient importance")
+    + theme_minimal()
+)
+```
+
+Because every feature is standardized before scoring, the slopes are
+directly comparable: a slope of 2 means one standard deviation of that rate
+moves a player's BPM by two points per 100 possessions. Usage and true
+shooting dominate offense with opposite signs (volume is penalized until it
+is efficient), and points per 100 carries the offensive load; the defensive
+vector is smaller and led by the same usage/efficiency pair with the sign
+flipped, with rebounding and steals the distinctly defensive contributors.
+The vector is republished with every run as
+`mbb_player_value_coefficients.json`, alongside the artifact's
+standardization moments, so a consumer can reproduce any player's raw score
+from the published per-100 features.
 
 ## Evaluation
 
 ```{python}
+qual = pv.filter(pl.col("qualified") == True)
 stab = (
-    pv.filter(pl.col("min") >= 300)
-    .select("player_id", "season", "box_bpm")
-    .join(pv.filter(pl.col("min") >= 300)
-          .select("player_id", (pl.col("season") - 1).alias("season"),
-                  pl.col("box_bpm").alias("next_bpm")),
+    qual.select("player_id", "season", "box_bpm")
+    .join(qual.select("player_id", (pl.col("season") - 1).alias("season"),
+                      pl.col("box_bpm").alias("next_bpm")),
           on=["player_id", "season"], how="inner")
 )
-rows = [{"check": "box BPM year-over-year (same player, ≥300 min both seasons)",
+rows = [{"check": "box BPM year-over-year (same player, qualified both seasons)",
          "pairs": stab.height,
          "pearson": float(stab.select(pl.corr("box_bpm", "next_bpm")).item())}]
-o_d = pv.filter((pl.col("season") == latest) & (pl.col("min") >= 300))
-rows.append({"check": f"corr(box_obpm, box_dbpm) — {latest}, ≥300 min",
+o_d = qual.filter(pl.col("season") == latest)
+rows.append({"check": f"corr(box_obpm, box_dbpm) — {latest}, qualified",
              "pairs": o_d.height,
              "pearson": float(o_d.select(pl.corr("box_obpm", "box_dbpm")).item())})
 gt_show(
@@ -182,7 +287,7 @@ top = (
 )
 gt_show(
     GT(top.select("headshot", "player", "team", "min", "box_obpm", "box_dbpm", "box_bpm").to_pandas())
-    .tab_header(title=f"Top 15 box BPM — {latest} (min 300 minutes)")
+    .tab_header(title=f"Top 15 box BPM — {latest} (qualified players)")
     .fmt_markdown(columns="headshot")
     .fmt_number(columns="min", sep_mark=",", decimals=0)
     .fmt_number(columns=["box_obpm", "box_dbpm", "box_bpm"], decimals=2)
@@ -195,9 +300,17 @@ gt_show(
 
 - **Computed from:** this repository's published player/team season stats
   for the seasons in the corpus table; recomputed in full on every run
-  (compute-on-demand — no fitted artifact is stored).
+  (compute-on-demand — no fitted artifact is stored here).
 - **Engine:** the MBB player-value spine in sdv-py (oracle-gated where
-  trained); O/D estimated separately and summed.
+  trained); O/D estimated separately and summed. The fitted coefficient
+  vector ships with every publish as `mbb_player_value_coefficients.json`
+  (features, intercept + slopes on standardized features, moments, λ, fit
+  floor, train seasons, sportsdataverse version, artifact sha256).
+- **`qualified`:** additive flag, `min >= 300`, set where sd(box_bpm) first
+  sits within 10% of its 600–800-minute plateau on the published 2014–2026
+  assets (derivation table above; constant `QUALIFIED_MIN_MINUTES` in
+  `python/mbb_model_publish/builders.py`, recorded in `models/REGISTRY.md`).
+  No row is filtered.
 - **Pipeline:** `scripts/mbb_models.sh 02` → stage
   `python/mbb_model_02_player_value.py`; card sidecar
   [`mbb_models_eval_card.json`](mbb_models_eval_card.json). Single home:
@@ -211,9 +324,9 @@ gt_show(
 - **Blend with on/off** — box Plus/Minus and the league-wide RAPM measure
   different things; a stabilized hybrid (SPM-prior RAPM, as the NBA impact
   suite does) is the natural next step.
-- **Ship the coefficient vector** — publishing the fitted coefficients (or a
-  per-retrain meta sidecar) would let this document show real coefficient
-  importance instead of pointing at the engine.
-- **Known issue:** no minutes floor is enforced in the published frame —
-  consumers must filter low-minute noise themselves (the funnel figure above
-  is the demonstration).
+- **Resolved (2026-09-01, PR #25):** the fitted coefficient vector ships
+  with every publish as `mbb_player_value_coefficients.json`, and the
+  coefficient-importance section above is drawn from it.
+- **Resolved (2026-09-01, PR #25):** the published frame now carries an
+  additive `qualified` flag (`min >= 300`, derived from the funnel's own
+  noise curve); low-minute rows are still published, now marked.

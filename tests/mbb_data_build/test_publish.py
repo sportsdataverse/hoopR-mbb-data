@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import polars as pl
+import pytest
 from mbb_data_build import io, publish
 from mbb_data_build.config import REGISTRY
 
@@ -90,3 +91,79 @@ def test_publish_creates_release_when_missing(tmp_path):
         exists_check=lambda tag, repo: False,
     )
     assert any(c[:2] == ["release", "create"] for c in calls)
+
+
+# ---- the pbp WP contract: the asset ships enriched or not at all ----------------
+
+
+def _pbp_frame(**wp):
+    base = {
+        "game_id": [1, 1],
+        "game_play_number": [1, 2],
+        "home_score": [0, 2],
+        "away_score": [0, 0],
+    }
+    return pl.DataFrame({**base, **wp})
+
+
+def test_publish_refuses_a_pbp_parquet_without_wp_columns(tmp_path):
+    spec = REGISTRY["pbp"]
+    io.write_dataset(_pbp_frame(), spec, 2025, base=tmp_path)
+    calls = []
+    with pytest.raises(publish.UnenrichedPbpError, match="missing WP columns"):
+        publish.publish_dataset(
+            spec,
+            2025,
+            base=tmp_path,
+            runner=lambda a: calls.append(a),
+            exists_check=lambda t, r: True,
+        )
+    assert calls == []  # nothing reached gh -- not even the release-exists probe
+
+
+def test_publish_refuses_a_pbp_parquet_whose_wp_is_not_finite(tmp_path):
+    spec = REGISTRY["pbp"]
+    io.write_dataset(
+        _pbp_frame(pregame_home_prob=[0.6, 0.6], home_win_prob=[None, float("nan")]),
+        spec,
+        2025,
+        base=tmp_path,
+    )
+    with pytest.raises(publish.UnenrichedPbpError, match="finite-rate floor"):
+        publish.publish_dataset(spec, 2025, base=tmp_path, dry_run=True)  # dry runs are refused too
+
+
+def test_publish_refuses_string_typed_wp_columns(tmp_path):
+    """A numeric STRING casts cleanly, so the finite-rate floor alone let it through."""
+    spec = REGISTRY["pbp"]
+    io.write_dataset(
+        _pbp_frame(pregame_home_prob=[0.6, 0.6], home_win_prob=["0.62", "0.55"]),
+        spec,
+        2025,
+        base=tmp_path,
+    )
+    pq = tmp_path / "pbp" / "parquet" / "play_by_play_2025.parquet"
+    # the old cast-based check would have scored these as 100% finite
+    assert pl.read_parquet(pq)["home_win_prob"].cast(pl.Float64, strict=False).is_finite().all()
+    with pytest.raises(publish.UnenrichedPbpError, match="not float-typed"):
+        publish.publish_dataset(spec, 2025, base=tmp_path, dry_run=True)
+
+
+def test_publish_accepts_an_enriched_pbp(tmp_path):
+    spec = REGISTRY["pbp"]
+    io.write_dataset(
+        _pbp_frame(pregame_home_prob=[0.6, 0.6], home_win_prob=[0.55, 0.7]),
+        spec,
+        2025,
+        base=tmp_path,
+    )
+    calls = []
+    publish.publish_dataset(
+        spec, 2025, base=tmp_path, runner=lambda a: calls.append(a), exists_check=lambda t, r: True
+    )
+    uploads = [c for c in calls if c[:2] == ["release", "upload"]]
+    assert sorted(Path(c[3]).name for c in uploads) == [
+        "play_by_play_2025.csv",
+        "play_by_play_2025.parquet",
+        "play_by_play_2025.rds",
+    ]

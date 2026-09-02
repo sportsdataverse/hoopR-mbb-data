@@ -29,7 +29,77 @@ _LEAGUE = "mbb"
 
 DEFAULT_REPO = "sportsdataverse/sportsdataverse-data"
 
+# Win-probability contract for the pbp release asset. ``wp_enrich`` appends the
+# two WP columns in place; a pbp parquet WITHOUT them is the un-enriched
+# intermediate, and uploading it is exactly the 2026-07/08 strip incident (every
+# nightly overwrote the enriched asset with the plain build, and the platform's
+# WP page broke). The guard reads the FILE that would be uploaded -- not the
+# frame that produced it -- so any caller, any code path, is covered.
+WP_COLS = ("pregame_home_prob", "home_win_prob")
+# Observed 2026-09-01 on the release: 2026 -- the ONLY season still carrying the
+# columns -- is 100% finite (0 nulls, 0 NaN over 2,915,731 plays, both columns);
+# 2003/2006/2012/2016/2020/2024/2025 had lost the columns entirely (the incident
+# this guard exists to catch). Floor set just below the observed 1.0 -- a real
+# enrichment scores every play; a partial one is a bug, not a state.
+WP_MIN_FINITE_RATE = 0.999
+
 log = get_logger()
+
+
+class UnenrichedPbpError(ValueError):
+    """The pbp parquet about to be uploaded lacks (or barely carries) the WP columns."""
+
+
+def assert_wp_enriched(
+    parquet: Path,
+    *,
+    cols: tuple[str, ...] = WP_COLS,
+    min_finite_rate: float = WP_MIN_FINITE_RATE,
+) -> dict[str, float]:
+    """Refuse a pbp parquet that is not WP-enriched; return the per-column finite rates.
+
+    Checks the on-disk file (columns present, then the finite -- non-null AND
+    non-NaN -- share of each WP column) so the assertion is on the OUTPUT that
+    ships, never on which code path ran.
+
+    Raises:
+        UnenrichedPbpError: A WP column is missing, is not float-typed, or its
+            finite rate is below ``min_finite_rate``.
+    """
+    lf = pl.scan_parquet(parquet)
+    schema = lf.collect_schema()
+    missing = [c for c in cols if c not in schema]
+    if missing:
+        raise UnenrichedPbpError(
+            f"{parquet.name}: missing WP columns {missing} -- refusing to publish an "
+            "un-enriched pbp asset (run wp_enrich first)"
+        )
+    # A numeric-looking STRING column ("0.62") casts cleanly to 0.62, so the
+    # finite-rate check below would pass it and publish_dataset would upload a
+    # string-typed WP column (the cast never touches the parquet). Reject the
+    # native dtype first: a WP probability is a float column or it is wrong.
+    mistyped = {c: str(schema[c]) for c in cols if not schema[c].is_float()}
+    if mistyped:
+        raise UnenrichedPbpError(
+            f"{parquet.name}: WP columns are not float-typed: {mistyped} -- refusing to "
+            "publish; a numeric string would satisfy the finite-rate floor while shipping "
+            "a string column to consumers"
+        )
+    # is_finite: null -> null (dropped by sum), NaN and +/-inf -> False. strict=False
+    # is belt-and-braces now that the dtype is proven numeric.
+    counts = lf.select(
+        pl.len().alias("_n"),
+        *[pl.col(c).cast(pl.Float64, strict=False).is_finite().sum().alias(c) for c in cols],
+    ).collect()
+    n = int(counts["_n"][0])
+    rates = {c: (int(counts[c][0]) / n if n else 0.0) for c in cols}
+    low = {c: r for c, r in rates.items() if r < min_finite_rate}
+    if low:
+        raise UnenrichedPbpError(
+            f"{parquet.name}: WP columns below the {min_finite_rate:.3f} finite-rate floor: "
+            f"{ {c: round(r, 4) for c, r in low.items()} } over {n} plays -- refusing to publish"
+        )
+    return rates
 
 
 def _gh(args: list[str]) -> None:
@@ -137,6 +207,18 @@ def publish_dataset(
     """
     run = runner or _gh
     exists = exists_check or _gh_release_exists
+    if spec.dataset == "pbp":
+        # Before anything else (before the on-the-fly csv is even generated):
+        # the pbp asset ships WP-enriched or not at all. Applies to dry runs
+        # too -- a dry run that would be refused for real says so.
+        pq = build_io.dataset_dir(spec, Path(base)) / "parquet" / f"{spec.stem}_{season}.parquet"
+        if not pq.exists():
+            raise UnenrichedPbpError(
+                f"{pq.name}: no pbp parquet under {base}; refusing to publish a pbp release "
+                "asset from leftover files"
+            )
+        rates = assert_wp_enriched(pq)
+        log.info("%s %s: WP contract ok -- finite rates %s", spec.dataset, season, rates)
     files = _dataset_files(spec, season, Path(base))
     if not files:
         log.warning("%s %s: no files to publish under %s", spec.dataset, season, base)
