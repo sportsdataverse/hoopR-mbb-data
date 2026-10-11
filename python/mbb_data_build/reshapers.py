@@ -518,7 +518,7 @@ def team_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.Dat
     """
     from sportsdataverse.mbb import mbb_team_crosswalk
 
-    return mbb_team_crosswalk(season=season)
+    return mbb_team_crosswalk(season=season, yahoo=True)
 
 
 def schedule_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
@@ -539,7 +539,7 @@ def schedule_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl
 
     from mbb_data_build.kenpom import add_kp_game_id
 
-    return add_kp_game_id(mbb_schedule_crosswalk(season=season), season, base)
+    return add_kp_game_id(mbb_schedule_crosswalk(season=season, fox=True, yahoo=True), season, base)
 
 
 SEASON_BUILDERS: dict = {
