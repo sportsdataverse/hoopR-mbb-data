@@ -247,8 +247,8 @@ REGISTRY: dict[str, DatasetSpec] = {
         out_dir="crosswalk",
         manifest_upsert=True,
         # hoopR/R/mbb_crosswalk.R:704 make_hoopR_data("MBB schedule crosswalk
-        # (ESPN / Torvik)"). Fox and KenPom publish no per-game table, hence
-        # ESPN / Torvik only.
+        # (ESPN / Torvik)"), kept verbatim for R parity. kp_game_id is filled
+        # in Python from the private hoopR-kp-data checkout (kenpom.py).
         rds_type="MBB schedule crosswalk (ESPN / Torvik)",
         # mbb_12_schedule_crosswalk_creation.R: sportsdataverse_type =.
         sdv_type="schedule crosswalk data",
@@ -265,7 +265,8 @@ REGISTRY: dict[str, DatasetSpec] = {
         out_dir="crosswalk",
         manifest_upsert=True,
         # hoopR/R/mbb_crosswalk.R: make_hoopR_data("MBB player crosswalk (ESPN / Fox)").
-        # KenPom and Torvik publish no per-player table, hence ESPN / Fox only.
+        # Kept verbatim for R parity; kp_player_id is added in Python from the
+        # private hoopR-kp-data checkout (kenpom.py).
         rds_type="MBB player crosswalk (ESPN / Fox)",
         # mbb_13_player_crosswalk_creation.R: sportsdataverse_type =.
         sdv_type="player crosswalk data",

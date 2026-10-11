@@ -480,15 +480,19 @@ def standings_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFram
 def player_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
     """Season builder for the player crosswalk -- ``sportsdataverse.mbb.mbb_player_crosswalk``.
 
-    Reads LIVE ESPN + Fox, not the raw repo, so ``raw_root``/``base`` are
-    accepted and ignored (the ``SEASON_BUILDERS`` signature). The sdv-py
+    Reads LIVE ESPN + Fox, not the raw repo, so ``raw_root`` is accepted and
+    ignored (the ``SEASON_BUILDERS`` signature); ``base`` locates the season's
+    team crosswalk for the KenPom player-id leg (``kenpom.add_kp_player_id``,
+    read from the private hoopR-kp-data checkout, skipped when absent). The sdv-py
     function raises when a source returns nothing, so a silently-empty
     crosswalk cannot reach the tree -- the error propagates and
     ``build_season`` fails the stage loudly.
     """
     from sportsdataverse.mbb import mbb_player_crosswalk
 
-    return mbb_player_crosswalk(season=season)
+    from mbb_data_build.kenpom import add_kp_player_id
+
+    return add_kp_player_id(mbb_player_crosswalk(season=season), season, base)
 
 
 def team_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
@@ -520,8 +524,10 @@ def team_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.Dat
 def schedule_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
     """Season builder for the schedule crosswalk -- ``sportsdataverse.mbb.mbb_schedule_crosswalk``.
 
-    Reads LIVE ESPN + Torvik, not the raw repo, so ``raw_root``/``base`` are
-    accepted and ignored (the ``SEASON_BUILDERS`` signature). Like the player
+    Reads LIVE ESPN + Torvik, not the raw repo, so ``raw_root`` is accepted and
+    ignored (the ``SEASON_BUILDERS`` signature). sdv-py leaves ``kp_game_id``
+    null; ``kenpom.add_kp_game_id`` fills it from the private hoopR-kp-data
+    checkout (skipped when absent), finding the team crosswalk under ``base``. Like the player
     crosswalk, sdv-py raises when a source returns nothing, so a silently-empty
     crosswalk cannot reach the tree.
 
@@ -531,7 +537,9 @@ def schedule_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl
     """
     from sportsdataverse.mbb import mbb_schedule_crosswalk
 
-    return mbb_schedule_crosswalk(season=season)
+    from mbb_data_build.kenpom import add_kp_game_id
+
+    return add_kp_game_id(mbb_schedule_crosswalk(season=season), season, base)
 
 
 SEASON_BUILDERS: dict = {
