@@ -44,6 +44,67 @@ def _kp_csv(kind: str, season: int) -> pl.DataFrame | None:
     return pl.read_csv(path, infer_schema_length=0)  # all Utf8: ids stay exact
 
 
+#: Stable row keys of each published crosswalk, used to carry its KenPom ids forward.
+CARRY_KEYS = {"kp_game_id": ["espn_game_id"], "kp_player_id": ["espn_team_id", "espn_athlete_id"]}
+
+
+def published(stem: str, season: int, base: Path) -> pl.DataFrame | None:
+    """The season's last published crosswalk: the tree parquet, else the release asset, else None."""
+    local = Path(base) / "crosswalk" / "parquet" / f"{stem}_{season}.parquet"
+    try:
+        if local.exists():
+            return pl.read_parquet(local)
+        import requests
+
+        resp = requests.get(f"{RELEASE}/{stem}_{season}.parquet", timeout=60)
+        if resp.status_code == 404:
+            return None
+        resp.raise_for_status()
+        return pl.read_parquet(io.BytesIO(resp.content))
+    except Exception as e:  # a missing prior is a warning, never a failed build
+        log.warning("no published %s %s to carry KenPom ids from: %s", stem, season, e)
+        return None
+
+
+def carry_forward(
+    df: pl.DataFrame, col: str, season: int, base: Path, prev: pl.DataFrame | None = None
+) -> pl.DataFrame:
+    """Fill null ``col`` from the published crosswalk (``prev``) on its stable keys.
+
+    The GitHub build has no hoopR-kp-data checkout; without this every run
+    would republish the current season with the droplet-filled ids blanked.
+    Columns, dtypes and row order are unchanged; a non-null ``col`` wins.
+    """
+    stem = "mbb_schedule_crosswalk" if col == "kp_game_id" else "mbb_player_crosswalk"
+    prev = published(stem, season, base) if prev is None else prev
+    keys = CARRY_KEYS[col]
+    if prev is None or df.height == 0 or not {col, *keys} <= set(prev.columns) & set(df.columns):
+        return df
+    for k in keys:
+        assert df.schema[k] == prev.schema[k], f"{k}: {df.schema[k]} vs published {prev.schema[k]}"
+    old = (
+        prev.select(*keys, pl.col(col).alias("_prev")).drop_nulls().unique(subset=keys, keep="none")
+    )
+    out = (
+        df.with_row_index("_row")
+        .join(old, on=keys, how="left")
+        .sort("_row")
+        .with_columns(pl.coalesce(col, "_prev").alias(col))
+        .select(df.columns)
+    )
+    assert out.height == df.height, f"{col} carry-forward changed the row count"
+    log.info(
+        "%s %s: %s carried forward %d (now %d/%d)",
+        stem,
+        season,
+        col,
+        out[col].is_not_null().sum() - df[col].is_not_null().sum(),
+        out[col].is_not_null().sum(),
+        out.height,
+    )
+    return out
+
+
 def _team_map(season: int, base: Path) -> pl.DataFrame:
     """``kp_team`` -> ``espn_team_id`` (Int32) from the season's team crosswalk."""
     local = Path(base) / "crosswalk" / "parquet" / f"mbb_team_crosswalk_{season}.parquet"
@@ -90,7 +151,9 @@ def add_kp_game_id(df: pl.DataFrame, season: int, base: Path) -> pl.DataFrame:
     used only when that team has exactly one game that day on both sides.
     """
     kp = _kp_team_games(season, base)
-    if kp is None or df.height == 0:
+    if kp is None:
+        return carry_forward(df, "kp_game_id", season, base)
+    if df.height == 0:
         return df
     pairs = (
         kp.drop_nulls("b")
@@ -165,7 +228,8 @@ def add_kp_player_id(df: pl.DataFrame, season: int, base: Path) -> pl.DataFrame:
     cols.insert(cols.index("yahoo_player_name") + 1, "kp_player_id")
     kp = _kp_csv("players", season)
     if kp is None or df.height == 0:
-        return df.with_columns(pl.lit(None, dtype=pl.Utf8).alias("kp_player_id")).select(cols)
+        out = df.with_columns(pl.lit(None, dtype=pl.Utf8).alias("kp_player_id")).select(cols)
+        return carry_forward(out, "kp_player_id", season, base) if kp is None else out
     teams = _team_map(season, base)
     players = (
         kp.join(teams.rename({"kp_team": "Team"}), on="Team", how="inner")

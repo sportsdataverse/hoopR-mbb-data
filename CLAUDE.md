@@ -187,6 +187,16 @@ load-bearing.
     `sportsdataverse-data`.
   - `GITHUB_TOKEN` for in-repo commit/push.
 
+- **KenPom ids (droplet)**: GitHub runners have no private hoopR-kp-data checkout, so
+  `kenpom.py` carries the last published `kp_game_id` / `kp_player_id` forward on the
+  stable keys (`espn_game_id`; `espn_team_id` + `espn_athlete_id`). The droplet cron
+  `scripts/cron_kp_fill.sh` (11:30 ET, Nov-Apr, after both daily_mbb runs and the
+  hoopR-kp-data capture `scripts/cron_capture_current.sh` at 09:00 ET) runs
+  `python -m mbb_data_build.kp_fill -s <END year> --publish`, which re-joins the ids into
+  the published schedule + player crosswalks and commits + publishes only when an id
+  changed. `bin/crosswalk_freshness.py` alerts when the season's played games are mostly
+  missing `kp_game_id`.
+
 The script's per-year commit pattern (`MBB Data Update (Start: $i End: $i)`)
 is load-bearing — the raw repo's `daily_mbb_data` dispatch grep-extracts
 the start/end year digits from the commit message.
