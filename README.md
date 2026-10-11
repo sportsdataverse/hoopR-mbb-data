@@ -107,7 +107,7 @@ Stage numbers are stable cross-repo identifiers, so holes are expected —
 
 [ncaa-mbb-hoops-data repository (source: stats.ncaa.org)](https://github.com/sportsdataverse/ncaa-mbb-hoops-data)
 
-[hoopR-kp-data repository (source: KenPom, dormant)](https://github.com/sportsdataverse/hoopR-kp-data)
+hoopR-kp-data (source: KenPom subscription; private repository, so not linked; it fills `kp_game_id` / `kp_player_id` in the crosswalks)
 
 ## Stage numbering
 
