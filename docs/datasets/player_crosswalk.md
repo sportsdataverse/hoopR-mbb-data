@@ -8,9 +8,9 @@
 | **Release tag** | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) |
 | **File stem** | `mbb_player_crosswalk_{season}.{parquet,csv,rds}` |
 | **Manifested** | yes |
-| **Last published** | 2026-08-12 (newest release asset) |
+| **Last published** | 2026-10-11 (newest release asset) |
 | **Tag created** | 2026-06-13 |
-| **Release assets** | 25 |
+| **Release assets** | 100 |
 
 ## Automation
 
@@ -34,6 +34,7 @@
 | `fox_position_group` | String | |
 | `yahoo_player_id` | String | |
 | `yahoo_player_name` | String | |
+| `kp_player_id` | String | |
 | `match_method` | String | |
 | `match_confidence` | Float64 | |
 | `match_keys` | String | |
