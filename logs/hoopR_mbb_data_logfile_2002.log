@@ -1,0 +1,244 @@
+From https://github.com/sportsdataverse/hoopR-mbb-data
+ * [new branch]        chore/mbb-drop-local-active-reorder -> origin/chore/mbb-drop-local-active-reorder
+ * [new branch]        feat/mbb-ci-cutover-python -> origin/feat/mbb-ci-cutover-python
+ * [new branch]        feat/mbb-data-build   -> origin/feat/mbb-data-build
+ * [new branch]        feat/mbb-game-rosters-json-final-fallback -> origin/feat/mbb-game-rosters-json-final-fallback
+ * [new branch]        feat/mbb-native-rds   -> origin/feat/mbb-native-rds
+ * [new branch]        feat/mbb-officials-json-final-repoint -> origin/feat/mbb-officials-json-final-repoint
+ * [new branch]        feat/mbb-player-core-daily -> origin/feat/mbb-player-core-daily
+ * [new branch]        feat/mbb-player-core-dataset -> origin/feat/mbb-player-core-dataset
+ * [new branch]        feat/mbb-player-core-tree -> origin/feat/mbb-player-core-tree
+ * [new branch]        feat/mbb-team-crosswalk-python -> origin/feat/mbb-team-crosswalk-python
+ * [new branch]        feat/release-sidecars -> origin/feat/release-sidecars
+ * [new branch]        feat/weekly-output-parity -> origin/feat/weekly-output-parity
+ * [new branch]        fix/mbb-serialize-rds -> origin/fix/mbb-serialize-rds
+ * [new branch]        fix/player-core-manifest -> origin/fix/player-core-manifest
+::group::mbb_data_build pbp 2002
+2026-10-12 23:16:05 [INFO] mbb_data_build: pbp 2002: per-game build starting -- 4819 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 250/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 500/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 750/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 1000/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 1250/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 1500/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 1750/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 2000/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 2250/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 2500/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 2750/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 3000/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 3250/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 3500/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 3750/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 4000/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 4250/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 4500/4819 games collected
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: 4750/4819 games collected
+2026-10-12 23:22:52 [WARNING] mbb_data_build: pbp 2002: 0 games reshaped; nothing written
+2026-10-12 23:22:52 [INFO] mbb_data_build: pbp 2002: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build team_box 2002
+2026-10-12 23:22:55 [INFO] mbb_data_build: team_box 2002: per-game build starting -- 4819 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 250/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 500/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 750/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 1000/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 1250/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 1500/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 1750/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 2000/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 2250/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 2500/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 2750/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 3000/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 3250/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 3500/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 3750/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 4000/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 4250/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 4500/4819 games collected
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: 4750/4819 games collected
+2026-10-12 23:23:00 [WARNING] mbb_data_build: team_box 2002: 0 games reshaped; nothing written
+2026-10-12 23:23:00 [INFO] mbb_data_build: team_box 2002: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build player_box 2002
+2026-10-12 23:23:03 [INFO] mbb_data_build: player_box 2002: per-game build starting -- 4819 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 250/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 500/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 750/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 1000/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 1250/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 1500/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 1750/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 2000/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 2250/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 2500/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 2750/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 3000/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 3250/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 3500/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 3750/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 4000/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 4250/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 4500/4819 games collected
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: 4750/4819 games collected
+2026-10-12 23:23:08 [WARNING] mbb_data_build: player_box 2002: 0 games reshaped; nothing written
+2026-10-12 23:23:08 [INFO] mbb_data_build: player_box 2002: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build player_core 2002
+2026-10-12 23:23:10 [INFO] mbb_data_build: player_core 2002: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-12 23:23:10 [WARNING] mbb_data_build: player_core 2002: no built player_box parquet at ..\mbb\player_box\parquet\player_box_2002.parquet -- cannot resolve which athletes played this season (build player_box first)
+2026-10-12 23:23:10 [WARNING] mbb_data_build: player_core 2002: season-level build produced 0 rows; nothing written
+2026-10-12 23:23:10 [INFO] mbb_data_build: player_core 2002: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build schedules 2002
+2026-10-12 23:23:13 [INFO] mbb_data_build: schedules 2002: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-12 23:23:13 [WARNING] mbb_data_build: pbp 2002: no built parquet at ..\mbb\pbp\parquet\play_by_play_2002.parquet -- schedule flags for it will all be False
+2026-10-12 23:23:13 [WARNING] mbb_data_build: team_box 2002: no built parquet at ..\mbb\team_box\parquet\team_box_2002.parquet -- schedule flags for it will all be False
+2026-10-12 23:23:13 [WARNING] mbb_data_build: player_box 2002: no built parquet at ..\mbb\player_box\parquet\player_box_2002.parquet -- schedule flags for it will all be False
+2026-10-12 23:23:14 [INFO] mbb_data_build: wrote ..\mbb\schedules\parquet\mbb_schedule_2002.parquet (367.3KB) + mbb_schedule_2002.rds (457.9KB) + mbb_schedule_2002.csv (3.5MB), 4819 rows x 76 cols; manifest n/a (not manifested)
+2026-10-12 23:23:16 [INFO] mbb_data_build: uploading mbb_schedule_2002.rds (457.9KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+2026-10-12 23:23:18 [INFO] mbb_data_build: uploaded mbb_schedule_2002.rds -> espn_mens_college_basketball_schedules (asset 1/3)
+2026-10-12 23:23:18 [INFO] mbb_data_build: uploading mbb_schedule_2002.csv (3.5MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+2026-10-12 23:23:19 [INFO] mbb_data_build: uploaded mbb_schedule_2002.csv -> espn_mens_college_basketball_schedules (asset 2/3)
+2026-10-12 23:23:19 [INFO] mbb_data_build: uploading mbb_schedule_2002.parquet (367.3KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+2026-10-12 23:23:21 [INFO] mbb_data_build: uploaded mbb_schedule_2002.parquet -> espn_mens_college_basketball_schedules (asset 3/3)
+2026-10-12 23:23:27 [INFO] mbb_data_build: stamped espn_mens_college_basketball_schedules with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-10-12 23:23:27 [INFO] mbb_data_build: schedules 2002: done -- 4819 rows in 13.8s
+2026-10-12 23:23:27 [INFO] mbb_data_build: schedules 2002: season complete -- 4819 rows
+::endgroup::
+::group::mbb_data_build shots 2002
+2026-10-12 23:23:30 [INFO] mbb_data_build: shots 2002: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-12 23:23:30 [WARNING] mbb_data_build: shots 2002: season-level build produced 0 rows; nothing written
+2026-10-12 23:23:30 [INFO] mbb_data_build: shots 2002: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build rosters 2002
+2026-10-12 23:23:32 [INFO] mbb_data_build: rosters 2002: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-12 23:23:33 [WARNING] mbb_data_build: rosters 2002: season-level build produced 0 rows; nothing written
+2026-10-12 23:23:33 [INFO] mbb_data_build: rosters 2002: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build player_season_stats 2002
+2026-10-12 23:23:35 [INFO] mbb_data_build: player_season_stats 2002: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-12 23:23:35 [WARNING] mbb_data_build: player_season_stats 2002: no built player_box parquet at ..\mbb\player_box\parquet\player_box_2002.parquet -- identity columns will be blank (build player_box first)
+2026-10-12 23:23:35 [WARNING] mbb_data_build: player_season_stats 2002: season-level build produced 0 rows; nothing written
+2026-10-12 23:23:35 [INFO] mbb_data_build: player_season_stats 2002: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build team_season_stats 2002
+2026-10-12 23:23:38 [INFO] mbb_data_build: team_season_stats 2002: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-12 23:23:38 [WARNING] mbb_data_build: team_season_stats 2002: season-level build produced 0 rows; nothing written
+2026-10-12 23:23:38 [INFO] mbb_data_build: team_season_stats 2002: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build standings 2002
+2026-10-12 23:23:41 [INFO] mbb_data_build: standings 2002: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-12 23:23:42 [WARNING] mbb_data_build: standings 2002: season-level build produced 0 rows; nothing written
+2026-10-12 23:23:42 [INFO] mbb_data_build: standings 2002: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build game_rosters 2002
+2026-10-12 23:23:44 [INFO] mbb_data_build: game_rosters 2002: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-12 23:30:32 [INFO] mbb_data_build: wrote ..\mbb\game_rosters\parquet\game_rosters_2002.parquet (1.1MB) + game_rosters_2002.rds (4.9MB) + game_rosters_2002.csv (21.5MB), 129723 rows x 22 cols; manifest mbb_game_rosters_in_data_repo.csv appended
+2026-10-12 23:30:32 [INFO] mbb_data_build: uploading game_rosters_2002.rds (4.9MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_game_rosters
+2026-10-12 23:30:33 [INFO] mbb_data_build: uploaded game_rosters_2002.rds -> espn_mens_college_basketball_game_rosters (asset 1/4)
+2026-10-12 23:30:33 [INFO] mbb_data_build: uploading game_rosters_2002.csv (21.5MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_game_rosters
+2026-10-12 23:30:35 [INFO] mbb_data_build: uploaded game_rosters_2002.csv -> espn_mens_college_basketball_game_rosters (asset 2/4)
+2026-10-12 23:30:35 [INFO] mbb_data_build: uploading mbb_game_rosters_in_data_repo.csv (334B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_game_rosters
+2026-10-12 23:30:37 [INFO] mbb_data_build: uploaded mbb_game_rosters_in_data_repo.csv -> espn_mens_college_basketball_game_rosters (asset 3/4)
+2026-10-12 23:30:37 [INFO] mbb_data_build: uploading game_rosters_2002.parquet (1.1MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_game_rosters
+2026-10-12 23:30:38 [INFO] mbb_data_build: uploaded game_rosters_2002.parquet -> espn_mens_college_basketball_game_rosters (asset 4/4)
+2026-10-12 23:30:44 [INFO] mbb_data_build: stamped espn_mens_college_basketball_game_rosters with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-10-12 23:30:44 [INFO] mbb_data_build: game_rosters 2002: done -- 129723 rows in 420.1s
+2026-10-12 23:30:44 [INFO] mbb_data_build: game_rosters 2002: season complete -- 129723 rows
+::endgroup::
+::group::mbb_data_build officials 2002
+2026-10-12 23:30:47 [INFO] mbb_data_build: officials 2002: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-12 23:37:56 [WARNING] mbb_data_build: officials 2002: season-level build produced 0 rows; nothing written
+2026-10-12 23:37:56 [INFO] mbb_data_build: officials 2002: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build team_crosswalk 2002
+2026-10-12 23:37:59 [INFO] mbb_data_build: team_crosswalk 2002: season-level build starting (raw=None via disk)
+2026-10-12 23:38:01 [INFO] mbb_data_build: wrote ..\mbb\crosswalk\parquet\mbb_team_crosswalk_2002.parquet (27.2KB) + mbb_team_crosswalk_2002.rds (18.5KB), 362 rows x 21 cols; manifest mbb_team_crosswalk_in_data_repo.csv appended
+2026-10-12 23:38:02 [INFO] mbb_data_build: uploading mbb_team_crosswalk_2002.rds (18.5KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-10-12 23:38:03 [INFO] mbb_data_build: uploaded mbb_team_crosswalk_2002.rds -> mbb_crosswalk (asset 1/4)
+2026-10-12 23:38:03 [INFO] mbb_data_build: uploading mbb_team_crosswalk_2002.csv (53.4KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-10-12 23:38:05 [INFO] mbb_data_build: uploaded mbb_team_crosswalk_2002.csv -> mbb_crosswalk (asset 2/4)
+2026-10-12 23:38:05 [INFO] mbb_data_build: uploading mbb_team_crosswalk_in_data_repo.csv (172B) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-10-12 23:38:06 [INFO] mbb_data_build: uploaded mbb_team_crosswalk_in_data_repo.csv -> mbb_crosswalk (asset 3/4)
+2026-10-12 23:38:06 [INFO] mbb_data_build: uploading mbb_team_crosswalk_2002.parquet (27.2KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-10-12 23:38:08 [INFO] mbb_data_build: uploaded mbb_team_crosswalk_2002.parquet -> mbb_crosswalk (asset 4/4)
+2026-10-12 23:38:14 [INFO] mbb_data_build: stamped mbb_crosswalk with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-10-12 23:38:14 [INFO] mbb_data_build: team_crosswalk 2002: done -- 362 rows in 14.6s
+2026-10-12 23:38:14 [INFO] mbb_data_build: team_crosswalk 2002: season complete -- 362 rows
+::endgroup::
+::group::mbb_data_build schedule_crosswalk 2002
+2026-10-12 23:38:17 [INFO] mbb_data_build: schedule_crosswalk 2002: season-level build starting (raw=None via disk)
+Traceback (most recent call last):
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 1376, in bart_super_sked
+    payload = _get(url, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik_runtime.py", line 59, in _get
+    _check_response(resp, url)
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_codegen_runtime.py", line 157, in _check_response
+    _check_status(url, status, getattr(resp, "text", "") or "")
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_codegen_runtime.py", line 99, in _check_status
+    raise AssetFetchError(f"{where} answered HTTP {status}: {_excerpt(text)}")
+sportsdataverse.errors.AssetFetchError: barttorvik.com/2002_super_sked.json answered HTTP 403: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1"> <TITLE>ERROR
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 84, in build_season
+    out = reshapers.SEASON_BUILDERS[dataset](season, raw_root=root, base=Path(base))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 542, in schedule_crosswalk_builder
+    return add_kp_game_id(mbb_schedule_crosswalk(season=season, fox=True, yahoo=True), season, base)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 675, in mbb_schedule_crosswalk
+    bart_games = bart_super_sked("mbb", season, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 1378, in bart_super_sked
+    raise CrosswalkSourceError(f"{url} failed: {type(exc).__name__}: {exc}") from exc
+sportsdataverse._crosswalk_basketball_sources.CrosswalkSourceError: https://barttorvik.com/2002_super_sked.json failed: AssetFetchError: barttorvik.com/2002_super_sked.json answered HTTP 403: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1"> <TITLE>ERROR
+::warning ::mbb_data_build schedule_crosswalk for season 2002 exited with code 1 (crosswalk; non-fatal, live external source)
+::endgroup::
+::group::mbb_data_build player_crosswalk 2002
+2026-10-12 23:38:26 [INFO] mbb_data_build: player_crosswalk 2002: season-level build starting (raw=None via disk)
+D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_loaders.py:252: UserWarning: load_mbb_player_boxscore: no data for season(s) [2002] (skipped)
+  cli_warn("load_mbb_player_boxscore: no data for season(s) {missing} (skipped)".format(missing=missing))
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 26, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 84, in build_season
+    out = reshapers.SEASON_BUILDERS[dataset](season, raw_root=root, base=Path(base))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 495, in player_crosswalk_builder
+    return add_kp_player_id(mbb_player_crosswalk(season=season), season, base)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 752, in mbb_player_crosswalk
+    espn = espn_rosters("mbb", row["espn_team_id"], row["espn_abbreviation"], season, tally=espn_tally, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 1086, in espn_rosters
+    past = season_box_rosters(league, int(season)).filter(pl.col("espn_team_id") == int(espn_team_id))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 394, in season_box_rosters
+    raise CrosswalkSourceError(
+sportsdataverse._crosswalk_basketball_sources.CrosswalkSourceError: load_mbb_player_boxscore(2002) returned no rows; a past season's player crosswalk cannot fall back to ESPN's current roster
+::warning ::mbb_data_build player_crosswalk for season 2002 exited with code 1 (crosswalk; non-fatal, live external source)
+::endgroup::
+::group::wp_enrich 2002
+2026-10-12 23:38:30 [INFO] mbb_data_build: wp mens 2002: no pbp built under ..\mbb; nothing to enrich
+::endgroup::
+season 2002 EXIT=0
+pushed: MBB Data Updated (Start: 2002 End: 2002) (attempt 1)
