@@ -43,7 +43,7 @@ def _write_tree(tmp_path, *, aux=True):
 def _stub_gh(monkeypatch):
     calls = []
     monkeypatch.setattr(publish, "_gh", lambda args: calls.append(args))
-    monkeypatch.setattr(publish, "_gh_release_exists", lambda tag, repo: True)
+    monkeypatch.setattr(publish, "_release_digests", lambda tag, repo: {})
     return calls
 
 
