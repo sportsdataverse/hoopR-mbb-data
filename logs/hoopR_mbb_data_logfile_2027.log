@@ -1,5 +1,7 @@
 From https://github.com/sportsdataverse/hoopR-mbb-data
+   eed67075..a5093811  main                  -> origin/main
  * [new branch]        chore/mbb-drop-local-active-reorder -> origin/chore/mbb-drop-local-active-reorder
+ * [new branch]        chore/sdv-py-score-repair -> origin/chore/sdv-py-score-repair
  * [new branch]        feat/mbb-ci-cutover-python -> origin/feat/mbb-ci-cutover-python
  * [new branch]        feat/mbb-data-build   -> origin/feat/mbb-data-build
  * [new branch]        feat/mbb-game-rosters-json-final-fallback -> origin/feat/mbb-game-rosters-json-final-fallback
@@ -14,100 +16,105 @@ From https://github.com/sportsdataverse/hoopR-mbb-data
  * [new branch]        fix/mbb-serialize-rds -> origin/fix/mbb-serialize-rds
  * [new branch]        fix/player-core-manifest -> origin/fix/player-core-manifest
 ::group::mbb_data_build pbp 2027
-2026-09-15 08:21:07 [WARNING] mbb_data_build: pbp 2027: no game_json games in the season schedule; nothing built
-2026-09-15 08:21:07 [INFO] mbb_data_build: pbp 2027: season complete -- 0 rows
+2026-10-18 12:35:09 [WARNING] mbb_data_build: pbp 2027: no game_json games in the season schedule; nothing built
+2026-10-18 12:35:09 [INFO] mbb_data_build: pbp 2027: season complete -- 0 rows
 ::endgroup::
 ::group::mbb_data_build team_box 2027
-2026-09-15 08:21:10 [WARNING] mbb_data_build: team_box 2027: no game_json games in the season schedule; nothing built
-2026-09-15 08:21:10 [INFO] mbb_data_build: team_box 2027: season complete -- 0 rows
+2026-10-18 12:35:12 [WARNING] mbb_data_build: team_box 2027: no game_json games in the season schedule; nothing built
+2026-10-18 12:35:12 [INFO] mbb_data_build: team_box 2027: season complete -- 0 rows
 ::endgroup::
 ::group::mbb_data_build player_box 2027
-2026-09-15 08:21:13 [WARNING] mbb_data_build: player_box 2027: no game_json games in the season schedule; nothing built
-2026-09-15 08:21:13 [INFO] mbb_data_build: player_box 2027: season complete -- 0 rows
+2026-10-18 12:35:14 [WARNING] mbb_data_build: player_box 2027: no game_json games in the season schedule; nothing built
+2026-10-18 12:35:14 [INFO] mbb_data_build: player_box 2027: season complete -- 0 rows
 ::endgroup::
 ::group::mbb_data_build player_core 2027
-2026-09-15 08:21:15 [INFO] mbb_data_build: player_core 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-09-15 08:21:15 [WARNING] mbb_data_build: player_core 2027: no built player_box parquet at ..\mbb\player_box\parquet\player_box_2027.parquet -- cannot resolve which athletes played this season (build player_box first)
-2026-09-15 08:21:15 [WARNING] mbb_data_build: player_core 2027: season-level build produced 0 rows; nothing written
-2026-09-15 08:21:15 [INFO] mbb_data_build: player_core 2027: season complete -- 0 rows
+2026-10-18 12:35:16 [INFO] mbb_data_build: player_core 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-18 12:35:16 [WARNING] mbb_data_build: player_core 2027: no built player_box parquet at ..\mbb\player_box\parquet\player_box_2027.parquet -- cannot resolve which athletes played this season (build player_box first)
+2026-10-18 12:35:16 [WARNING] mbb_data_build: player_core 2027: season-level build produced 0 rows; nothing written
+2026-10-18 12:35:16 [INFO] mbb_data_build: player_core 2027: season complete -- 0 rows
 ::endgroup::
 ::group::mbb_data_build schedules 2027
-2026-09-15 08:21:18 [INFO] mbb_data_build: schedules 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-09-15 08:21:18 [WARNING] mbb_data_build: pbp 2027: no built parquet at ..\mbb\pbp\parquet\play_by_play_2027.parquet -- schedule flags for it will all be False
-2026-09-15 08:21:18 [WARNING] mbb_data_build: team_box 2027: no built parquet at ..\mbb\team_box\parquet\team_box_2027.parquet -- schedule flags for it will all be False
-2026-09-15 08:21:18 [WARNING] mbb_data_build: player_box 2027: no built parquet at ..\mbb\player_box\parquet\player_box_2027.parquet -- schedule flags for it will all be False
-2026-09-15 08:21:19 [INFO] mbb_data_build: wrote ..\mbb\schedules\parquet\mbb_schedule_2027.parquet (130.1KB) + mbb_schedule_2027.rds (137.1KB) + mbb_schedule_2027.csv (2.1MB), 1629 rows x 83 cols; manifest n/a (not manifested)
-2026-09-15 08:21:21 [INFO] mbb_data_build: uploading mbb_schedule_2027.parquet (130.1KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
-2026-09-15 08:21:22 [INFO] mbb_data_build: uploaded mbb_schedule_2027.parquet -> espn_mens_college_basketball_schedules (asset 1/3)
-2026-09-15 08:21:22 [INFO] mbb_data_build: uploading mbb_schedule_2027.rds (137.1KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
-2026-09-15 08:21:24 [INFO] mbb_data_build: uploaded mbb_schedule_2027.rds -> espn_mens_college_basketball_schedules (asset 2/3)
-2026-09-15 08:21:24 [INFO] mbb_data_build: uploading mbb_schedule_2027.csv (2.1MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
-2026-09-15 08:21:26 [INFO] mbb_data_build: uploaded mbb_schedule_2027.csv -> espn_mens_college_basketball_schedules (asset 3/3)
-2026-09-15 08:21:32 [INFO] mbb_data_build: stamped espn_mens_college_basketball_schedules with timestamp.txt, timestamp.json, package_function.txt, package_function.json
-2026-09-15 08:21:32 [INFO] mbb_data_build: schedules 2027: done -- 1629 rows in 13.9s
-2026-09-15 08:21:32 [INFO] mbb_data_build: schedules 2027: season complete -- 1629 rows
+2026-10-18 12:35:18 [INFO] mbb_data_build: schedules 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-18 12:35:18 [WARNING] mbb_data_build: pbp 2027: no built parquet at ..\mbb\pbp\parquet\play_by_play_2027.parquet -- schedule flags for it will all be False
+2026-10-18 12:35:18 [WARNING] mbb_data_build: team_box 2027: no built parquet at ..\mbb\team_box\parquet\team_box_2027.parquet -- schedule flags for it will all be False
+2026-10-18 12:35:18 [WARNING] mbb_data_build: player_box 2027: no built parquet at ..\mbb\player_box\parquet\player_box_2027.parquet -- schedule flags for it will all be False
+2026-10-18 12:35:18 [INFO] mbb_data_build: wrote ..\mbb\schedules\parquet\mbb_schedule_2027.parquet (130.2KB) + mbb_schedule_2027.rds (137.1KB) + mbb_schedule_2027.csv (2.1MB), 1629 rows x 83 cols; manifest n/a (not manifested)
+2026-10-18 12:35:20 [INFO] mbb_data_build: uploading mbb_schedule_2027.rds (137.1KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+2026-10-18 12:35:21 [INFO] mbb_data_build: uploaded mbb_schedule_2027.rds -> espn_mens_college_basketball_schedules (asset 1/3)
+2026-10-18 12:35:21 [INFO] mbb_data_build: unchanged mbb_schedule_2027.csv on espn_mens_college_basketball_schedules -- skipped
+2026-10-18 12:35:21 [INFO] mbb_data_build: uploading mbb_schedule_2027.parquet (130.2KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+2026-10-18 12:35:22 [INFO] mbb_data_build: uploaded mbb_schedule_2027.parquet -> espn_mens_college_basketball_schedules (asset 2/3)
+2026-10-18 12:35:34 [INFO] mbb_data_build: stamped espn_mens_college_basketball_schedules with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-10-18 12:35:34 [INFO] mbb_data_build: schedules 2027: done -- 1629 rows in 16.7s
+2026-10-18 12:35:34 [INFO] mbb_data_build: schedules 2027: season complete -- 1629 rows
 ::endgroup::
 ::group::mbb_data_build shots 2027
-2026-09-15 08:21:35 [INFO] mbb_data_build: shots 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-09-15 08:21:35 [WARNING] mbb_data_build: shots 2027: season-level build produced 0 rows; nothing written
-2026-09-15 08:21:35 [INFO] mbb_data_build: shots 2027: season complete -- 0 rows
+2026-10-18 12:35:36 [INFO] mbb_data_build: shots 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-18 12:35:36 [WARNING] mbb_data_build: shots 2027: season-level build produced 0 rows; nothing written
+2026-10-18 12:35:36 [INFO] mbb_data_build: shots 2027: season complete -- 0 rows
 ::endgroup::
 ::group::mbb_data_build rosters 2027
-2026-09-15 08:21:37 [INFO] mbb_data_build: rosters 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-09-15 08:22:08 [INFO] mbb_data_build: wrote ..\mbb\rosters\parquet\rosters_2027.parquet (510.7KB) + rosters_2027.rds (515.3KB) + rosters_2027.csv (2.3MB), 5461 rows x 36 cols; manifest mbb_rosters_in_data_repo.csv appended
-2026-09-15 08:22:08 [INFO] mbb_data_build: uploading rosters_2027.parquet (510.7KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
-2026-09-15 08:22:10 [INFO] mbb_data_build: uploaded rosters_2027.parquet -> espn_mens_college_basketball_rosters (asset 1/4)
-2026-09-15 08:22:10 [INFO] mbb_data_build: uploading rosters_2027.rds (515.3KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
-2026-09-15 08:22:11 [INFO] mbb_data_build: uploaded rosters_2027.rds -> espn_mens_college_basketball_rosters (asset 2/4)
-2026-09-15 08:22:11 [INFO] mbb_data_build: uploading rosters_2027.csv (2.3MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
-2026-09-15 08:22:13 [INFO] mbb_data_build: uploaded rosters_2027.csv -> espn_mens_college_basketball_rosters (asset 3/4)
-2026-09-15 08:22:13 [INFO] mbb_data_build: uploading mbb_rosters_in_data_repo.csv (341B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
-2026-09-15 08:22:14 [INFO] mbb_data_build: uploaded mbb_rosters_in_data_repo.csv -> espn_mens_college_basketball_rosters (asset 4/4)
-2026-09-15 08:22:20 [INFO] mbb_data_build: stamped espn_mens_college_basketball_rosters with timestamp.txt, timestamp.json, package_function.txt, package_function.json
-2026-09-15 08:22:20 [INFO] mbb_data_build: rosters 2027: done -- 5461 rows in 43.1s
-2026-09-15 08:22:20 [INFO] mbb_data_build: rosters 2027: season complete -- 5461 rows
+2026-10-18 12:35:38 [INFO] mbb_data_build: rosters 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-18 12:35:59 [INFO] mbb_data_build: wrote ..\mbb\rosters\parquet\rosters_2027.parquet (510.8KB) + rosters_2027.rds (515.3KB) + rosters_2027.csv (2.3MB), 5461 rows x 36 cols; manifest mbb_rosters_in_data_repo.csv appended
+2026-10-18 12:36:00 [INFO] mbb_data_build: uploading rosters_2027.rds (515.3KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
+2026-10-18 12:36:01 [INFO] mbb_data_build: uploaded rosters_2027.rds -> espn_mens_college_basketball_rosters (asset 1/4)
+2026-10-18 12:36:01 [INFO] mbb_data_build: unchanged rosters_2027.csv on espn_mens_college_basketball_rosters -- skipped
+2026-10-18 12:36:01 [INFO] mbb_data_build: uploading mbb_rosters_in_data_repo.csv (341B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
+2026-10-18 12:36:03 [INFO] mbb_data_build: uploaded mbb_rosters_in_data_repo.csv -> espn_mens_college_basketball_rosters (asset 2/4)
+2026-10-18 12:36:03 [INFO] mbb_data_build: uploading rosters_2027.parquet (510.8KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_rosters
+2026-10-18 12:36:04 [INFO] mbb_data_build: uploaded rosters_2027.parquet -> espn_mens_college_basketball_rosters (asset 3/4)
+2026-10-18 12:36:10 [INFO] mbb_data_build: stamped espn_mens_college_basketball_rosters with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-10-18 12:36:10 [INFO] mbb_data_build: rosters 2027: done -- 5461 rows in 32.4s
+2026-10-18 12:36:10 [INFO] mbb_data_build: rosters 2027: season complete -- 5461 rows
 ::endgroup::
 ::group::mbb_data_build player_season_stats 2027
-2026-09-15 08:22:23 [INFO] mbb_data_build: player_season_stats 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-09-15 08:22:23 [WARNING] mbb_data_build: player_season_stats 2027: no built player_box parquet at ..\mbb\player_box\parquet\player_box_2027.parquet -- identity columns will be blank (build player_box first)
-2026-09-15 08:22:23 [WARNING] mbb_data_build: player_season_stats 2027: season-level build produced 0 rows; nothing written
-2026-09-15 08:22:23 [INFO] mbb_data_build: player_season_stats 2027: season complete -- 0 rows
+2026-10-18 12:36:12 [INFO] mbb_data_build: player_season_stats 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-18 12:36:12 [WARNING] mbb_data_build: player_season_stats 2027: no built player_box parquet at ..\mbb\player_box\parquet\player_box_2027.parquet -- identity columns will be blank (build player_box first)
+2026-10-18 12:36:12 [WARNING] mbb_data_build: player_season_stats 2027: season-level build produced 0 rows; nothing written
+2026-10-18 12:36:12 [INFO] mbb_data_build: player_season_stats 2027: season complete -- 0 rows
 ::endgroup::
 ::group::mbb_data_build team_season_stats 2027
-2026-09-15 08:22:26 [INFO] mbb_data_build: team_season_stats 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-09-15 08:22:26 [WARNING] mbb_data_build: team_season_stats 2027: season-level build produced 0 rows; nothing written
-2026-09-15 08:22:26 [INFO] mbb_data_build: team_season_stats 2027: season complete -- 0 rows
+2026-10-18 12:36:14 [INFO] mbb_data_build: team_season_stats 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-18 12:36:15 [WARNING] mbb_data_build: team_season_stats 2027: season-level build produced 0 rows; nothing written
+2026-10-18 12:36:15 [INFO] mbb_data_build: team_season_stats 2027: season complete -- 0 rows
 ::endgroup::
 ::group::mbb_data_build standings 2027
-2026-09-15 08:22:29 [INFO] mbb_data_build: standings 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-09-15 08:22:29 [WARNING] mbb_data_build: standings 2027: season-level build produced 0 rows; nothing written
-2026-09-15 08:22:29 [INFO] mbb_data_build: standings 2027: season complete -- 0 rows
+2026-10-18 12:36:17 [INFO] mbb_data_build: standings 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-18 12:36:17 [WARNING] mbb_data_build: standings 2027: season-level build produced 0 rows; nothing written
+2026-10-18 12:36:17 [INFO] mbb_data_build: standings 2027: season complete -- 0 rows
 ::endgroup::
 ::group::mbb_data_build game_rosters 2027
-2026-09-15 08:22:32 [INFO] mbb_data_build: game_rosters 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-09-15 08:22:32 [WARNING] mbb_data_build: game_rosters 2027: season-level build produced 0 rows; nothing written
-2026-09-15 08:22:32 [INFO] mbb_data_build: game_rosters 2027: season complete -- 0 rows
+2026-10-18 12:36:19 [INFO] mbb_data_build: game_rosters 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-18 12:36:19 [WARNING] mbb_data_build: game_rosters 2027: season-level build produced 0 rows; nothing written
+2026-10-18 12:36:19 [INFO] mbb_data_build: game_rosters 2027: season complete -- 0 rows
 ::endgroup::
 ::group::mbb_data_build officials 2027
-2026-09-15 08:22:35 [INFO] mbb_data_build: officials 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-09-15 08:22:35 [WARNING] mbb_data_build: officials 2027: season-level build produced 0 rows; nothing written
-2026-09-15 08:22:35 [INFO] mbb_data_build: officials 2027: season complete -- 0 rows
+2026-10-18 12:36:21 [INFO] mbb_data_build: officials 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-10-18 12:36:21 [WARNING] mbb_data_build: officials 2027: season-level build produced 0 rows; nothing written
+2026-10-18 12:36:21 [INFO] mbb_data_build: officials 2027: season complete -- 0 rows
 ::endgroup::
 ::group::mbb_data_build team_crosswalk 2027
-2026-09-15 08:22:38 [INFO] mbb_data_build: team_crosswalk 2027: season-level build starting (raw=None via disk)
+2026-10-18 12:36:23 [INFO] mbb_data_build: team_crosswalk 2027: season-level build starting (raw=None via disk)
 Traceback (most recent call last):
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 139, in require_source
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 159, in require_source
     out = fetch()
           ^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 587, in _bart
-    return torvik_ratings(year=season, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik.py", line 69, in torvik_ratings
-    return parse_torvik_csv(raw, return_as_pandas=return_as_pandas)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik_parsers.py", line 111, in parse_torvik_csv
-    raise ValueError(
-ValueError: expected a barttorvik.com CSV data file but received an HTML document (starts: '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META'). The host answers a transient outage with an HTML page and HTTP 200; retry, or check the endpoint URL for that season.
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 596, in <lambda>
+    bart = require_source(f"torvik_ratings(year={season})", lambda: torvik_teams("mbb", season, **kwargs))
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 943, in torvik_teams
+    raw = ratings(year=season, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik.py", line 72, in torvik_ratings
+    raw = _get(
+          ^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik_runtime.py", line 59, in _get
+    _check_response(resp, url)
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_codegen_runtime.py", line 161, in _check_response
+    _check_status(url, status, getattr(resp, "text", "") or "")
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_codegen_runtime.py", line 103, in _check_status
+    raise AssetFetchError(f"{where} answered HTTP {status}: {_excerpt(text)}")
+sportsdataverse.errors.AssetFetchError: barttorvik.com/2027_team_results.csv answered HTTP 403: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1"> <TITLE>ERROR
 
 The above exception was the direct cause of the following exception:
 
@@ -123,32 +130,39 @@ Traceback (most recent call last):
   File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 84, in build_season
     out = reshapers.SEASON_BUILDERS[dataset](season, raw_root=root, base=Path(base))
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 517, in team_crosswalk_builder
-    return mbb_team_crosswalk(season=season)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 589, in mbb_team_crosswalk
-    bart = require_source(f"torvik_ratings(year={season})", _bart)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 143, in require_source
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 521, in team_crosswalk_builder
+    return mbb_team_crosswalk(season=season, yahoo=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 596, in mbb_team_crosswalk
+    bart = require_source(f"torvik_ratings(year={season})", lambda: torvik_teams("mbb", season, **kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 163, in require_source
     raise CrosswalkSourceError(f"{label} could not be produced: {type(exc).__name__}: {exc}") from exc
-sportsdataverse._crosswalk_basketball_sources.CrosswalkSourceError: torvik_ratings(year=2027) could not be produced: ValueError: expected a barttorvik.com CSV data file but received an HTML document (starts: '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META'). The host answers a transient outage with an HTML page and HTTP 200; retry, or check the endpoint URL for that season.
+sportsdataverse._crosswalk_basketball_sources.CrosswalkSourceError: torvik_ratings(year=2027) could not be produced: AssetFetchError: barttorvik.com/2027_team_results.csv answered HTTP 403: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1"> <TITLE>ERROR
 ::warning ::mbb_data_build team_crosswalk for season 2027 exited with code 1 (crosswalk; non-fatal, live external source)
 ::endgroup::
 ::group::mbb_data_build schedule_crosswalk 2027
-2026-09-15 08:23:21 [INFO] mbb_data_build: schedule_crosswalk 2027: season-level build starting (raw=None via disk)
+2026-10-18 12:36:53 [INFO] mbb_data_build: schedule_crosswalk 2027: season-level build starting (raw=None via disk)
 Traceback (most recent call last):
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 139, in require_source
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 159, in require_source
     out = fetch()
           ^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 587, in _bart
-    return torvik_ratings(year=season, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik.py", line 69, in torvik_ratings
-    return parse_torvik_csv(raw, return_as_pandas=return_as_pandas)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik_parsers.py", line 111, in parse_torvik_csv
-    raise ValueError(
-ValueError: expected a barttorvik.com CSV data file but received an HTML document (starts: '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META'). The host answers a transient outage with an HTML page and HTTP 200; retry, or check the endpoint URL for that season.
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 596, in <lambda>
+    bart = require_source(f"torvik_ratings(year={season})", lambda: torvik_teams("mbb", season, **kwargs))
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 943, in torvik_teams
+    raw = ratings(year=season, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik.py", line 72, in torvik_ratings
+    raw = _get(
+          ^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik_runtime.py", line 59, in _get
+    _check_response(resp, url)
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_codegen_runtime.py", line 161, in _check_response
+    _check_status(url, status, getattr(resp, "text", "") or "")
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_codegen_runtime.py", line 103, in _check_status
+    raise AssetFetchError(f"{where} answered HTTP {status}: {_excerpt(text)}")
+sportsdataverse.errors.AssetFetchError: barttorvik.com/2027_team_results.csv answered HTTP 403: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1"> <TITLE>ERROR
 
 The above exception was the direct cause of the following exception:
 
@@ -164,35 +178,42 @@ Traceback (most recent call last):
   File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 84, in build_season
     out = reshapers.SEASON_BUILDERS[dataset](season, raw_root=root, base=Path(base))
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 534, in schedule_crosswalk_builder
-    return mbb_schedule_crosswalk(season=season)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 639, in mbb_schedule_crosswalk
-    team_xwalk = mbb_team_crosswalk(season=season, fox=pl.DataFrame(), **kwargs)
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 589, in mbb_team_crosswalk
-    bart = require_source(f"torvik_ratings(year={season})", _bart)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 143, in require_source
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 542, in schedule_crosswalk_builder
+    return add_kp_game_id(mbb_schedule_crosswalk(season=season, fox=True, yahoo=True), season, base)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 674, in mbb_schedule_crosswalk
+    team_xwalk = mbb_team_crosswalk(season=season, fox=pl.DataFrame(), strict=strict, yahoo=yahoo, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 596, in mbb_team_crosswalk
+    bart = require_source(f"torvik_ratings(year={season})", lambda: torvik_teams("mbb", season, **kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 163, in require_source
     raise CrosswalkSourceError(f"{label} could not be produced: {type(exc).__name__}: {exc}") from exc
-sportsdataverse._crosswalk_basketball_sources.CrosswalkSourceError: torvik_ratings(year=2027) could not be produced: ValueError: expected a barttorvik.com CSV data file but received an HTML document (starts: '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META'). The host answers a transient outage with an HTML page and HTTP 200; retry, or check the endpoint URL for that season.
+sportsdataverse._crosswalk_basketball_sources.CrosswalkSourceError: torvik_ratings(year=2027) could not be produced: AssetFetchError: barttorvik.com/2027_team_results.csv answered HTTP 403: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1"> <TITLE>ERROR
 ::warning ::mbb_data_build schedule_crosswalk for season 2027 exited with code 1 (crosswalk; non-fatal, live external source)
 ::endgroup::
 ::group::mbb_data_build player_crosswalk 2027
-2026-09-15 08:23:31 [INFO] mbb_data_build: player_crosswalk 2027: season-level build starting (raw=None via disk)
+2026-10-18 12:37:02 [INFO] mbb_data_build: player_crosswalk 2027: season-level build starting (raw=None via disk)
 Traceback (most recent call last):
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 139, in require_source
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 159, in require_source
     out = fetch()
           ^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 587, in _bart
-    return torvik_ratings(year=season, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik.py", line 69, in torvik_ratings
-    return parse_torvik_csv(raw, return_as_pandas=return_as_pandas)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik_parsers.py", line 111, in parse_torvik_csv
-    raise ValueError(
-ValueError: expected a barttorvik.com CSV data file but received an HTML document (starts: '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META'). The host answers a transient outage with an HTML page and HTTP 200; retry, or check the endpoint URL for that season.
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 596, in <lambda>
+    bart = require_source(f"torvik_ratings(year={season})", lambda: torvik_teams("mbb", season, **kwargs))
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 943, in torvik_teams
+    raw = ratings(year=season, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik.py", line 72, in torvik_ratings
+    raw = _get(
+          ^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik_runtime.py", line 59, in _get
+    _check_response(resp, url)
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_codegen_runtime.py", line 161, in _check_response
+    _check_status(url, status, getattr(resp, "text", "") or "")
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_codegen_runtime.py", line 103, in _check_status
+    raise AssetFetchError(f"{where} answered HTTP {status}: {_excerpt(text)}")
+sportsdataverse.errors.AssetFetchError: barttorvik.com/2027_team_results.csv answered HTTP 403: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1"> <TITLE>ERROR
 
 The above exception was the direct cause of the following exception:
 
@@ -208,22 +229,22 @@ Traceback (most recent call last):
   File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 84, in build_season
     out = reshapers.SEASON_BUILDERS[dataset](season, raw_root=root, base=Path(base))
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 491, in player_crosswalk_builder
-    return mbb_player_crosswalk(season=season)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 695, in mbb_player_crosswalk
-    team_xwalk = mbb_team_crosswalk(season=season, **kwargs)
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 589, in mbb_team_crosswalk
-    bart = require_source(f"torvik_ratings(year={season})", _bart)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 143, in require_source
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 495, in player_crosswalk_builder
+    return add_kp_player_id(mbb_player_crosswalk(season=season), season, base)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 747, in mbb_player_crosswalk
+    team_xwalk = mbb_team_crosswalk(season=season, strict=strict, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 596, in mbb_team_crosswalk
+    bart = require_source(f"torvik_ratings(year={season})", lambda: torvik_teams("mbb", season, **kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 163, in require_source
     raise CrosswalkSourceError(f"{label} could not be produced: {type(exc).__name__}: {exc}") from exc
-sportsdataverse._crosswalk_basketball_sources.CrosswalkSourceError: torvik_ratings(year=2027) could not be produced: ValueError: expected a barttorvik.com CSV data file but received an HTML document (starts: '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META'). The host answers a transient outage with an HTML page and HTTP 200; retry, or check the endpoint URL for that season.
+sportsdataverse._crosswalk_basketball_sources.CrosswalkSourceError: torvik_ratings(year=2027) could not be produced: AssetFetchError: barttorvik.com/2027_team_results.csv answered HTTP 403: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1"> <TITLE>ERROR
 ::warning ::mbb_data_build player_crosswalk for season 2027 exited with code 1 (crosswalk; non-fatal, live external source)
 ::endgroup::
 ::group::wp_enrich 2027
-2026-09-15 08:23:48 [INFO] mbb_data_build: wp mens 2027: no pbp built under ..\mbb; nothing to enrich
+2026-10-18 12:37:11 [INFO] mbb_data_build: wp mens 2027: no pbp built under ..\mbb; nothing to enrich
 ::endgroup::
 season 2027 EXIT=0
 push rejected (attempt 1); syncing with origin
