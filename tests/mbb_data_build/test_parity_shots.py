@@ -10,7 +10,7 @@ multisets).
 
 import polars as pl
 
-from tests.mbb_data_build._parity_helpers import assert_parquet_parity
+from tests.mbb_data_build._parity_helpers import assert_parquet_parity, ft_on_the_line_oracle
 from tests.mbb_data_build.conftest import oracle_path
 
 ADDITIVE_COLS = (
@@ -22,7 +22,7 @@ ADDITIVE_COLS = (
 )
 
 
-def test_shots_parity_full_2025(built_base):
+def test_shots_parity_full_2025(built_base, tmp_path):
     py = pl.read_parquet(built_base / "shots" / "parquet" / "shots_2025.parquet")
     # Additive columns (2026-07). Unlike the pro feeds, college pbp carries a
     # sliver of unattributed shots (no athlete_id_1) plus the odd shooter
@@ -34,6 +34,7 @@ def test_shots_parity_full_2025(built_base):
         f"athlete_name_1 resolved on {named}/{has_id.height} id-bearing shots"
     )
     assert py["team_abbrev"].null_count() == 0
-    oracle = oracle_path("shots", "shots")
+    # sdv-py #844 (R844-3): free throws on the line; the oracle predates it.
+    oracle = ft_on_the_line_oracle(oracle_path("shots", "shots"), tmp_path / "oracle")
     keys = list(pl.read_parquet_schema(str(oracle)))
     assert_parquet_parity(py, oracle, keys=keys, sample_cols=[], py_only_additive=ADDITIVE_COLS)

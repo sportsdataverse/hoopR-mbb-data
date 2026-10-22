@@ -19,7 +19,7 @@ the oracle itself can't disambiguate two different ids.
 
 import polars as pl
 
-from tests.mbb_data_build._parity_helpers import assert_parquet_parity
+from tests.mbb_data_build._parity_helpers import assert_parquet_parity, ft_on_the_line_oracle
 from tests.mbb_data_build.conftest import oracle_path
 
 KEYS = ["game_id", "game_play_number"]
@@ -37,7 +37,7 @@ ADDITIVE_COLS = (*NAME_COLS, "score_source")
 ENRICHMENT_COLS = ("home_win_prob", "pregame_home_prob")
 
 
-def test_pbp_parity_full_2025(built_base):
+def test_pbp_parity_full_2025(built_base, tmp_path):
     py = pl.read_parquet(built_base / "pbp" / "parquet" / "play_by_play_2025.parquet")
     # Additive name columns (2026-07): joined per game from boxscore.players.
     # The only legitimate misses are non-players (e.g. coach technicals).
@@ -46,7 +46,8 @@ def test_pbp_parity_full_2025(built_base):
     assert matched >= 0.99 * has_id.height, (
         f"athlete_name_1 resolved on {matched}/{has_id.height} id-bearing rows"
     )
-    oracle = oracle_path("pbp", "play_by_play")
+    # sdv-py #844 (R844-3): free throws on the line; the committed oracle predates it.
+    oracle = ft_on_the_line_oracle(oracle_path("pbp", "play_by_play"), tmp_path / "oracle")
     sample = [
         c for c in pl.read_parquet_schema(str(oracle))
         if c not in KEYS and c not in ENRICHMENT_COLS and c not in SCORE_COLS

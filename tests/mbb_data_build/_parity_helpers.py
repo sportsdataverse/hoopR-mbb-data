@@ -12,6 +12,30 @@ from pathlib import Path
 import polars as pl
 
 
+def ft_on_the_line_oracle(r_parquet: Path, out_dir: Path) -> Path:
+    """The oracle with free throws on the line in coordinate_x/_y (sdv-py #844, R844-3).
+
+    sdv-py (from the basketball topic, #933) pins every free throw, including ESPN's MBB / WBB
+    "MadeFreeThrow", to (25, 13.75) before the transform: coordinate_x is +-28.0, coordinate_y
+    0.0. The committed tree oracle (python-built 2026-07, before #844) keeps ESPN's (25, 0)
+    -> +-41.75 (and the ~2.1e8 sentinel on 5 unlocated ones); the sign is the home flip, kept.
+    The raw pair is untouched and still compared as released. Idempotent: a republished oracle
+    passes through unchanged. sdv-py changelog.d/basketball-coordinates.data.md.
+    """
+    r = pl.read_parquet(r_parquet)
+    ft = pl.col("type_text").str.contains(r"(?i)free ?throw") & pl.col("coordinate_x").is_not_null()
+    r = r.with_columns(
+        pl.when(ft)
+        .then(pl.col("coordinate_x").sign() * 28.0)
+        .otherwise(pl.col("coordinate_x"))
+        .alias("coordinate_x"),
+        pl.when(ft).then(pl.lit(0.0)).otherwise(pl.col("coordinate_y")).alias("coordinate_y"),
+    )
+    out_dir.mkdir(parents=True, exist_ok=True)
+    r.write_parquet(out_dir / r_parquet.name)
+    return out_dir / r_parquet.name
+
+
 def assert_parquet_parity(
     py: pl.DataFrame,
     r_parquet: Path,
