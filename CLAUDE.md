@@ -304,3 +304,9 @@ via `grep -o -E '[0-9]+' | head/tail -1`.
 | [`python/espn_mbb_15_shots_creation.py`](python/espn_mbb_15_shots_creation.py) | [`shots`](docs/datasets/shots.md) | [`espn_mens_college_basketball_shots`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_shots) | 2026-08-12 |
 | [`python/espn_mbb_16_player_core_creation.py`](python/espn_mbb_16_player_core_creation.py) | [`player_core`](docs/datasets/player_core.md) | [`espn_mens_college_basketball_player_core`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_player_core) | 2026-08-12 |
 <!-- END GENERATED: datasets -->
+
+## Alt-source crosswalk fill (droplet cron)
+
+`bash scripts/cron_alt_fill.sh -s YYYY [-e YYYY] [-n]` runs on the droplet, not in a workflow:
+`/mnt/sdv_repos/bin/alt_daily.sh` (12:45 ET) calls it after parsing the season's CBS / Fox / Yahoo
+box scores into `hoopR-mbb-alt-data`. It fills Fox / Yahoo ids into the committed MBB schedule + player crosswalks from the parsed box-score history (Yahoo's only roster endpoint is today's roster, so `yahoo_player_id` can come from nowhere else), then commits + publishes. `-n` is a dry run into a temp tree.
