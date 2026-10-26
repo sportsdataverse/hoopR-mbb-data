@@ -490,9 +490,12 @@ def player_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.D
     """
     from sportsdataverse.mbb import mbb_player_crosswalk
 
+    from mbb_data_build.alt_fill import carry_forward
     from mbb_data_build.kenpom import add_kp_player_id
 
-    return add_kp_player_id(mbb_player_crosswalk(season=season), season, base)
+    # alt_fill (droplet) filled Fox / Yahoo ids from the box-score history; keep them.
+    df = add_kp_player_id(mbb_player_crosswalk(season=season), season, base)
+    return carry_forward(df, "player_crosswalk", season, base)
 
 
 def team_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
@@ -537,9 +540,11 @@ def schedule_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl
     """
     from sportsdataverse.mbb import mbb_schedule_crosswalk
 
+    from mbb_data_build.alt_fill import carry_forward
     from mbb_data_build.kenpom import add_kp_game_id
 
-    return add_kp_game_id(mbb_schedule_crosswalk(season=season, fox=True, yahoo=True), season, base)
+    df = add_kp_game_id(mbb_schedule_crosswalk(season=season, fox=True, yahoo=True), season, base)
+    return carry_forward(df, "schedule_crosswalk", season, base)  # alt_fill's Fox / Yahoo ids
 
 
 SEASON_BUILDERS: dict = {
