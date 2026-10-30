@@ -39,12 +39,15 @@ def test_game_rosters_ids_are_int32_from_a_real_payload(tmp_path):
 
 def test_rosters_athlete_id_is_int32(tmp_path):
     df = pl.DataFrame(
-        {"team_id": [2, 2], "athlete_id": ["5341547", "4433218"]},
+        {"team_id": [2, 2, 2], "athlete_id": ["5341547", None, "4433218"]},
         schema={"team_id": pl.Int32, "athlete_id": pl.String},
     )
     schema = _written(df, "rosters", tmp_path)
     assert schema["athlete_id"] == pl.Int32
     assert schema["team_id"] == pl.Int32
+    # Values survive the cast and a null stays null.
+    back = pl.read_parquet(tmp_path / "rosters" / "parquet" / "rosters_2025.parquet")
+    assert back["athlete_id"].to_list() == [5341547, None, 4433218]
 
 
 def test_non_numeric_id_fails_the_write(tmp_path):
