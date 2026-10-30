@@ -50,10 +50,16 @@ uv run pytest -q                                                        # full-f
 
 ## Parity
 
-`tests/mbb_data_build/test_parity_*.py` build each dataset for a real season into
-a temp dir and assert full-frame equality against the committed R oracle parquet
-under `mbb/<dataset>/parquet/`. The build never writes into the committed `mbb/`
-tree during tests.
+`test_parity_pbp.py` builds four real 2025 games from the raw payloads committed in
+`tests/fixtures/pbp_r_oracle/` and asserts full-frame equality against a frozen,
+R-built oracle in that folder (provenance in its README). It runs in CI.
+
+The other `tests/mbb_data_build/test_parity_*.py` build each dataset for a real
+season into a temp dir and compare against the committed parquet under
+`mbb/<dataset>/parquet/`. They skip without a sibling `hoopR-mbb-raw` checkout.
+The Python producer now runs the daily build, so any committed season it has
+rewritten is Python-built. Against those files these tests catch regressions but
+do not prove R parity. The build never writes into the committed `mbb/` tree during tests.
 
 Notes on two deliberate divergences the tests document:
 - `player_season_stats` iterates the identity-lookup athlete ids (R's

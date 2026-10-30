@@ -91,6 +91,9 @@ class DatasetSpec:
             (hoopR/R/mbb_crosswalk.R).
         sdv_type: ``sportsdataverse_type`` attribute override. Defaults to
             ``"{dataset} data"``; R passes the spaced form for crosswalks.
+        int32_ids: id columns ``io.write_dataset`` casts to Int32 (strict), so
+            they join with every other dataset's Int32 ids. Needed where the
+            sdv-py helper emits the id as a string.
     """
 
     dataset: str
@@ -104,6 +107,7 @@ class DatasetSpec:
     manifest_upsert: bool = False
     rds_type: str | None = None
     sdv_type: str | None = None
+    int32_ids: tuple[str, ...] = ()
 
 
 REGISTRY: dict[str, DatasetSpec] = {
@@ -132,6 +136,7 @@ REGISTRY: dict[str, DatasetSpec] = {
         _T + "rosters",
         "rosters",
         manifest_endpoint=_RAW + "/team_rosters/json/{season}/<team_id>.json",
+        int32_ids=("athlete_id",),
     ),
     "player_season_stats": DatasetSpec(
         "player_season_stats",
@@ -177,6 +182,7 @@ REGISTRY: dict[str, DatasetSpec] = {
         _T + "game_rosters",
         "game_rosters",
         manifest_endpoint=_RAW + "/game_rosters/json/<game_id>.json",
+        int32_ids=("game_id",),
     ),
     "officials": DatasetSpec(
         "officials",

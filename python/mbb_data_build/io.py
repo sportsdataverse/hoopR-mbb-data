@@ -94,6 +94,8 @@ def write_dataset(
 ) -> list[Path]:
     """Write parquet (+ csv when ``spec.write_tree_csv``) + manifest for one
     dataset/season; return the written paths."""
+    # Strict: a non-numeric id is a parser bug, not something to null out.
+    df = df.with_columns(pl.col(c).cast(pl.Int32) for c in spec.int32_ids if c in df.columns)
     base = Path(base)
     root = dataset_dir(spec, base)
     pq_dir = root / "parquet"
