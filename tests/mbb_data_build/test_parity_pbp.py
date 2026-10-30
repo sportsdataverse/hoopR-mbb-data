@@ -1,80 +1,60 @@
-"""Parity: Python play_by_play vs the R-released parquet oracle, FULL 2025 season.
+"""Parity: Python play_by_play vs a FROZEN, R-built oracle (four real 2025 games).
 
 Port provenance: ``hoopR:::helper_espn_mbb_pbp``
-(``hoopR-mbb-data/R/espn_mbb_01_pbp_creation.R``). Oracle:
-``hoopR-mbb-data/mbb/pbp/parquet/play_by_play_2025.parquet`` -- the full
-committed season asset, built from the real sibling ``hoopR-mbb-raw``
-checkout (not a 3-game fixture).
+(``hoopR-mbb-data/R/espn_mbb_01_pbp_creation.R``).
 
-MBB delta vs the NBA sibling: the play ``id`` is an 18-digit ESPN
-concatenation that overflows R/jsonlite's double mantissa in a much bigger
-way than NBA's -- ~41% of 2025 rows collide in the released Float64. The
-Python producer reads ``id`` as exact Int64 straight from the payload (the
-same deliberate dtype improvement as NBA/WBB/WNBA, #245); parity is asserted
-through the oracle's lossy Float64 view (cast py's Int64 DOWN to Float64,
-not the oracle cast up) so the comparison is apples-to-apples even where
-the oracle itself can't disambiguate two different ids.
+Oracle: ``tests/fixtures/pbp_r_oracle/play_by_play_r_oracle.parquet``, built by
+``build_r_oracle.R`` (hoopR + R pinned in that folder's README) from the raw
+ESPN payloads committed beside it. It used to be the tree asset
+``mbb/pbp/parquet/play_by_play_2025.parquet``, but the daily processor has
+written that file from Python since 2026-10-18 (3a0fb5a2), so the test was
+comparing Python to Python. The fixture is never written by the producer.
+
+R's play ``id`` is jsonlite's Float64 (18-digit ESPN ids overflow the double
+mantissa); the producer writes exact Int64. That one upgrade is pinned and the
+values are compared through the oracle's lossy Float64 view.
 """
 
+import gzip
+import json
+from pathlib import Path
 
 import polars as pl
+from mbb_data_build.reshapers import pbp_reshaper
 
-from tests.mbb_data_build._parity_helpers import assert_parquet_parity, ft_on_the_line_oracle
-from tests.mbb_data_build.conftest import oracle_path
+from tests.mbb_data_build._parity_helpers import assert_parquet_parity
+
+FIXTURE = Path(__file__).resolve().parents[1] / "fixtures" / "pbp_r_oracle"
+ORACLE = FIXTURE / "play_by_play_r_oracle.parquet"
+GAMES = (401721337, 401721734, 401724552, 401746065)
 
 KEYS = ["game_id", "game_play_number"]
-
+# Joined per game from boxscore.players (2026-07); hoopR has no counterpart.
 NAME_COLS = ("athlete_name_1", "athlete_name_2", "athlete_name_3")
-# sdv-py >= the score-repair PR rebuilds home_score/away_score from the scoring plays and adds
-# score_source; sdv-py's tests/test_basketball_score_repair.py owns that contract, so the two
-# score columns leave the oracle comparison and score_source is an allowed additive column.
-SCORE_COLS = ("home_score", "away_score")
-ADDITIVE_COLS = (*NAME_COLS, "score_source")
-
-# The committed tree asset is WP-enriched IN PLACE post-publish
-# (python/mbb_model_03_wp_enrich.py, run by the daily data processor);
-# producer parity is asserted on the pre-enrichment producer surface.
-ENRICHMENT_COLS = ("home_win_prob", "pregame_home_prob")
 
 
-def test_pbp_parity_full_2025(built_base, tmp_path):
-    py = pl.read_parquet(built_base / "pbp" / "parquet" / "play_by_play_2025.parquet")
-    # Additive name columns (2026-07): joined per game from boxscore.players.
-    # The only legitimate misses are non-players (e.g. coach technicals).
-    has_id = py.filter(pl.col("athlete_id_1").is_not_null())
-    matched = has_id.filter(pl.col("athlete_name_1").is_not_null()).height
-    assert matched >= 0.99 * has_id.height, (
-        f"athlete_name_1 resolved on {matched}/{has_id.height} id-bearing rows"
-    )
-    # sdv-py #844 (R844-3): free throws on the line; the committed oracle predates it.
-    oracle = ft_on_the_line_oracle(oracle_path("pbp", "play_by_play"), tmp_path / "oracle")
-    sample = [
-        c for c in pl.read_parquet_schema(str(oracle))
-        if c not in KEYS and c not in ENRICHMENT_COLS and c not in SCORE_COLS
-    ]
-    for c in SCORE_COLS:  # left the value comparison; keep the dtype contract
-        assert py.schema[c] == pl.read_parquet_schema(str(oracle))[c], c
+def _build_py() -> pl.DataFrame:
+    # Same reshape + diagonal_relaxed union as build.build_season's per-game loop.
+    frames = []
+    for gid in GAMES:
+        with gzip.open(FIXTURE / "raw" / f"{gid}.json.gz", "rt", encoding="utf-8") as f:
+            frames.append(pbp_reshaper(json.load(f), season=2025, game_id=gid))
+    return pl.concat(frames, how="diagonal_relaxed")
+
+
+def test_pbp_parity_vs_frozen_r_oracle():
+    py = _build_py()
+    oracle_games = pl.read_parquet(ORACLE, columns=["game_id"])["game_id"].unique().sort()
+    assert oracle_games.to_list() == list(GAMES)
+    sample = [c for c in pl.read_parquet_schema(ORACLE) if c not in KEYS]
     assert_parquet_parity(
         py,
-        oracle,
+        ORACLE,
         keys=KEYS,
         sample_cols=sample,
-        py_only_additive=ADDITIVE_COLS,
-        r_only_enrichment=ENRICHMENT_COLS,
-        # pbp column order is payload-first-seen; matches the NBA/WNBA
-        # template's rationale (raw repo may have been re-scraped since the
-        # oracle was compiled).
+        py_only_additive=NAME_COLS,
+        dtype_upgrades={"id": (pl.Int64, pl.Float64)},
+        # Known divergence, not asserted: sdv-py orders lag_*/lead_* and the
+        # coordinate/score_source block differently from hoopR's select.
         require_order=False,
-        # No dtype_upgrades pin: since the 2026-07 python republish, the
-        # committed tree oracle is itself python-built with exact Int64 `id`
-        # (the R-era Float64 lossiness is gone), so id compares directly.
     )
-
-
-def test_pbp_row_and_column_count_match_oracle(built_base):
-    # Cheap, always-green sanity check independent of any per-row divergence.
-    py = pl.read_parquet(built_base / "pbp" / "parquet" / "play_by_play_2025.parquet")
-    r = pl.read_parquet(oracle_path("pbp", "play_by_play"))
-    r = r.drop([c for c in ENRICHMENT_COLS if c in r.columns])
-    assert py.shape[0] == r.shape[0]
-    assert set(py.columns) == set(r.columns) | {"score_source"}
