@@ -28,4 +28,7 @@ def test_sidecar_parity_full_2025(dataset, stem, keys, built_base):
     py = pl.read_parquet(built_base / dataset / "parquet" / f"{stem}_2025.parquet")
     oracle = oracle_path(dataset, stem)
     sample = [c for c in pl.read_parquet_schema(str(oracle)) if c not in keys]
-    assert_parquet_parity(py, oracle, keys=keys, sample_cols=sample)
+    # The producer now writes game_rosters.game_id as Int32 (io.write_dataset);
+    # the committed seasons still carry String until they are republished.
+    upgrades = {"game_id": (pl.Int32, pl.String)} if dataset == "game_rosters" else None
+    assert_parquet_parity(py, oracle, keys=keys, sample_cols=sample, dtype_upgrades=upgrades)

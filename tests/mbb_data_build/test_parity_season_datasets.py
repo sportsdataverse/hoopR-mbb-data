@@ -34,7 +34,10 @@ def test_season_dataset_parity_full_2025(dataset, stem, keys, built_base):
     all_cols = list(pl.read_parquet_schema(str(oracle)))
     keys = keys if keys is not None else all_cols
     sample = [c for c in all_cols if c not in keys]
-    assert_parquet_parity(py, oracle, keys=keys, sample_cols=sample)
+    # The producer now writes rosters.athlete_id as Int32 (io.write_dataset);
+    # the committed seasons still carry String until they are republished.
+    upgrades = {"athlete_id": (pl.Int32, pl.String)} if dataset == "rosters" else None
+    assert_parquet_parity(py, oracle, keys=keys, sample_cols=sample, dtype_upgrades=upgrades)
 
 
 # Two athlete_ids (out of ~13,000 in the 2025 season) carry raw-data ambiguity
