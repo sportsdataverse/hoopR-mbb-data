@@ -23,7 +23,11 @@ stopifnot(length(raw) > 0)
 espn_df <- purrr::map_dfr(raw, function(f) {
   tmp <- tempfile(fileext = ".json")
   writeLines(readLines(gzfile(f), warn = FALSE, encoding = "UTF-8"), tmp, useBytes = TRUE)
-  out <- hoopR:::helper_espn_mbb_pbp(tmp)
+  # Production drops a game on any warning; here a warning fails the capture.
+  out <- withCallingHandlers(
+    hoopR:::helper_espn_mbb_pbp(tmp),
+    warning = function(w) stop("warning while parsing ", f, ": ", conditionMessage(w), call. = FALSE)
+  )
   if (is.null(out) || nrow(out) == 0) stop("no plays parsed from ", f)
   out
 })

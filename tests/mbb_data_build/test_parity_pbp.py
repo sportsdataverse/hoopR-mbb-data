@@ -58,3 +58,27 @@ def test_pbp_parity_vs_frozen_r_oracle():
         # coordinate/score_source block differently from hoopR's select.
         require_order=False,
     )
+
+
+def _raw_plays(gid: int) -> list[dict]:
+    with gzip.open(FIXTURE / "raw" / f"{gid}.json.gz", "rt", encoding="utf-8") as f:
+        return json.load(f)["plays"]
+
+
+def test_pbp_play_ids_exact_vs_raw():
+    # The R comparison runs through Float64, where distinct 18-digit ids collide;
+    # check the exact Int64 ids against the payload, in play order.
+    py = _build_py()
+    for gid in GAMES:
+        ids = py.filter(pl.col("game_id") == gid).sort("game_play_number")["id"].to_list()
+        assert ids == [int(p["id"]) for p in _raw_plays(gid)], gid
+
+
+def test_pbp_athlete_names_resolve():
+    # NAME_COLS are excluded from the R comparison, so guard them here: every
+    # id-bearing play in these four games resolves a name.
+    py = _build_py()
+    assert set(NAME_COLS) <= set(py.columns)
+    for n in (1, 2):  # hoopR/sdv-py emit athlete_id_1/_2 only
+        with_id = py.filter(pl.col(f"athlete_id_{n}").is_not_null())
+        assert with_id.filter(pl.col(f"athlete_name_{n}").is_null()).height == 0, n

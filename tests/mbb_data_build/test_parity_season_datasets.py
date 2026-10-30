@@ -34,9 +34,11 @@ def test_season_dataset_parity_full_2025(dataset, stem, keys, built_base):
     all_cols = list(pl.read_parquet_schema(str(oracle)))
     keys = keys if keys is not None else all_cols
     sample = [c for c in all_cols if c not in keys]
-    # The producer now writes rosters.athlete_id as Int32 (io.write_dataset);
-    # the committed seasons still carry String until they are republished.
-    upgrades = {"athlete_id": (pl.Int32, pl.String)} if dataset == "rosters" else None
+    # The producer writes rosters.athlete_id as Int32 (io.write_dataset). A committed
+    # season not yet republished still carries String: pin that pair. Once it
+    # is republished as Int32, no upgrade applies and dtypes must match exactly.
+    legacy = dataset == "rosters" and pl.read_parquet_schema(str(oracle))["athlete_id"] == pl.String
+    upgrades = {"athlete_id": (pl.Int32, pl.String)} if legacy else None
     assert_parquet_parity(py, oracle, keys=keys, sample_cols=sample, dtype_upgrades=upgrades)
 
 
