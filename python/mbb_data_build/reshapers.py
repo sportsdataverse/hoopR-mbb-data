@@ -518,10 +518,15 @@ def team_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.Dat
     froze -- so ``match_method`` reads ``fox+bart+kp`` where the golden reads
     ``fox+kp``. hoopR's own documented vocabulary lists ``fox+bart+kp`` first.
     See ``config.REGISTRY`` and the flip commit.
+
+    Torvik comes from the committed ``torvik/`` snapshot, not barttorvik.com,
+    which 403s every datacenter IP (see ``torvik_snapshot``).
     """
     from sportsdataverse.mbb import mbb_team_crosswalk
 
-    return mbb_team_crosswalk(season=season, yahoo=True)
+    from mbb_data_build.torvik_snapshot import bart_teams
+
+    return mbb_team_crosswalk(season=season, bart=bart_teams(season), yahoo=True)
 
 
 def schedule_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
