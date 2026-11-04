@@ -31,6 +31,16 @@ GAMES = (401721337, 401721734, 401724552, 401746065)
 KEYS = ["game_id", "game_play_number"]
 # Joined per game from boxscore.players (2026-07); hoopR has no counterpart.
 NAME_COLS = ("athlete_name_1", "athlete_name_2", "athlete_name_3")
+# sdv-py f54d9aa0 (#1044/#1047/#1097) reads the line from pickcenter and leaves a no-line game
+# null; the frozen R oracle carries hoopR-era invented 2.5 lines, so these leave the value
+# comparison (dtype kept) and the no-line contract is asserted on the Python frame instead.
+LINE_COLS = ("game_spread", "home_favorite", "game_spread_available", "home_team_spread")
+
+
+def _assert_no_invented_line(py: pl.DataFrame) -> None:
+    no_line = py.filter(pl.col("game_spread_available") == False)  # noqa: E712
+    for c in ("game_spread", "home_team_spread"):
+        assert no_line.get_column(c).null_count() == no_line.height, f"{c} set on a no-line row"
 
 
 def _build_py() -> pl.DataFrame:
@@ -46,7 +56,11 @@ def test_pbp_parity_vs_frozen_r_oracle():
     py = _build_py()
     oracle_games = pl.read_parquet(ORACLE, columns=["game_id"])["game_id"].unique().sort()
     assert oracle_games.to_list() == list(GAMES)
-    sample = [c for c in pl.read_parquet_schema(ORACLE) if c not in KEYS]
+    sample = [c for c in pl.read_parquet_schema(ORACLE) if c not in KEYS and c not in LINE_COLS]
+    _assert_no_invented_line(py)
+    oracle_schema = pl.read_parquet_schema(ORACLE)
+    for c in LINE_COLS:  # left the value comparison; keep the dtype contract
+        assert py.schema[c] == oracle_schema[c], c
     assert_parquet_parity(
         py,
         ORACLE,
