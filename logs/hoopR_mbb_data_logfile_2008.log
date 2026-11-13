@@ -1,0 +1,391 @@
+From https://github.com/sportsdataverse/hoopR-mbb-data
+ * [new branch]        fix/mbb-manifest-names -> origin/fix/mbb-manifest-names
+ * [new branch]        fix/pss-identity-latest-team -> origin/fix/pss-identity-latest-team
+::group::mbb_data_build pbp 2008
+2026-11-13 15:55:29 [INFO] mbb_data_build: pbp 2008: per-game build starting -- 5437 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 250/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 500/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 750/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 1000/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 1250/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 1500/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 1750/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 2000/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 2250/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 2500/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 2750/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 3000/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 3250/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 3500/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 3750/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 4000/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 4250/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 4500/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 4750/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 5000/5437 games collected
+2026-11-13 16:01:53 [INFO] mbb_data_build: pbp 2008: 5250/5437 games collected
+2026-11-13 16:02:40 [INFO] mbb_data_build: wrote ..\mbb\pbp\parquet\play_by_play_2008.parquet (16.9MB) + play_by_play_2008.rds (18.4MB), 798658 rows x 61 cols; manifest n/a (not manifested)
+2026-11-13 16:02:40 [INFO] mbb_data_build: pbp 2008: done -- 798658 rows from 2790/5437 games in 431.2s
+2026-11-13 16:02:40 [INFO] mbb_data_build: pbp 2008: season complete -- 798658 rows
+::endgroup::
+::group::mbb_data_build team_box 2008
+2026-11-13 16:02:43 [INFO] mbb_data_build: team_box 2008: per-game build starting -- 5437 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 250/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 500/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 750/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 1000/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 1250/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 1500/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 1750/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 2000/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 2250/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 2500/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 2750/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 3000/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 3250/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 3500/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 3750/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 4000/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 4250/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 4500/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 4750/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 5000/5437 games collected
+2026-11-13 16:03:03 [INFO] mbb_data_build: team_box 2008: 5250/5437 games collected
+2026-11-13 16:03:05 [INFO] mbb_data_build: wrote ..\mbb\team_box\parquet\team_box_2008.parquet (595.4KB) + team_box_2008.rds (807.0KB), 10810 rows x 54 cols; manifest n/a (not manifested)
+2026-11-13 16:03:05 [INFO] mbb_data_build: uploading team_box_2008.rds (807.0KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_boxscores
+HTTP 403: API rate limit exceeded for user ID 25425933. If you reach out to GitHub Support for help, please include the request ID EC45:11FF3D:82E2FD:1A19989:6AF734BA and timestamp 2026-11-13 16:03:06 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (https://api.github.com/repos/sportsdataverse/sportsdataverse-data/releases/assets/103079131)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 38, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 180, in build_season
+    publish.publish_dataset(spec, season, base=base, dry_run=dry_run)
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 399, in publish_dataset
+    run(["release", "upload", spec.tag, str(f), "--repo", repo, "--clobber"])
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 201, in _gh
+    subprocess.run(["gh", *args], check=True, timeout=1800)
+  File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gh', 'release', 'upload', 'espn_mens_college_basketball_team_boxscores', '..\\mbb\\team_box\\rds\\team_box_2008.rds', '--repo', 'sportsdataverse/sportsdataverse-data', '--clobber']' returned non-zero exit status 1.
+::warning ::mbb_data_build team_box for season 2008 exited with code 1
+::endgroup::
+::group::mbb_data_build player_box 2008
+2026-11-13 16:03:09 [INFO] mbb_data_build: player_box 2008: per-game build starting -- 5437 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 250/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 500/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 750/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 1000/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 1250/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 1500/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 1750/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 2000/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 2250/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 2500/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 2750/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 3000/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 3250/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 3500/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 3750/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 4000/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 4250/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 4500/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 4750/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 5000/5437 games collected
+2026-11-13 16:03:36 [INFO] mbb_data_build: player_box 2008: 5250/5437 games collected
+2026-11-13 16:03:52 [INFO] mbb_data_build: wrote ..\mbb\player_box\parquet\player_box_2008.parquet (2.2MB) + player_box_2008.rds (4.6MB), 145160 rows x 55 cols; manifest n/a (not manifested)
+2026-11-13 16:03:53 [INFO] mbb_data_build: uploading player_box_2008.rds (4.6MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_boxscores
+HTTP 403: API rate limit exceeded for user ID 25425933. If you reach out to GitHub Support for help, please include the request ID EC45:11FF3D:8410A4:1A55ABE:6AF734EA and timestamp 2026-11-13 16:03:54 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (https://api.github.com/repos/sportsdataverse/sportsdataverse-data/releases/assets/103082152)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 38, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 180, in build_season
+    publish.publish_dataset(spec, season, base=base, dry_run=dry_run)
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 399, in publish_dataset
+    run(["release", "upload", spec.tag, str(f), "--repo", repo, "--clobber"])
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 201, in _gh
+    subprocess.run(["gh", *args], check=True, timeout=1800)
+  File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gh', 'release', 'upload', 'espn_mens_college_basketball_player_boxscores', '..\\mbb\\player_box\\rds\\player_box_2008.rds', '--repo', 'sportsdataverse/sportsdataverse-data', '--clobber']' returned non-zero exit status 1.
+::warning ::mbb_data_build player_box for season 2008 exited with code 1
+::endgroup::
+::group::mbb_data_build player_core 2008
+2026-11-13 16:03:57 [INFO] mbb_data_build: player_core 2008: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 16:07:50 [INFO] mbb_data_build: wrote ..\mbb\player_core\parquet\player_core_2008.parquet (491.7KB) + player_core_2008.rds (518.0KB) + player_core_2008.csv (1.7MB), 6802 rows x 36 cols; manifest n/a (not manifested)
+2026-11-13 16:07:50 [INFO] mbb_data_build: uploading player_core_2008.rds (518.0KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_core
+HTTP 403: API rate limit exceeded for user ID 25425933. If you reach out to GitHub Support for help, please include the request ID EC11:27071:4F89783:FB2D024:6AF735D6 and timestamp 2026-11-13 16:07:50 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (https://api.github.com/repos/sportsdataverse/sportsdataverse-data/releases/assets/479989360)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 38, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 94, in build_season
+    publish.publish_dataset(spec, season, base=base, dry_run=dry_run)
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 399, in publish_dataset
+    run(["release", "upload", spec.tag, str(f), "--repo", repo, "--clobber"])
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 201, in _gh
+    subprocess.run(["gh", *args], check=True, timeout=1800)
+  File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gh', 'release', 'upload', 'espn_mens_college_basketball_player_core', '..\\mbb\\player_core\\rds\\player_core_2008.rds', '--repo', 'sportsdataverse/sportsdataverse-data', '--clobber']' returned non-zero exit status 1.
+::warning ::mbb_data_build player_core for season 2008 exited with code 1
+::endgroup::
+::group::mbb_data_build schedules 2008
+2026-11-13 16:07:53 [INFO] mbb_data_build: schedules 2008: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 16:07:54 [INFO] mbb_data_build: wrote ..\mbb\schedules\parquet\mbb_schedule_2008.parquet (403.3KB) + mbb_schedule_2008.rds (505.4KB) + mbb_schedule_2008.csv (3.9MB), 5448 rows x 76 cols; manifest n/a (not manifested)
+2026-11-13 16:07:55 [INFO] mbb_data_build: uploading mbb_schedule_2008.rds (505.4KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+HTTP 403: API rate limit exceeded for user ID 25425933. If you reach out to GitHub Support for help, please include the request ID EC13:1813C7:7E969FD:18E69690:6AF735DB and timestamp 2026-11-13 16:07:55 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (https://api.github.com/repos/sportsdataverse/sportsdataverse-data/releases/assets/103082171)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 38, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 94, in build_season
+    publish.publish_dataset(spec, season, base=base, dry_run=dry_run)
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 399, in publish_dataset
+    run(["release", "upload", spec.tag, str(f), "--repo", repo, "--clobber"])
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 201, in _gh
+    subprocess.run(["gh", *args], check=True, timeout=1800)
+  File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gh', 'release', 'upload', 'espn_mens_college_basketball_schedules', '..\\mbb\\schedules\\rds\\mbb_schedule_2008.rds', '--repo', 'sportsdataverse/sportsdataverse-data', '--clobber']' returned non-zero exit status 1.
+::warning ::mbb_data_build schedules for season 2008 exited with code 1
+::endgroup::
+::group::mbb_data_build shots 2008
+2026-11-13 16:07:58 [INFO] mbb_data_build: shots 2008: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 16:08:09 [INFO] mbb_data_build: wrote ..\mbb\shots\parquet\shots_2008.parquet (3.4MB) + shots_2008.rds (3.9MB) + shots_2008.csv (42.6MB), 420305 rows x 20 cols; manifest mbb_shots_in_data_repo.csv appended
+2026-11-13 16:08:09 [INFO] mbb_data_build: uploading shots_2008.rds (3.9MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_shots
+HTTP 403: API rate limit exceeded for user ID 25425933. If you reach out to GitHub Support for help, please include the request ID EC11:27071:4F930AE:FB4B460:6AF735EA and timestamp 2026-11-13 16:08:10 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (https://api.github.com/repos/sportsdataverse/sportsdataverse-data/releases/assets/494005760)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 38, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 94, in build_season
+    publish.publish_dataset(spec, season, base=base, dry_run=dry_run)
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 399, in publish_dataset
+    run(["release", "upload", spec.tag, str(f), "--repo", repo, "--clobber"])
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 201, in _gh
+    subprocess.run(["gh", *args], check=True, timeout=1800)
+  File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gh', 'release', 'upload', 'espn_mens_college_basketball_shots', '..\\mbb\\shots\\rds\\shots_2008.rds', '--repo', 'sportsdataverse/sportsdataverse-data', '--clobber']' returned non-zero exit status 1.
+::warning ::mbb_data_build shots for season 2008 exited with code 1
+::endgroup::
+::group::mbb_data_build rosters 2008
+2026-11-13 16:08:12 [INFO] mbb_data_build: rosters 2008: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 16:08:13 [WARNING] mbb_data_build: rosters 2008: season-level build produced 0 rows; nothing written
+2026-11-13 16:08:13 [INFO] mbb_data_build: rosters 2008: season complete -- 0 rows
+2026-11-13 16:08:13 [INFO] mbb_data_build: espn_mens_college_basketball_rosters: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build player_season_stats 2008
+2026-11-13 16:08:16 [INFO] mbb_data_build: player_season_stats 2008: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 16:12:21 [INFO] mbb_data_build: wrote ..\mbb\player_season_stats\parquet\player_season_stats_2008.parquet (886.2KB) + player_season_stats_2008.rds (1.2MB) + player_season_stats_2008.csv (57.6MB), 287587 rows x 15 cols; manifest mbb_player_season_stats_in_data_repo.csv appended
+2026-11-13 16:12:21 [INFO] mbb_data_build: uploading player_season_stats_2008.rds (1.2MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_season_stats
+HTTP 403: API rate limit exceeded for user ID 25425933. If you reach out to GitHub Support for help, please include the request ID EC11:27071:5011F62:FCDC24D:6AF736E5 and timestamp 2026-11-13 16:12:21 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (https://api.github.com/repos/sportsdataverse/sportsdataverse-data/releases/assets/743440452)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 38, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 94, in build_season
+    publish.publish_dataset(spec, season, base=base, dry_run=dry_run)
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 399, in publish_dataset
+    run(["release", "upload", spec.tag, str(f), "--repo", repo, "--clobber"])
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 201, in _gh
+    subprocess.run(["gh", *args], check=True, timeout=1800)
+  File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gh', 'release', 'upload', 'espn_mens_college_basketball_player_season_stats', '..\\mbb\\player_season_stats\\rds\\player_season_stats_2008.rds', '--repo', 'sportsdataverse/sportsdataverse-data', '--clobber']' returned non-zero exit status 1.
+::warning ::mbb_data_build player_season_stats for season 2008 exited with code 1
+::endgroup::
+::group::mbb_data_build team_season_stats 2008
+2026-11-13 16:12:24 [INFO] mbb_data_build: team_season_stats 2008: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 16:13:01 [INFO] mbb_data_build: wrote ..\mbb\team_season_stats\parquet\team_season_stats_2008.parquet (138.5KB) + team_season_stats_2008.rds (172.2KB) + team_season_stats_2008.csv (4.9MB), 24570 rows x 16 cols; manifest mbb_team_season_stats_in_data_repo.csv appended
+2026-11-13 16:13:02 [INFO] mbb_data_build: uploading team_season_stats_2008.rds (172.2KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_season_stats
+HTTP 403: API rate limit exceeded for user ID 25425933. If you reach out to GitHub Support for help, please include the request ID EC10:3FAEED:5869810:1179821A:6AF7370E and timestamp 2026-11-13 16:13:02 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (https://api.github.com/repos/sportsdataverse/sportsdataverse-data/releases/assets/433931024)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 38, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 94, in build_season
+    publish.publish_dataset(spec, season, base=base, dry_run=dry_run)
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 399, in publish_dataset
+    run(["release", "upload", spec.tag, str(f), "--repo", repo, "--clobber"])
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 201, in _gh
+    subprocess.run(["gh", *args], check=True, timeout=1800)
+  File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gh', 'release', 'upload', 'espn_mens_college_basketball_team_season_stats', '..\\mbb\\team_season_stats\\rds\\team_season_stats_2008.rds', '--repo', 'sportsdataverse/sportsdataverse-data', '--clobber']' returned non-zero exit status 1.
+::warning ::mbb_data_build team_season_stats for season 2008 exited with code 1
+::endgroup::
+::group::mbb_data_build standings 2008
+2026-11-13 16:13:05 [INFO] mbb_data_build: standings 2008: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 16:13:06 [INFO] mbb_data_build: wrote ..\mbb\standings\parquet\standings_2008.parquet (104.2KB) + standings_2008.rds (142.7KB) + standings_2008.csv (6.8MB), 28644 rows x 24 cols; manifest mbb_standings_in_data_repo.csv appended
+2026-11-13 16:13:07 [INFO] mbb_data_build: uploading standings_2008.rds (142.7KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_standings
+HTTP 403: API rate limit exceeded for user ID 25425933. If you reach out to GitHub Support for help, please include the request ID EC13:1813C7:7F32D20:190557AE:6AF73713 and timestamp 2026-11-13 16:13:07 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (https://api.github.com/repos/sportsdataverse/sportsdataverse-data/releases/assets/433849683)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 38, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 94, in build_season
+    publish.publish_dataset(spec, season, base=base, dry_run=dry_run)
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 399, in publish_dataset
+    run(["release", "upload", spec.tag, str(f), "--repo", repo, "--clobber"])
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\publish.py", line 201, in _gh
+    subprocess.run(["gh", *args], check=True, timeout=1800)
+  File "C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gh', 'release', 'upload', 'espn_mens_college_basketball_standings', '..\\mbb\\standings\\rds\\standings_2008.rds', '--repo', 'sportsdataverse/sportsdataverse-data', '--clobber']' returned non-zero exit status 1.
+::warning ::mbb_data_build standings for season 2008 exited with code 1
+::endgroup::
+::group::mbb_data_build game_rosters 2008
+2026-11-13 16:13:10 [INFO] mbb_data_build: game_rosters 2008: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 16:19:18 [INFO] mbb_data_build: wrote ..\mbb\game_rosters\parquet\game_rosters_2008.parquet (1.7MB) + game_rosters_2008.rds (5.5MB) + game_rosters_2008.csv (25.2MB), 146196 rows x 22 cols; manifest mbb_game_rosters_in_data_repo.csv appended
+2026-11-13 16:19:19 [INFO] mbb_data_build: game_rosters 2008: unchanged on espn_mens_college_basketball_game_rosters -- skipped
+2026-11-13 16:19:19 [INFO] mbb_data_build: game_rosters 2008: done -- 146196 rows in 369.3s
+2026-11-13 16:19:19 [INFO] mbb_data_build: game_rosters 2008: season complete -- 146196 rows
+2026-11-13 16:19:19 [INFO] mbb_data_build: espn_mens_college_basketball_game_rosters: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build officials 2008
+2026-11-13 16:19:22 [INFO] mbb_data_build: officials 2008: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 16:25:30 [INFO] mbb_data_build: wrote ..\mbb\officials\parquet\officials_2008.parquet (90.1KB) + officials_2008.rds (102.2KB) + officials_2008.csv (791.7KB), 14982 rows x 7 cols; manifest mbb_officials_in_data_repo.csv appended
+2026-11-13 16:25:31 [INFO] mbb_data_build: officials 2008: unchanged on espn_mens_college_basketball_officials -- skipped
+2026-11-13 16:25:31 [INFO] mbb_data_build: officials 2008: done -- 14982 rows in 368.5s
+2026-11-13 16:25:31 [INFO] mbb_data_build: officials 2008: season complete -- 14982 rows
+2026-11-13 16:25:31 [INFO] mbb_data_build: espn_mens_college_basketball_officials: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build team_crosswalk 2008
+2026-11-13 16:25:34 [INFO] mbb_data_build: team_crosswalk 2008: season-level build starting (raw=None via disk)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 38, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 84, in build_season
+    out = reshapers.SEASON_BUILDERS[dataset](season, raw_root=root, base=Path(base))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 529, in team_crosswalk_builder
+    return mbb_team_crosswalk(season=season, bart=bart_teams(season), yahoo=True)
+                                                  ^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\torvik_snapshot.py", line 58, in bart_teams
+    raise FileNotFoundError(
+FileNotFoundError: D:\a\hoopR-mbb-data\hoopR-mbb-data\torvik\2008_team_results.csv missing; from a residential IP run `cd python && uv run python -m mbb_data_build.torvik_snapshot -s 2008 -e 2008` and commit it
+::warning ::mbb_data_build team_crosswalk for season 2008 exited with code 1 (crosswalk; non-fatal, live external source)
+::endgroup::
+::group::mbb_data_build schedule_crosswalk 2008
+2026-11-13 16:25:37 [INFO] mbb_data_build: schedule_crosswalk 2008: season-level build starting (raw=None via disk)
+Traceback (most recent call last):
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 159, in require_source
+    out = fetch()
+          ^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 673, in <lambda>
+    bart = require_source(f"torvik_ratings(year={season})", lambda: torvik_teams("mbb", season, **kwargs))
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 943, in torvik_teams
+    raw = ratings(year=season, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik.py", line 73, in torvik_ratings
+    raw = _get(
+          ^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik_runtime.py", line 59, in _get
+    _check_response(resp, url)
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_codegen_runtime.py", line 483, in _check_response
+    _check_status(url, status, getattr(resp, "text", "") or "")
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_codegen_runtime.py", line 320, in _check_status
+    raise AssetFetchError(f"{where} answered HTTP {status}: {_excerpt(text)}")
+sportsdataverse.errors.AssetFetchError: barttorvik.com/2008_team_results.csv answered HTTP 403: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1"> <TITLE>ERROR
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 38, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 84, in build_season
+    out = reshapers.SEASON_BUILDERS[dataset](season, raw_root=root, base=Path(base))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 551, in schedule_crosswalk_builder
+    df = add_kp_game_id(mbb_schedule_crosswalk(season=season, fox=True, yahoo=True), season, base)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 762, in mbb_schedule_crosswalk
+    team_xwalk = mbb_team_crosswalk(season=season, fox=pl.DataFrame(), bart=bart, strict=strict, yahoo=yahoo, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 673, in mbb_team_crosswalk
+    bart = require_source(f"torvik_ratings(year={season})", lambda: torvik_teams("mbb", season, **kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 163, in require_source
+    raise CrosswalkSourceError(f"{label} could not be produced: {type(exc).__name__}: {exc}") from exc
+sportsdataverse._crosswalk_basketball_sources.CrosswalkSourceError: torvik_ratings(year=2008) could not be produced: AssetFetchError: barttorvik.com/2008_team_results.csv answered HTTP 403: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1"> <TITLE>ERROR
+::warning ::mbb_data_build schedule_crosswalk for season 2008 exited with code 1 (crosswalk; non-fatal, live external source)
+::endgroup::
+::group::mbb_data_build player_crosswalk 2008
+2026-11-13 16:25:47 [INFO] mbb_data_build: player_crosswalk 2008: season-level build starting (raw=None via disk)
+2026-11-13 16:25:49 [WARNING] mbb_data_build: KenPom players 2008 not found at D:\a\hoopR-mbb-data\hoopR-kp-data\data\players\csv\players_2008.csv; kp ids left null
+2026-11-13 16:25:49 [INFO] mbb_data_build: wrote ..\mbb\crosswalk\parquet\mbb_player_crosswalk_2008.parquet (92.2KB) + mbb_player_crosswalk_2008.rds (93.5KB), 4709 rows x 18 cols; manifest mbb_player_crosswalk_in_data_repo.csv appended
+2026-11-13 16:25:49 [INFO] mbb_data_build: uploading mbb_player_crosswalk_2008.rds (93.5KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-13 16:25:51 [INFO] mbb_data_build: uploaded mbb_player_crosswalk_2008.rds -> mbb_crosswalk (asset 1/4)
+2026-11-13 16:25:51 [INFO] mbb_data_build: uploading mbb_player_crosswalk_2008.csv (333.0KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-13 16:25:53 [INFO] mbb_data_build: uploaded mbb_player_crosswalk_2008.csv -> mbb_crosswalk (asset 2/4)
+2026-11-13 16:25:53 [INFO] mbb_data_build: uploading mbb_player_crosswalk_in_data_repo.csv (561B) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-13 16:25:56 [INFO] mbb_data_build: uploaded mbb_player_crosswalk_in_data_repo.csv -> mbb_crosswalk (asset 3/4)
+2026-11-13 16:25:56 [INFO] mbb_data_build: uploading mbb_player_crosswalk_2008.parquet (92.2KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-13 16:25:58 [INFO] mbb_data_build: uploaded mbb_player_crosswalk_2008.parquet -> mbb_crosswalk (asset 4/4)
+2026-11-13 16:26:06 [INFO] mbb_data_build: stamped mbb_crosswalk with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-11-13 16:26:06 [INFO] mbb_data_build: player_crosswalk 2008: done -- 4709 rows in 19.0s
+2026-11-13 16:26:06 [INFO] mbb_data_build: player_crosswalk 2008: season complete -- 4709 rows
+2026-11-13 16:26:06 [ERROR] mbb_data_build: mbb_crosswalk: interior season(s) [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024] missing (mbb_player_crosswalk_<season>.parquet): backfill them, or add them to publish.KNOWN_GAPS with the reason.
+::warning ::mbb_data_build player_crosswalk for season 2008 exited with code 3 (crosswalk; non-fatal, live external source)
+::endgroup::
+::group::wp_enrich 2008
+::error ::a wp_enrich input (pbp/schedules/team_box) failed (rc=1); skipping wp_enrich -- release keeps the previous enriched asset
+::endgroup::
+season 2008 EXIT=1
+push rejected (attempt 1); syncing with origin
+pushed: MBB Data Updated (Start: 2008 End: 2008) (attempt 2)
