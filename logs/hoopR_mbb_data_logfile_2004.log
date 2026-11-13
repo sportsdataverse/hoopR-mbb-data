@@ -1,0 +1,281 @@
+From https://github.com/sportsdataverse/hoopR-mbb-data
+ * [new branch]        chore/mbb-drop-local-active-reorder -> origin/chore/mbb-drop-local-active-reorder
+ * [new branch]        chore/sdv-py-score-repair -> origin/chore/sdv-py-score-repair
+ * [new branch]        feat/mbb-ci-cutover-python -> origin/feat/mbb-ci-cutover-python
+ * [new branch]        feat/mbb-data-build   -> origin/feat/mbb-data-build
+ * [new branch]        feat/mbb-game-rosters-json-final-fallback -> origin/feat/mbb-game-rosters-json-final-fallback
+ * [new branch]        feat/mbb-native-rds   -> origin/feat/mbb-native-rds
+ * [new branch]        feat/mbb-officials-json-final-repoint -> origin/feat/mbb-officials-json-final-repoint
+ * [new branch]        feat/mbb-player-core-daily -> origin/feat/mbb-player-core-daily
+ * [new branch]        feat/mbb-player-core-dataset -> origin/feat/mbb-player-core-dataset
+ * [new branch]        feat/mbb-player-core-tree -> origin/feat/mbb-player-core-tree
+ * [new branch]        feat/mbb-team-crosswalk-python -> origin/feat/mbb-team-crosswalk-python
+ * [new branch]        feat/release-sidecars -> origin/feat/release-sidecars
+ * [new branch]        feat/weekly-output-parity -> origin/feat/weekly-output-parity
+ * [new branch]        fix/mbb-serialize-rds -> origin/fix/mbb-serialize-rds
+ * [new branch]        fix/player-core-manifest -> origin/fix/player-core-manifest
+ * [new branch]        test/frozen-r-oracle  -> origin/test/frozen-r-oracle
+::group::mbb_data_build pbp 2004
+2026-11-13 13:57:07 [INFO] mbb_data_build: pbp 2004: per-game build starting -- 4983 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 250/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 500/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 750/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 1000/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 1250/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 1500/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 1750/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 2000/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 2250/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 2500/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 2750/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 3000/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 3250/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 3500/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 3750/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 4000/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 4250/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 4500/4983 games collected
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: 4750/4983 games collected
+2026-11-13 14:02:49 [WARNING] mbb_data_build: pbp 2004: 0 games reshaped; nothing written
+2026-11-13 14:02:49 [INFO] mbb_data_build: pbp 2004: season complete -- 0 rows
+::endgroup::
+::group::mbb_data_build team_box 2004
+2026-11-13 14:02:52 [INFO] mbb_data_build: team_box 2004: per-game build starting -- 4983 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 250/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 500/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 750/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 1000/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 1250/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 1500/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 1750/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 2000/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 2250/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 2500/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 2750/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 3000/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 3250/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 3500/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 3750/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 4000/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 4250/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 4500/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: team_box 2004: 4750/4983 games collected
+2026-11-13 14:02:56 [INFO] mbb_data_build: wrote ..\mbb\team_box\parquet\team_box_2004.parquet (25.5KB) + team_box_2004.rds (3.8KB), 24 rows x 53 cols; manifest n/a (not manifested)
+2026-11-13 14:03:00 [INFO] mbb_data_build: uploading team_box_2004.rds (3.8KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_boxscores
+2026-11-13 14:03:02 [INFO] mbb_data_build: uploaded team_box_2004.rds -> espn_mens_college_basketball_team_boxscores (asset 1/3)
+2026-11-13 14:03:02 [INFO] mbb_data_build: uploading team_box_2004.csv (11.6KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_boxscores
+2026-11-13 14:03:05 [INFO] mbb_data_build: uploaded team_box_2004.csv -> espn_mens_college_basketball_team_boxscores (asset 2/3)
+2026-11-13 14:03:05 [INFO] mbb_data_build: uploading team_box_2004.parquet (25.5KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_boxscores
+2026-11-13 14:03:07 [INFO] mbb_data_build: uploaded team_box_2004.parquet -> espn_mens_college_basketball_team_boxscores (asset 3/3)
+2026-11-13 14:03:14 [INFO] mbb_data_build: stamped espn_mens_college_basketball_team_boxscores with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-11-13 14:03:14 [INFO] mbb_data_build: team_box 2004: done -- 24 rows from 12/4983 games in 22.9s
+2026-11-13 14:03:14 [INFO] mbb_data_build: team_box 2004: season complete -- 24 rows
+2026-11-13 14:03:15 [INFO] mbb_data_build: espn_mens_college_basketball_team_boxscores: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build player_box 2004
+2026-11-13 14:03:18 [INFO] mbb_data_build: player_box 2004: per-game build starting -- 4983 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 250/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 500/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 750/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 1000/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 1250/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 1500/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 1750/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 2000/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 2250/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 2500/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 2750/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 3000/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 3250/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 3500/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 3750/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 4000/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 4250/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 4500/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: player_box 2004: 4750/4983 games collected
+2026-11-13 14:03:22 [INFO] mbb_data_build: wrote ..\mbb\player_box\parquet\player_box_2004.parquet (33.3KB) + player_box_2004.rds (14.2KB), 289 rows x 55 cols; manifest n/a (not manifested)
+2026-11-13 14:03:22 [INFO] mbb_data_build: uploading player_box_2004.rds (14.2KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_boxscores
+2026-11-13 14:03:24 [INFO] mbb_data_build: uploaded player_box_2004.rds -> espn_mens_college_basketball_player_boxscores (asset 1/3)
+2026-11-13 14:03:24 [INFO] mbb_data_build: uploading player_box_2004.csv (126.8KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_boxscores
+2026-11-13 14:03:26 [INFO] mbb_data_build: uploaded player_box_2004.csv -> espn_mens_college_basketball_player_boxscores (asset 2/3)
+2026-11-13 14:03:26 [INFO] mbb_data_build: uploading player_box_2004.parquet (33.3KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_boxscores
+2026-11-13 14:03:28 [INFO] mbb_data_build: uploaded player_box_2004.parquet -> espn_mens_college_basketball_player_boxscores (asset 3/3)
+2026-11-13 14:03:35 [INFO] mbb_data_build: stamped espn_mens_college_basketball_player_boxscores with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-11-13 14:03:35 [INFO] mbb_data_build: player_box 2004: done -- 289 rows from 11/4983 games in 18.2s
+2026-11-13 14:03:35 [INFO] mbb_data_build: player_box 2004: season complete -- 289 rows
+2026-11-13 14:03:36 [INFO] mbb_data_build: espn_mens_college_basketball_player_boxscores: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build player_core 2004
+2026-11-13 14:03:39 [INFO] mbb_data_build: player_core 2004: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 14:03:57 [INFO] mbb_data_build: wrote ..\mbb\player_core\parquet\player_core_2004.parquet (37.7KB) + player_core_2004.rds (23.7KB) + player_core_2004.csv (71.2KB), 275 rows x 36 cols; manifest n/a (not manifested)
+2026-11-13 14:03:58 [INFO] mbb_data_build: uploading player_core_2004.rds (23.7KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_core
+2026-11-13 14:03:59 [INFO] mbb_data_build: uploaded player_core_2004.rds -> espn_mens_college_basketball_player_core (asset 1/3)
+2026-11-13 14:03:59 [INFO] mbb_data_build: unchanged player_core_2004.csv on espn_mens_college_basketball_player_core -- skipped
+2026-11-13 14:03:59 [INFO] mbb_data_build: uploading player_core_2004.parquet (37.7KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_player_core
+2026-11-13 14:04:01 [INFO] mbb_data_build: uploaded player_core_2004.parquet -> espn_mens_college_basketball_player_core (asset 2/3)
+2026-11-13 14:04:09 [INFO] mbb_data_build: stamped espn_mens_college_basketball_player_core with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-11-13 14:04:09 [INFO] mbb_data_build: player_core 2004: done -- 275 rows in 30.1s
+2026-11-13 14:04:09 [INFO] mbb_data_build: player_core 2004: season complete -- 275 rows
+2026-11-13 14:04:09 [INFO] mbb_data_build: espn_mens_college_basketball_player_core: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build schedules 2004
+2026-11-13 14:04:12 [INFO] mbb_data_build: schedules 2004: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 14:04:12 [WARNING] mbb_data_build: pbp 2004: no built parquet at ..\mbb\pbp\parquet\play_by_play_2004.parquet -- schedule flags for it will all be False
+2026-11-13 14:04:13 [INFO] mbb_data_build: wrote ..\mbb\schedules\parquet\mbb_schedule_2004.parquet (376.4KB) + mbb_schedule_2004.rds (463.2KB) + mbb_schedule_2004.csv (3.6MB), 4983 rows x 76 cols; manifest n/a (not manifested)
+2026-11-13 14:04:13 [INFO] mbb_data_build: uploading mbb_schedule_2004.rds (463.2KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+2026-11-13 14:04:15 [INFO] mbb_data_build: uploaded mbb_schedule_2004.rds -> espn_mens_college_basketball_schedules (asset 1/3)
+2026-11-13 14:04:15 [INFO] mbb_data_build: uploading mbb_schedule_2004.csv (3.6MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+2026-11-13 14:04:17 [INFO] mbb_data_build: uploaded mbb_schedule_2004.csv -> espn_mens_college_basketball_schedules (asset 2/3)
+2026-11-13 14:04:17 [INFO] mbb_data_build: uploading mbb_schedule_2004.parquet (376.4KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_schedules
+2026-11-13 14:04:19 [INFO] mbb_data_build: uploaded mbb_schedule_2004.parquet -> espn_mens_college_basketball_schedules (asset 3/3)
+2026-11-13 14:04:27 [INFO] mbb_data_build: stamped espn_mens_college_basketball_schedules with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-11-13 14:04:27 [INFO] mbb_data_build: schedules 2004: done -- 4983 rows in 15.1s
+2026-11-13 14:04:27 [INFO] mbb_data_build: schedules 2004: season complete -- 4983 rows
+2026-11-13 14:04:27 [INFO] mbb_data_build: espn_mens_college_basketball_schedules: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build shots 2004
+2026-11-13 14:04:30 [INFO] mbb_data_build: shots 2004: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 14:04:30 [WARNING] mbb_data_build: shots 2004: season-level build produced 0 rows; nothing written
+2026-11-13 14:04:30 [INFO] mbb_data_build: shots 2004: season complete -- 0 rows
+2026-11-13 14:04:30 [INFO] mbb_data_build: espn_mens_college_basketball_shots: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build rosters 2004
+2026-11-13 14:04:33 [INFO] mbb_data_build: rosters 2004: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 14:04:33 [WARNING] mbb_data_build: rosters 2004: season-level build produced 0 rows; nothing written
+2026-11-13 14:04:33 [INFO] mbb_data_build: rosters 2004: season complete -- 0 rows
+2026-11-13 14:04:34 [INFO] mbb_data_build: espn_mens_college_basketball_rosters: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build player_season_stats 2004
+2026-11-13 14:04:36 [INFO] mbb_data_build: player_season_stats 2004: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 14:04:55 [INFO] mbb_data_build: wrote ..\mbb\player_season_stats\parquet\player_season_stats_2004.parquet (51.7KB) + player_season_stats_2004.rds (63.7KB) + player_season_stats_2004.csv (2.3MB), 11967 rows x 15 cols; manifest mbb_player_season_stats_in_data_repo.csv appended
+2026-11-13 14:04:56 [INFO] mbb_data_build: player_season_stats 2004: unchanged on espn_mens_college_basketball_player_season_stats -- skipped
+2026-11-13 14:04:56 [INFO] mbb_data_build: player_season_stats 2004: done -- 11967 rows in 19.7s
+2026-11-13 14:04:56 [INFO] mbb_data_build: player_season_stats 2004: season complete -- 11967 rows
+2026-11-13 14:04:56 [INFO] mbb_data_build: espn_mens_college_basketball_player_season_stats: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build team_season_stats 2004
+2026-11-13 14:04:59 [INFO] mbb_data_build: team_season_stats 2004: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 14:05:42 [INFO] mbb_data_build: wrote ..\mbb\team_season_stats\parquet\team_season_stats_2004.parquet (134.8KB) + team_season_stats_2004.rds (167.8KB) + team_season_stats_2004.csv (4.9MB), 24390 rows x 16 cols; manifest mbb_team_season_stats_in_data_repo.csv appended
+2026-11-13 14:05:42 [INFO] mbb_data_build: uploading team_season_stats_2004.rds (167.8KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_season_stats
+2026-11-13 14:05:44 [INFO] mbb_data_build: uploaded team_season_stats_2004.rds -> espn_mens_college_basketball_team_season_stats (asset 1/4)
+2026-11-13 14:05:44 [INFO] mbb_data_build: uploading team_season_stats_2004.csv (4.9MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_season_stats
+2026-11-13 14:05:47 [INFO] mbb_data_build: uploaded team_season_stats_2004.csv -> espn_mens_college_basketball_team_season_stats (asset 2/4)
+2026-11-13 14:05:47 [INFO] mbb_data_build: uploading mbb_team_season_stats_in_data_repo.csv (482B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_season_stats
+2026-11-13 14:05:49 [INFO] mbb_data_build: uploaded mbb_team_season_stats_in_data_repo.csv -> espn_mens_college_basketball_team_season_stats (asset 3/4)
+2026-11-13 14:05:49 [INFO] mbb_data_build: uploading team_season_stats_2004.parquet (134.8KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_team_season_stats
+2026-11-13 14:05:51 [INFO] mbb_data_build: uploaded team_season_stats_2004.parquet -> espn_mens_college_basketball_team_season_stats (asset 4/4)
+2026-11-13 14:05:59 [INFO] mbb_data_build: stamped espn_mens_college_basketball_team_season_stats with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-11-13 14:05:59 [INFO] mbb_data_build: team_season_stats 2004: done -- 24390 rows in 59.6s
+2026-11-13 14:05:59 [INFO] mbb_data_build: team_season_stats 2004: season complete -- 24390 rows
+2026-11-13 14:05:59 [INFO] mbb_data_build: espn_mens_college_basketball_team_season_stats: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build standings 2004
+2026-11-13 14:06:02 [INFO] mbb_data_build: standings 2004: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 14:06:03 [INFO] mbb_data_build: wrote ..\mbb\standings\parquet\standings_2004.parquet (100.6KB) + standings_2004.rds (138.6KB) + standings_2004.csv (6.5MB), 27384 rows x 24 cols; manifest mbb_standings_in_data_repo.csv appended
+2026-11-13 14:06:04 [INFO] mbb_data_build: uploading standings_2004.rds (138.6KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_standings
+2026-11-13 14:06:06 [INFO] mbb_data_build: uploaded standings_2004.rds -> espn_mens_college_basketball_standings (asset 1/4)
+2026-11-13 14:06:06 [INFO] mbb_data_build: uploading standings_2004.csv (6.5MB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_standings
+2026-11-13 14:06:08 [INFO] mbb_data_build: uploaded standings_2004.csv -> espn_mens_college_basketball_standings (asset 2/4)
+2026-11-13 14:06:08 [INFO] mbb_data_build: uploading mbb_standings_in_data_repo.csv (449B) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_standings
+2026-11-13 14:06:10 [INFO] mbb_data_build: uploaded mbb_standings_in_data_repo.csv -> espn_mens_college_basketball_standings (asset 3/4)
+2026-11-13 14:06:10 [INFO] mbb_data_build: uploading standings_2004.parquet (100.6KB) -> sportsdataverse/sportsdataverse-data:espn_mens_college_basketball_standings
+2026-11-13 14:06:11 [INFO] mbb_data_build: uploaded standings_2004.parquet -> espn_mens_college_basketball_standings (asset 4/4)
+2026-11-13 14:06:19 [INFO] mbb_data_build: stamped espn_mens_college_basketball_standings with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-11-13 14:06:19 [INFO] mbb_data_build: standings 2004: done -- 27384 rows in 17.1s
+2026-11-13 14:06:19 [INFO] mbb_data_build: standings 2004: season complete -- 27384 rows
+2026-11-13 14:06:19 [INFO] mbb_data_build: espn_mens_college_basketball_standings: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build game_rosters 2004
+2026-11-13 14:06:22 [INFO] mbb_data_build: game_rosters 2004: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 14:11:54 [INFO] mbb_data_build: wrote ..\mbb\game_rosters\parquet\game_rosters_2004.parquet (1.1MB) + game_rosters_2004.rds (4.7MB) + game_rosters_2004.csv (22.3MB), 130517 rows x 22 cols; manifest mbb_game_rosters_in_data_repo.csv appended
+2026-11-13 14:11:54 [INFO] mbb_data_build: game_rosters 2004: unchanged on espn_mens_college_basketball_game_rosters -- skipped
+2026-11-13 14:11:54 [INFO] mbb_data_build: game_rosters 2004: done -- 130517 rows in 332.3s
+2026-11-13 14:11:54 [INFO] mbb_data_build: game_rosters 2004: season complete -- 130517 rows
+2026-11-13 14:11:54 [INFO] mbb_data_build: espn_mens_college_basketball_game_rosters: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build officials 2004
+2026-11-13 14:11:57 [INFO] mbb_data_build: officials 2004: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-13 14:17:28 [INFO] mbb_data_build: wrote ..\mbb\officials\parquet\officials_2004.parquet (86.0KB) + officials_2004.rds (95.8KB) + officials_2004.csv (747.1KB), 14195 rows x 7 cols; manifest mbb_officials_in_data_repo.csv appended
+2026-11-13 14:17:29 [INFO] mbb_data_build: officials 2004: unchanged on espn_mens_college_basketball_officials -- skipped
+2026-11-13 14:17:29 [INFO] mbb_data_build: officials 2004: done -- 14195 rows in 331.5s
+2026-11-13 14:17:29 [INFO] mbb_data_build: officials 2004: season complete -- 14195 rows
+2026-11-13 14:17:29 [INFO] mbb_data_build: espn_mens_college_basketball_officials: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build team_crosswalk 2004
+2026-11-13 14:17:31 [INFO] mbb_data_build: team_crosswalk 2004: season-level build starting (raw=None via disk)
+2026-11-13 14:17:33 [INFO] mbb_data_build: wrote ..\mbb\crosswalk\parquet\mbb_team_crosswalk_2004.parquet (44.1KB) + mbb_team_crosswalk_2004.rds (22.8KB), 365 rows x 27 cols; manifest mbb_team_crosswalk_in_data_repo.csv appended
+2026-11-13 14:17:33 [INFO] mbb_data_build: uploading mbb_team_crosswalk_2004.rds (22.8KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-13 14:17:35 [INFO] mbb_data_build: uploaded mbb_team_crosswalk_2004.rds -> mbb_crosswalk (asset 1/4)
+2026-11-13 14:17:35 [INFO] mbb_data_build: uploading mbb_team_crosswalk_2004.csv (79.0KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-13 14:17:37 [INFO] mbb_data_build: uploaded mbb_team_crosswalk_2004.csv -> mbb_crosswalk (asset 2/4)
+2026-11-13 14:17:37 [INFO] mbb_data_build: uploading mbb_team_crosswalk_in_data_repo.csv (1.0KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-13 14:17:39 [INFO] mbb_data_build: uploaded mbb_team_crosswalk_in_data_repo.csv -> mbb_crosswalk (asset 3/4)
+2026-11-13 14:17:39 [INFO] mbb_data_build: uploading mbb_team_crosswalk_2004.parquet (44.1KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-13 14:17:41 [INFO] mbb_data_build: uploaded mbb_team_crosswalk_2004.parquet -> mbb_crosswalk (asset 4/4)
+2026-11-13 14:17:48 [INFO] mbb_data_build: stamped mbb_crosswalk with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-11-13 14:17:48 [INFO] mbb_data_build: team_crosswalk 2004: done -- 365 rows in 16.9s
+2026-11-13 14:17:48 [INFO] mbb_data_build: team_crosswalk 2004: season complete -- 365 rows
+2026-11-13 14:17:49 [INFO] mbb_data_build: mbb_crosswalk: release seasons are contiguous and every parquet season has its .rds
+::endgroup::
+::group::mbb_data_build schedule_crosswalk 2004
+2026-11-13 14:17:51 [INFO] mbb_data_build: schedule_crosswalk 2004: season-level build starting (raw=None via disk)
+Traceback (most recent call last):
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 1376, in bart_super_sked
+    payload = _get(url, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\torvik_runtime.py", line 59, in _get
+    _check_response(resp, url)
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_codegen_runtime.py", line 483, in _check_response
+    _check_status(url, status, getattr(resp, "text", "") or "")
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_codegen_runtime.py", line 320, in _check_status
+    raise AssetFetchError(f"{where} answered HTTP {status}: {_excerpt(text)}")
+sportsdataverse.errors.AssetFetchError: barttorvik.com/2004_super_sked.json answered HTTP 403: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1"> <TITLE>ERROR
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\__main__.py", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\cli.py", line 38, in main
+    df = build_season(
+         ^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\build.py", line 84, in build_season
+    out = reshapers.SEASON_BUILDERS[dataset](season, raw_root=root, base=Path(base))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\python\mbb_data_build\reshapers.py", line 551, in schedule_crosswalk_builder
+    df = add_kp_game_id(mbb_schedule_crosswalk(season=season, fox=True, yahoo=True), season, base)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\mbb\mbb_crosswalk.py", line 764, in mbb_schedule_crosswalk
+    bart_super_sked("mbb", season, **kwargs) if bart_games is None else check_bart_games(bart_games, season)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a\hoopR-mbb-data\hoopR-mbb-data\.venv\Lib\site-packages\sportsdataverse\_crosswalk_basketball_sources.py", line 1378, in bart_super_sked
+    raise CrosswalkSourceError(f"{url} failed: {type(exc).__name__}: {exc}") from exc
+sportsdataverse._crosswalk_basketball_sources.CrosswalkSourceError: https://barttorvik.com/2004_super_sked.json failed: AssetFetchError: barttorvik.com/2004_super_sked.json answered HTTP 403: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1"> <TITLE>ERROR
+::warning ::mbb_data_build schedule_crosswalk for season 2004 exited with code 1 (crosswalk; non-fatal, live external source)
+::endgroup::
+::group::mbb_data_build player_crosswalk 2004
+2026-11-13 14:18:01 [INFO] mbb_data_build: player_crosswalk 2004: season-level build starting (raw=None via disk)
+2026-11-13 14:18:01 [WARNING] mbb_data_build: KenPom players 2004 not found at D:\a\hoopR-mbb-data\hoopR-kp-data\data\players\csv\players_2004.csv; kp ids left null
+2026-11-13 14:18:02 [INFO] mbb_data_build: wrote ..\mbb\crosswalk\parquet\mbb_player_crosswalk_2004.parquet (11.6KB) + mbb_player_crosswalk_2004.rds (6.4KB), 263 rows x 18 cols; manifest mbb_player_crosswalk_in_data_repo.csv appended
+2026-11-13 14:18:02 [INFO] mbb_data_build: uploading mbb_player_crosswalk_2004.rds (6.4KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-13 14:18:04 [INFO] mbb_data_build: uploaded mbb_player_crosswalk_2004.rds -> mbb_crosswalk (asset 1/4)
+2026-11-13 14:18:04 [INFO] mbb_data_build: uploading mbb_player_crosswalk_2004.csv (18.7KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-13 14:18:05 [INFO] mbb_data_build: uploaded mbb_player_crosswalk_2004.csv -> mbb_crosswalk (asset 2/4)
+2026-11-13 14:18:05 [INFO] mbb_data_build: uploading mbb_player_crosswalk_in_data_repo.csv (305B) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-13 14:18:07 [INFO] mbb_data_build: uploaded mbb_player_crosswalk_in_data_repo.csv -> mbb_crosswalk (asset 3/4)
+2026-11-13 14:18:07 [INFO] mbb_data_build: uploading mbb_player_crosswalk_2004.parquet (11.6KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-13 14:18:09 [INFO] mbb_data_build: uploaded mbb_player_crosswalk_2004.parquet -> mbb_crosswalk (asset 4/4)
+2026-11-13 14:18:16 [INFO] mbb_data_build: stamped mbb_crosswalk with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-11-13 14:18:16 [INFO] mbb_data_build: player_crosswalk 2004: done -- 263 rows in 15.8s
+2026-11-13 14:18:16 [INFO] mbb_data_build: player_crosswalk 2004: season complete -- 263 rows
+2026-11-13 14:18:17 [ERROR] mbb_data_build: mbb_crosswalk: interior season(s) [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024] missing (mbb_player_crosswalk_<season>.parquet): backfill them, or add them to publish.KNOWN_GAPS with the reason.
+::warning ::mbb_data_build player_crosswalk for season 2004 exited with code 3 (crosswalk; non-fatal, live external source)
+::endgroup::
+::group::wp_enrich 2004
+2026-11-13 14:18:20 [INFO] mbb_data_build: wp mens 2004: no pbp built under ..\mbb; nothing to enrich
+::endgroup::
+season 2004 EXIT=0
+pushed: MBB Data Updated (Start: 2004 End: 2004) (attempt 1)
