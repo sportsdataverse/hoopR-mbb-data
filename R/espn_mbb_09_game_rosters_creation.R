@@ -208,7 +208,7 @@ parse_one_game <- function(season, game_id) {
 }
 
 write_manifest_row <- function(season, row_count, source_endpoint) {
-  manifest_path <- "mbb/game_rosters/nba_game_rosters_in_data_repo.csv"
+  manifest_path <- "mbb/game_rosters/mbb_game_rosters_in_data_repo.csv"
   ifelse(
     !dir.exists(file.path("mbb/game_rosters")),
     dir.create(file.path("mbb/game_rosters"), recursive = TRUE),
@@ -347,9 +347,9 @@ tictoc::toc()
 tryCatch({
   source(file.path("R", "manifest_upload_helper.R"), local = TRUE)
   upload_mbb_manifest(
-    manifest_path        = "mbb/game_rosters/nba_game_rosters_in_data_repo.csv",
+    manifest_path        = "mbb/game_rosters/mbb_game_rosters_in_data_repo.csv",
     release_tag          = "espn_mens_college_basketball_game_rosters",
-    file_name            = "nba_game_rosters_in_data_repo",
+    file_name            = "mbb_game_rosters_in_data_repo",
     sportsdataverse_type = "game rosters manifest",
     pkg_function         = "hoopR::load_mbb_game_rosters_manifest()"
   )
