@@ -8,9 +8,9 @@
 | **Release tag** | [`espn_mens_college_basketball_officials`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_officials) |
 | **File stem** | `officials_{season}.{parquet,csv,rds}` |
 | **Manifested** | yes |
-| **Last published** | 2026-08-12 (newest release asset) |
+| **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2026-05-30 |
-| **Release assets** | 54 |
+| **Release assets** | 78 |
 
 ## Automation
 
@@ -32,5 +32,27 @@
 
 | season | rows |
 |---:|---:|
+| 2003 | 13,943 |
+| 2004 | 14,195 |
+| 2005 | 14,110 |
+| 2006 | 14,371 |
+| 2007 | 15,399 |
+| 2008 | 14,982 |
+| 2009 | 1,243 |
+| 2011 | 16,287 |
+| 2012 | 16,236 |
+| 2013 | 16,250 |
+| 2014 | 17,609 |
+| 2015 | 17,594 |
+| 2016 | 17,461 |
+| 2017 | 17,541 |
+| 2018 | 17,791 |
+| 2019 | 17,470 |
+| 2020 | 16,761 |
+| 2021 | 12,442 |
+| 2022 | 17,002 |
+| 2023 | 17,980 |
+| 2024 | 18,185 |
 | 2025 | 18,284 |
 | 2026 | 18,483 |
+| 2027 | 1,908 |

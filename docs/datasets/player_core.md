@@ -8,9 +8,9 @@
 | **Release tag** | [`espn_mens_college_basketball_player_core`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_player_core) |
 | **File stem** | `player_core_{season}.{parquet,csv,rds}` |
 | **Manifested** | no (no load_mbb_*_manifest() loader yet) |
-| **Last published** | 2026-08-12 (newest release asset) |
+| **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2026-07-17 |
-| **Release assets** | 72 |
+| **Release assets** | 79 |
 
 ## Automation
 
@@ -76,12 +76,13 @@
 | 2015 | 10,844 |
 | 2016 | 10,915 |
 | 2017 | 10,795 |
-| 2018 | 11,340 |
-| 2019 | 10,788 |
-| 2020 | 12,991 |
-| 2021 | 8,670 |
-| 2022 | 12,090 |
+| 2018 | 11,341 |
+| 2019 | 10,789 |
+| 2020 | 12,992 |
+| 2021 | 8,671 |
+| 2022 | 12,091 |
 | 2023 | 12,529 |
 | 2024 | 12,548 |
 | 2025 | 15,233 |
 | 2026 | 12,481 |
+| 2027 | 8,716 |

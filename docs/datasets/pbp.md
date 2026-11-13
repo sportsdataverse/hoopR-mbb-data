@@ -8,9 +8,9 @@
 | **Release tag** | [`espn_mens_college_basketball_pbp`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_pbp) |
 | **File stem** | `play_by_play_{season}.{parquet,csv,rds}` |
 | **Manifested** | no (no load_mbb_*_manifest() loader yet) |
-| **Last published** | 2026-08-12 (newest release asset) |
+| **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2023-03-29 |
-| **Release assets** | 70 |
+| **Release assets** | 73 |
 
 ## Automation
 
@@ -77,6 +77,7 @@
 | `coordinate_y` | Float64 | |
 | `game_date` | Date | |
 | `game_date_time` | Datetime(time_unit='us', time_zone='America/New_York') | |
+| `score_source` | String | |
 | `athlete_name_1` | String | |
 | `athlete_name_2` | String | |
 | `athlete_name_3` | String | |
@@ -109,3 +110,4 @@
 | 2024 | 2,004,997 |
 | 2025 | 2,190,101 |
 | 2026 | 2,915,731 |
+| 2027 | 327,354 |

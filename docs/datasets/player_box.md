@@ -8,9 +8,9 @@
 | **Release tag** | [`espn_mens_college_basketball_player_boxscores`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_player_boxscores) |
 | **File stem** | `player_box_{season}.{parquet,csv,rds}` |
 | **Manifested** | no (no load_mbb_*_manifest() loader yet) |
-| **Last published** | 2026-08-12 (newest release asset) |
+| **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2023-03-29 |
-| **Release assets** | 76 |
+| **Release assets** | 79 |
 
 ## Automation
 
@@ -91,16 +91,17 @@
 | 2011 | 146,552 |
 | 2012 | 148,383 |
 | 2013 | 152,419 |
-| 2014 | 182,737 |
-| 2015 | 182,657 |
+| 2014 | 182,736 |
+| 2015 | 182,630 |
 | 2016 | 182,524 |
-| 2017 | 182,558 |
-| 2018 | 186,066 |
+| 2017 | 182,413 |
+| 2018 | 186,065 |
 | 2019 | 185,819 |
-| 2020 | 181,675 |
-| 2021 | 134,917 |
-| 2022 | 191,555 |
+| 2020 | 181,646 |
+| 2021 | 134,912 |
+| 2022 | 191,548 |
 | 2023 | 196,589 |
 | 2024 | 198,586 |
-| 2025 | 207,623 |
+| 2025 | 207,613 |
 | 2026 | 196,876 |
+| 2027 | 20,992 |

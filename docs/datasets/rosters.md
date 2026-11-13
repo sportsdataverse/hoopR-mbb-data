@@ -8,9 +8,9 @@
 | **Release tag** | [`espn_mens_college_basketball_rosters`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_rosters) |
 | **File stem** | `rosters_{season}.{parquet,csv,rds}` |
 | **Manifested** | yes |
-| **Last published** | 2026-08-12 (newest release asset) |
+| **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2026-05-30 |
-| **Release assets** | 12 |
+| **Release assets** | 15 |
 
 ## Automation
 
@@ -29,7 +29,7 @@
 | `team_color` | String | |
 | `team_alternate_color` | String | |
 | `team_logo` | String | |
-| `athlete_id` | String | |
+| `athlete_id` | Int32 | |
 | `uid` | String | |
 | `guid` | String | |
 | `full_name` | String | |
@@ -63,3 +63,4 @@
 |---:|---:|
 | 2025 | 13,056 |
 | 2026 | 12,438 |
+| 2027 | 12,617 |

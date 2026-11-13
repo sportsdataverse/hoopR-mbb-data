@@ -8,9 +8,9 @@
 | **Release tag** | [`espn_mens_college_basketball_player_season_stats`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_player_season_stats) |
 | **File stem** | `player_season_stats_{season}.{parquet,csv,rds}` |
 | **Manifested** | yes |
-| **Last published** | 2026-08-12 (newest release asset) |
+| **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2026-05-30 |
-| **Release assets** | 12 |
+| **Release assets** | 81 |
 
 ## Automation
 
@@ -40,5 +40,28 @@
 
 | season | rows |
 |---:|---:|
+| 2003 | 1,122 |
+| 2004 | 11,967 |
+| 2005 | 197,282 |
+| 2006 | 209,534 |
+| 2007 | 276,526 |
+| 2008 | 287,587 |
+| 2009 | 226,847 |
+| 2010 | 236,988 |
+| 2011 | 233,383 |
+| 2012 | 234,935 |
+| 2013 | 245,478 |
+| 2014 | 306,564 |
+| 2015 | 309,021 |
+| 2016 | 354,831 |
+| 2017 | 325,251 |
+| 2018 | 321,843 |
+| 2019 | 310,828 |
+| 2020 | 366,332 |
+| 2021 | 288,683 |
+| 2022 | 392,822 |
+| 2023 | 409,705 |
+| 2024 | 417,121 |
 | 2025 | 416,788 |
 | 2026 | 426,040 |
+| 2027 | 286,656 |

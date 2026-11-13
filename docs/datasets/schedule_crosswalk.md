@@ -8,9 +8,9 @@
 | **Release tag** | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) |
 | **File stem** | `mbb_schedule_crosswalk_{season}.{parquet,csv,rds}` |
 | **Manifested** | yes |
-| **Last published** | 2026-10-11 (newest release asset) |
+| **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2026-06-13 |
-| **Release assets** | 100 |
+| **Release assets** | 160 |
 
 ## Automation
 
@@ -39,5 +39,23 @@
 
 | season | rows |
 |---:|---:|
+| 2008 | 5,630 |
+| 2009 | 5,766 |
+| 2010 | 5,816 |
+| 2011 | 5,820 |
+| 2012 | 5,811 |
+| 2013 | 5,892 |
+| 2014 | 6,021 |
+| 2015 | 5,969 |
+| 2016 | 5,995 |
+| 2017 | 6,009 |
+| 2018 | 6,037 |
+| 2019 | 6,075 |
+| 2020 | 5,781 |
+| 2021 | 5,283 |
+| 2022 | 6,392 |
+| 2023 | 6,267 |
+| 2024 | 6,254 |
 | 2025 | 6,302 |
 | 2026 | 6,319 |
+| 2027 | 6,121 |

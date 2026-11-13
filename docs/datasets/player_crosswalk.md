@@ -8,9 +8,9 @@
 | **Release tag** | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) |
 | **File stem** | `mbb_player_crosswalk_{season}.{parquet,csv,rds}` |
 | **Manifested** | yes |
-| **Last published** | 2026-10-11 (newest release asset) |
+| **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2026-06-13 |
-| **Release assets** | 100 |
+| **Release assets** | 160 |
 
 ## Automation
 
@@ -43,5 +43,6 @@
 
 | season | rows |
 |---:|---:|
-| 2025 | 5,476 |
+| 2025 | 5,805 |
 | 2026 | 5,442 |
+| 2027 | 5,568 |

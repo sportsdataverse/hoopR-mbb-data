@@ -8,9 +8,9 @@
 | **Release tag** | [`espn_mens_college_basketball_schedules`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_schedules) |
 | **File stem** | `mbb_schedule_{season}.{parquet,csv,rds}` |
 | **Manifested** | no (no load_mbb_*_manifest() loader yet) |
-| **Last published** | 2026-08-12 (newest release asset) |
+| **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2023-03-29 |
-| **Release assets** | 85 |
+| **Release assets** | 88 |
 
 ## Automation
 
@@ -26,12 +26,10 @@
 | `attendance` | Float64 | |
 | `time_valid` | Boolean | |
 | `neutral_site` | Boolean | |
-| `conference_competition` | Boolean | |
 | `play_by_play_available` | Boolean | |
 | `recent` | Boolean | |
 | `start_date` | String | |
 | `broadcast` | String | |
-| `highlights` | String | |
 | `notes_type` | String | |
 | `notes_headline` | String | |
 | `broadcast_market` | String | |
@@ -66,10 +64,7 @@
 | `home_is_active` | Boolean | |
 | `home_venue_id` | Int32 | |
 | `home_logo` | String | |
-| `home_conference_id` | Int32 | |
 | `home_score` | Int32 | |
-| `home_winner` | Boolean | |
-| `home_current_rank` | Float64 | |
 | `home_linescores` | String | |
 | `home_records` | String | |
 | `away_id` | Int32 | |
@@ -84,17 +79,24 @@
 | `away_is_active` | Boolean | |
 | `away_venue_id` | Int32 | |
 | `away_logo` | String | |
-| `away_conference_id` | Int32 | |
 | `away_score` | Int32 | |
-| `away_winner` | Boolean | |
-| `away_current_rank` | Float64 | |
 | `away_linescores` | String | |
 | `away_records` | String | |
 | `game_id` | Int32 | |
 | `season` | Int32 | |
 | `season_type` | Int32 | |
-| `status_type_alt_detail` | String | |
+| `home_logo_dark` | String | |
+| `away_logo_dark` | String | |
+| `conference_competition` | Boolean | |
 | `tournament_id` | Int32 | |
+| `highlights` | String | |
+| `home_conference_id` | Int32 | |
+| `home_winner` | Boolean | |
+| `away_winner` | Boolean | |
+| `away_conference_id` | Int32 | |
+| `home_current_rank` | Float64 | |
+| `away_current_rank` | Float64 | |
+| `status_type_alt_detail` | String | |
 | `groups_id` | Int32 | |
 | `groups_name` | String | |
 | `groups_short_name` | String | |
@@ -111,6 +113,7 @@
 
 | season | rows |
 |---:|---:|
+| 2002 | 4,819 |
 | 2003 | 4,990 |
 | 2004 | 4,983 |
 | 2005 | 5,048 |
@@ -135,3 +138,4 @@
 | 2024 | 6,249 |
 | 2025 | 6,299 |
 | 2026 | 6,318 |
+| 2027 | 6,071 |

@@ -8,9 +8,9 @@
 | **Release tag** | [`mbb_crosswalk`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/mbb_crosswalk) |
 | **File stem** | `mbb_team_crosswalk_{season}.{parquet,csv,rds}` |
 | **Manifested** | yes |
-| **Last published** | 2026-08-12 (newest release asset) |
+| **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2026-06-13 |
-| **Release assets** | 25 |
+| **Release assets** | 160 |
 
 ## Automation
 
@@ -35,6 +35,12 @@
 | `bart_conf` | String | |
 | `kp_team` | String | |
 | `kp_conf` | String | |
+| `ncaa_team` | String | |
+| `espn_pbp_name` | String | |
+| `warren_nolan_team` | String | |
+| `team_247` | String | |
+| `sref_slug` | String | |
+| `sref_team` | String | |
 | `yahoo_team_id` | String | |
 | `yahoo_team_name` | String | |
 | `fox_match_confidence` | Float64 | |
@@ -46,4 +52,18 @@
 
 | season | rows |
 |---:|---:|
+| 2002 | 362 |
+| 2014 | 362 |
+| 2015 | 362 |
+| 2016 | 362 |
+| 2017 | 362 |
+| 2018 | 362 |
+| 2019 | 362 |
+| 2020 | 362 |
+| 2021 | 362 |
+| 2022 | 362 |
+| 2023 | 362 |
+| 2024 | 362 |
+| 2025 | 362 |
 | 2026 | 362 |
+| 2027 | 365 |

@@ -8,9 +8,9 @@
 | **Release tag** | [`espn_mens_college_basketball_shots`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_shots) |
 | **File stem** | `shots_{season}.{parquet,csv,rds}` |
 | **Manifested** | yes |
-| **Last published** | 2026-08-12 (newest release asset) |
+| **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2026-05-30 |
-| **Release assets** | 71 |
+| **Release assets** | 74 |
 
 ## Automation
 
@@ -67,3 +67,4 @@
 | 2024 | 957,173 |
 | 2025 | 936,510 |
 | 2026 | 991,836 |
+| 2027 | 107,598 |

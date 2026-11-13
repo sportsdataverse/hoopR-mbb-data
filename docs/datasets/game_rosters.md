@@ -8,9 +8,9 @@
 | **Release tag** | [`espn_mens_college_basketball_game_rosters`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_game_rosters) |
 | **File stem** | `game_rosters_{season}.{parquet,csv,rds}` |
 | **Manifested** | yes |
-| **Last published** | 2026-08-12 (newest release asset) |
+| **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2026-05-30 |
-| **Release assets** | 56 |
+| **Release assets** | 84 |
 
 ## Automation
 
@@ -21,7 +21,7 @@
 | col_name | type | description |
 |---|---|---|
 | `season` | Int32 | |
-| `game_id` | String | |
+| `game_id` | Int32 | |
 | `team_id` | Int32 | |
 | `team_slug` | String | |
 | `team_abbreviation` | String | |
@@ -47,5 +47,29 @@
 
 | season | rows |
 |---:|---:|
+| 2002 | 129,723 |
+| 2003 | 133,672 |
+| 2004 | 130,517 |
+| 2005 | 132,121 |
+| 2006 | 135,680 |
+| 2007 | 147,009 |
+| 2008 | 146,196 |
+| 2009 | 148,615 |
+| 2010 | 152,306 |
+| 2011 | 149,596 |
+| 2012 | 150,709 |
+| 2013 | 153,481 |
+| 2014 | 182,746 |
+| 2015 | 182,656 |
+| 2016 | 182,741 |
+| 2017 | 182,688 |
+| 2018 | 186,099 |
+| 2019 | 185,876 |
+| 2020 | 181,675 |
+| 2021 | 134,917 |
+| 2022 | 191,555 |
+| 2023 | 196,589 |
+| 2024 | 198,653 |
 | 2025 | 207,716 |
 | 2026 | 196,876 |
+| 2027 | 20,992 |

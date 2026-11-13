@@ -8,9 +8,9 @@
 | **Release tag** | [`espn_mens_college_basketball_team_boxscores`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/espn_mens_college_basketball_team_boxscores) |
 | **File stem** | `team_box_{season}.{parquet,csv,rds}` |
 | **Manifested** | no (no load_mbb_*_manifest() loader yet) |
-| **Last published** | 2026-08-12 (newest release asset) |
+| **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2023-03-29 |
-| **Release assets** | 76 |
+| **Release assets** | 79 |
 
 ## Automation
 
@@ -52,6 +52,8 @@
 | `free_throws_made` | Int32 | |
 | `free_throws_attempted` | Int32 | |
 | `largest_lead` | String | |
+| `lead_changes` | String | |
+| `lead_percentage` | String | |
 | `offensive_rebounds` | Int32 | |
 | `points_in_paint` | String | |
 | `steals` | Int32 | |
@@ -77,8 +79,6 @@
 | `opponent_team_alternate_color` | String | |
 | `opponent_team_logo` | String | |
 | `opponent_team_score` | Int32 | |
-| `lead_changes` | String | |
-| `lead_percentage` | String | |
 
 ## Coverage
 
@@ -108,3 +108,4 @@
 | 2024 | 12,480 |
 | 2025 | 12,572 |
 | 2026 | 12,598 |
+| 2027 | 1,316 |
