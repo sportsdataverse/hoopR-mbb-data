@@ -483,7 +483,8 @@ def player_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.D
     Reads LIVE ESPN + Fox, not the raw repo, so ``raw_root`` is accepted and
     ignored (the ``SEASON_BUILDERS`` signature); ``base`` locates the season's
     team crosswalk for the KenPom player-id leg (``kenpom.add_kp_player_id``,
-    read from the private hoopR-kp-data checkout, skipped when absent). The sdv-py
+    read from the private hoopR-kp-data checkout, skipped when absent);
+    ``ncaa.add_ncaa_player_id`` adds the stats.ncaa.org id last. The sdv-py
     function raises when a source returns nothing, so a silently-empty
     crosswalk cannot reach the tree -- the error propagates and
     ``build_season`` fails the stage loudly.
@@ -492,10 +493,12 @@ def player_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.D
 
     from mbb_data_build.alt_fill import carry_forward
     from mbb_data_build.kenpom import add_kp_player_id
+    from mbb_data_build.ncaa import add_ncaa_player_id
 
     # alt_fill (droplet) filled Fox / Yahoo ids from the box-score history; keep them.
     df = add_kp_player_id(mbb_player_crosswalk(season=season), season, base)
-    return carry_forward(df, "player_crosswalk", season, base)
+    df = carry_forward(df, "player_crosswalk", season, base)
+    return add_ncaa_player_id(df, season)  # stats.ncaa.org ids from the mbb_groups aliases
 
 
 def team_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
@@ -535,7 +538,8 @@ def schedule_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl
     Reads LIVE ESPN + Torvik, not the raw repo, so ``raw_root`` is accepted and
     ignored (the ``SEASON_BUILDERS`` signature). sdv-py leaves ``kp_game_id``
     null; ``kenpom.add_kp_game_id`` fills it from the private hoopR-kp-data
-    checkout (skipped when absent), finding the team crosswalk under ``base``. Like the player
+    checkout (skipped when absent), finding the team crosswalk under ``base``;
+    ``ncaa.add_ncaa_contest_id`` adds the stats.ncaa.org contest id last. Like the player
     crosswalk, sdv-py raises when a source returns nothing, so a silently-empty
     crosswalk cannot reach the tree.
 
@@ -547,9 +551,11 @@ def schedule_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl
 
     from mbb_data_build.alt_fill import carry_forward
     from mbb_data_build.kenpom import add_kp_game_id
+    from mbb_data_build.ncaa import add_ncaa_contest_id
 
     df = add_kp_game_id(mbb_schedule_crosswalk(season=season, fox=True, yahoo=True), season, base)
-    return carry_forward(df, "schedule_crosswalk", season, base)  # alt_fill's Fox / Yahoo ids
+    df = carry_forward(df, "schedule_crosswalk", season, base)  # alt_fill's Fox / Yahoo ids
+    return add_ncaa_contest_id(df, season)  # stats.ncaa.org contest ids (2010+)
 
 
 SEASON_BUILDERS: dict = {
