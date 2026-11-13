@@ -58,7 +58,9 @@ def no_build(monkeypatch):
 
 
 def test_publish_run_fails_on_a_hole(no_build):
-    assert cli.main(["--dataset", "team_box", "-s", "2025", "-e", "2025", "--publish"]) == 1
+    assert (
+        cli.main(["--dataset", "team_box", "-s", "2025", "-e", "2025", "--publish"]) == cli.GAP_RC
+    )
     assert no_build == ["team_box"]
 
 

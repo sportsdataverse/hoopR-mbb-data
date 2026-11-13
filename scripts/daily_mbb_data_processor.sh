@@ -177,7 +177,11 @@ do
                 rc=$?
                 echo "::warning ::mbb_data_build $ds for season $i exited with code $rc"
                 SEASON_RC=$rc
-                case "$ds" in pbp|schedules|team_box) WP_INPUT_RC=$rc;; esac
+                # rc 3 = built and published, only the release check failed
+                # (mbb_data_build.cli.GAP_RC): the tree file is fresh.
+                case "$ds" in pbp|schedules|team_box)
+                    if [ "$rc" -ne 3 ]; then WP_INPUT_RC=$rc; fi;;
+                esac
             }
             echo "::endgroup::"
         }

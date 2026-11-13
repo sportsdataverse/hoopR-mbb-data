@@ -12,6 +12,12 @@ from mbb_data_build.config import REGISTRY
 log = get_logger()
 
 
+# Exit code for a failed release check after a successful build + publish. The
+# daily processor keys on it: the season still fails, but its tree files are
+# fresh, so wp_enrich may read them.
+GAP_RC = 3
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="mbb_data_build")
     p.add_argument("--dataset", required=True, choices=sorted(REGISTRY))
@@ -43,5 +49,5 @@ def main(argv: list[str] | None = None) -> int:
             publish.check_release_contiguous(REGISTRY[a.dataset])
         except publish.SeasonGapError as exc:
             log.error("%s", exc)
-            return 1
+            return GAP_RC
     return 0
