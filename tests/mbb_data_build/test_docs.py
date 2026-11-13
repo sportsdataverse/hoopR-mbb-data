@@ -56,3 +56,18 @@ def test_replace_block_is_idempotent():
     twice = docs._replace_block(once, "row1")
     assert once == twice
     assert docs.BEGIN in once and docs.END in once
+
+
+def test_every_page_names_both_loaders():
+    assert set(docs.LOADERS) == set(docs.REGISTRY)
+    for dataset in docs.PAGES:
+        page = docs.dataset_page(dataset, live=False)
+        r_loader, py_loader = docs.LOADERS[dataset]
+        assert f"`{r_loader}`" in page and f"`{py_loader}`" in page
+        assert "## Join keys" in page
+
+
+def test_join_keys_follow_the_schema():
+    """mbb/crosswalk/parquet is the one schema source CI checks out."""
+    table = docs.join_table("player_crosswalk")
+    assert "| `espn_athlete_id` |" in table and "| `kp_player_id` | KenPom" in table

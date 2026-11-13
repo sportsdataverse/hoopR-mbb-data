@@ -12,6 +12,20 @@
 | **Tag created** | 2026-05-30 |
 | **Release assets** | 74 |
 
+## Load it
+
+| | |
+|---|---|
+| **R** | `hoopR::load_mbb_shots()` |
+| **Python** | `sportsdataverse.mbb.load_mbb_shots()` |
+
+## Join keys
+
+| column | joins to |
+|---|---|
+| `game_id` | ESPN game id. `schedules` has one row per game; `pbp`, `shots`, `team_box`, `player_box`, `game_rosters` and `officials` key on it. `schedule_crosswalk.espn_game_id` maps it to KenPom / Fox / Yahoo game ids. |
+| `team_id` | ESPN team id. Shared by every ESPN dataset here; `team_crosswalk.espn_team_id` maps it to Fox / Yahoo team ids. |
+
 ## Automation
 
 `.github/workflows/daily_mbb.yml` -- daily cron, running `scripts/daily_mbb_data_processor.sh` (the single entrypoint). `-l python` is the default and builds via `mbb_data_build`; `-l R` is the retained rollback path over the R creation scripts.
