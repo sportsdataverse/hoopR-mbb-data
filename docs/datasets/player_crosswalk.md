@@ -10,7 +10,24 @@
 | **Manifested** | yes |
 | **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2026-06-13 |
-| **Release assets** | 160 |
+| **Release assets** | 172 |
+
+## Load it
+
+| | |
+|---|---|
+| **R** | `hoopR::load_mbb_player_crosswalk()` |
+| **Python** | `sportsdataverse.mbb.load_mbb_player_crosswalk()` |
+
+## Join keys
+
+| column | joins to |
+|---|---|
+| `espn_team_id` | ESPN team id; the same id in every ESPN dataset here (joins `team_id`). |
+| `espn_athlete_id` | ESPN athlete id; joins `athlete_id`. |
+| `fox_athlete_id` | Fox Sports id. |
+| `yahoo_player_id` | Yahoo Sports id. |
+| `kp_player_id` | KenPom id (hoopR-kp-data). |
 
 ## Automation
 

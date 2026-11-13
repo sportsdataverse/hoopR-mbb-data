@@ -10,7 +10,21 @@
 | **Manifested** | yes |
 | **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2026-05-30 |
-| **Release assets** | 15 |
+| **Release assets** | 14 |
+
+## Load it
+
+| | |
+|---|---|
+| **R** | `hoopR::load_mbb_rosters()` |
+| **Python** | `sportsdataverse.mbb.load_mbb_rosters()` |
+
+## Join keys
+
+| column | joins to |
+|---|---|
+| `team_id` | ESPN team id. Shared by every ESPN dataset here; `team_crosswalk.espn_team_id` maps it to Fox / Yahoo team ids. |
+| `athlete_id` | ESPN athlete id. `player_core` holds identity + bio; `player_box`, `rosters`, `player_season_stats` and `game_rosters` key on it. `player_crosswalk.espn_athlete_id` maps it to KenPom / Fox / Yahoo player ids. |
 
 ## Automation
 

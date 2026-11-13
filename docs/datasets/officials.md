@@ -10,7 +10,20 @@
 | **Manifested** | yes |
 | **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2026-05-30 |
-| **Release assets** | 78 |
+| **Release assets** | 77 |
+
+## Load it
+
+| | |
+|---|---|
+| **R** | `hoopR::load_mbb_officials()` |
+| **Python** | `sportsdataverse.mbb.load_mbb_officials()` |
+
+## Join keys
+
+| column | joins to |
+|---|---|
+| `game_id` | ESPN game id. `schedules` has one row per game; `pbp`, `shots`, `team_box`, `player_box`, `game_rosters` and `officials` key on it. `schedule_crosswalk.espn_game_id` maps it to KenPom / Fox / Yahoo game ids. |
 
 ## Automation
 
