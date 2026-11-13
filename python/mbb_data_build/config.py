@@ -283,26 +283,26 @@ REGISTRY: dict[str, DatasetSpec] = {
 # --- release sidecar metadata -------------------------------------------------
 # Every published tag carries package_function.txt/.json naming the loader a
 # consumer reaches the data through -- the half of R's sportsdataverse_save()
-# the Python publisher used to drop. Values are NOT invented: where the R
-# producer already published a package_function to the tag, that exact string
-# is reused, so re-stamping from Python does not change what a consumer sees.
-# Python-only tags that never had one name the sdv-py loader instead.
+# the Python publisher used to drop. Each value names the exported loader that
+# reads the tag: several strings copied from the R producer named the pbp
+# loader (shots, game_rosters, officials) or a builder or *_manifest() function
+# that is not the tag's loader. Python-only tags name the sdv-py loader.
 #
 # Keyed by tag, not dataset -- several datasets can share one tag.
 # The publish tests assert every REGISTRY tag has an entry, so a new dataset
 # cannot ship an unnamed tag.
 PKG_FUNCTION: dict[str, str] = {
-    "espn_mens_college_basketball_game_rosters": "hoopR::load_mbb_game_rosters_manifest()",
-    "espn_mens_college_basketball_officials": "hoopR::load_mbb_officials_manifest()",
+    "espn_mens_college_basketball_game_rosters": "hoopR::load_mbb_game_rosters()",
+    "espn_mens_college_basketball_officials": "hoopR::load_mbb_officials()",
     "espn_mens_college_basketball_pbp": "hoopR::load_mbb_pbp()",
     "espn_mens_college_basketball_player_boxscores": "hoopR::load_mbb_player_box()",
     "espn_mens_college_basketball_player_core": "sportsdataverse.mbb.load_mbb_player_core()",
-    "espn_mens_college_basketball_player_season_stats": "hoopR::load_mbb_player_stats_manifest()",
-    "espn_mens_college_basketball_rosters": "hoopR::load_mbb_rosters_manifest()",
+    "espn_mens_college_basketball_player_season_stats": "hoopR::load_mbb_player_stats()",
+    "espn_mens_college_basketball_rosters": "hoopR::load_mbb_rosters()",
     "espn_mens_college_basketball_schedules": "hoopR::load_mbb_schedule()",
-    "espn_mens_college_basketball_shots": "hoopR::load_mbb_pbp()",
-    "espn_mens_college_basketball_standings": "hoopR::load_mbb_standings_manifest()",
+    "espn_mens_college_basketball_shots": "hoopR::load_mbb_shots()",
+    "espn_mens_college_basketball_standings": "hoopR::load_mbb_standings()",
     "espn_mens_college_basketball_team_boxscores": "hoopR::load_mbb_team_box()",
-    "espn_mens_college_basketball_team_season_stats": "hoopR::load_mbb_team_stats_manifest()",
+    "espn_mens_college_basketball_team_season_stats": "hoopR::load_mbb_team_stats()",
     "mbb_crosswalk": "hoopR::load_mbb_player_crosswalk()",
 }
