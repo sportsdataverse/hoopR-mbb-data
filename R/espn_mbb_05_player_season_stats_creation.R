@@ -317,7 +317,7 @@ build_season_player_stats <- function(y) {
   )
 
   # --- Manifest row append --------------------------------------------------
-  manifest_path <- "mbb/player_season_stats/nba_player_season_stats_in_data_repo.csv"
+  manifest_path <- "mbb/player_season_stats/mbb_player_season_stats_in_data_repo.csv"
   manifest_row <- tibble::tibble(
     season           = as.integer(y),
     row_count        = as.integer(nrow(stats)),
@@ -352,9 +352,9 @@ tictoc::toc()
 tryCatch({
   source(file.path("R", "manifest_upload_helper.R"), local = TRUE)
   upload_mbb_manifest(
-    manifest_path        = "mbb/player_season_stats/nba_player_season_stats_in_data_repo.csv",
+    manifest_path        = "mbb/player_season_stats/mbb_player_season_stats_in_data_repo.csv",
     release_tag          = "espn_mens_college_basketball_player_season_stats",
-    file_name            = "nba_player_season_stats_in_data_repo",
+    file_name            = "mbb_player_season_stats_in_data_repo",
     sportsdataverse_type = "player season stats manifest",
     pkg_function         = "hoopR::load_mbb_player_stats_manifest()"
   )

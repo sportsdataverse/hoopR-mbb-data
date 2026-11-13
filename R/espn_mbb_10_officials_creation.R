@@ -194,7 +194,7 @@ parse_one_game <- function(season, game_id) {
 }
 
 write_manifest_row <- function(season, row_count, source_endpoint) {
-  manifest_path <- "mbb/officials/nba_officials_in_data_repo.csv"
+  manifest_path <- "mbb/officials/mbb_officials_in_data_repo.csv"
   ifelse(
     !dir.exists(file.path("mbb/officials")),
     dir.create(file.path("mbb/officials"), recursive = TRUE),
@@ -333,9 +333,9 @@ tictoc::toc()
 tryCatch({
   source(file.path("R", "manifest_upload_helper.R"), local = TRUE)
   upload_mbb_manifest(
-    manifest_path        = "mbb/officials/nba_officials_in_data_repo.csv",
+    manifest_path        = "mbb/officials/mbb_officials_in_data_repo.csv",
     release_tag          = "espn_mens_college_basketball_officials",
-    file_name            = "nba_officials_in_data_repo",
+    file_name            = "mbb_officials_in_data_repo",
     sportsdataverse_type = "officials manifest",
     pkg_function         = "hoopR::load_mbb_officials_manifest()"
   )

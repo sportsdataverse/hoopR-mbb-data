@@ -11,8 +11,11 @@ upload_mbb_manifest <- function(manifest_path,
   }
   manifest_df <- readr::read_csv(manifest_path, show_col_types = FALSE)
   if (nrow(manifest_df) == 0) return(invisible(NULL))
+  # Stages append a row per build, so keep each season's LAST (newest) row.
   manifest_df <- manifest_df %>%
-    dplyr::distinct(.data$season, .keep_all = TRUE) %>%
+    dplyr::group_by(.data$season) %>%
+    dplyr::slice_tail(n = 1) %>%
+    dplyr::ungroup() %>%
     dplyr::arrange(.data$season)
 
   save_manifest <- purrr::insistently(

@@ -278,7 +278,7 @@ build_season_rosters <- function(y) {
   )
 
   # --- Manifest row append --------------------------------------------------
-  manifest_path <- "mbb/rosters/nba_rosters_in_data_repo.csv"
+  manifest_path <- "mbb/rosters/mbb_rosters_in_data_repo.csv"
   manifest_row <- tibble::tibble(
     season           = as.integer(y),
     row_count        = as.integer(nrow(rosters)),
@@ -304,9 +304,9 @@ tictoc::toc()
 tryCatch({
   source(file.path("R", "manifest_upload_helper.R"), local = TRUE)
   upload_mbb_manifest(
-    manifest_path        = "mbb/rosters/nba_rosters_in_data_repo.csv",
+    manifest_path        = "mbb/rosters/mbb_rosters_in_data_repo.csv",
     release_tag          = "espn_mens_college_basketball_rosters",
-    file_name            = "nba_rosters_in_data_repo",
+    file_name            = "mbb_rosters_in_data_repo",
     sportsdataverse_type = "rosters manifest",
     pkg_function         = "hoopR::load_mbb_rosters_manifest()"
   )

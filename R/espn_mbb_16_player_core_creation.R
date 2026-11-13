@@ -153,7 +153,7 @@ build_season_player_core <- function(y) {
     .token = Sys.getenv("GITHUB_PAT")
   )
 
-  manifest_path <- "mbb/player_core/nba_player_core_in_data_repo.csv"
+  manifest_path <- "mbb/player_core/mbb_player_core_in_data_repo.csv"
   manifest_row <- tibble::tibble(
     season           = as.integer(y),
     row_count        = as.integer(nrow(core)),
