@@ -27,12 +27,15 @@ jobs:
           # mbb/crosswalk/parquet/ (~400KB, three files) MUST be present too:
           # those are the committed R goldens, and the crosswalk dtype-contract
           # test reads one of them. It is the ONLY part of mbb/ any test opens.
+          # torvik/ holds the committed Torvik snapshots (061f000c) that
+          # test_torvik_snapshot reads; without it every push failed since 2026-11-03.
           sparse-checkout: |
             python
             tests
             scripts
             R
             mbb/crosswalk/parquet
+            torvik
             /models
             .github
             pyproject.toml
