@@ -12,6 +12,20 @@
 | **Tag created** | 2026-07-17 |
 | **Release assets** | 79 |
 
+## Load it
+
+| | |
+|---|---|
+| **R** | `hoopR::load_mbb_player_core()` |
+| **Python** | `sportsdataverse.mbb.load_mbb_player_core()` |
+
+## Join keys
+
+| column | joins to |
+|---|---|
+| `athlete_id` | ESPN athlete id. `player_core` holds identity + bio; `player_box`, `rosters`, `player_season_stats` and `game_rosters` key on it. `player_crosswalk.espn_athlete_id` maps it to KenPom / Fox / Yahoo player ids. |
+| `current_team_id` | ESPN team id; the same id in every ESPN dataset here (joins `team_id`). |
+
 ## Automation
 
 `.github/workflows/daily_mbb.yml` -- daily cron, running `scripts/daily_mbb_data_processor.sh` (the single entrypoint). `-l python` is the default and builds via `mbb_data_build`; `-l R` is the retained rollback path over the R creation scripts.

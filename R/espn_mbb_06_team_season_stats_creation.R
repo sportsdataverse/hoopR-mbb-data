@@ -219,7 +219,7 @@ parse_one_team <- function(season, team_id) {
 }
 
 write_manifest_row <- function(season, row_count, source_endpoint) {
-  manifest_path <- "mbb/team_season_stats/nba_team_season_stats_in_data_repo.csv"
+  manifest_path <- "mbb/team_season_stats/mbb_team_season_stats_in_data_repo.csv"
   ifelse(
     !dir.exists(file.path("mbb/team_season_stats")),
     dir.create(file.path("mbb/team_season_stats"), recursive = TRUE),
@@ -365,9 +365,9 @@ tictoc::toc()
 tryCatch({
   source(file.path("R", "manifest_upload_helper.R"), local = TRUE)
   upload_mbb_manifest(
-    manifest_path        = "mbb/team_season_stats/nba_team_season_stats_in_data_repo.csv",
+    manifest_path        = "mbb/team_season_stats/mbb_team_season_stats_in_data_repo.csv",
     release_tag          = "espn_mens_college_basketball_team_season_stats",
-    file_name            = "nba_team_season_stats_in_data_repo",
+    file_name            = "mbb_team_season_stats_in_data_repo",
     sportsdataverse_type = "team season stats manifest",
     pkg_function         = "hoopR::load_mbb_team_stats_manifest()"
   )

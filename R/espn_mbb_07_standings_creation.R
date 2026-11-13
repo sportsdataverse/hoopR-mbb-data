@@ -135,7 +135,7 @@ walk_groups <- function(season, node, parent_meta = NULL) {
 }
 
 write_manifest_row <- function(season, row_count, source_endpoint) {
-  manifest_path <- "mbb/standings/nba_standings_in_data_repo.csv"
+  manifest_path <- "mbb/standings/mbb_standings_in_data_repo.csv"
   ifelse(
     !dir.exists(file.path("mbb/standings")),
     dir.create(file.path("mbb/standings"), recursive = TRUE),
@@ -269,9 +269,9 @@ tictoc::toc()
 tryCatch({
   source(file.path("R", "manifest_upload_helper.R"), local = TRUE)
   upload_mbb_manifest(
-    manifest_path        = "mbb/standings/nba_standings_in_data_repo.csv",
+    manifest_path        = "mbb/standings/mbb_standings_in_data_repo.csv",
     release_tag          = "espn_mens_college_basketball_standings",
-    file_name            = "nba_standings_in_data_repo",
+    file_name            = "mbb_standings_in_data_repo",
     sportsdataverse_type = "standings manifest",
     pkg_function         = "hoopR::load_mbb_standings_manifest()"
   )

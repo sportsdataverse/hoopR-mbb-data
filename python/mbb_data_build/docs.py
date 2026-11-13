@@ -91,6 +91,88 @@ AUTOMATION = (
 
 assert set(BUILDER) == set(REGISTRY), "BUILDER must cover exactly the registry's datasets"
 
+#: dataset -> (R loader, Python loader) that reads its release. R names are
+#: hoopR's exported `load_mbb_*()`; Python names are sportsdataverse-py's
+#: generated loaders (`tools/codegen/endpoints/releases.yaml`, matched on tag
+#: + file stem). Unlike `config.PKG_FUNCTION` (the per-TAG sidecar string),
+#: this names the loader per DATASET.
+LOADERS: dict[str, tuple[str, str]] = {
+    "pbp": ("hoopR::load_mbb_pbp()", "sportsdataverse.mbb.load_mbb_pbp()"),
+    "team_box": ("hoopR::load_mbb_team_box()", "sportsdataverse.mbb.load_mbb_team_boxscore()"),
+    "player_box": (
+        "hoopR::load_mbb_player_box()",
+        "sportsdataverse.mbb.load_mbb_player_boxscore()",
+    ),
+    "rosters": ("hoopR::load_mbb_rosters()", "sportsdataverse.mbb.load_mbb_rosters()"),
+    "player_season_stats": (
+        "hoopR::load_mbb_player_stats()",
+        "sportsdataverse.mbb.load_mbb_player_season_stats()",
+    ),
+    "team_season_stats": (
+        "hoopR::load_mbb_team_stats()",
+        "sportsdataverse.mbb.load_mbb_team_season_stats()",
+    ),
+    "standings": ("hoopR::load_mbb_standings()", "sportsdataverse.mbb.load_mbb_standings()"),
+    "game_rosters": (
+        "hoopR::load_mbb_game_rosters()",
+        "sportsdataverse.mbb.load_mbb_game_rosters()",
+    ),
+    "officials": ("hoopR::load_mbb_officials()", "sportsdataverse.mbb.load_mbb_officials()"),
+    "team_crosswalk": (
+        "hoopR::load_mbb_team_crosswalk()",
+        "sportsdataverse.mbb.load_mbb_team_crosswalk()",
+    ),
+    "schedule_crosswalk": (
+        "hoopR::load_mbb_schedule_crosswalk()",
+        "sportsdataverse.mbb.load_mbb_schedule_crosswalk()",
+    ),
+    "player_crosswalk": (
+        "hoopR::load_mbb_player_crosswalk()",
+        "sportsdataverse.mbb.load_mbb_player_crosswalk()",
+    ),
+    "schedules": ("hoopR::load_mbb_schedule()", "sportsdataverse.mbb.load_mbb_schedule()"),
+    "shots": ("hoopR::load_mbb_shots()", "sportsdataverse.mbb.load_mbb_shots()"),
+    "player_core": ("hoopR::load_mbb_player_core()", "sportsdataverse.mbb.load_mbb_player_core()"),
+}
+assert set(LOADERS) == set(REGISTRY), "LOADERS must cover exactly the registry's datasets"
+
+_TEAM = "ESPN team id; the same id in every ESPN dataset here (joins `team_id`)."
+#: id column -> what it joins to. A page lists the ones its schema carries, so
+#: the section follows the columns instead of going stale beside them.
+JOIN_KEYS: dict[str, str] = {
+    "game_id": (
+        "ESPN game id. `schedules` has one row per game; `pbp`, `shots`, `team_box`, "
+        "`player_box`, `game_rosters` and `officials` key on it. "
+        "`schedule_crosswalk.espn_game_id` maps it to KenPom / Fox / Yahoo game ids."
+    ),
+    "team_id": (
+        "ESPN team id. Shared by every ESPN dataset here; "
+        "`team_crosswalk.espn_team_id` maps it to Fox / Yahoo team ids."
+    ),
+    "athlete_id": (
+        "ESPN athlete id. `player_core` holds identity + bio; `player_box`, `rosters`, "
+        "`player_season_stats` and `game_rosters` key on it. "
+        "`player_crosswalk.espn_athlete_id` maps it to KenPom / Fox / Yahoo player ids."
+    ),
+    "opponent_team_id": _TEAM,
+    "home_team_id": _TEAM,
+    "away_team_id": _TEAM,
+    "home_id": _TEAM,
+    "away_id": _TEAM,
+    "current_team_id": _TEAM,
+    "espn_team_id": _TEAM,
+    "home_espn_team_id": _TEAM,
+    "away_espn_team_id": _TEAM,
+    "espn_game_id": "ESPN game id; joins `game_id`.",
+    "espn_athlete_id": "ESPN athlete id; joins `athlete_id`.",
+}
+#: Provider-prefixed crosswalk ids, matched by prefix.
+_JOIN_PREFIXES = (
+    ("kp_", "KenPom id (hoopR-kp-data)."),
+    ("fox_", "Fox Sports id."),
+    ("yahoo_", "Yahoo Sports id."),
+)
+
 
 def _parquets(spec: DatasetSpec) -> list[Path]:
     """Every committed ``{stem}_{season}.parquet`` on disk, oldest path first.
@@ -169,6 +251,31 @@ def column_table(dataset: str) -> str:
     return "\n".join(lines) + "\n"
 
 
+def load_table(dataset: str) -> str:
+    """The R + Python loader that reads this dataset's release."""
+    r_loader, py_loader = LOADERS[dataset]
+    return f"| | |\n|---|---|\n| **R** | `{r_loader}` |\n| **Python** | `{py_loader}` |\n"
+
+
+def _join_target(column: str) -> str | None:
+    if column in JOIN_KEYS:
+        return JOIN_KEYS[column]
+    if column.endswith("_id"):
+        return next((text for prefix, text in _JOIN_PREFIXES if column.startswith(prefix)), None)
+    return None
+
+
+def join_table(dataset: str) -> str:
+    """The id columns this dataset carries and what each joins to."""
+    schema = _schema(dataset)
+    if schema is None:
+        return "_No committed parquet found locally to derive a schema from._\n"
+    rows = [f"| `{name}` | {target} |" for name in schema if (target := _join_target(name))]
+    if not rows:
+        return "_No id columns._\n"
+    return "\n".join(["| column | joins to |", "|---|---|", *rows]) + "\n"
+
+
 def coverage_table(dataset: str) -> str:
     """Per-season row counts, read straight off the committed parquet tree."""
     spec = REGISTRY[dataset]
@@ -208,6 +315,12 @@ def dataset_page(dataset: str, *, live: bool) -> str:
 | **Tag created** | {status.get("created") or "—"} |
 | **Release assets** | {status.get("assets") or "—"} |
 
+## Load it
+
+{load_table(dataset)}
+## Join keys
+
+{join_table(dataset)}
 ## Automation
 
 {AUTOMATION}

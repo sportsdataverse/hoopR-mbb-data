@@ -10,7 +10,25 @@
 | **Manifested** | yes |
 | **Last published** | 2026-11-13 (newest release asset) |
 | **Tag created** | 2026-06-13 |
-| **Release assets** | 160 |
+| **Release assets** | 172 |
+
+## Load it
+
+| | |
+|---|---|
+| **R** | `hoopR::load_mbb_schedule_crosswalk()` |
+| **Python** | `sportsdataverse.mbb.load_mbb_schedule_crosswalk()` |
+
+## Join keys
+
+| column | joins to |
+|---|---|
+| `home_espn_team_id` | ESPN team id; the same id in every ESPN dataset here (joins `team_id`). |
+| `away_espn_team_id` | ESPN team id; the same id in every ESPN dataset here (joins `team_id`). |
+| `espn_game_id` | ESPN game id; joins `game_id`. |
+| `kp_game_id` | KenPom id (hoopR-kp-data). |
+| `fox_game_id` | Fox Sports id. |
+| `yahoo_game_id` | Yahoo Sports id. |
 
 ## Automation
 
