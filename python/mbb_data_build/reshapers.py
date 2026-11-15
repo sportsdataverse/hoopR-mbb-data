@@ -540,8 +540,11 @@ def team_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.Dat
 def schedule_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl.DataFrame:
     """Season builder for the schedule crosswalk -- ``sportsdataverse.mbb.mbb_schedule_crosswalk``.
 
-    Reads LIVE ESPN + Torvik, not the raw repo, so ``raw_root`` is accepted and
-    ignored (the ``SEASON_BUILDERS`` signature). sdv-py leaves ``kp_game_id``
+    Reads LIVE ESPN, not the raw repo, so ``raw_root`` is accepted and ignored
+    (the ``SEASON_BUILDERS`` signature). Torvik's team list and game spine come
+    from the committed ``torvik/`` snapshot when the season has one
+    (``torvik_snapshot.schedule_inputs``): barttorvik.com 403s every datacenter
+    IP, so without it the CI build fails the step every day. sdv-py leaves ``kp_game_id``
     null; ``kenpom.add_kp_game_id`` fills it from the private hoopR-kp-data
     checkout (skipped when absent), finding the team crosswalk under ``base``;
     ``ncaa.add_ncaa_contest_id`` adds the stats.ncaa.org contest id last. Like the player
@@ -557,8 +560,11 @@ def schedule_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl
     from mbb_data_build.alt_fill import carry_forward
     from mbb_data_build.kenpom import add_kp_game_id
     from mbb_data_build.ncaa import add_ncaa_contest_id
+    from mbb_data_build.torvik_snapshot import fill_bart_winner, schedule_inputs
 
-    df = add_kp_game_id(mbb_schedule_crosswalk(season=season, fox=True, yahoo=True), season, base)
+    xwalk = mbb_schedule_crosswalk(season=season, fox=True, yahoo=True, **schedule_inputs(season))
+    xwalk = fill_bart_winner(xwalk, season, base)  # games finished since the Torvik snapshot
+    df = add_kp_game_id(xwalk, season, base)
     df = carry_forward(df, "schedule_crosswalk", season, base)  # alt_fill's Fox / Yahoo ids
     return add_ncaa_contest_id(df, season)  # stats.ncaa.org contest ids (2010+)
 
