@@ -10,6 +10,9 @@ UTC, its sha256, and its team or game count.
 - `{season}_super_sked.json` is Torvik's season game list, committed as compact JSON. It is the schedule
   crosswalk's game spine (`bart_games`). A season without one makes the schedule crosswalk fetch live, which
   works from a residential IP only.
+  Torvik's `winner` is frozen at fetch time, so the build fills `bart_winner` for games finished
+  since then from the ESPN result (`mbb_data_build.torvik_snapshot.fill_bart_winner`). Torvik's
+  own value is never overwritten.
 
 Fetched from a residential IP. Refresh the same way before each season starts. Refresh again once the
 conference and NCAA tournament games are scheduled, because the schedule file holds only the games Torvik

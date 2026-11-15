@@ -560,9 +560,10 @@ def schedule_crosswalk_builder(season: int, *, raw_root: Path, base: Path) -> pl
     from mbb_data_build.alt_fill import carry_forward
     from mbb_data_build.kenpom import add_kp_game_id
     from mbb_data_build.ncaa import add_ncaa_contest_id
-    from mbb_data_build.torvik_snapshot import schedule_inputs
+    from mbb_data_build.torvik_snapshot import fill_bart_winner, schedule_inputs
 
     xwalk = mbb_schedule_crosswalk(season=season, fox=True, yahoo=True, **schedule_inputs(season))
+    xwalk = fill_bart_winner(xwalk, season, base)  # games finished since the Torvik snapshot
     df = add_kp_game_id(xwalk, season, base)
     df = carry_forward(df, "schedule_crosswalk", season, base)  # alt_fill's Fox / Yahoo ids
     return add_ncaa_contest_id(df, season)  # stats.ncaa.org contest ids (2010+)
