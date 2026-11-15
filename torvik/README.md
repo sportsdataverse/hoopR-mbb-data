@@ -1,14 +1,19 @@
-# Bart Torvik team-list snapshots
+# Bart Torvik snapshots
 
-`{season}_team_results.csv` is Torvik's team ratings file for that season,
-committed as served with CRLF normalized to LF (`manifest.json` records each file's URL,
-fetch time in UTC, sha256 and team count). The team crosswalk build reads the
-`team` / `conf` columns from here (`mbb_data_build.torvik_snapshot.bart_teams`)
-instead of calling barttorvik.com, whose CloudFront answers 403 to every
-datacenter IP: GitHub runners and the droplet.
+The builds read these files instead of calling barttorvik.com, whose CloudFront answers 403 to every
+datacenter IP (GitHub runners and the droplet). `manifest.json` records each file's URL, its fetch time in
+UTC, its sha256, and its team or game count.
 
-Fetched from a residential IP. Refresh the same way, at least once per season
-before it starts (a missing season fails the crosswalk build with this command):
+- `{season}_team_results.csv` is Torvik's team ratings file, committed as served with CRLF normalized to LF.
+  The team and schedule crosswalks read its `team` / `conf` columns
+  (`mbb_data_build.torvik_snapshot.bart_teams`).
+- `{season}_super_sked.json` is Torvik's season game list, committed as compact JSON. It is the schedule
+  crosswalk's game spine (`bart_games`). A season without one makes the schedule crosswalk fetch live, which
+  works from a residential IP only.
+
+Fetched from a residential IP. Refresh the same way before each season starts. Refresh again once the
+conference and NCAA tournament games are scheduled, because the schedule file holds only the games Torvik
+listed when it was fetched:
 
 ```sh
 cd python && uv run python -m mbb_data_build.torvik_snapshot -s 2027 -e 2027
