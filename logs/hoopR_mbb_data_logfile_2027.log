@@ -16,156 +16,164 @@ From https://github.com/sportsdataverse/hoopR-mbb-data
  * [new branch]        fix/player-core-manifest -> origin/fix/player-core-manifest
  * [new branch]        test/frozen-r-oracle  -> origin/test/frozen-r-oracle
 ::group::mbb_data_build pbp 2027
-2026-11-16 12:47:56 [INFO] mbb_data_build: pbp 2027: per-game build starting -- 860 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-11-16 12:49:19 [INFO] mbb_data_build: pbp 2027: 250/860 games collected
-2026-11-16 12:49:19 [INFO] mbb_data_build: pbp 2027: 500/860 games collected
-2026-11-16 12:49:19 [INFO] mbb_data_build: pbp 2027: 750/860 games collected
-2026-11-16 12:49:54 [INFO] mbb_data_build: wrote ..\mbb\pbp\parquet\play_by_play_2027.parquet (12.5MB) + play_by_play_2027.rds (11.9MB), 423617 rows x 61 cols; manifest n/a (not manifested)
-2026-11-16 12:49:54 [INFO] mbb_data_build: pbp 2027: done -- 423617 rows from 855/860 games in 118.5s
-2026-11-16 12:49:54 [INFO] mbb_data_build: pbp 2027: season complete -- 423617 rows
+2026-11-16 16:57:11 [INFO] mbb_data_build: pbp 2027: per-game build starting -- 860 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-16 16:58:27 [INFO] mbb_data_build: pbp 2027: 250/860 games collected
+2026-11-16 16:58:27 [INFO] mbb_data_build: pbp 2027: 500/860 games collected
+2026-11-16 16:58:27 [INFO] mbb_data_build: pbp 2027: 750/860 games collected
+2026-11-16 16:58:56 [INFO] mbb_data_build: wrote ..\mbb\pbp\parquet\play_by_play_2027.parquet (12.5MB) + play_by_play_2027.rds (11.9MB), 423617 rows x 61 cols; manifest n/a (not manifested)
+2026-11-16 16:58:56 [INFO] mbb_data_build: pbp 2027: done -- 423617 rows from 855/860 games in 105.5s
+2026-11-16 16:58:56 [INFO] mbb_data_build: pbp 2027: season complete -- 423617 rows
 ::endgroup::
 ::group::mbb_data_build team_box 2027
-2026-11-16 12:49:57 [INFO] mbb_data_build: team_box 2027: per-game build starting -- 860 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-11-16 12:50:06 [INFO] mbb_data_build: team_box 2027: 250/860 games collected
-2026-11-16 12:50:06 [INFO] mbb_data_build: team_box 2027: 500/860 games collected
-2026-11-16 12:50:06 [INFO] mbb_data_build: team_box 2027: 750/860 games collected
-2026-11-16 12:50:07 [INFO] mbb_data_build: wrote ..\mbb\team_box\parquet\team_box_2027.parquet (167.3KB) + team_box_2027.rds (177.5KB), 1720 rows x 59 cols; manifest n/a (not manifested)
-2026-11-16 12:50:11 [INFO] mbb_data_build: team_box 2027: unchanged on espn_mens_college_basketball_team_boxscores -- skipped
-2026-11-16 12:50:11 [INFO] mbb_data_build: team_box 2027: done -- 1720 rows from 860/860 games in 13.7s
-2026-11-16 12:50:11 [INFO] mbb_data_build: team_box 2027: season complete -- 1720 rows
-2026-11-16 12:50:11 [INFO] mbb_data_build: espn_mens_college_basketball_team_boxscores: release seasons are contiguous and every parquet season has its .rds
+2026-11-16 16:58:59 [INFO] mbb_data_build: team_box 2027: per-game build starting -- 860 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-16 16:59:06 [INFO] mbb_data_build: team_box 2027: 250/860 games collected
+2026-11-16 16:59:06 [INFO] mbb_data_build: team_box 2027: 500/860 games collected
+2026-11-16 16:59:06 [INFO] mbb_data_build: team_box 2027: 750/860 games collected
+2026-11-16 16:59:06 [INFO] mbb_data_build: wrote ..\mbb\team_box\parquet\team_box_2027.parquet (167.3KB) + team_box_2027.rds (177.5KB), 1720 rows x 59 cols; manifest n/a (not manifested)
+2026-11-16 16:59:12 [INFO] mbb_data_build: team_box 2027: unchanged on espn_mens_college_basketball_team_boxscores -- skipped
+2026-11-16 16:59:12 [INFO] mbb_data_build: team_box 2027: done -- 1720 rows from 860/860 games in 13.0s
+2026-11-16 16:59:12 [INFO] mbb_data_build: team_box 2027: season complete -- 1720 rows
+2026-11-16 16:59:12 [INFO] mbb_data_build: espn_mens_college_basketball_team_boxscores: release seasons are contiguous and every parquet season has its .rds
 ::endgroup::
 ::group::mbb_data_build player_box 2027
-2026-11-16 12:50:15 [INFO] mbb_data_build: player_box 2027: per-game build starting -- 860 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-11-16 12:50:25 [INFO] mbb_data_build: player_box 2027: 250/860 games collected
-2026-11-16 12:50:25 [INFO] mbb_data_build: player_box 2027: 500/860 games collected
-2026-11-16 12:50:25 [INFO] mbb_data_build: player_box 2027: 750/860 games collected
-2026-11-16 12:50:28 [INFO] mbb_data_build: wrote ..\mbb\player_box\parquet\player_box_2027.parquet (680.8KB) + player_box_2027.rds (1.0MB), 27256 rows x 55 cols; manifest n/a (not manifested)
-2026-11-16 12:50:29 [INFO] mbb_data_build: player_box 2027: unchanged on espn_mens_college_basketball_player_boxscores -- skipped
-2026-11-16 12:50:29 [INFO] mbb_data_build: player_box 2027: done -- 27256 rows from 860/860 games in 14.8s
-2026-11-16 12:50:29 [INFO] mbb_data_build: player_box 2027: season complete -- 27256 rows
-2026-11-16 12:50:29 [INFO] mbb_data_build: espn_mens_college_basketball_player_boxscores: release seasons are contiguous and every parquet season has its .rds
+2026-11-16 16:59:15 [INFO] mbb_data_build: player_box 2027: per-game build starting -- 860 games (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-16 16:59:23 [INFO] mbb_data_build: player_box 2027: 250/860 games collected
+2026-11-16 16:59:23 [INFO] mbb_data_build: player_box 2027: 500/860 games collected
+2026-11-16 16:59:23 [INFO] mbb_data_build: player_box 2027: 750/860 games collected
+2026-11-16 16:59:26 [INFO] mbb_data_build: wrote ..\mbb\player_box\parquet\player_box_2027.parquet (680.8KB) + player_box_2027.rds (1.0MB), 27256 rows x 55 cols; manifest n/a (not manifested)
+2026-11-16 16:59:27 [INFO] mbb_data_build: player_box 2027: unchanged on espn_mens_college_basketball_player_boxscores -- skipped
+2026-11-16 16:59:27 [INFO] mbb_data_build: player_box 2027: done -- 27256 rows from 860/860 games in 12.0s
+2026-11-16 16:59:27 [INFO] mbb_data_build: player_box 2027: season complete -- 27256 rows
+2026-11-16 16:59:27 [INFO] mbb_data_build: espn_mens_college_basketball_player_boxscores: release seasons are contiguous and every parquet season has its .rds
 ::endgroup::
 ::group::mbb_data_build player_core 2027
-2026-11-16 12:50:32 [INFO] mbb_data_build: player_core 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-11-16 13:03:28 [INFO] mbb_data_build: wrote ..\mbb\player_core\parquet\player_core_2027.parquet (667.4KB) + player_core_2027.rds (703.0KB) + player_core_2027.csv (2.5MB), 9020 rows x 36 cols; manifest n/a (not manifested)
-2026-11-16 13:03:28 [INFO] mbb_data_build: player_core 2027: unchanged on espn_mens_college_basketball_player_core -- skipped
-2026-11-16 13:03:28 [INFO] mbb_data_build: player_core 2027: done -- 9020 rows in 775.8s
-2026-11-16 13:03:28 [INFO] mbb_data_build: player_core 2027: season complete -- 9020 rows
-2026-11-16 13:03:29 [INFO] mbb_data_build: espn_mens_college_basketball_player_core: release seasons are contiguous and every parquet season has its .rds
+2026-11-16 16:59:30 [INFO] mbb_data_build: player_core 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-16 17:10:21 [INFO] mbb_data_build: wrote ..\mbb\player_core\parquet\player_core_2027.parquet (667.4KB) + player_core_2027.rds (703.0KB) + player_core_2027.csv (2.5MB), 9020 rows x 36 cols; manifest n/a (not manifested)
+2026-11-16 17:10:21 [INFO] mbb_data_build: player_core 2027: unchanged on espn_mens_college_basketball_player_core -- skipped
+2026-11-16 17:10:21 [INFO] mbb_data_build: player_core 2027: done -- 9020 rows in 651.4s
+2026-11-16 17:10:21 [INFO] mbb_data_build: player_core 2027: season complete -- 9020 rows
+2026-11-16 17:10:22 [INFO] mbb_data_build: espn_mens_college_basketball_player_core: release seasons are contiguous and every parquet season has its .rds
 ::endgroup::
 ::group::mbb_data_build schedules 2027
-2026-11-16 13:03:33 [INFO] mbb_data_build: schedules 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-11-16 13:03:35 [INFO] mbb_data_build: wrote ..\mbb\schedules\parquet\mbb_schedule_2027.parquet (590.9KB) + mbb_schedule_2027.rds (764.4KB) + mbb_schedule_2027.csv (12.2MB), 6074 rows x 88 cols; manifest n/a (not manifested)
-2026-11-16 13:03:36 [INFO] mbb_data_build: schedules 2027: unchanged on espn_mens_college_basketball_schedules -- skipped
-2026-11-16 13:03:36 [INFO] mbb_data_build: schedules 2027: done -- 6074 rows in 3.3s
-2026-11-16 13:03:36 [INFO] mbb_data_build: schedules 2027: season complete -- 6074 rows
-2026-11-16 13:03:36 [INFO] mbb_data_build: espn_mens_college_basketball_schedules: release seasons are contiguous and every parquet season has its .rds
+2026-11-16 17:10:25 [INFO] mbb_data_build: schedules 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-16 17:10:27 [INFO] mbb_data_build: wrote ..\mbb\schedules\parquet\mbb_schedule_2027.parquet (590.9KB) + mbb_schedule_2027.rds (764.4KB) + mbb_schedule_2027.csv (12.2MB), 6074 rows x 88 cols; manifest n/a (not manifested)
+2026-11-16 17:10:27 [INFO] mbb_data_build: schedules 2027: unchanged on espn_mens_college_basketball_schedules -- skipped
+2026-11-16 17:10:27 [INFO] mbb_data_build: schedules 2027: done -- 6074 rows in 2.8s
+2026-11-16 17:10:27 [INFO] mbb_data_build: schedules 2027: season complete -- 6074 rows
+2026-11-16 17:10:28 [INFO] mbb_data_build: espn_mens_college_basketball_schedules: release seasons are contiguous and every parquet season has its .rds
 ::endgroup::
 ::group::mbb_data_build shots 2027
-2026-11-16 13:03:40 [INFO] mbb_data_build: shots 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-11-16 13:03:48 [INFO] mbb_data_build: wrote ..\mbb\shots\parquet\shots_2027.parquet (2.0MB) + shots_2027.rds (1.9MB) + shots_2027.csv (16.3MB), 139456 rows x 20 cols; manifest mbb_shots_in_data_repo.csv appended
-2026-11-16 13:03:49 [INFO] mbb_data_build: shots 2027: unchanged on espn_mens_college_basketball_shots -- skipped
-2026-11-16 13:03:49 [INFO] mbb_data_build: shots 2027: done -- 139456 rows in 8.8s
-2026-11-16 13:03:49 [INFO] mbb_data_build: shots 2027: season complete -- 139456 rows
-2026-11-16 13:03:49 [INFO] mbb_data_build: espn_mens_college_basketball_shots: release seasons are contiguous and every parquet season has its .rds
+2026-11-16 17:10:31 [INFO] mbb_data_build: shots 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-16 17:10:37 [INFO] mbb_data_build: wrote ..\mbb\shots\parquet\shots_2027.parquet (2.0MB) + shots_2027.rds (1.9MB) + shots_2027.csv (16.3MB), 139456 rows x 20 cols; manifest mbb_shots_in_data_repo.csv appended
+2026-11-16 17:10:38 [INFO] mbb_data_build: shots 2027: unchanged on espn_mens_college_basketball_shots -- skipped
+2026-11-16 17:10:38 [INFO] mbb_data_build: shots 2027: done -- 139456 rows in 7.2s
+2026-11-16 17:10:38 [INFO] mbb_data_build: shots 2027: season complete -- 139456 rows
+2026-11-16 17:10:39 [INFO] mbb_data_build: espn_mens_college_basketball_shots: release seasons are contiguous and every parquet season has its .rds
 ::endgroup::
 ::group::mbb_data_build rosters 2027
-2026-11-16 13:03:52 [INFO] mbb_data_build: rosters 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-11-16 13:05:12 [INFO] mbb_data_build: wrote ..\mbb\rosters\parquet\rosters_2027.parquet (1.0MB) + rosters_2027.rds (1.1MB) + rosters_2027.csv (4.7MB), 12650 rows x 36 cols; manifest mbb_rosters_in_data_repo.csv appended
-2026-11-16 13:05:12 [INFO] mbb_data_build: rosters 2027: unchanged on espn_mens_college_basketball_rosters -- skipped
-2026-11-16 13:05:12 [INFO] mbb_data_build: rosters 2027: done -- 12650 rows in 80.0s
-2026-11-16 13:05:12 [INFO] mbb_data_build: rosters 2027: season complete -- 12650 rows
-2026-11-16 13:05:13 [INFO] mbb_data_build: espn_mens_college_basketball_rosters: release seasons are contiguous and every parquet season has its .rds
+2026-11-16 17:10:41 [INFO] mbb_data_build: rosters 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-16 17:11:34 [INFO] mbb_data_build: wrote ..\mbb\rosters\parquet\rosters_2027.parquet (1.0MB) + rosters_2027.rds (1.1MB) + rosters_2027.csv (4.7MB), 12650 rows x 36 cols; manifest mbb_rosters_in_data_repo.csv appended
+2026-11-16 17:11:34 [INFO] mbb_data_build: rosters 2027: unchanged on espn_mens_college_basketball_rosters -- skipped
+2026-11-16 17:11:34 [INFO] mbb_data_build: rosters 2027: done -- 12650 rows in 53.1s
+2026-11-16 17:11:34 [INFO] mbb_data_build: rosters 2027: season complete -- 12650 rows
+2026-11-16 17:11:35 [INFO] mbb_data_build: espn_mens_college_basketball_rosters: release seasons are contiguous and every parquet season has its .rds
 ::endgroup::
 ::group::mbb_data_build player_season_stats 2027
-2026-11-16 13:05:16 [INFO] mbb_data_build: player_season_stats 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-11-16 13:18:14 [INFO] mbb_data_build: wrote ..\mbb\player_season_stats\parquet\player_season_stats_2027.parquet (794.6KB) + player_season_stats_2027.rds (1.2MB) + player_season_stats_2027.csv (62.5MB), 312089 rows x 15 cols; manifest mbb_player_season_stats_in_data_repo.csv appended
-2026-11-16 13:18:15 [INFO] mbb_data_build: player_season_stats 2027: unchanged on espn_mens_college_basketball_player_season_stats -- skipped
-2026-11-16 13:18:15 [INFO] mbb_data_build: player_season_stats 2027: done -- 312089 rows in 778.7s
-2026-11-16 13:18:15 [INFO] mbb_data_build: player_season_stats 2027: season complete -- 312089 rows
-2026-11-16 13:18:15 [INFO] mbb_data_build: espn_mens_college_basketball_player_season_stats: release seasons are contiguous and every parquet season has its .rds
+2026-11-16 17:11:37 [INFO] mbb_data_build: player_season_stats 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-16 17:21:46 [INFO] mbb_data_build: wrote ..\mbb\player_season_stats\parquet\player_season_stats_2027.parquet (794.6KB) + player_season_stats_2027.rds (1.2MB) + player_season_stats_2027.csv (62.5MB), 312089 rows x 15 cols; manifest mbb_player_season_stats_in_data_repo.csv appended
+2026-11-16 17:21:46 [INFO] mbb_data_build: player_season_stats 2027: unchanged on espn_mens_college_basketball_player_season_stats -- skipped
+2026-11-16 17:21:46 [INFO] mbb_data_build: player_season_stats 2027: done -- 312089 rows in 609.2s
+2026-11-16 17:21:46 [INFO] mbb_data_build: player_season_stats 2027: season complete -- 312089 rows
+2026-11-16 17:21:47 [INFO] mbb_data_build: espn_mens_college_basketball_player_season_stats: release seasons are contiguous and every parquet season has its .rds
 ::endgroup::
 ::group::mbb_data_build team_season_stats 2027
-2026-11-16 13:18:19 [INFO] mbb_data_build: team_season_stats 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-11-16 13:19:07 [INFO] mbb_data_build: wrote ..\mbb\team_season_stats\parquet\team_season_stats_2027.parquet (118.5KB) + team_season_stats_2027.rds (150.1KB) + team_season_stats_2027.csv (4.9MB), 24615 rows x 16 cols; manifest mbb_team_season_stats_in_data_repo.csv appended
-2026-11-16 13:19:07 [INFO] mbb_data_build: team_season_stats 2027: unchanged on espn_mens_college_basketball_team_season_stats -- skipped
-2026-11-16 13:19:07 [INFO] mbb_data_build: team_season_stats 2027: done -- 24615 rows in 49.0s
-2026-11-16 13:19:07 [INFO] mbb_data_build: team_season_stats 2027: season complete -- 24615 rows
-2026-11-16 13:19:08 [INFO] mbb_data_build: espn_mens_college_basketball_team_season_stats: release seasons are contiguous and every parquet season has its .rds
+2026-11-16 17:21:50 [INFO] mbb_data_build: team_season_stats 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-16 17:22:27 [INFO] mbb_data_build: wrote ..\mbb\team_season_stats\parquet\team_season_stats_2027.parquet (118.5KB) + team_season_stats_2027.rds (150.1KB) + team_season_stats_2027.csv (4.9MB), 24615 rows x 16 cols; manifest mbb_team_season_stats_in_data_repo.csv appended
+2026-11-16 17:22:28 [INFO] mbb_data_build: team_season_stats 2027: unchanged on espn_mens_college_basketball_team_season_stats -- skipped
+2026-11-16 17:22:28 [INFO] mbb_data_build: team_season_stats 2027: done -- 24615 rows in 37.9s
+2026-11-16 17:22:28 [INFO] mbb_data_build: team_season_stats 2027: season complete -- 24615 rows
+2026-11-16 17:22:28 [INFO] mbb_data_build: espn_mens_college_basketball_team_season_stats: release seasons are contiguous and every parquet season has its .rds
 ::endgroup::
 ::group::mbb_data_build standings 2027
-2026-11-16 13:19:11 [INFO] mbb_data_build: standings 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-11-16 13:19:13 [INFO] mbb_data_build: wrote ..\mbb\standings\parquet\standings_2027.parquet (73.5KB) + standings_2027.rds (111.8KB) + standings_2027.csv (7.2MB), 30660 rows x 24 cols; manifest mbb_standings_in_data_repo.csv appended
-2026-11-16 13:19:13 [INFO] mbb_data_build: standings 2027: unchanged on espn_mens_college_basketball_standings -- skipped
-2026-11-16 13:19:13 [INFO] mbb_data_build: standings 2027: done -- 30660 rows in 2.4s
-2026-11-16 13:19:13 [INFO] mbb_data_build: standings 2027: season complete -- 30660 rows
-2026-11-16 13:19:14 [INFO] mbb_data_build: espn_mens_college_basketball_standings: release seasons are contiguous and every parquet season has its .rds
+2026-11-16 17:22:31 [INFO] mbb_data_build: standings 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-16 17:22:33 [INFO] mbb_data_build: wrote ..\mbb\standings\parquet\standings_2027.parquet (73.5KB) + standings_2027.rds (111.8KB) + standings_2027.csv (7.2MB), 30660 rows x 24 cols; manifest mbb_standings_in_data_repo.csv appended
+2026-11-16 17:22:34 [INFO] mbb_data_build: standings 2027: unchanged on espn_mens_college_basketball_standings -- skipped
+2026-11-16 17:22:34 [INFO] mbb_data_build: standings 2027: done -- 30660 rows in 2.7s
+2026-11-16 17:22:34 [INFO] mbb_data_build: standings 2027: season complete -- 30660 rows
+2026-11-16 17:22:34 [INFO] mbb_data_build: espn_mens_college_basketball_standings: release seasons are contiguous and every parquet season has its .rds
 ::endgroup::
 ::group::mbb_data_build game_rosters 2027
-2026-11-16 13:19:17 [INFO] mbb_data_build: game_rosters 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-11-16 13:20:35 [INFO] mbb_data_build: wrote ..\mbb\game_rosters\parquet\game_rosters_2027.parquet (699.7KB) + game_rosters_2027.rds (1.3MB) + game_rosters_2027.csv (6.6MB), 27256 rows x 22 cols; manifest mbb_game_rosters_in_data_repo.csv appended
-2026-11-16 13:20:35 [INFO] mbb_data_build: game_rosters 2027: unchanged on espn_mens_college_basketball_game_rosters -- skipped
-2026-11-16 13:20:35 [INFO] mbb_data_build: game_rosters 2027: done -- 27256 rows in 78.2s
-2026-11-16 13:20:35 [INFO] mbb_data_build: game_rosters 2027: season complete -- 27256 rows
-2026-11-16 13:20:36 [INFO] mbb_data_build: espn_mens_college_basketball_game_rosters: release seasons are contiguous and every parquet season has its .rds
+2026-11-16 17:22:37 [INFO] mbb_data_build: game_rosters 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-16 17:23:44 [INFO] mbb_data_build: wrote ..\mbb\game_rosters\parquet\game_rosters_2027.parquet (699.7KB) + game_rosters_2027.rds (1.3MB) + game_rosters_2027.csv (6.6MB), 27256 rows x 22 cols; manifest mbb_game_rosters_in_data_repo.csv appended
+2026-11-16 17:23:45 [INFO] mbb_data_build: game_rosters 2027: unchanged on espn_mens_college_basketball_game_rosters -- skipped
+2026-11-16 17:23:45 [INFO] mbb_data_build: game_rosters 2027: done -- 27256 rows in 67.8s
+2026-11-16 17:23:45 [INFO] mbb_data_build: game_rosters 2027: season complete -- 27256 rows
+2026-11-16 17:23:45 [INFO] mbb_data_build: espn_mens_college_basketball_game_rosters: release seasons are contiguous and every parquet season has its .rds
 ::endgroup::
 ::group::mbb_data_build officials 2027
-2026-11-16 13:20:39 [INFO] mbb_data_build: officials 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
-2026-11-16 13:20:44 [INFO] mbb_data_build: wrote ..\mbb\officials\parquet\officials_2027.parquet (24.4KB) + officials_2027.rds (21.2KB) + officials_2027.csv (134.7KB), 2502 rows x 7 cols; manifest mbb_officials_in_data_repo.csv appended
-2026-11-16 13:20:45 [INFO] mbb_data_build: officials 2027: unchanged on espn_mens_college_basketball_officials -- skipped
-2026-11-16 13:20:45 [INFO] mbb_data_build: officials 2027: done -- 2502 rows in 6.0s
-2026-11-16 13:20:45 [INFO] mbb_data_build: officials 2027: season complete -- 2502 rows
-2026-11-16 13:20:45 [INFO] mbb_data_build: espn_mens_college_basketball_officials: release seasons are contiguous and every parquet season has its .rds
+2026-11-16 17:23:48 [INFO] mbb_data_build: officials 2027: season-level build starting (raw=https://raw.githubusercontent.com/sportsdataverse/hoopR-mbb-raw/main via http)
+2026-11-16 17:23:53 [INFO] mbb_data_build: wrote ..\mbb\officials\parquet\officials_2027.parquet (24.4KB) + officials_2027.rds (21.2KB) + officials_2027.csv (134.7KB), 2502 rows x 7 cols; manifest mbb_officials_in_data_repo.csv appended
+2026-11-16 17:23:53 [INFO] mbb_data_build: officials 2027: unchanged on espn_mens_college_basketball_officials -- skipped
+2026-11-16 17:23:53 [INFO] mbb_data_build: officials 2027: done -- 2502 rows in 5.4s
+2026-11-16 17:23:53 [INFO] mbb_data_build: officials 2027: season complete -- 2502 rows
+2026-11-16 17:23:54 [INFO] mbb_data_build: espn_mens_college_basketball_officials: release seasons are contiguous and every parquet season has its .rds
 ::endgroup::
 ::group::mbb_data_build team_crosswalk 2027
-2026-11-16 13:20:48 [INFO] mbb_data_build: team_crosswalk 2027: season-level build starting (raw=None via disk)
-2026-11-16 13:20:55 [INFO] mbb_data_build: wrote ..\mbb\crosswalk\parquet\mbb_team_crosswalk_2027.parquet (49.6KB) + mbb_team_crosswalk_2027.rds (26.0KB), 365 rows x 27 cols; manifest mbb_team_crosswalk_in_data_repo.csv appended
-2026-11-16 13:20:56 [INFO] mbb_data_build: team_crosswalk 2027: unchanged on mbb_crosswalk -- skipped
-2026-11-16 13:20:56 [INFO] mbb_data_build: team_crosswalk 2027: done -- 365 rows in 7.2s
-2026-11-16 13:20:56 [INFO] mbb_data_build: team_crosswalk 2027: season complete -- 365 rows
-2026-11-16 13:20:56 [INFO] mbb_data_build: mbb_crosswalk: release seasons are contiguous and every parquet season has its .rds
+2026-11-16 17:23:57 [INFO] mbb_data_build: team_crosswalk 2027: season-level build starting (raw=None via disk)
+2026-11-16 17:24:07 [INFO] mbb_data_build: wrote ..\mbb\crosswalk\parquet\mbb_team_crosswalk_2027.parquet (49.6KB) + mbb_team_crosswalk_2027.rds (26.0KB), 365 rows x 27 cols; manifest mbb_team_crosswalk_in_data_repo.csv appended
+2026-11-16 17:24:08 [INFO] mbb_data_build: team_crosswalk 2027: unchanged on mbb_crosswalk -- skipped
+2026-11-16 17:24:08 [INFO] mbb_data_build: team_crosswalk 2027: done -- 365 rows in 11.3s
+2026-11-16 17:24:08 [INFO] mbb_data_build: team_crosswalk 2027: season complete -- 365 rows
+2026-11-16 17:24:09 [INFO] mbb_data_build: mbb_crosswalk: release seasons are contiguous and every parquet season has its .rds
 ::endgroup::
 ::group::mbb_data_build schedule_crosswalk 2027
-2026-11-16 13:20:59 [INFO] mbb_data_build: schedule_crosswalk 2027: season-level build starting (raw=None via disk)
-2026-11-16 13:21:38 [INFO] mbb_data_build: schedule_crosswalk 2027: bart_winner filled from ESPN on 725 rows
-2026-11-16 13:21:38 [WARNING] mbb_data_build: KenPom team_schedules 2027 not found at D:\a\hoopR-mbb-data\hoopR-kp-data\data\team_schedules\csv\team_schedules_2027.csv; kp ids left null
-2026-11-16 13:21:38 [INFO] mbb_data_build: mbb_schedule_crosswalk 2027: kp_game_id carried forward 0 (now 0/6123)
-2026-11-16 13:21:38 [INFO] mbb_data_build: schedule_crosswalk 2027: yahoo_game_id carried forward 0
-2026-11-16 13:21:38 [INFO] mbb_data_build: schedule_crosswalk 2027: fox_game_id carried forward 0
-2026-11-16 13:21:39 [INFO] mbb_data_build: schedule_crosswalk 2027: ncaa_contest_id 853/6123 (pair 634, single-team 219; NCAA contests 861)
-2026-11-16 13:21:39 [INFO] mbb_data_build: wrote ..\mbb\crosswalk\parquet\mbb_schedule_crosswalk_2027.parquet (144.2KB) + mbb_schedule_crosswalk_2027.rds (149.6KB), 6123 rows x 15 cols; manifest mbb_schedule_crosswalk_in_data_repo.csv appended
-2026-11-16 13:21:39 [INFO] mbb_data_build: uploading mbb_schedule_crosswalk_2027.rds (149.6KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
-2026-11-16 13:21:42 [INFO] mbb_data_build: uploaded mbb_schedule_crosswalk_2027.rds -> mbb_crosswalk (asset 1/4)
-2026-11-16 13:21:42 [INFO] mbb_data_build: uploading mbb_schedule_crosswalk_2027.csv (724.0KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
-2026-11-16 13:21:43 [INFO] mbb_data_build: uploaded mbb_schedule_crosswalk_2027.csv -> mbb_crosswalk (asset 2/4)
-2026-11-16 13:21:43 [INFO] mbb_data_build: uploading mbb_schedule_crosswalk_in_data_repo.csv (1.3KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
-2026-11-16 13:21:45 [INFO] mbb_data_build: uploaded mbb_schedule_crosswalk_in_data_repo.csv -> mbb_crosswalk (asset 3/4)
-2026-11-16 13:21:45 [INFO] mbb_data_build: uploading mbb_schedule_crosswalk_2027.parquet (144.2KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
-2026-11-16 13:21:48 [INFO] mbb_data_build: uploaded mbb_schedule_crosswalk_2027.parquet -> mbb_crosswalk (asset 4/4)
-2026-11-16 13:21:55 [INFO] mbb_data_build: stamped mbb_crosswalk with timestamp.txt, timestamp.json, package_function.txt, package_function.json
-2026-11-16 13:21:55 [INFO] mbb_data_build: schedule_crosswalk 2027: done -- 6123 rows in 56.2s
-2026-11-16 13:21:55 [INFO] mbb_data_build: schedule_crosswalk 2027: season complete -- 6123 rows
-2026-11-16 13:21:56 [INFO] mbb_data_build: mbb_crosswalk: release seasons are contiguous and every parquet season has its .rds
+2026-11-16 17:24:11 [INFO] mbb_data_build: schedule_crosswalk 2027: season-level build starting (raw=None via disk)
+2026-11-16 17:25:04 [INFO] mbb_data_build: schedule_crosswalk 2027: bart_winner filled from ESPN on 725 rows
+2026-11-16 17:25:04 [WARNING] mbb_data_build: KenPom team_schedules 2027 not found at D:\a\hoopR-mbb-data\hoopR-kp-data\data\team_schedules\csv\team_schedules_2027.csv; kp ids left null
+2026-11-16 17:25:04 [INFO] mbb_data_build: mbb_schedule_crosswalk 2027: kp_game_id carried forward 0 (now 0/6123)
+2026-11-16 17:25:04 [INFO] mbb_data_build: schedule_crosswalk 2027: yahoo_game_id carried forward 0
+2026-11-16 17:25:04 [INFO] mbb_data_build: schedule_crosswalk 2027: fox_game_id carried forward 0
+2026-11-16 17:25:05 [INFO] mbb_data_build: schedule_crosswalk 2027: ncaa_contest_id 853/6123 (pair 634, single-team 219; NCAA contests 861)
+2026-11-16 17:25:05 [INFO] mbb_data_build: wrote ..\mbb\crosswalk\parquet\mbb_schedule_crosswalk_2027.parquet (144.3KB) + mbb_schedule_crosswalk_2027.rds (149.6KB), 6123 rows x 15 cols; manifest mbb_schedule_crosswalk_in_data_repo.csv appended
+2026-11-16 17:25:06 [INFO] mbb_data_build: uploading mbb_schedule_crosswalk_2027.rds (149.6KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-16 17:25:08 [INFO] mbb_data_build: uploaded mbb_schedule_crosswalk_2027.rds -> mbb_crosswalk (asset 1/4)
+2026-11-16 17:25:08 [INFO] mbb_data_build: uploading mbb_schedule_crosswalk_2027.csv (724.0KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-16 17:25:11 [INFO] mbb_data_build: uploaded mbb_schedule_crosswalk_2027.csv -> mbb_crosswalk (asset 2/4)
+2026-11-16 17:25:11 [INFO] mbb_data_build: uploading mbb_schedule_crosswalk_in_data_repo.csv (1.3KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-16 17:25:14 [INFO] mbb_data_build: uploaded mbb_schedule_crosswalk_in_data_repo.csv -> mbb_crosswalk (asset 3/4)
+2026-11-16 17:25:14 [INFO] mbb_data_build: uploading mbb_schedule_crosswalk_2027.parquet (144.3KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-16 17:25:16 [INFO] mbb_data_build: uploaded mbb_schedule_crosswalk_2027.parquet -> mbb_crosswalk (asset 4/4)
+2026-11-16 17:25:26 [INFO] mbb_data_build: stamped mbb_crosswalk with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-11-16 17:25:26 [INFO] mbb_data_build: schedule_crosswalk 2027: done -- 6123 rows in 74.8s
+2026-11-16 17:25:26 [INFO] mbb_data_build: schedule_crosswalk 2027: season complete -- 6123 rows
+2026-11-16 17:25:27 [INFO] mbb_data_build: mbb_crosswalk: release seasons are contiguous and every parquet season has its .rds
 ::endgroup::
 ::group::mbb_data_build player_crosswalk 2027
-2026-11-16 13:21:59 [INFO] mbb_data_build: player_crosswalk 2027: season-level build starting (raw=None via disk)
-2026-11-16 13:23:10 [WARNING] mbb_data_build: KenPom players 2027 not found at D:\a\hoopR-mbb-data\hoopR-kp-data\data\players\csv\players_2027.csv; kp ids left null
-2026-11-16 13:23:10 [INFO] mbb_data_build: mbb_player_crosswalk 2027: kp_player_id carried forward 0 (now 0/5569)
-2026-11-16 13:23:10 [INFO] mbb_data_build: player_crosswalk 2027: yahoo_player_id carried forward 2387
-2026-11-16 13:23:10 [INFO] mbb_data_build: player_crosswalk 2027: fox_athlete_id carried forward 1
-2026-11-16 13:23:11 [INFO] mbb_data_build: player_crosswalk 2027: ncaa_player_id 5537/5569 (NCAA aliases for the season 5574)
-2026-11-16 13:23:11 [INFO] mbb_data_build: wrote ..\mbb\crosswalk\parquet\mbb_player_crosswalk_2027.parquet (229.8KB) + mbb_player_crosswalk_2027.rds (227.0KB), 5569 rows x 19 cols; manifest mbb_player_crosswalk_in_data_repo.csv appended
-2026-11-16 13:23:11 [INFO] mbb_data_build: player_crosswalk 2027: unchanged on mbb_crosswalk -- skipped
-2026-11-16 13:23:11 [INFO] mbb_data_build: player_crosswalk 2027: done -- 5569 rows in 72.1s
-2026-11-16 13:23:11 [INFO] mbb_data_build: player_crosswalk 2027: season complete -- 5569 rows
-2026-11-16 13:23:12 [INFO] mbb_data_build: mbb_crosswalk: release seasons are contiguous and every parquet season has its .rds
+2026-11-16 17:25:30 [INFO] mbb_data_build: player_crosswalk 2027: season-level build starting (raw=None via disk)
+2026-11-16 17:27:03 [WARNING] mbb_data_build: KenPom players 2027 not found at D:\a\hoopR-mbb-data\hoopR-kp-data\data\players\csv\players_2027.csv; kp ids left null
+2026-11-16 17:27:03 [INFO] mbb_data_build: mbb_player_crosswalk 2027: kp_player_id carried forward 0 (now 0/5570)
+2026-11-16 17:27:03 [INFO] mbb_data_build: player_crosswalk 2027: yahoo_player_id carried forward 2387
+2026-11-16 17:27:03 [INFO] mbb_data_build: player_crosswalk 2027: fox_athlete_id carried forward 1
+2026-11-16 17:27:04 [INFO] mbb_data_build: player_crosswalk 2027: ncaa_player_id 5538/5570 (NCAA aliases for the season 5574)
+2026-11-16 17:27:04 [INFO] mbb_data_build: wrote ..\mbb\crosswalk\parquet\mbb_player_crosswalk_2027.parquet (229.9KB) + mbb_player_crosswalk_2027.rds (227.1KB), 5570 rows x 19 cols; manifest mbb_player_crosswalk_in_data_repo.csv appended
+2026-11-16 17:27:05 [INFO] mbb_data_build: uploading mbb_player_crosswalk_2027.rds (227.1KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-16 17:27:07 [INFO] mbb_data_build: uploaded mbb_player_crosswalk_2027.rds -> mbb_crosswalk (asset 1/4)
+2026-11-16 17:27:07 [INFO] mbb_data_build: uploading mbb_player_crosswalk_2027.csv (663.7KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-16 17:27:10 [INFO] mbb_data_build: uploaded mbb_player_crosswalk_2027.csv -> mbb_crosswalk (asset 2/4)
+2026-11-16 17:27:10 [INFO] mbb_data_build: uploading mbb_player_crosswalk_in_data_repo.csv (1.5KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-16 17:27:12 [INFO] mbb_data_build: uploaded mbb_player_crosswalk_in_data_repo.csv -> mbb_crosswalk (asset 3/4)
+2026-11-16 17:27:12 [INFO] mbb_data_build: uploading mbb_player_crosswalk_2027.parquet (229.9KB) -> sportsdataverse/sportsdataverse-data:mbb_crosswalk
+2026-11-16 17:27:15 [INFO] mbb_data_build: uploaded mbb_player_crosswalk_2027.parquet -> mbb_crosswalk (asset 4/4)
+2026-11-16 17:27:25 [INFO] mbb_data_build: stamped mbb_crosswalk with timestamp.txt, timestamp.json, package_function.txt, package_function.json
+2026-11-16 17:27:25 [INFO] mbb_data_build: player_crosswalk 2027: done -- 5570 rows in 115.8s
+2026-11-16 17:27:25 [INFO] mbb_data_build: player_crosswalk 2027: season complete -- 5570 rows
+2026-11-16 17:27:26 [INFO] mbb_data_build: mbb_crosswalk: release seasons are contiguous and every parquet season has its .rds
 ::endgroup::
 ::group::wp_enrich 2027
-2026-11-16 13:23:53 [INFO] mbb_data_build: wrote ..\mbb\pbp\parquet\play_by_play_2027.parquet (12.5MB) + play_by_play_2027.rds (11.9MB), 423617 rows x 63 cols; manifest n/a (not manifested)
-2026-11-16 13:23:53 [INFO] mbb_data_build: pbp 2027: WP contract ok -- finite rates {'pregame_home_prob': 1.0, 'home_win_prob': 1.0}
-2026-11-16 13:23:54 [INFO] mbb_data_build: pbp 2027: unchanged on espn_mens_college_basketball_pbp -- skipped
-2026-11-16 13:23:54 [INFO] mbb_data_build: wp mens 2027: published parquet+csv+rds with ['pregame_home_prob', 'home_win_prob'] (423617 rows)
+2026-11-16 17:28:01 [INFO] mbb_data_build: wrote ..\mbb\pbp\parquet\play_by_play_2027.parquet (12.5MB) + play_by_play_2027.rds (11.9MB), 423617 rows x 63 cols; manifest n/a (not manifested)
+2026-11-16 17:28:01 [INFO] mbb_data_build: pbp 2027: WP contract ok -- finite rates {'pregame_home_prob': 1.0, 'home_win_prob': 1.0}
+2026-11-16 17:28:02 [INFO] mbb_data_build: pbp 2027: unchanged on espn_mens_college_basketball_pbp -- skipped
+2026-11-16 17:28:02 [INFO] mbb_data_build: wp mens 2027: published parquet+csv+rds with ['pregame_home_prob', 'home_win_prob'] (423617 rows)
 ::endgroup::
 season 2027 EXIT=0
 pushed: MBB Data Updated (Start: 2027 End: 2027) (attempt 1)
