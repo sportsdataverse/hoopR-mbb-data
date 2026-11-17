@@ -90,7 +90,7 @@ def test_bart_winner_from_espn_matches_torvik(season, blank):
     assert both.sum() >= 0.99 * fillable.sum()
 
 
-def test_bart_winner_never_overwrites_torvik(tmp_path):
+def test_bart_winner_never_overwrites_torvik(tmp_path, caplog):
     import polars as pl
 
     base = torvik_snapshot.ROOT.parent / "mbb"
@@ -98,7 +98,11 @@ def test_bart_winner_never_overwrites_torvik(tmp_path):
     planted = xwalk.with_columns(
         pl.when(pl.col("bart_winner").is_not_null()).then(pl.lit("KEEP")).alias("bart_winner")
     )
+    caplog.set_level("INFO")
     got = torvik_snapshot.fill_bart_winner(planted, 2026, base)
+    # the logged count is real fills only, not rows that stay null on both sides
+    filled = (planted["bart_winner"].is_null() & got["bart_winner"].is_not_null()).sum()
+    assert f"filled from ESPN on {filled} rows" in caplog.text
     assert got.filter(planted["bart_winner"] == "KEEP")["bart_winner"].eq("KEEP").all()
     assert torvik_snapshot.fill_bart_winner(planted, 2026, tmp_path).equals(
         planted
