@@ -164,7 +164,7 @@ def fill_bart_winner(xwalk: pl.DataFrame, season: int, base: Path) -> pl.DataFra
     log.info(
         "schedule_crosswalk %s: bart_winner filled from ESPN on %d rows",
         season,
-        (out["bart_winner"] != xwalk["bart_winner"]).fill_null(True).sum(),
+        out["bart_winner"].ne_missing(xwalk["bart_winner"]).sum(),
     )
     return out
 

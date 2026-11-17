@@ -62,7 +62,7 @@ def test_schedule_crosswalk_passes_the_committed_schedule_and_teams(monkeypatch,
 
 @pytest.mark.parametrize("blank", [None, ""])  # Torvik ships "" for an unplayed game
 @pytest.mark.parametrize("season", [2025, 2026])
-def test_bart_winner_from_espn_matches_torvik(season, blank):
+def test_bart_winner_from_espn_matches_torvik(season, blank, monkeypatch):
     # Real committed tree: blank every Torvik winner, rebuild it from ESPN, and compare.
     import polars as pl
 
@@ -70,6 +70,8 @@ def test_bart_winner_from_espn_matches_torvik(season, blank):
     xwalk = pl.read_parquet(
         base / "crosswalk" / "parquet" / f"mbb_schedule_crosswalk_{season}.parquet"
     )
+    logged = []  # the pipeline logger doesn't propagate, so caplog can't see it
+    monkeypatch.setattr(torvik_snapshot.log, "info", lambda msg, *args: logged.append(args))
     got = torvik_snapshot.fill_bart_winner(
         xwalk.with_columns(pl.lit(blank, pl.Utf8).alias("bart_winner")), season, base
     )
@@ -78,6 +80,8 @@ def test_bart_winner_from_espn_matches_torvik(season, blank):
     def won(s):
         return s.is_not_null() & (s != "")
 
+    # every input winner is blank, so the logged fill count is exactly the rows now won
+    assert logged[-1][1] == won(got["bart_winner"]).sum()
     both = won(got["bart_winner"]) & won(xwalk["bart_winner"])
     assert (got.filter(both)["bart_winner"] == xwalk.filter(both)["bart_winner"]).all()
     # Only a game in the season's ESPN schedule has a result to read: bart_only rows (no ESPN
