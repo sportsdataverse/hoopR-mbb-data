@@ -116,11 +116,21 @@ def _team_map(season: int, base: Path) -> pl.DataFrame:
         resp = requests.get(f"{RELEASE}/mbb_team_crosswalk_{season}.parquet", timeout=60)
         resp.raise_for_status()
         teams = pl.read_parquet(io.BytesIO(resp.content))
-    return (
+    out = (
         teams.select("kp_team", pl.col("espn_team_id").cast(pl.Int32))
         .drop_nulls()
         .unique(subset="kp_team", keep="none")
     )
+    # A team crosswalk with rows but no kp_team is a broken input, not "no KenPom": every
+    # KenPom join below is inner, so an empty map matched 0/6124 games and 0/5554 players for
+    # 2027 (2026-11-04 .. 11-24, sdv-py's bundled directory lacked the season) while kp_fill
+    # exited 0. Fail loudly so cron_kp_fill.sh alerts.
+    if teams.height and out.height == 0:
+        raise RuntimeError(
+            f"mbb_team_crosswalk_{season} has {teams.height} teams but no kp_team -- the KenPom team "
+            "directory is missing this season (sdv-py mbb/data/kp_team_info.csv); refusing to fill"
+        )
+    return out
 
 
 def _kp_team_games(season: int, base: Path) -> pl.DataFrame | None:
