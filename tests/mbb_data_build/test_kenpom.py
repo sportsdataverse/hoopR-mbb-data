@@ -190,3 +190,26 @@ def test_kp_fill_preseason_is_a_no_op(tmp_path, monkeypatch):
     monkeypatch.setenv("HOOPR_KP_DATA_ROOT", str(tmp_path / "kp"))
     monkeypatch.setattr(kenpom, "published", lambda *a: None)
     assert kp_fill.fill("player_crosswalk", 2027, base=tmp_path) is None
+
+
+def test_a_team_crosswalk_without_kp_team_fails_instead_of_matching_nothing(tmp_path, monkeypatch):
+    """2026-11-04..11-24: the 2027 team crosswalk had 365 teams and no kp_team, so the
+    inner KenPom joins matched nothing and kp_fill still exited 0. It must raise."""
+    base = _setup(tmp_path, monkeypatch)
+    pl.DataFrame(
+        {
+            "kp_team": pl.Series([None, None], dtype=pl.Utf8),
+            "espn_team_id": pl.Series([150, 153], dtype=pl.Int32),
+        }
+    ).write_parquet(base / "crosswalk/parquet/mbb_team_crosswalk_2025.parquet")
+    sched = pl.DataFrame(
+        {
+            "season": pl.Series([2025], dtype=pl.Int32),
+            "game_date": [date(2025, 3, 8)],
+            "home_espn_team_id": pl.Series([150], dtype=pl.Int32),
+            "away_espn_team_id": pl.Series([153], dtype=pl.Int32),
+            "kp_game_id": pl.Series([None], dtype=pl.Utf8),
+        }
+    )
+    with pytest.raises(RuntimeError, match="no kp_team"):
+        kenpom.add_kp_game_id(sched, 2025, base)
