@@ -50,9 +50,11 @@ def test_season_dataset_parity_full_2025(dataset, stem, keys, built_base):
 #   same way). The release kept a frame-order pick for 128 athletes.
 # * team_slug comes from the raw season-stats payload, which ESPN has since
 #   re-slugged for renamed schools (e.g. saint-francis-red-flash -> -red-wolves).
-# Every other column must match the release exactly, for every athlete.
+# The parity test excludes these columns only for those stale athletes; every other
+# column, and these for every other athlete, must match the release exactly.
 _IDENTITY_FROM_PLAYER_BOX = ("athlete_jersey", "athlete_position_abbreviation", "team_display_name")
 _IDENTITY_COLS = (*_IDENTITY_FROM_PLAYER_BOX, "team_slug")
+_IDENTITY_KEY = ["athlete_id", "athlete_display_name", *_IDENTITY_FROM_PLAYER_BOX]
 
 
 def _split_count_names(df: pl.DataFrame) -> list[str]:
@@ -83,70 +85,130 @@ def test_player_season_stats_split_counts_match_their_text_2025(built_base):
     parents = py.filter(pl.col("stat_name").str.count_matches("-") == 1)
     assert derived.height == 2 * parents.height
 
-    # each derived count equals its half of the parent's "made-attempted" text
+    # each derived row is its half of the parent's "made-attempted" row: name, count and
+    # text (label + "M"/"A", display name with "Made"/"Attempted"; null when empty)
     key = ["athlete_id", "team_id", "category"]
     halves = parents.with_columns(
         _name=pl.col("stat_name").str.split("-"),
         _val=pl.col("display_value").str.split("-"),
     )
-    got = derived.select(*key, sn=pl.col("stat_name"), v=pl.col("value"))
-    for i in (0, 1):
+    text = ["stat_name", "value", "display_value", "stat_label", "stat_display_name"]
+    got = derived.select(*key, *text)
+    label = pl.col("stat_label")
+    for i, (suffix, word) in enumerate((("M", "Made"), ("A", "Attempted"))):
+        half = pl.col("_val").list.get(i)
+        dn = pl.col("stat_display_name").str.replace_all("Made-Attempted", word, literal=True)
         expected = halves.select(
             *key,
-            sn=pl.col("_name").list.get(i),
-            v=pl.col("_val").list.get(i).cast(pl.Float64),
+            stat_name=pl.col("_name").list.get(i),
+            value=half.cast(pl.Float64),
+            display_value=half,
+            stat_label=pl.when(label.is_null() | (label == ""))
+            .then(None)
+            .otherwise(label + suffix),
+            stat_display_name=pl.when(dn == "").then(None).otherwise(dn),
         )
-        missing = expected.join(got, on=[*key, "sn", "v"], how="anti")
-        assert missing.is_empty(), f"derived counts disagree with text:\n{missing.head()}"
+        missing = expected.join(got, on=[*key, *text], how="anti", nulls_equal=True)
+        assert missing.is_empty(), f"derived rows disagree with their parent:\n{missing.head()}"
+
+
+def _latest_player_box_identity(built_base: Path) -> pl.DataFrame:
+    # every row on the athlete's latest game date is acceptable: a same-day doubleheader
+    # for two teams (5116992, 2024-11-04) has no later game to break the tie.
+    pb = _built(built_base, "player_box")
+    latest = pb.filter(pl.col("game_date") == pl.col("game_date").max().over("athlete_id"))
+    return latest.select(_IDENTITY_KEY).unique()
+
+
+def _moved_slugs(py: pl.DataFrame, r: pl.DataFrame) -> pl.DataFrame:
+    """(athlete_id, team_slug) pairs of the build whose slug the release does not carry."""
+    return (
+        py.select("athlete_id", "team_slug")
+        .unique()
+        .join(
+            r.select("athlete_id", "team_slug").unique(),
+            on=["athlete_id", "team_slug"],
+            how="anti",
+            nulls_equal=True,
+        )
+    )
+
+
+def _raw_payload_slugs(athlete_id: int) -> set:
+    payload = ingest.read_final(athlete_id, raw_root=RAW_ROOT, subdir="player_season_stats/json")
+    assert payload is not None, athlete_id
+    return {
+        s.get("teamSlug")
+        for cat in payload.get("categories", [])
+        for s in cat.get("statistics", [])
+    }
+
+
+# Observed on the 2025 release (2026-11-26): 128 identity-stale and 20 re-slugged
+# athletes. The bounds sit just above those so new drift fails instead of hiding.
+_MAX_STALE_IDENTITY = 130
+_MAX_RESLUGGED = 25
 
 
 def test_player_season_stats_parity_full_2025(built_base):
-    py = _without_split_counts(_built(built_base, "player_season_stats"))
-    oracle = oracle_path("player_season_stats", "player_season_stats")
-    r = _without_split_counts(pl.read_parquet(oracle))
-    cols = [c for c in r.columns if c not in _IDENTITY_COLS]
+    py = _built(built_base, "player_season_stats")
+    r = pl.read_parquet(oracle_path("player_season_stats", "player_season_stats"))
     assert set(_IDENTITY_COLS) <= set(r.columns)
+
+    # The release predates #1201 until it is republished: only then strip the count rows.
+    # Once it carries them, R's split_made_attempted() output is compared in full.
+    if r.filter(pl.col("stat_name").is_in(_split_count_names(py))).is_empty():
+        py, r = _without_split_counts(py), _without_split_counts(r)
+
+    # Identity columns are excluded only for athletes whose release identity is stale
+    # (see _IDENTITY_COLS above); every other athlete is compared on every column, and
+    # after a republish both sets are empty.
+    stale_identity = (
+        r.select(_IDENTITY_KEY)
+        .unique()
+        .join(
+            _latest_player_box_identity(built_base), on=_IDENTITY_KEY, how="anti", nulls_equal=True
+        )
+        .get_column("athlete_id")
+        .unique()
+    )
+    reslugged = {
+        aid for aid, slug in _moved_slugs(py, r).iter_rows() if slug in _raw_payload_slugs(aid)
+    }
+    assert stale_identity.len() <= _MAX_STALE_IDENTITY, stale_identity.len()
+    assert len(reslugged) <= _MAX_RESLUGGED, len(reslugged)
+    stale = pl.col("athlete_id").is_in([*stale_identity.to_list(), *reslugged])
+
+    def mask(df: pl.DataFrame) -> pl.DataFrame:
+        return df.with_columns(
+            pl.when(stale).then(None).otherwise(pl.col(c)).alias(c) for c in _IDENTITY_COLS
+        )
+
     assert_parquet_parity(
-        py.select(cols),
-        # assert_parquet_parity re-reads from a path, so write the projected
-        # oracle to a temp file rather than teach the helper a frame input.
-        _write_tmp(r.select(cols)),
-        keys=cols,
+        mask(py),
+        # assert_parquet_parity re-reads from a path, so write the masked oracle to a
+        # temp file rather than teach the helper a frame input.
+        _write_tmp(mask(r)),
+        keys=list(r.columns),
         sample_cols=[],
     )
 
 
 def test_player_season_stats_identity_is_the_latest_player_box_row_2025(built_base):
-    py = _built(built_base, "player_season_stats")
-    pb = _built(built_base, "player_box")
-    ident = ["athlete_id", "athlete_display_name", *_IDENTITY_FROM_PLAYER_BOX]
-    got = py.select(ident).unique()
+    got = _built(built_base, "player_season_stats").select(_IDENTITY_KEY).unique()
     assert got.get_column("athlete_id").is_unique().all(), "one identity per athlete"
-    # every row on the athlete's latest game date is acceptable: a same-day doubleheader
-    # for two teams (5116992, 2024-11-04) has no later game to break the tie.
-    latest = pb.filter(pl.col("game_date") == pl.col("game_date").max().over("athlete_id"))
-    off = got.join(latest.select(ident).unique(), on=ident, how="anti", nulls_equal=True)
+    latest = _latest_player_box_identity(built_base)
+    off = got.join(latest, on=_IDENTITY_KEY, how="anti", nulls_equal=True)
     assert off.is_empty(), f"identity is not from the latest-dated player_box row:\n{off.head()}"
 
 
 def test_player_season_stats_team_slug_is_the_raw_payload_slug_2025(built_base):
-    py = _built(built_base, "player_season_stats").select("athlete_id", "team_slug").unique()
+    py = _built(built_base, "player_season_stats")
     r = pl.read_parquet(oracle_path("player_season_stats", "player_season_stats"))
-    moved = py.join(
-        r.select("athlete_id", "team_slug").unique(),
-        on=["athlete_id", "team_slug"],
-        how="anti",
-        nulls_equal=True,
-    )
-    assert moved.height < 100, f"{moved.height} athletes changed team_slug; expected a few renames"
+    moved = _moved_slugs(py, r)
+    assert moved.height <= _MAX_RESLUGGED, f"{moved.height} athletes changed team_slug"
     for aid, slug in moved.iter_rows():
-        payload = ingest.read_final(aid, raw_root=RAW_ROOT, subdir="player_season_stats/json")
-        assert payload is not None, aid
-        slugs = {
-            s.get("teamSlug")
-            for cat in payload.get("categories", [])
-            for s in cat.get("statistics", [])
-        }
+        slugs = _raw_payload_slugs(aid)
         assert slug in slugs, f"{aid}: {slug!r} not in its raw payload {sorted(map(str, slugs))}"
 
 
