@@ -66,12 +66,58 @@ def test_season_dataset_parity_full_2025(dataset, stem, keys, built_base):
 _KNOWN_COLLIDING_ATHLETE_IDS = (5116992, 5177701)
 
 
-def test_player_season_stats_parity_full_2025(built_base):
+def _split_count_names(df: pl.DataFrame) -> list[str]:
+    """Stat names of the numeric count rows sportsdataverse-py #1201 derives.
+
+    Each ``fooMade-fooAttempted`` text row is followed by numeric ``fooMade``
+    and ``fooAttempted`` rows. The R oracle predates them.
+    """
+    names = df.get_column("stat_name").drop_nulls().unique().to_list()
+    return sorted({part for n in names if n.count("-") == 1 for part in n.split("-")})
+
+
+def _without_split_counts(py: pl.DataFrame) -> pl.DataFrame:
+    return py.filter(~pl.col("stat_name").is_in(_split_count_names(py)))
+
+
+def test_player_season_stats_split_counts_match_their_text_2025(built_base):
+    # The released oracle predates the #1201 count rows (espn_mbb_05 now emits them via
+    # split_made_attempted); assert them against their text, parity tests below run on the rest.
     py = pl.read_parquet(
         built_base / "player_season_stats" / "parquet" / "player_season_stats_2025.parquet"
     )
+    split_names = _split_count_names(py)
+    assert split_names, "expected the #1201 made/attempted count rows"
+
+    derived = py.filter(pl.col("stat_name").is_in(split_names))
+    parents = py.filter(pl.col("stat_name").str.count_matches("-") == 1)
+    assert derived.height == 2 * parents.height
+
+    # each derived count equals its half of the parent's "made-attempted" text
+    key = ["athlete_id", "team_id", "category"]
+    halves = parents.with_columns(
+        _name=pl.col("stat_name").str.split("-"),
+        _val=pl.col("display_value").str.split("-"),
+    )
+    got = derived.select(*key, sn=pl.col("stat_name"), v=pl.col("value"))
+    for i in (0, 1):
+        expected = halves.select(
+            *key,
+            sn=pl.col("_name").list.get(i),
+            v=pl.col("_val").list.get(i).cast(pl.Float64),
+        )
+        missing = expected.join(got, on=[*key, "sn", "v"], how="anti")
+        assert missing.is_empty(), f"derived counts disagree with text:\n{missing.head()}"
+
+
+def test_player_season_stats_parity_full_2025(built_base):
+    py = _without_split_counts(
+        pl.read_parquet(
+            built_base / "player_season_stats" / "parquet" / "player_season_stats_2025.parquet"
+        )
+    )
     oracle = oracle_path("player_season_stats", "player_season_stats")
-    r = pl.read_parquet(oracle)
+    r = _without_split_counts(pl.read_parquet(oracle))
     keys = list(r.columns)
     exclude = pl.col("athlete_id").is_in(_KNOWN_COLLIDING_ATHLETE_IDS)
     assert_parquet_parity(
@@ -87,10 +133,14 @@ def test_player_season_stats_parity_full_2025(built_base):
 def test_player_season_stats_known_collisions_are_exactly_the_documented_two(built_base):
     # Cheap regression guard: if this ever grows beyond the two documented
     # ids, the exclusion above is silently swallowing a NEW divergence.
-    py = pl.read_parquet(
-        built_base / "player_season_stats" / "parquet" / "player_season_stats_2025.parquet"
+    py = _without_split_counts(
+        pl.read_parquet(
+            built_base / "player_season_stats" / "parquet" / "player_season_stats_2025.parquet"
+        )
     )
-    r = pl.read_parquet(oracle_path("player_season_stats", "player_season_stats"))
+    r = _without_split_counts(
+        pl.read_parquet(oracle_path("player_season_stats", "player_season_stats"))
+    )
     cols = list(r.columns)
     diff = py.select(cols).join(r, on=cols, how="anti", nulls_equal=True)
     assert set(diff.get_column("athlete_id").unique().to_list()) <= set(
